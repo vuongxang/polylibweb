@@ -14,3 +14,22 @@
     <!-- Page level custom scripts -->
     <script src="{{asset('adminthame/js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset('adminthame/js/demo/chart-pie-demo.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script>
+        $(function() {
+          $('.toggle-class').change(function() {
+              var status = $(this).prop('checked') == true ? 1 : 0; 
+              var id = $(this).data('id'); 
+               
+              $.ajax({
+                  type: "GET",
+                  dataType: "json",
+                  url: 'cate/changeStatus',
+                  data: {'status': status, 'id': id},
+                  success: function(data){
+                    console.log(data.success)
+                  }
+              });
+          })
+        })
+      </script>
