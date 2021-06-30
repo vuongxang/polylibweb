@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/',[AdminController::class,'dashboard'])->name('dashboard');
+    Route::get('filemanager',[AdminController::class,'fileManager'])->name('filemanager');
+
     Route::prefix('cate')->group(function () {
         Route::get('/',[CategoryController::class,'index'])->name('cate.index');
         Route::get('add-cate',[CategoryController::class,'create'])->name('cate.create');

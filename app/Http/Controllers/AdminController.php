@@ -11,4 +11,8 @@ class AdminController extends Controller
         // dd(Auth::user()->name);
         return view('admin.dashboard');
     }
+
+    public function fileManager(){
+        return view('admin.file-manager');
+    }
 }

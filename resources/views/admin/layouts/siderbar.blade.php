@@ -73,17 +73,9 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-            aria-expanded="true" aria-controls="collapseFour">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Bình luận</span>
-        </a>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('cate.index')}}">Danh sách</a>
-                <a class="collapse-item" href="{{route('cate.create')}}">Thêm mới</a>
-            </div>
-        </div>
+        <a class="nav-link" href="{{route('filemanager')}}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Quản lý file</span></a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -115,17 +107,21 @@
     </li>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Tài khoản người dùng</span></a>
-    </li>
+
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tài khoản giảng viên</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+            aria-expanded="true" aria-controls="collapseFour">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Bình luận</span>
+        </a>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('cate.index')}}">Danh sách</a>
+                <a class="collapse-item" href="{{route('cate.create')}}">Thêm mới</a>
+            </div>
+        </div>
     </li>
 
     <!-- Divider -->
