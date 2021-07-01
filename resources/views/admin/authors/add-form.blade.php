@@ -2,55 +2,55 @@
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Thêm mới danh mục</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Thêm mới tác giả</h6>
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-8 offset-2">
-            <form action="{{route('cate.update',$model->id)}}" method="post" enctype="multipart/form-data" class="mt-4 mb-4">
+            <form action="{{route('author.store')}}" method="post" class="mt-4 mb-4">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleInputName">Tên danh mục</label>
-                    <input type="text" class="form-control" id="exampleInputName" placeholder="tên danh mục" name="name" value="{{ old('name',$model->name) }}">
+                    <label for="exampleInputName">Tên tác giả</label>
+                    <input type="text" class="form-control" id="exampleInputName" placeholder="tên tác giả" name="name" value="{{ old('name') }}">
                     @if ($errors->has('name'))
                         <span class="text-danger">{{$errors->first('name')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">Ảnh</label>
+                    <label for="exampleInputFile">Ảnh đại diện</label>
                     <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
                         Chọn ảnh
                     </button>
                     <div class="show_image" class="mb-2">
-                        <img src="{{ asset(old('image', $model->image)) }}" id="show_img" alt="" width="100">
+                        <img src="" alt="" id="show_img" width="200">
                     </div>
-                    <input type="text" id="image" name="image" hidden class="form-control">
-                   
-                    @if ($errors->has('image'))
-                        <span class="text-danger">{{$errors->first('image')}}</span>
+                    <input type="text" id="image" name="avatar" class="form-control">
+                    @if ($errors->has('avatar'))
+                        <span class="text-danger">{{$errors->first('avatar')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">Status</label>
-                    <select name="status" class="form-control">
-                        <option value="1" @if ($model->status ==1) checked @endif>Enable</option>
-                        <option value="0" @if ($model->status ==0) checked @endif>Disable</option>
-                    </select>
+                    <label for="exampleInputDate">Ngày sinh</label>
+                    <input type="date" class="form-control" id="exampleInputDate" placeholder="tên tác giả" name="date_birth" value="{{ old('date_birth') }}">
+                    @if ($errors->has('date_birth'))
+                        <span class="text-danger">{{$errors->first('date_birth')}}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="exampleInputName">Thông tin chi tiết</label>
-                    <textarea type="text" class="form-control" id="exampleInputName" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description',$model->description) }}</textarea>
+                    <textarea type="text" class="form-control" id="exampleInputName" placeholder="Nhập thông tin chi tiết" name="description" value="{{ old('description') }}"></textarea>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark rounded-pill shadow-lg">LƯU</button>
-                    <a href="{{route('cate.index')}}" class="btn btn-danger rounded-pill shadow">HỦY</a>
+                    <a href="{{route('author.index')}}" class="btn btn-danger rounded-pill shadow">HỦY</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -72,5 +72,4 @@
       </div>
     </div>
   </div>
-
 @endsection

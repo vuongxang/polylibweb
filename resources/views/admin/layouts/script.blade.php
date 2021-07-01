@@ -16,6 +16,11 @@
     <script src="{{asset('adminthame/js/demo/chart-pie-demo.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
+        $('#exampleModal').on('hide.bs.modal',function(){
+          var image = $('input#image').val();
+          $('img#show_img').attr('src',image)
+        })
+        
         $(function() {
           $('.toggle-class').change(function() {
               var status = $(this).prop('checked') == true ? 1 : 0; 

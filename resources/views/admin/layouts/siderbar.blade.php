@@ -67,8 +67,8 @@
         </a>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('cate.index')}}">Danh sách</a>
-                <a class="collapse-item" href="{{route('cate.create')}}">Thêm mới</a>
+                <a class="collapse-item" href="{{route('author.index')}}">Danh sách</a>
+                <a class="collapse-item" href="{{route('author.create')}}">Thêm mới</a>
             </div>
         </div>
     </li>

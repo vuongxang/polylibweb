@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -32,9 +33,18 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('edit/{id}', [CategoryController::class, 'update'])->name('cate.update');
 
         Route::get('changeStatus', [CategoryController::class,'changeStatus']);
+    });
+    Route::prefix('author')->group(function () {
+        Route::get('/',[AuthorController::class,'index'])->name('author.index');
+        Route::get('add-author',[AuthorController::class,'create'])->name('author.create');
+        Route::post('add-author',[AuthorController::class,'store'])->name('author.store');
+        Route::get('remove/{id}',[AuthorController::class,'destroy'])->name('author.destroy');
+        Route::get('edit/{id}',[AuthorController::class,'edit'])->name('author.edit');
+        Route::post('edit/{id}', [AuthorController::class, 'update'])->name('author.update');
+    });
 });
 
-});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

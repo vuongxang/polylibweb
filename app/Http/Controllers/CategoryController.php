@@ -17,7 +17,11 @@ class CategoryController extends Controller
     }
 
     public function store(Request $request){
-        dd($request->all());
+        $model = new Category();
+        $model->fill($request->all());
+        $model->slug =str_slug($request->name, '-');
+        $model->save();
+        return redirect(route('cate.index'));
     }
 
     public function edit($id){
@@ -28,13 +32,8 @@ class CategoryController extends Controller
 
     public function update($id,Request $request){
         $model = Category::find($id);
-        dd($request->all());
-        $model->name = $request->name;
-        if($request->hasFile('logo')){
-            $fileName = uniqid().'_'.$request->logo->getClientOriginalName();
-            $filePath = $request->file('logo')->storeAs('uploads', $fileName, 'public');
-            $model->logo = 'storage/'.$filePath;
-        }
+        $model->fill($request->all());
+        $model->slug =str_slug($request->name, '-');
         $model->save();
         return redirect(route('cate.index'));
     }
@@ -43,6 +42,7 @@ class CategoryController extends Controller
         Category::destroy($id);
         return redirect(route('cate.index'));
     }
+    
     public function changeStatus(Request $request){
         $model = Category::find($request->id);
         $model->status = $request->status;
