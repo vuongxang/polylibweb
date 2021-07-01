@@ -3,7 +3,9 @@
     --black-color:#000;
     --text-color:#333;
     --text-color2:#eee;
+    --text-color3:#676767;
     --base-color: #425ba8;
+    --base-color2: #EAAB23;
 
 }
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -69,7 +71,7 @@ html{
 
 }
 .grid{
-    width: 1200px;
+    width: 1140px;
     max-width: 100%;
     margin:0px auto;
 }
@@ -84,4 +86,10 @@ html{
     display: flex;
     justify-content: center;
     justify-items: center;
+}
+.space__between{
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    flex-wrap: wrap;
 }

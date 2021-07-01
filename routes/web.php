@@ -13,9 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
     return view('admin.layouts.index');
-});
-Route::get('/login', function () {
+})->middleware('auth');
+Route::get('/loginn', function () {
     return view('login');
 });
+Route::get('/book-detail', function () {
+    return view('client.pages.book-detail');
+});
+Route::get('/homepage', function () {
+    return view('client.pages.home');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
