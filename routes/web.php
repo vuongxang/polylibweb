@@ -39,9 +39,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/',[BookController::class,'index'])->name('book.index');
         Route::get('add-book',[BookController::class,'create'])->name('book.create');
         Route::post('add-book',[BookController::class,'store'])->name('book.store');
-        // Route::get('remove/{id}',[CategoryController::class,'destroy'])->name('cate.destroy');
-        // Route::get('edit/{id}',[CategoryController::class,'edit'])->name('cate.edit');
-        // Route::post('edit/{id}', [CategoryController::class, 'update'])->name('cate.update');
+        Route::get('remove/{id}',[BookController::class,'destroy'])->name('book.destroy');
+        Route::get('edit/{id}',[BookController::class,'edit'])->name('book.edit');
+        Route::post('edit/{id}', [BookController::class, 'update'])->name('book.update');
 
         Route::get('changeStatus', [BookController::class,'changeStatus']);
     });

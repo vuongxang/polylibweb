@@ -31,7 +31,7 @@ class BookController extends Controller
         
         $model->fill($request->all());
         // dd($request->all());
-        $model->slug =str_slug($request->name, '-');
+        $model->slug =str_slug($request->title, '-');
         $model->save();
 
         if($request->cate_id){
@@ -65,9 +65,28 @@ class BookController extends Controller
             }
         }
         
+        return redirect(route('book.index'));
+    }
+
+    public function edit($id){
+        $model = Book::find($id);
+        dd($model);
+        if(!$model) return redirect(route('book.index'));
+        return view('admin.books.edit-form', ['model' => $model]);
+    }
+
+    public function update($id,Request $request){
+        $model = Book::find($id);
+        $model->fill($request->all());
+        $model->slug =str_slug($request->book, '-');
+        $model->save();
         return redirect(route('cate.index'));
     }
 
+    public function destroy($id){
+        Book::destroy($id);
+        return redirect(route('book.index'));
+    }
 
     public function changeStatus(Request $request){
         $model = Book::find($request->id);
