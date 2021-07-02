@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +18,18 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/admin', function () {
+    return view('admin.layouts.index');
+})->middleware('auth');
+Route::get('/loginn', function () {
+    return view('login');
 });
+Route::get('/book-detail', function () {
+    return view('client.pages.book-detail');
+})->name('book-detail');
+Route::get('/homepage', function () {
+    return view('client.pages.home');
+})->name('homepage');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/',[AdminController::class,'dashboard'])->name('dashboard');
