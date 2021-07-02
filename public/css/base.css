@@ -93,3 +93,124 @@ html{
     justify-items: center;
     flex-wrap: wrap;
 }
+.search-form{
+    
+    width: 350px;
+    position: relative;
+}
+.search-input{
+    background-color: var(--text-color2);
+    width: 350px;
+    padding: 13px 16px;
+    border-radius: 50px;
+    outline: none;
+    border:none;
+    color: #676767;
+    
+}
+.search-btn{
+    position: absolute;
+    outline: none;
+    border: none;
+    top: 13px;
+    right: 16px;
+    cursor: pointer;
+    width: 17px;
+    height: 17px;
+}
+
+
+
+.book-list{
+    margin-top: 80px;
+}
+.book-list__heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+.book-list__heading h2 {
+    font-size: 2.4rem;
+    font-family: "Nunito";
+    font-weight: 800;
+}
+.book-list__heading a {
+    font-size: 2rem;
+    font-family: "Nunito";
+    font-weight: 700;
+    text-decoration: none;
+}
+.book-list a{
+    text-decoration: none;
+}
+.book-list__body {
+
+}
+.book-item {
+    width: 235px;
+}
+.book-item img {
+    width: 235px;
+    height: 370px;
+    border-radius: 10px;
+    box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
+} 
+
+.book-item h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: "Nunito";
+    margin: 24px 0px 13px;
+    
+} 
+.book-item p {
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-family: "Nunito";
+    margin: 13px 0px;
+    color:var(--text-color);
+}
+
+
+.book__list--background{
+    background-color:var(--base-color) ;
+    border-radius: 30px;
+    padding: 40px;
+    color: var(--text-color2);
+}
+.book__list--background h2 {
+    color: var(--text-color2);
+}
+.book__list--background h3 {
+    color: var(--text-color2);
+}
+.book__list--background p {
+    color: var(--text-color2);
+}
+.book__list--background a {
+    color: var(--text-color2);
+}
+.book__list--background .book-author{
+    color: var(--text-color2);
+}
+.book__list--nobackground{
+}
+.book__list--nobackground h2 {
+    color: var(--base-color);
+}
+.book__list--nobackground h3 {
+    color: var(--base-color);
+}
+.book__list--nobackground p {
+    color: var(--text-color);
+}
+.book__list--nobackground a {
+    color: var(--text-color3);
+}
+.book__list--nobackground .book-author{
+    color: var(--text-color);
+}
+.book-detail-content__header-star,.book-star{
+    color: var(--base-color2);
+}

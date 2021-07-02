@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,10 @@ Route::get('/loginn', function () {
 });
 Route::get('/book-detail', function () {
     return view('client.pages.book-detail');
-});
+})->name('book-detail');
 Route::get('/homepage', function () {
     return view('client.pages.home');
-});
+})->name('homepage');
 
 Auth::routes();
 

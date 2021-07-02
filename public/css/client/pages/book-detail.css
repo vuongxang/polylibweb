@@ -12,7 +12,6 @@
 .book-detail__image img{
     width: 500px;
     height: 100%;
-    
 }
 .book-detail__content{
 
@@ -168,91 +167,4 @@
     color: var(--black-color);
     font-weight: 700;
 }
-.book-same{
-    margin-top: 80px;
-}
-.book-same__heading{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 35px;
-}
-.book-same__heading h2 {
-    font-size: 2.4rem;
-    font-family: "Nunito";
-    font-weight: 800;
-}
-.book-same__heading a {
-    font-size: 2rem;
-    font-family: "Nunito";
-    font-weight: 700;
-    text-decoration: none;
-}
-.book-same a{
-    text-decoration: none;
-}
-.book-same__body {
 
-}
-.book-item {
-    width: 235px;
-}
-.book-item img {
-    width: 235px;
-    height: 370px;
-    border-radius: 10px;
-    box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
-} 
-
-.book-item h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: "Nunito";
-    margin: 24px 0px 13px;
-    
-} 
-.book-item p {
-    font-size: 1.6rem;
-    font-weight: 600;
-    font-family: "Nunito";
-    margin: 13px 0px;
-    color:var(--text-color);
-}
-.book__same--category{
-    background-color:var(--base-color) ;
-    border-radius: 30px;
-    padding: 40px;
-    color: var(--text-color2);
-}
-.book__same--category h2 {
-    color: var(--text-color2);
-}
-.book__same--category h3 {
-    color: var(--text-color2);
-}
-.book__same--category p {
-    color: var(--text-color2);
-}
-.book__same--category a {
-    color: var(--text-color2);
-}
-.book__same--category .book-author{
-    color: var(--text-color2);
-}
-.book__same--author{
-}
-.book__same--author h2 {
-    color: var(--base-color);
-}
-.book__same--author h3 {
-    color: var(--base-color);
-}
-.book__same--author p {
-    color: var(--text-color);
-}
-.book__same--author a {
-    color: var(--text-color3);
-}
-.book__same--author .book-author{
-    color: var(--text-color);
-}

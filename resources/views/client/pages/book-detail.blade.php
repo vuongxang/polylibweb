@@ -82,12 +82,12 @@
 
     </div>
 
-    <div class="book-same book__same--category">
-        <div class="book-same__heading space__between">
+    <div class="book-list book__list--background">
+        <div class="book-list__heading space__between">
             <h2>Sách cùng thể loại</h2>
             <a href="">Xem thêm</a>
         </div>
-        <div class="book-same__body space__between">
+        <div class="book-list__body space__between">
 
 
             <div class="book-item">
@@ -120,12 +120,12 @@
     </div>
 
 
-    <div class="book-same book__same--author">
-        <div class="book-same__heading space__between">
+    <div class="book-list book__list--nobackground">
+        <div class="book-list__heading space__between">
             <h2>Sách cùng tác giả</h2>
             <a href="">Xem thêm</a>
         </div>
-        <div class="book-same__body space__between">
+        <div class="book-list__body space__between">
 
             <div class="book-item">
                 <a href="">
