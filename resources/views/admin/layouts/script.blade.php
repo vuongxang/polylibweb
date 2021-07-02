@@ -20,6 +20,18 @@
           var image = $('input#image').val();
           $('img#show_img').attr('src',image)
         })
+
+        $('#image_gallery').on('hide.bs.modal',function(){
+          var image_list = $('input#list_image').val();
+          var image_gallery = $.parseJSON(image_list);
+          // console.log(image_gallery);
+          var html ='';
+          image_gallery.forEach((item,index) => {
+            html+=`<img src="${item}" id="show_list_image" width="50" class="img-thumbnail">`;
+          });
+          console.log(html);
+          $('.img-gallery').html(html);
+        })
         
         $(function() {
           $('.toggle-class').change(function() {
@@ -30,6 +42,23 @@
                   type: "GET",
                   dataType: "json",
                   url: 'cate/changeStatus',
+                  data: {'status': status, 'id': id},
+                  success: function(data){
+                    console.log(data.success)
+                  }
+              });
+          })
+        })
+
+        $(function() {
+          $('.toggle-class-book').change(function() {
+              var status = $(this).prop('checked') == true ? 1 : 0; 
+              var id = $(this).data('id'); 
+               
+              $.ajax({
+                  type: "GET",
+                  dataType: "json",
+                  url: 'book/changeStatus',
                   data: {'status': status, 'id': id},
                   success: function(data){
                     console.log(data.success)

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,17 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
         Route::get('changeStatus', [CategoryController::class,'changeStatus']);
     });
+    Route::prefix('book')->group(function () {
+        Route::get('/',[BookController::class,'index'])->name('book.index');
+        Route::get('add-book',[BookController::class,'create'])->name('book.create');
+        Route::post('add-book',[BookController::class,'store'])->name('book.store');
+        // Route::get('remove/{id}',[CategoryController::class,'destroy'])->name('cate.destroy');
+        // Route::get('edit/{id}',[CategoryController::class,'edit'])->name('cate.edit');
+        // Route::post('edit/{id}', [CategoryController::class, 'update'])->name('cate.update');
+
+        Route::get('changeStatus', [BookController::class,'changeStatus']);
+    });
+
     Route::prefix('author')->group(function () {
         Route::get('/',[AuthorController::class,'index'])->name('author.index');
         Route::get('add-author',[AuthorController::class,'create'])->name('author.create');
