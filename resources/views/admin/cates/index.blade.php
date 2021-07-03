@@ -27,7 +27,7 @@
                                 <img src="{{asset($cate->image)}}" alt="" width="70">
                             </td>
                             <td>
-                                <input data-id="{{$cate->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}>
+                                <input data-id="{{$cate->id}}" data-width="75" data-height="15" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}>
                             </td>
                             <td>
                                 <div class="btn-group">
