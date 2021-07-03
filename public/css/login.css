@@ -33,6 +33,11 @@
 }
 .login__logo{
     margin-bottom: 36px;
+    
+}
+.login__logo-img{
+    width: 100px ;
+    height: 100px ;
 }
 .button {
     min-width: 142px;
