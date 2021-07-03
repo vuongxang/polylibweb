@@ -11,8 +11,8 @@ footer .grid{
 .footer-about{
 }
 .footer-about-logo{
-    width: 60px ;
-    height: 60px ;
+    width: 80px ;
+    height: 80px ;
     
 }
 
@@ -31,7 +31,7 @@ footer .grid{
     font-size: 2.4rem;
     font-weight: 700;
     color:var(--base-color2);
-    line-height: 60px;
+    line-height: 80px;
 }
 .footer-category-body{
 

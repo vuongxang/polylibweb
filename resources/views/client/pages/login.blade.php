@@ -22,7 +22,7 @@
                         <h2 class="login__header">Đăng nhập</h2>
                     </div>
                     <div class="login__logo center">
-                        <img src="{{asset('images/logo.png')}}" alt="">
+                        <img class="login__logo-img" src="{{asset('images/logo.png')}}" alt="" style="width:100px">
                     </div>
                     <div class="login__button center">
                         <button class="button button--google">
