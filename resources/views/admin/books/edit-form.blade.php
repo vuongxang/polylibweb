@@ -2,15 +2,15 @@
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Thêm mới sách</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Cập nhật sách</h6>
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-8 offset-2">
-            <form action="{{route('book.store')}}" method="post" class="mt-4 mb-4">
+            <form action="{{route('book.update',$model->id)}}" method="post" class="mt-4 mb-4">
                 @csrf
                 <div class="form-group">
                     <label for="exampleInputTitle">Tên Sách</label>
-                    <input type="text" class="form-control" id="exampleInputTitle" placeholder="tên sách" name="title" value="{{ old('title') }}">
+                    <input type="text" class="form-control" id="exampleInputTitle" placeholder="tên sách" name="title" value="{{ old('title',$model->title) }}">
                     @if ($errors->has('title'))
                         <span class="text-danger">{{$errors->first('title')}}</span>
                     @endif
@@ -21,9 +21,9 @@
                         Chọn ảnh
                     </button>
                     <div class="show_image" class="mb-2">
-                        <img src="" alt="" id="show_img" width="200">
+                        <img src="{{asset($model->image)}}" alt="" id="show_img" width="200">
                     </div>
-                    <input type="text" id="image" name="image" hidden class="form-control">
+                    <input type="text" id="image" name="image" class="form-control" value="{{ old('image',$model->image) }}">
                     @if ($errors->has('image'))
                         <span class="text-danger">{{$errors->first('image')}}</span>
                     @endif
@@ -31,8 +31,8 @@
                 <div class="form-group">
                     <label for="exampleInputFile">Status</label>
                     <select name="status" class="form-control">
-                        <option value="1">Show</option>
-                        <option value="0">Hide</option>
+                        <option value="1" @if ($model->status==1) checked @endif>Show</option>
+                        <option value="0" @if ($model->status==0) checked @endif>Hide</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -41,7 +41,13 @@
                    <div class="row">
                     @foreach ($cates as $cate)
                     <div class="col-4">
-                        <input type="checkbox" name="cate_id[]" id="" value="{{$cate->id}}">
+                        <input type="checkbox" name="cate_id[]" id="" value="{{$cate->id}}" 
+                        @foreach ($model->categories as $model_cate)
+                            @if ($model_cate->id==$cate->id) 
+                                checked
+                            @endif
+                        @endforeach
+                        >
                         <label for="">{{$cate->name}}</label>
                     </div>
                 @endforeach
@@ -53,7 +59,13 @@
                    <div class="row">
                     @foreach ($authors as $author)
                     <div class="col-4">
-                        <input type="checkbox" name="author_id[]" id="" value="{{$author->id}}">
+                        <input type="checkbox" name="author_id[]" id="" value="{{$author->id}}"
+                            @foreach ($model->authors as $model_author)
+                                @if ($model_author->id==$author->id) 
+                                    checked
+                                @endif
+                            @endforeach
+                        >
                         <label for="">{{$author->name}}</label>
                     </div>
                 @endforeach
@@ -66,9 +78,13 @@
                         Chọn ảnh
                     </button>
                     <div class="img-gallery" class="mb-2">
-                        <img src="" alt="" id="show_list_img" width="50">
+                        @if ($model->bookGalleries)
+                            @foreach ($model->bookGalleries as $item)
+                                <img src="{{$item->url}}" alt="" id="show_list_img" width="50">
+                            @endforeach
+                        @endif
                     </div>
-                    <input type="text" id="list_image" name="list_image" class="form-control">
+                    <input type="text" id="list_image" name="list_image" class="form-control" value="{{ old('list_image') }}">
                     @if ($errors->has('list_image'))
                         <span class="text-danger">{{$errors->first('list_image')}}</span>
                     @endif
@@ -76,14 +92,14 @@
 
                 <div class="form-group">
                     <label for="exampleInputDesc">Thông tin chi tiết</label>
-                    <textarea type="text" class="form-control" id="exampleInputDesc" placeholder="Nhập thông tin chi tiết" name="description" value="{{ old('description') }}"></textarea>
+                    <textarea type="text" class="form-control" id="exampleInputDesc" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description',$model->description) }}</textarea>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="exampleInputDate">Ngày đăng</label>
-                    <input type="date" class="form-control" id="exampleInputDate" name="publish_date_from" value="{{ old('publish_date_from') }}">
+                    <input type="date" class="form-control" id="exampleInputDate" name="publish_date_from" value="{{ old('publish_date_from',$model->publish_date_from) }}">
                     @if ($errors->has('publish_date_from'))
                         <span class="text-danger">{{$errors->first('publish_date_from')}}</span>
                     @endif

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\AuthorBooks;
 use App\Models\Book;
+use App\Models\BookGallery;
 use App\Models\Category;
+use App\Models\CategoryBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -70,20 +73,61 @@ class BookController extends Controller
 
     public function edit($id){
         $model = Book::find($id);
-        dd($model);
+        $cates = Category::all();
+        $authors = Author::all();
+
         if(!$model) return redirect(route('book.index'));
-        return view('admin.books.edit-form', ['model' => $model]);
+        return view('admin.books.edit-form', ['model' => $model,'cates' => $cates,'authors' => $authors,]);
     }
 
     public function update($id,Request $request){
         $model = Book::find($id);
         $model->fill($request->all());
-        $model->slug =str_slug($request->book, '-');
+        // dd($request->all());
+        $model->slug =str_slug($request->title, '-');
         $model->save();
-        return redirect(route('cate.index'));
+
+        if($request->cate_id){
+            foreach($request->cate_id as $cate_id){
+                $exist = CategoryBook::where('cate_id',$cate_id)->where('book_id',$model->id)->get();
+                if(count($exist)==0){
+                    $item =[
+                        'cate_id'=> $cate_id,
+                        'book_id'=> $model->id
+                    ];
+                    DB::table('category_books')->insert($item);
+                }
+            }
+        }
+        if($request->author_id){
+            foreach($request->author_id as $author_id){
+                $exist = AuthorBooks::where('author_id',$author_id)->where('book_id',$model->id)->get();
+                if(count($exist)==0){
+                    $item =[
+                        'author_id'=> $author_id,
+                        'book_id'=> $model->id
+                    ];
+                    DB::table('author_books')->insert($item);
+                }
+            }
+        }
+
+        if($request->list_image){
+            $list_image = json_decode($request->list_image);
+            foreach($list_image as $url){
+                $item =[
+                    'book_id'=> $model->id,
+                    'url'=> $url,
+                ];
+                DB::table('book_galleries')->insert($item);
+            }
+        }
+        
+        return redirect(route('book.index'));
     }
 
     public function destroy($id){
+        BookGallery::where('book_id', $id)->delete();
         Book::destroy($id);
         return redirect(route('book.index'));
     }

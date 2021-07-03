@@ -17,17 +17,17 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return view('client.pages.home');
+});
 
-Route::get('/admin', function () {
-    return view('admin.layouts.index');
-})->middleware('auth');
 Route::get('/loginn', function () {
     return view('login');
 });
 Route::get('/book-detail', function () {
     return view('client.pages.book-detail');
 })->name('book-detail');
-Route::get('/homepage', function () {
+Route::get('/home', function () {
     return view('client.pages.home');
 })->name('homepage');
 
@@ -69,7 +69,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('login/google', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
