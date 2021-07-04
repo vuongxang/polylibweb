@@ -73,10 +73,11 @@
     font-size: 1.6rem;
     margin-left: 20px;
     margin-right: 4px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
 }
-.header__information-info:hover + .dropdown-custom{
-    display: block;
-}
+
 .btn--login {
     display: flex;
     justify-content: center;
