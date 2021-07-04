@@ -125,7 +125,7 @@
     background-color: var(--base-color);
     height: 40px;
     width: 165px;
-    padding: 7px 40px;
+    padding: 5px 10px;
     color:var(--text-color2);
     border-radius: 30px;
 }

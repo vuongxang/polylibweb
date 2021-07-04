@@ -1,5 +1,5 @@
-<footer class="full-width">
-    <div class="grid">
+<footer class="grid__full-width">
+    <div class="grid-custom">
 
         <div class="footer-about">
             <img class="footer-about-logo" src="{{asset('images/logo.png')}}" alt="">
