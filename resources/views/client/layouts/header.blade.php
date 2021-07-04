@@ -5,7 +5,7 @@
     <ul class="header__nav">
         <li class="header__nav-li"><a class="link" href="{{route('homepage')}}">Trang Chủ</a></li>
         <li class="header__nav-li"><a class="link" href="{{route('book-detail')}}">Danh Mục</a></li>
-        <li class="header__nav-li"><a class="link" href="">Tin Tức</a></li>
+        <li class="header__nav-li"><a class="link" href="{{route('category')}}">Tin Tức</a></li>
     </ul>
     <div class="header__search">
         <form action="" class="search-form">

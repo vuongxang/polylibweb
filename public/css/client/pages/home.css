@@ -41,7 +41,9 @@
 .banner-content__search{
     margin-bottom: 30px;
 }
-
+.book-item{
+    cursor: pointer;
+}
 
 .book__list--classic{
     background-color:var(--base-color) ;
@@ -53,6 +55,7 @@
     color: var(--text-color2);
 }
 .book__list--classic h3 {
+   
     color: var(--text-color2);
 }
 .book__list--classic p {

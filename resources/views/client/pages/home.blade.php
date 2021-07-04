@@ -35,7 +35,6 @@
         </div>
         <div class="book-list__body space__between">
 
-
             <div class="book-item">
                 <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
                 <h3>Nguồn Cội (Robert Langdon #5)</h3>

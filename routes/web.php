@@ -30,6 +30,9 @@ Route::get('/book-detail', function () {
 Route::get('/home', function () {
     return view('client.pages.home');
 })->name('homepage');
+Route::get('/category', function () {
+    return view('client.pages.category');
+})->name('category');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/',[AdminController::class,'dashboard'])->name('dashboard');
