@@ -6,16 +6,20 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
+            @if(Session::has('message'))
+                <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">{{ Session::get('message') }}</p>
+            @endif
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>STT</th>
-                        <th>Tên</th>
+                        <th>@sortablelink('id','ID')</th>
+                        <th>@sortablelink('name','Tiêu đề')</th>
                         <th>Ảnh</th>
                         <th>Tác giả</th>
                         <th>Danh mục</th>
                         <th>Nội dung</th>
-                        <th>Trạng thái</th>
+                        <th>@sortablelink('publish_date_from','Ngày đăng')</th>
+                        <th>@sortablelink('status','Trạng thái')</th>
                         <th>
                             <a href="{{route('book.create')}}" class="btn btn-dark">Add new</a>
                         </th>
@@ -24,7 +28,7 @@
                 <tbody>
                     @foreach ($books as $key=>$book)
                         <tr>
-                            <td>{{$key+1}}</td>
+                            <td>{{$book->id}}</td>
                             <td>{{$book->title}}</td>
                             <td>
                                 <img src="{{asset($book->image)}}" alt="" width="50" class="img-thumbnail">
@@ -47,6 +51,9 @@
                                 </button>
                             </td>
                             <td>
+                                {{$book->publish_date_from}}
+                            </td>
+                            <td>
                                 <input data-id="{{$book->id}}" class="toggle-class-book" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Show" data-off="Hide" {{ $book->status ? 'checked' : '' }}>
                             </td>
                             <td>
@@ -59,7 +66,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div>{{ $books->links() }}</div>
+            <div class="d-flex justify-content-center">{!!$books->links('vendor.pagination.bootstrap-4')!!}</div>
         </div>
     </div>
 </div>

@@ -31,7 +31,7 @@ Route::get('/home', function () {
     return view('client.pages.home');
 })->name('homepage');
 
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::get('/',[AdminController::class,'dashboard'])->name('dashboard');
     Route::get('filemanager',[AdminController::class,'fileManager'])->name('filemanager');
 
