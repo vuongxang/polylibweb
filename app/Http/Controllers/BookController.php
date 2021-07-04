@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class BookController extends Controller
 {
     public function index(){
-        $books = Book::paginate(10);
+        $books = Book::sortable()->paginate(5);
         $books->load('categories');
         $books->load('authors');
         $books->load('bookGalleries');
@@ -68,7 +68,7 @@ class BookController extends Controller
             }
         }
         
-        return redirect(route('book.index'));
+        return redirect(route('book.index'))->with('message','Thêm mới sách thành công !');
     }
 
     public function edit($id){
@@ -129,7 +129,7 @@ class BookController extends Controller
     public function destroy($id){
         BookGallery::where('book_id', $id)->delete();
         Book::destroy($id);
-        return redirect(route('book.index'));
+        return redirect(route('book.index'))->with('message','Xóa thành công');
     }
 
     public function changeStatus(Request $request){

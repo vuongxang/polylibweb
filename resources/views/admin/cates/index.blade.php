@@ -9,10 +9,12 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>STT</th>
-                        <th>Tên</th>
+                        <th>@sortablelink('id','ID')</th>
+                        <th>@sortablelink('name','Tên danh mục')</th>
                         <th>Ảnh</th>
-                        <th>Trạng thái</th>
+                        <th>@sortablelink('created_at','Ngày tạo')</th>
+                        <th>@sortablelink('updated_at','Ngày cập nhật')</th>
+                        <th>@sortablelink('status','Trạng thái')</th>
                         <th>
                             <a href="{{route('cate.create')}}" class="btn btn-dark">Add new</a>
                         </th>
@@ -21,11 +23,13 @@
                 <tbody>
                     @foreach ($cates as $key=>$cate)
                         <tr>
-                            <td>{{$key+1}}</td>
+                            <td>{{$cate->id}}</td>
                             <td>{{$cate->name}}</td>
                             <td>
                                 <img src="{{asset($cate->image)}}" alt="" width="70">
                             </td>
+                            <td>{{$cate->created_at}}</td>
+                            <td>{{$cate->updated_at}}</td>
                             <td>
                                 <input data-id="{{$cate->id}}" data-width="75" data-height="15" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}>
                             </td>
@@ -39,7 +43,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div>{{ $cates->links() }}</div>
+            <div class="d-flex justify-content-center">{!!$cates->links('vendor.pagination.bootstrap-4')!!}</div>
         </div>
     </div>
 </div>

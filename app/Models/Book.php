@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use Kyslik\ColumnSortable\Sortable;
 
 class Book extends Model
 {
     use HasFactory;
+    use Sortable;
+
     protected $table='books';
     protected $fillable = ['title','status','description','publish_date_from','image','slug'];
+    public $sortable = ['id', 'title', 'description','status','publish_date_from','created_at', 'updated_at'];
 
     public function categories(){
         return $this->belongsToMany(
