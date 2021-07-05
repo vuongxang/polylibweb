@@ -2,7 +2,7 @@ footer{
     margin-top: 100px;
     background-color: var(--base-color);
 }
-footer .grid{
+footer .grid-custom{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     padding: 36px 0px;

@@ -7,7 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Client\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('client.pages.home');
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 Route::get('/book-detail', function () {
@@ -31,8 +31,8 @@ Route::get('/book-detail', function () {
 
 
 Route::prefix('admin')->middleware('check-role')->group(function () {
-    Route::get('/',[AdminController::class,'dashboard'])->name('dashboard');
-    Route::get('filemanager',[AdminController::class,'fileManager'])->name('filemanager');
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('filemanager', [AdminController::class, 'fileManager'])->name('filemanager');
 
     Route::prefix('cate')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('cate.index');
@@ -64,7 +64,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     });
 
     Route::prefix('user')->group(function () {
-        Route::get('/',[UserController::class,'index'])->name('user.index');
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
         // Route::get('add-author',[AuthorController::class,'create'])->name('author.create');
         // Route::post('add-author',[AuthorController::class,'store'])->name('author.store');
         // Route::get('remove/{id}',[AuthorController::class,'destroy'])->name('author.destroy');
