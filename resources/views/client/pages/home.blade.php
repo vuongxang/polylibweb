@@ -41,7 +41,7 @@
                             @if($loop->index < 4)
                                 <div class="col-3  ">
                                     <div class="book-item">
-                                        <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
+                                        <img src="{{asset($book->image)}}" alt="">
                                         <h3>{{$book->title}}</h3>
                                         @foreach($book->authors as $bookAuthor)
                                         <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
@@ -61,7 +61,7 @@
                         @if($loop->index >= 4 && $loop->index <= 8)
                             <div class="col-3  ">
                                 <div class="book-item">
-                                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
+                                    <img src="{{asset($book->image)}}" alt="">
                                     <h3>{{$book->title}}</h3>
                                     @foreach($book->authors as $bookAuthor)
                                     <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>

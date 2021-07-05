@@ -19,9 +19,7 @@ use App\Http\Controllers\Client\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('client.pages.home');
-});
+Route::get('/', [HomeController::class,'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 

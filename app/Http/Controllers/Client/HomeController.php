@@ -26,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $books = Book::orderBy('publish_date_from', 'DESC')->take(8)->get();
+        
         return view('client.pages.home', compact('books'));
     }
 }

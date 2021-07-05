@@ -31,7 +31,11 @@
                             <td>{{$cate->created_at}}</td>
                             <td>{{$cate->updated_at}}</td>
                             <td>
-                                <input data-id="{{$cate->id}}" data-width="75" data-height="15" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}>
+                                {{-- <input data-id="{{$cate->id}}" data-width="75" data-height="15" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}> --}}
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input toggle-class" data-id="{{$cate->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}>
+                                    <span class="custom-control-indicator"></span>
+                                </label>
                             </td>
                             <td>
                                 <div class="btn-group">
