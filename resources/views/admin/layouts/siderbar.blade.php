@@ -79,12 +79,13 @@
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-    @if (Auth::user()->role_id==1)
+
     <div class="sidebar-heading">
         Quản lý Tài khoản
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
+    @if (Auth::user()->role_id==1)
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
@@ -94,13 +95,18 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('user.index')}}">Tài khoản nhân viên</a>
-                <a class="collapse-item" href="register.html">Tài khoản người dùng</a>
+                <a class="collapse-item" href="register.html">Thêm mới tài khoản</a>
             </div>
         </div>
     </li>
-
     @endif
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Tài khoản người dùng</span>
+        </a>
+    </li>
     <div class="sidebar-heading">
         Quản lý bình luận
     </div>
@@ -128,10 +134,6 @@
     </div>
 
     <!-- Sidebar Message -->
-    <div class="sidebar-card d-none d-lg-flex">
-        <img class="sidebar-card-illustration mb-2" src="{{asset('adminthame/img/undraw_rocket.svg')}}" alt="...">
-        <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-    </div>
+    
 
 </ul>
