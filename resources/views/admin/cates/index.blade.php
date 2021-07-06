@@ -28,8 +28,8 @@
                             <td>
                                 <img src="{{asset($cate->image)}}" alt="" width="70">
                             </td>
-                            <td>{{$cate->created_at}}</td>
-                            <td>{{$cate->updated_at}}</td>
+                            <td>{{ date('d-m-Y', strtotime($cate->created_at))}}</td>
+                            <td>{{ date('d-m-Y', strtotime($cate->updated_at))}}</td>
                             <td>
                                 {{-- <input data-id="{{$cate->id}}" data-width="75" data-height="15" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}> --}}
                                 <label class="custom-control custom-checkbox">

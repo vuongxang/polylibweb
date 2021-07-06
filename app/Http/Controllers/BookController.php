@@ -86,29 +86,27 @@ class BookController extends Controller
         // dd($request->all());
         $model->slug =str_slug($request->title, '-');
         $model->save();
+ 
+        CategoryBook::where('book_id',$model->id)->delete();
+        AuthorBooks::where('book_id',$model->id)->delete();
 
         if($request->cate_id){
             foreach($request->cate_id as $cate_id){
-                $exist = CategoryBook::where('cate_id',$cate_id)->where('book_id',$model->id)->get();
-                if(count($exist)==0){
-                    $item =[
-                        'cate_id'=> $cate_id,
-                        'book_id'=> $model->id
-                    ];
-                    DB::table('category_books')->insert($item);
-                }
+                $item =[
+                    'cate_id'=> $cate_id,
+                    'book_id'=> $model->id
+                ];
+                DB::table('category_books')->insert($item);
             }
         }
+        
         if($request->author_id){
             foreach($request->author_id as $author_id){
-                $exist = AuthorBooks::where('author_id',$author_id)->where('book_id',$model->id)->get();
-                if(count($exist)==0){
-                    $item =[
-                        'author_id'=> $author_id,
-                        'book_id'=> $model->id
-                    ];
-                    DB::table('author_books')->insert($item);
-                }
+                $item1 =[
+                    'author_id'=> $author_id,
+                    'book_id'=> $model->id
+                ];
+                DB::table('author_books')->insert($item1);
             }
         }
 
@@ -123,7 +121,7 @@ class BookController extends Controller
             }
         }
         
-        return redirect(route('book.index'));
+        return redirect(route('book.index'))->with('message','Cập nhật thành công !');
     }
 
     public function destroy($id){

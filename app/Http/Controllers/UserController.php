@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index(){
-        dd(User::all());
+        $users = User::sortable()->paginate(5);
+        $users->load('role');
+        return view('admin.users.index',['users'=>$users]);
     }
 }
