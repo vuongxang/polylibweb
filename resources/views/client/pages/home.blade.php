@@ -10,9 +10,8 @@
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
-        <div class="carousel-inner ">
+        <div class="carousel-inner carousel-inner--custom ">
             <div class="carousel-item active ">
                 <div class="banner banner-first">
                     <div class="banner-content">
@@ -45,11 +44,11 @@
         </div>
         <a class="carousel-control-prev px-4" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon ml-4" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">Trước</span>
         </a>
         <a class="carousel-control-next " href="#carouselExampleIndicators" role="button" data-slide="next">
             <span class="carousel-control-next-icon mr-4" aria-hidden="true"></span>
-            <span class="sr-only ">Next</span>
+            <span class="sr-only ">Sau</span>
         </a>
     </div>
 
@@ -58,7 +57,7 @@
     <div class="book-list book__list--nobackground">
         <div class="book-list__heading space__between">
             <h2>Sách mới nhất</h2>
-
+            <a href="">Xem thêm</a>
         </div>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-pause="hover">
             <div class="carousel-inner ">
@@ -69,7 +68,7 @@
                             <div class="book-item">
                                 <img src="{{asset($book->image)}}" alt="">
                                 <h3>{{$book->title}}</h3>
-                                @foreach($book->authors as $bookAuthor)
+                                @foreach($book->authors->take(1) as $bookAuthor)
                                 <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
                                 @endforeach
@@ -100,12 +99,12 @@
             </div>
         </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <button class="carousel-btn-custom"><i class="fas fa-chevron-left"></i></button>
+    <a class="carousel-control-prev  " href="#carouselExampleControls" role="button" data-slide="prev">
+        <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-left"></i></button>
         <!-- <span class="sr-only">Previous</span> -->
     </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <button class="carousel-btn-custom"><i class="fas fa-chevron-right"></i></button>
+    <a class="carousel-control-next " href="#carouselExampleControls" role="button" data-slide="next">
+        <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-right"></i></button>
     </a>
     </div>
 
