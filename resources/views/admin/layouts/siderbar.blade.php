@@ -1,10 +1,9 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('home')}}">
+        
+            <img src="{{asset('images/logo.png')}}" alt="" width="70px">
         <div class="sidebar-brand-text mx-3">POLYLIB Admin</div>
     </a>
 
@@ -15,7 +14,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Trang Chủ</span></a>
     </li>
 
     <!-- Divider -->
@@ -30,7 +29,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-list-alt "></i>
             <span>Danh mục sách</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -45,7 +44,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fas fa-fw fa-book"></i>
             <span>Sách</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
@@ -60,7 +59,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
             aria-expanded="true" aria-controls="collapseThree">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-user-tie"></i>
             <span>Tác giả</span>
         </a>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
@@ -72,7 +71,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{route('filemanager')}}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa-file"></i>
             <span>Quản lý file</span></a>
     </li>
     <!-- Divider -->
@@ -89,7 +88,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fas fa-fw fa-user-cog"></i>
             <span>Tài khoản nhân viên</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -103,7 +102,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#">
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fas fa-fw fa-users-cog"></i>
             <span>Tài khoản người dùng</span>
         </a>
     </li>
@@ -114,7 +113,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
             aria-expanded="true" aria-controls="collapseFour">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-comments"></i>
             <span>Bình luận</span>
         </a>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">

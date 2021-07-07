@@ -1,10 +1,9 @@
 .header{
     display: grid;
-    grid-template-columns: 80px auto 350px 1fr;
+    grid-template-columns: 100px 300px 350px 150px;
     height: 100px;
-    margin: 24px 0px 50px 0px;
+    margin: 10px 0px 20px 0px;
     gap:80px;
-    
 }
 .header__logo{
     display: flex;
@@ -34,7 +33,7 @@
 .link{
     font-family: "Nunito";
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--text-color);
     text-decoration: none;
     padding: 10px 0px;
@@ -42,7 +41,7 @@
 .link:hover{
     font-family: "Nunito";
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--base-color);
     border-bottom: 2px solid var(--base-color);
 }
