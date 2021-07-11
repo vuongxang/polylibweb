@@ -62,7 +62,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     });
 
     Route::prefix('user')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('user.index');
+        Route::get('/', [UserController::class, 'index'])->middleware('is-admin')->name('user.index');
         // Route::get('add-author',[AuthorController::class,'create'])->name('author.create');
         // Route::post('add-author',[AuthorController::class,'store'])->name('author.store');
         // Route::get('remove/{id}',[AuthorController::class,'destroy'])->name('author.destroy');
