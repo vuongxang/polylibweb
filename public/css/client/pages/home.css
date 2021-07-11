@@ -11,7 +11,9 @@
     border-radius: 30px;
     box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
 }
-
+.carousel-control-next, .carousel-control-prev{
+    width: 40px;
+}
 .banner-first {
     /* background: linear-gradient(267.57deg, #425BA8 0.37%, #667CBF 34.14%, #27459E 78.47%, #27459E 98.61%); */
     background-color: var(--base-color);
@@ -36,6 +38,7 @@
     color: #d5d5d5;
     margin-bottom: 30px;
     color: var(--base-color2);
+    font-weight: 900;
 }
 
 .banner-content__heading--second h2 {

@@ -42,8 +42,8 @@
             </div>
             
         </div>
-        <a class="carousel-control-prev px-4" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon ml-4" aria-hidden="true"></span>
+        <a class="carousel-control-prev ml-4" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon " aria-hidden="true" width="25px" height="25px"></span>
             <span class="sr-only">Trước</span>
         </a>
         <a class="carousel-control-next " href="#carouselExampleIndicators" role="button" data-slide="next">
@@ -103,12 +103,12 @@
         <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-left"></i></button>
         <!-- <span class="sr-only">Previous</span> -->
     </a>
-    <a class="carousel-control-next " href="#carouselExampleControls" role="button" data-slide="next">
+    <a class="carousel-control-next " height="25px" width="25px" href="#carouselExampleControls" role="button" data-slide="next">
         <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-right"></i></button>
     </a>
     </div>
 
-
+    
 
 
 
