@@ -23,9 +23,7 @@ Route::get('/', [HomeController::class,'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/book-detail', function () {
-    return view('client.pages.book-detail');
-})->name('book-detail');
+Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')->name('book.detail');
 
 
 Route::prefix('admin')->middleware('check-role')->group(function () {
