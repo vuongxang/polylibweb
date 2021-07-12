@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AuthorController extends Controller
 {
     public function index(){
-        $authors  = Author::paginate(10);
+        $authors  = Author::sortable()->paginate(5);
         return view('admin.authors.index',compact('authors'));
     }
 

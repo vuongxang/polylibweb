@@ -85,8 +85,12 @@
 
                     @if($loop->index >= 4 && $loop->index <= 8) <div class="col-3  ">
                         <div class="book-item">
-                            <img src="{{asset($book->image)}}" alt="">
-                            <h3>{{$book->title}}</h3>
+                            <a href="{{route('book.detail',$book->id)}}">
+                                <img src="{{asset($book->image)}}" alt="">
+                            </a>
+                            <a href="{{route('book.detail',$book->id)}}">
+                                <h3>{{$book->title}}</h3>
+                            </a>
                             @foreach($book->authors as $bookAuthor)
                             <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
@@ -140,48 +144,22 @@
             <a href="">Xem thêm</a>
         </div>
         <div class="book-list__body space__between">
-
+            @foreach ($books as $book)
             <div class="book-item">
-                <a href="">
-                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                    <h3>Nguồn Cội (Robert Langdon #5)</h3>
+                <a href="{{route('book.detail',$book->id)}}">
+                    <img src="{{asset($book->image)}}" alt="">
+                    <h3>
+                        {{$book->title}}
+                    </h3>
                 </a>
-                <a href="">
-                    <p> <span class="book-author"> Dan Brown </span></p>
-                </a>
+                @foreach ($book->authors as $author)
+                    <a href="">
+                        <p> <span class="book-author"> {{$author->name}} </span></p>
+                    </a>
+                @endforeach
                 <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
             </div>
-            <div class="book-item">
-                <a href="">
-                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                    <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                </a>
-                <a href="">
-                    <p> <span class="book-author"> Dan Brown </span></p>
-                </a>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            <div class="book-item">
-                <a href="">
-                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                    <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                </a>
-                <a href="">
-                    <p> <span class="book-author"> Dan Brown </span></p>
-                </a>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            <div class="book-item">
-                <a href="">
-                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                    <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                </a>
-                <a href="">
-                    <p> <span class="book-author"> Dan Brown </span></p>
-                </a>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-
+            @endforeach
         </div>
 
     </div>

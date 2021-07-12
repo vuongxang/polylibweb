@@ -9,10 +9,10 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>STT</th>
-                        <th>Tên</th>
+                        <th>@sortablelink('id','ID')</th>
+                        <th>@sortablelink('name','Tên')</th>
                         <th>Avatar</th>
-                        <th>Ngày sinh</th>
+                        <th>@sortablelink('date_birt','Ngày sinh')</th>
                         <th>
                             <a href="{{route('author.create')}}" class="btn btn-dark">Add new</a>
                         </th>
@@ -21,7 +21,7 @@
                 <tbody>
                     @foreach ($authors as $key=>$author)
                         <tr>
-                            <td>{{$key+1}}</td>
+                            <td>{{$author->id}}</td>
                             <td>{{$author->name}}</td>
                             <td>
                                 <img src="{{asset($author->avatar)}}" alt="" width="50">
@@ -39,7 +39,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div>{{ $authors->links() }}</div>
+            <div class="d-flex justify-content-center">{!!$authors->links('vendor.pagination.bootstrap-4')!!}</div>
         </div>
     </div>
 </div>

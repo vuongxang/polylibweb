@@ -31,7 +31,7 @@ class BookController extends Controller
 
     public function store(Request $request){
         $model = new Book();
-        
+
         $model->fill($request->all());
         // dd($request->all());
         $model->slug =str_slug($request->title, '-');
@@ -67,7 +67,7 @@ class BookController extends Controller
                 DB::table('book_galleries')->insert($item);
             }
         }
-        
+
         return redirect(route('book.index'))->with('message','Thêm mới sách thành công !');
     }
 
@@ -86,7 +86,7 @@ class BookController extends Controller
         // dd($request->all());
         $model->slug =str_slug($request->title, '-');
         $model->save();
- 
+
         CategoryBook::where('book_id',$model->id)->delete();
         AuthorBooks::where('book_id',$model->id)->delete();
 
@@ -99,7 +99,7 @@ class BookController extends Controller
                 DB::table('category_books')->insert($item);
             }
         }
-        
+
         if($request->author_id){
             foreach($request->author_id as $author_id){
                 $item1 =[
@@ -120,7 +120,7 @@ class BookController extends Controller
                 DB::table('book_galleries')->insert($item);
             }
         }
-        
+
         return redirect(route('book.index'))->with('message','Cập nhật thành công !');
     }
 
@@ -134,7 +134,17 @@ class BookController extends Controller
         $model = Book::find($request->id);
         $model->status = $request->status;
         $model->save();
-  
+
         return response()->json(['success'=>'Book status change successfully!']);
+    }
+
+    public  function bookDetail($id)
+    {
+        $book = Book::find($id);
+        $book->load('categories');
+        $book->load('authors');
+        $book->load('bookGalleries');
+        // $book->load('bookAudio');
+        return view('client.pages.book-detail',['book'=>$book]);
     }
 }
