@@ -66,8 +66,10 @@
                         @foreach ($books as $book)
                         @if($loop->index < 4) <div class="col-3  ">
                             <div class="book-item">
-                                <img src="{{asset($book->image)}}" alt="">
-                                <h3>{{$book->title}}</h3>
+                                <a href="{{route('book.detail',$book->id)}}">
+                                    <img src="{{asset($book->image)}}" alt="">
+                                    <h3>{{$book->title}}</h3>
+                                </a>
                                 @foreach($book->authors->take(1) as $bookAuthor)
                                 <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
@@ -130,12 +132,8 @@
             <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
         </div>
         @endforeach
-    </div> -->
-
-
-
-    </div>
-
+        </div> -->
+    {{-- </div> --}}
 
 
     <div class="book-list book__list--background">

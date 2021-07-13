@@ -22,8 +22,8 @@
                 <p>Đánh giá: <span class="book-detail-content__header-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
             </div>
             <div class="book-detail-content__button">
-                <button class="borrow-btn">Muợn sách</button>
-                <button class="review-btn">Xem trước</button>
+                <a href="" class="borrow-btn">Muợn sách</a>
+                <a class="review-btn">Xem trước</a>
             </div>
             <div class="book-detail-content__desc">
                 <h3>Mô tả sách</h3>
@@ -113,35 +113,36 @@
         </div>
     </div>
 
-    <div class="book-list book__list--nobackground">
-        <div class="book-list__heading space__between">
-            <h2>Sách cùng tác giả</h2>
-            <a href="">Xem thêm</a>
-        </div>
-        <div class="book-list__body space__between">
-            @foreach ($book->authors as $author)
-                @foreach ($author->books as $b)
-                    @if ($b->id != $book->id)
-                        <div class="book-item">
-                            <a href="{{route('book.detail',$b->id)}}">
-                                <img src="{{asset($b->image)}}" alt="">
-                            </a>
-                            <a href="{{route('book.detail',$b->id)}}">
-                                <h3>{{$b->title}}</h3>
-                            </a>
-                            <p> 
-                                @foreach ($b->authors as $item)
-                                    <span class="book-author"> {{$item->name}}</span>,
-                                @endforeach
-                            </p>
-                            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-                        </div>
+    <!--List book author-->
+        <div class="book-list book__list--nobackground">
+            <div class="book-list__heading space__between">
+                <h2>Sách cùng tác giả</h2>
+                <a href="">Xem thêm</a>
+            </div>
+            <div class="book-list__body space__between">
+                @foreach ($book->authors as $author)
+                    @foreach ($author->books as $b)
+                        @if ($b->id != $book->id)
+                            <div class="book-item">
+                                <a href="{{route('book.detail',$b->id)}}">
+                                    <img src="{{asset($b->image)}}" alt="">
+                                </a>
+                                <a href="{{route('book.detail',$b->id)}}">
+                                    <h3>{{$b->title}}</h3>
+                                </a>
+                                <p> 
+                                    @foreach ($b->authors as $item)
+                                        <span class="book-author"> {{$item->name}}</span>,
+                                    @endforeach
+                                </p>
+                                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+                            </div>
 
-                    @endif
+                        @endif
+                    @endforeach
                 @endforeach
-            @endforeach
+            </div>
         </div>
-
-    </div>
+    <!--End List book author-->
 </main>
 @endsection
