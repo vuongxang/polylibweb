@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Book;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Author extends Model
 {
-    use HasFactory;
-    use Sortable;
+    use HasFactory, Sortable,SoftDeletes;
 
     protected $table='authors';
     protected $fillable = ['name','avatar','description','date_birth'];

@@ -11,10 +11,10 @@
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link active bg-light">Danh sách</a>
+                  <a class="nav-link" href="{{route('author.index')}}">Danh sách</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('author.trashlist')}}">Thùng rác</a>
+                    <a class="nav-link active bg-light">Thùng rác</a>
                   </li>
             </ul>
             <table class="table table-bordered bg-light" id="dataTable" width="100%" cellspacing="0">
@@ -25,10 +25,11 @@
                         <th>Avatar</th>
                         <th>@sortablelink('date_birt','Ngày sinh')</th>
                         <th>
-                            <a href="{{route('author.create')}}" class="btn btn-dark">Add new</a>
+                            Hành động
                         </th>
                     </tr>
                 </thead>
+                @if (count($authors)>0)
                 <tbody>
                     @foreach ($authors as $key=>$author)
                         <tr>
@@ -42,13 +43,20 @@
                             </td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="{{route('author.edit',['id' => $author->id])}}" class="fa fa-edit btn btn-success"></a>
-                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('author.destroy',['id' => $author->id])}}" class="fas fa-trash-alt btn btn-danger"></a>
+                                    <a href="{{route('author.restore',['id' => $author->id])}}" class="mr-2">Khôi phục</a> |
+                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('author.forcedelete',['id' => $author->id])}}" class="ml-2">Xóa</a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
+                @else
+                    <tbody >
+                        <tr>
+                            <td colspan="5" class="text-center">Thùng rác rỗng!</td>
+                        </tr>
+                    </tbody>
+                @endif
             </table>
             <div class="d-flex justify-content-center">{!!$authors->links('vendor.pagination.bootstrap-4')!!}</div>
         </div>

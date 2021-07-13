@@ -12,6 +12,24 @@ class AuthorController extends Controller
         return view('admin.authors.index',compact('authors'));
     }
 
+    public function trashList(){
+        $authors = Author::onlyTrashed()->paginate(5);
+        return view('admin.authors.trash-list',compact('authors'));
+    }
+
+    public function restore($id){
+        Author::withTrashed()->where('id', $id)->restore();
+        return redirect(route('author.trashlist'))->with('message','Khôi phục thành công');
+    }
+
+    public function forceDelete($id){
+        $model = Author::find($id);
+        if($model){
+           Author::withTrashed()->where('id', $id)->forceDelete();
+        }
+        return redirect(route('author.trashlist'))->with('message','Xóa tác giả thành công');         
+    }
+
     public function create(){
         return view('admin.authors.add-form');
     }
@@ -37,7 +55,8 @@ class AuthorController extends Controller
     }
 
     public function destroy($id){
-        Author::destroy($id);
+        Author::where('id',$id)->delete();
+        
         return redirect(route('author.index'));
     }
 }

@@ -101,7 +101,7 @@
     @endif
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{route('user.client')}}">
             <i class="fas fa-fw fa-users-cog"></i>
             <span>Tài khoản người dùng</span>
         </a>

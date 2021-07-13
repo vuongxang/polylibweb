@@ -60,13 +60,22 @@ class LoginController extends Controller
     }
     protected function _registerOrLoginUser($data)
     {
+        $pattentStudentEmail = "/[a-z]ph[0-9]{5}@fpt.edu.vn/";
+
         $user = User::where('email', '=', $data->email)->first();
         if (!$user) {
+           if( preg_match($pattentStudentEmail, $data->email)){
+               $role_id = 4;
+           }else{
+               $role_id = 3;
+           }
+
             $user = new User();
             $user->name = $data->name;
             $user->email = $data->email;
             $user->google_id = $data->id;
             $user->avatar = $data->avatar;
+            $user->role_id = $role_id;
             $user->password =  Hash::make('123456');
             $user->save();
         }
