@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <a class="carousel-control-prev ml-4" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon " aria-hidden="true" width="25px" height="25px"></span>
@@ -59,7 +59,7 @@
             <h2>Sách mới nhất</h2>
             <a href="">Xem thêm</a>
         </div>
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-pause="hover">
+        <div id="carouselBookList-nobackground" class="carousel slide" data-ride="carousel" data-pause="hover">
             <div class="carousel-inner ">
                 <div class="carousel-item active">
                     <div class="row  justify-content-center">
@@ -103,16 +103,16 @@
             </div>
         </div>
     </div>
-    <a class="carousel-control-prev  " href="#carouselExampleControls" role="button" data-slide="prev">
+    <a class="carousel-control-prev  " href="#carouselBookList-nobackground" role="button" data-slide="prev">
         <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-left"></i></button>
         <!-- <span class="sr-only">Previous</span> -->
     </a>
-    <a class="carousel-control-next " height="25px" width="25px" href="#carouselExampleControls" role="button" data-slide="next">
+    <a class="carousel-control-next " height="25px" width="25px" href="#carouselBookList-nobackground" role="button" data-slide="next">
         <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-right"></i></button>
     </a>
     </div>
 
-    
+
 
 
 
@@ -137,31 +137,63 @@
     </div>
 
 
-
     <div class="book-list book__list--background">
         <div class="book-list__heading space__between">
             <h2>Sách được đọc nhiều nhất</h2>
             <a href="">Xem thêm</a>
         </div>
-        <div class="book-list__body space__between">
-            @foreach ($books as $book)
-            <div class="book-item">
-                <a href="{{route('book.detail',$book->id)}}">
-                    <img src="{{asset($book->image)}}" alt="">
-                    <h3>
-                        {{$book->title}}
-                    </h3>
-                </a>
-                @foreach ($book->authors as $author)
-                    <a href="">
-                        <p> <span class="book-author"> {{$author->name}} </span></p>
-                    </a>
-                @endforeach
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            @endforeach
-        </div>
+        <div id="book__list--background" class="carousel slide" data-ride="carousel" data-pause="hover">
+            <div class="carousel-inner ">
+                <div class="carousel-item active">
+                    <div class="row  justify-content-center">
+                        @foreach ($books as $book)
+                        @if($loop->index < 4) <div class="col-3  ">
+                            <div class="book-item">
+                                <a href="{{route('book.detail',$book->id)}}">
+                                    <img src="{{asset($book->image)}}" alt="">
+                                </a>
+                                <h3>{{$book->title}}</h3>
+                                @foreach($book->authors->take(1) as $bookAuthor)
+                                <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
+                                @endforeach
+                                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+                            </div>
+                    </div>
+                    @endif
+                    @endforeach
+                </div>
+            </div>
+            <div class="carousel-item ">
+                <div class="row  justify-content-center">
+                    @foreach ($books as $book)
+
+                    @if($loop->index >= 4 && $loop->index <= 8) <div class="col-3  ">
+                        <div class="book-item">
+                            <a href="{{route('book.detail',$book->id)}}">
+                                <img src="{{asset($book->image)}}" alt="">
+                            </a>
+                            <a href="{{route('book.detail',$book->id)}}">
+                                <h3>{{$book->title}}</h3>
+                            </a>
+                            @foreach($book->authors as $bookAuthor)
+                            <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
+
+                            @endforeach
+                            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+                        </div>
+                </div>
+                @endif
+                @endforeach
+            </div>
+        </div>
+        <a class="carousel-control-prev  " href="#book__list--background" role="button" data-slide="prev">
+            <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-left"></i></button>
+            <!-- <span class="sr-only">Previous</span> -->
+        </a>
+        <a class="carousel-control-next " height="25px" width="25px" href="#book__list--background" role="button" data-slide="next">
+            <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-right"></i></button>
+        </a>
     </div>
 </main>
 @endsection

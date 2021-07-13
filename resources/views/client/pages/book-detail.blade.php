@@ -15,15 +15,16 @@
                 <h2>
                     {{$book->title}}
                 </h2>
-                <p>Tác giả: 
+                <p>Tác giả:
                     @foreach ($book->authors as $author)
-                        <span class="book-detail-content__header-author"> {{$author->name}} </span></p>
-                    @endforeach
+                    <span class="book-detail-content__header-author"> {{$author->name}} </span>
+                </p>
+                @endforeach
                 <p>Đánh giá: <span class="book-detail-content__header-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
             </div>
             <div class="book-detail-content__button">
-                <button class="borrow-btn">Muợn sách</button>
-                <button class="review-btn">Xem trước</button>
+                <a class="borrow-btn ">Muợn sách</a>
+                <a class="review-btn">Xem trước</a>
             </div>
             <div class="book-detail-content__desc">
                 <h3>Mô tả sách</h3>
@@ -40,7 +41,7 @@
             </div>
             <div class="book-detail-content__tag">
                 @foreach ($book->categories as $cate)
-                    <button>{{$cate->name}}</button>
+                <button>{{$cate->name}}</button>
                 @endforeach
             </div>
         </div>
@@ -93,55 +94,66 @@
             <h2>Sách cùng thể loại</h2>
             <a href="">Xem thêm</a>
         </div>
-        <div class="book-list__body space__between">
-            @foreach ($book->categories as $cate)
-                @foreach ($cate->books as $b)
+        <div id="carouselBookCate-background" class="carousel slide" data-ride="carousel" data-pause="hover">
+            <div class="carousel-inner ">
+                <div class="carousel-item active">
+                    <div class="row  ">
+                        @foreach ($book->categories as $cate)
+                        @foreach ($cate->books as $b)
+                        @if ($b->id != $book->id)
+                        @if($loop->index <=4 ) <div class="col-3  ">
+                            <div class="book-item">
+                                <a href="{{route('book.detail',$b->id)}}">
+                                    <img src="{{asset($b->image)}}" alt="">
+                                </a>
+                                <a href="{{route('book.detail',$b->id)}}">
+                                    <h3>{{$b->title}}</h3>
+                                </a>
+
+                                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+                            </div>
+                    </div>
+                    @endif
+                    @endif
+                    @endforeach
+                    @endforeach
+                </div>
+            </div>
+            @if(count($book->categories)>4)
+            <div class="carousel-item ">
+                <div class="row  justify-content-center">
+                    @foreach ($book->categories as $booke)
+                    @foreach ($cate->books as $b)
                     @if ($b->id != $book->id)
+                    @if($loop->index >= 4 && $loop->index <= 8) <div class="col-3  ">
                         <div class="book-item">
-                            <a href="{{route('book.detail',$b->id)}}">
-                                <img src="{{asset($b->image)}}" alt="">
+                            <a href="{{route('book.detail',$booke->id)}}">
+                                <img src="{{asset($booke->image)}}" alt="">
                             </a>
-                            <a href="{{route('book.detail',$b->id)}}">
-                                <h3>{{$b->title}}</h3>
+                            <a href="{{route('book.detail',$book->id)}}">
+                                <h3>{{$booke->slug}}</h3>
                             </a>
-                            <p> <span class="book-author"> Dan Brown </span></p>
+
                             <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
                         </div>
-                    @endif
+                </div>
+                @endif
+                @endif
                 @endforeach
-            @endforeach
-        </div>
-    </div>
-
-    <div class="book-list book__list--nobackground">
-        <div class="book-list__heading space__between">
-            <h2>Sách cùng tác giả</h2>
-            <a href="">Xem thêm</a>
-        </div>
-        <div class="book-list__body space__between">
-            @foreach ($book->authors as $author)
-                @foreach ($author->books as $b)
-                    @if ($b->id != $book->id)
-                        <div class="book-item">
-                            <a href="{{route('book.detail',$b->id)}}">
-                                <img src="{{asset($b->image)}}" alt="">
-                            </a>
-                            <a href="{{route('book.detail',$b->id)}}">
-                                <h3>{{$b->title}}</h3>
-                            </a>
-                            <p> 
-                                @foreach ($b->authors as $item)
-                                    <span class="book-author"> {{$item->name}}</span>,
-                                @endforeach
-                            </p>
-                            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-                        </div>
-
-                    @endif
                 @endforeach
-            @endforeach
+            </div>
+            <a class="carousel-control-prev  " href="#carouselBookCate-background" role="button" data-slide="prev">
+                <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-left"></i></button>
+                <!-- <span class="sr-only">Previous</span> -->
+            </a>
+            <a class="carousel-control-next " height="25px" width="25px" href="#carouselBookCate-background" role="button" data-slide="next">
+                <button class="carousel-btn-custom " height="25px" width="25px"><i class="fas fa-chevron-right"></i></button>
+            </a>
+            @endif
         </div>
 
     </div>
+
+
 </main>
 @endsection
