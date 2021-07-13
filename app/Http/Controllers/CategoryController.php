@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Book;
+
 
 class CategoryController extends Controller
 {
+
+    public function show(){
+        $data=Book::paginate(6);
+        return view('client.pages.category',['cate'=>$data]);
+    }
     public function index(){
         $cates  = Category::sortable()->paginate(5);
-        $cates->load('books');
-
-//        $cate1 = Category::find(1);
-//        $cate1->load('books');
-//        dd($cate1->books);
         return view('admin.cates.index',compact('cates'));
     }
 
@@ -47,12 +49,12 @@ class CategoryController extends Controller
         Category::destroy($id);
         return redirect(route('cate.index'));
     }
-
+    
     public function changeStatus(Request $request){
         $model = Category::find($request->id);
         $model->status = $request->status;
         $model->save();
-
+  
         return response()->json(['success'=>'Category status change successfully!']);
     }
 }

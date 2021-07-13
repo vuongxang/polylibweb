@@ -32,7 +32,6 @@ Route::get('/home', function () {
 Route::get('/category', function () {
     return view('client.pages.category');
 })->name('category');
-Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')->name('book.detail');
 
 
 Route::prefix('admin')->middleware('check-role')->group(function () {

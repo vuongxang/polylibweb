@@ -73,13 +73,29 @@
                                 @foreach($book->authors->take(1) as $bookAuthor)
                                 <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
-                                @endforeach
-                                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-                            </div>
-                    </div>
-                    @endif
-                    @endforeach
-                </div>
+            <div class="book-item">
+                <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
+                <h3>Nguồn Cội (Robert Langdon #5)</h3>
+                <p> <span class="book-author"> Dan Brown </span></p>
+                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+            </div>
+            <div class="book-item">
+                <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
+                <h3>Nguồn Cội (Robert Langdon #5)</h3>
+                <p> <span class="book-author"> Dan Brown </span></p>
+                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+            </div>
+            <div class="book-item">
+                <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
+                <h3>Nguồn Cội (Robert Langdon #5)</h3>
+                <p> <span class="book-author"> Dan Brown </span></p>
+                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+            </div>
+            <div class="book-item">
+                <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
+                <h3>Nguồn Cội (Robert Langdon #5)</h3>
+                <p> <span class="book-author"> Dan Brown </span></p>
+                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
             </div>
             <div class="carousel-item ">
                 <div class="row  justify-content-center">
