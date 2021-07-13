@@ -36,8 +36,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputName">Thông tin chi tiết</label>
-                    <textarea type="text" class="form-control" id="exampleInputName" placeholder="Nhập thông tin chi tiết" name="description" value="{{ old('description') }}"></textarea>
+                    <label for="exampleInputDesc">Thông tin chi tiết</label>
+                    <textarea type="text" class="form-control tinymce-editor" id="exampleInputDesc" rows="10" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description') }}</textarea>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif

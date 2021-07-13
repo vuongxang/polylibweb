@@ -9,7 +9,7 @@
             @if(Session::has('message'))
                 <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">{{ Session::get('message') }}</p>
             @endif
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordred table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
@@ -18,7 +18,7 @@
                         <th>Tác giả</th>
                         <th>Danh mục</th>
                         <th>Nội dung</th>
-                        <th>@sortablelink('publish_date_from','Ngày đăng')</th>
+                        {{-- <th>@sortablelink('publish_date_from','Ngày đăng')</th> --}}
                         <th>@sortablelink('status','Trạng thái')</th>
                         <th>
                             <a href="{{route('book.create')}}" class="btn btn-dark">Add new</a>
@@ -31,7 +31,7 @@
                             <td>{{$book->id}}</td>
                             <td>{{$book->title}}</td>
                             <td>
-                                <img src="{{asset($book->image)}}" alt="" width="50" class="img-thumbnail">
+                                <img src="{{asset($book->image)}}" alt="" width="30" class="">
                             </td>
                             <td>
                                 @foreach ($book->authors as $author)
@@ -50,16 +50,20 @@
                                     gallery
                                 </button>
                             </td>
-                            <td>
+                            {{-- <td>
                                 {{$book->publish_date_from}}
-                            </td>
+                            </td> --}}
                             <td>
-                                <input data-id="{{$book->id}}" class="toggle-class-book" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Show" data-off="Hide" {{ $book->status ? 'checked' : '' }}>
+                                {{-- <input data-id="{{$book->id}}" class="toggle-class-book" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Show" data-off="Hide" {{ $book->status ? 'checked' : '' }}> --}}
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input toggle-class-book" data-id="{{$book->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $book->status ? 'checked' : '' }}>
+                                    <span class="custom-control-indicator"></span>
+                                </label>
                             </td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="{{route('book.edit',['id' => $book->id])}}" class="fa fa-edit btn btn-success"></a>
-                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.destroy',['id' => $book->id])}}" class="fas fa-trash-alt btn btn-danger"></a>
+                                    <a href="{{route('book.edit',['id' => $book->id])}}" class="fa fa-edit btn btn-sm btn-success"></a>
+                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.destroy',['id' => $book->id])}}" class="fas fa-trash-alt btn btn-sm btn-danger"></a>
                                 </div>
                             </td>
                         </tr>

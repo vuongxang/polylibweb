@@ -8,17 +8,22 @@
 <main>
     <div class="book-detail">
         <div class="book-detail__image">
-            <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
+            <img src="{{asset($book->image)}}" alt="">
         </div>
         <div class="book-detail__content">
             <div class="book-detail-content__header">
-                <h2>Nguồn Cội (Robert Langdon #5)</h2>
-                <p>Tác giả: <span class="book-detail-content__header-author"> Dan Brown </span></p>
+                <h2>
+                    {{$book->title}}
+                </h2>
+                <p>Tác giả: 
+                    @foreach ($book->authors as $author)
+                        <span class="book-detail-content__header-author"> {{$author->name}} </span></p>
+                    @endforeach
                 <p>Đánh giá: <span class="book-detail-content__header-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
             </div>
             <div class="book-detail-content__button">
-                <button class="borrow-btn">Muợn sách</button>
-                <button class="review-btn">Xem trước</button>
+                <a href="" class="borrow-btn">Muợn sách</a>
+                <a class="review-btn">Xem trước</a>
             </div>
             <div class="book-detail-content__desc">
                 <h3>Mô tả sách</h3>
@@ -34,8 +39,9 @@
                 </p>
             </div>
             <div class="book-detail-content__tag">
-                <button>Truyện</button>
-                <button>Tiểu thuyết nước ngoài</button>
+                @foreach ($book->categories as $cate)
+                    <button>{{$cate->name}}</button>
+                @endforeach
             </div>
         </div>
 
@@ -88,88 +94,55 @@
             <a href="">Xem thêm</a>
         </div>
         <div class="book-list__body space__between">
-
-
-            <div class="book-item">
-                <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                <p> <span class="book-author"> Dan Brown </span></p>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            <div class="book-item">
-                <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                <p> <span class="book-author"> Dan Brown </span></p>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            <div class="book-item">
-                <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                <p> <span class="book-author"> Dan Brown </span></p>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            <div class="book-item">
-                <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                <p> <span class="book-author"> Dan Brown </span></p>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-
+            @foreach ($book->categories as $cate)
+                @foreach ($cate->books as $b)
+                    @if ($b->id != $book->id)
+                        <div class="book-item">
+                            <a href="{{route('book.detail',$b->id)}}">
+                                <img src="{{asset($b->image)}}" alt="">
+                            </a>
+                            <a href="{{route('book.detail',$b->id)}}">
+                                <h3>{{$b->title}}</h3>
+                            </a>
+                            <p> <span class="book-author"> Dan Brown </span></p>
+                            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+                        </div>
+                    @endif
+                @endforeach
+            @endforeach
         </div>
-
     </div>
 
+    <!--List book author-->
+        <div class="book-list book__list--nobackground">
+            <div class="book-list__heading space__between">
+                <h2>Sách cùng tác giả</h2>
+                <a href="">Xem thêm</a>
+            </div>
+            <div class="book-list__body space__between">
+                @foreach ($book->authors as $author)
+                    @foreach ($author->books as $b)
+                        @if ($b->id != $book->id)
+                            <div class="book-item">
+                                <a href="{{route('book.detail',$b->id)}}">
+                                    <img src="{{asset($b->image)}}" alt="">
+                                </a>
+                                <a href="{{route('book.detail',$b->id)}}">
+                                    <h3>{{$b->title}}</h3>
+                                </a>
+                                <p> 
+                                    @foreach ($b->authors as $item)
+                                        <span class="book-author"> {{$item->name}}</span>,
+                                    @endforeach
+                                </p>
+                                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+                            </div>
 
-    <div class="book-list book__list--nobackground">
-        <div class="book-list__heading space__between">
-            <h2>Sách cùng tác giả</h2>
-            <a href="">Xem thêm</a>
+                        @endif
+                    @endforeach
+                @endforeach
+            </div>
         </div>
-        <div class="book-list__body space__between">
-
-            <div class="book-item">
-                <a href="">
-                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                    <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                </a>
-                <a href="">
-                    <p> <span class="book-author"> Dan Brown </span></p>
-                </a>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            <div class="book-item">
-                <a href="">
-                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                    <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                </a>
-                <a href="">
-                    <p> <span class="book-author"> Dan Brown </span></p>
-                </a>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            <div class="book-item">
-                <a href="">
-                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                    <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                </a>
-                <a href="">
-                    <p> <span class="book-author"> Dan Brown </span></p>
-                </a>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-            <div class="book-item">
-                <a href="">
-                    <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-                    <h3>Nguồn Cội (Robert Langdon #5)</h3>
-                </a>
-                <a href="">
-                    <p> <span class="book-author"> Dan Brown </span></p>
-                </a>
-                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-            </div>
-
-        </div>
-
-    </div>
+    <!--End List book author-->
 </main>
 @endsection

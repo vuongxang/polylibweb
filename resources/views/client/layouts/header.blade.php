@@ -6,6 +6,7 @@
         <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
         <li class="header__nav-li"><a class="link" href="{{route('book-detail')}}">Danh Mục</a></li>
         <li class="header__nav-li"><a class="link" href="{{route('category')}}">Tin Tức</a></li>
+      
     </ul>
     <div class="header__search">
         <form action="" class="search-form">

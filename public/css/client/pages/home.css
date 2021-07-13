@@ -1,69 +1,153 @@
 .banner {
-    background: linear-gradient(267.57deg, #425BA8 0.37%, #667CBF 34.14%, #27459E 78.47%, #27459E 98.61%);
-
     /* background-color: var(--base-color); */
     border-radius: 30px;
     display: flex;
     justify-content: space-evenly;
-    padding: 30px 0px;
+    padding: 30px 50px;
+    max-height: 560px;
 }
 
-.banner-content{
+.carousel-inner--custom {
+    border-radius: 30px;
+    box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
+}
+
+.banner-first {
+    /* background: linear-gradient(267.57deg, #425BA8 0.37%, #667CBF 34.14%, #27459E 78.47%, #27459E 98.61%); */
+    background-color: var(--base-color);
+}
+
+.banner-second {
+    background-color: #fff;
+}
+
+.banner-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 0px 20px;
 }
-.banner-content__heading{
 
-}
+.banner-content__heading {}
+
 .banner-content__heading h2 {
     font-size: 4rem;
     font-weight: 800;
     color: #d5d5d5;
     margin-bottom: 30px;
-}
-.banner-content__heading span {
-    font-size: 6.4rem;
     color: var(--base-color2);
 }
-.banner-content__body{
+
+.banner-content__heading--second h2 {
+    color: var(--base-color);
+}
+
+.banner-content__quote {
     margin-bottom: 30px;
     font-family: Nunito;
-    font-size: 2.4rem;
-    font-style: normal;
-    font-weight: 900;
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 800;
     line-height: 38px;
     letter-spacing: 0em;
     text-align: left;
     color: #D5D5D5;
-
 }
-.banner-content__search{
+
+.banner-content__quote--second {
     margin-bottom: 30px;
+    font-family: Nunito;
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 800;
+    line-height: 38px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.banner-content__body {
+    margin-bottom: 30px;
+    font-family: Nunito;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 38px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #D5D5D5;
 }
 .book-item{
     cursor: pointer;
 }
+.banner-content__search {
+    margin-bottom: 30px;
+}
 
-.book__list--classic{
-    background-color:var(--base-color) ;
+.book__list--classic {
+    background-color: var(--base-color);
     border-radius: 30px;
     padding: 40px;
     color: var(--text-color2);
 }
+
 .book__list--classic h2 {
     color: var(--text-color2);
 }
+
 .book__list--classic h3 {
    
     color: var(--text-color2);
 }
+
 .book__list--classic p {
     color: var(--text-color2);
 }
+
 .book__list--classic a {
     color: var(--text-color2);
 }
-.book__list--classic .book-author{
+
+.book__list--classic .book-author {
     color: var(--text-color2);
+}
+
+.carousel-btn-custom {
+    margin-top: -100px;
+    margin-left: 0;
+    background-color: var(--text-color3);
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: var(--text-color2);
+    font-size: 1.6rem;
+}
+
+.carousel-control-prev {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.carousel-control-next {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#carouselExampleControls .col-3:last-child {
+    padding-right: 0px;
+    margin-right: -15px;
+}
+
+.btn--view-all {
+    background-color: var(--text-color2);
+    color: var(--base-color);
+    font-weight: 800;
+}
+
+.btn--view-all--second {
+    background-color: var(--base-color);
+    color: var(--text-color2);
+    font-weight: 800;
 }

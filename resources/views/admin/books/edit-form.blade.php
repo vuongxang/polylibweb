@@ -28,48 +28,37 @@
                         <span class="text-danger">{{$errors->first('image')}}</span>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputFile">Status</label>
-                    <select name="status" class="form-control">
-                        <option value="1" @if ($model->status==1) checked @endif>Show</option>
-                        <option value="0" @if ($model->status==0) checked @endif>Hide</option>
-                    </select>
-                </div>
+
                 <div class="form-group">
                     <label for="exampleInputFile">Danh mục</label>
                     <br>
-                   <div class="row">
-                    @foreach ($cates as $cate)
-                    <div class="col-4">
-                        <input type="checkbox" name="cate_id[]" id="" value="{{$cate->id}}" 
-                        @foreach ($model->categories as $model_cate)
-                            @if ($model_cate->id==$cate->id) 
-                                checked
-                            @endif
+                    <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Select upto 10 tags" multiple>
+                        @foreach ($cates as $cate)
+                            <option value="{{$cate->id}}" 
+                                @foreach ($model->categories as $category)
+                                    @if ($category->id==$cate->id)
+                                        selected
+                                    @endif
+                                @endforeach
+                            >{{$cate->name}}</option>
                         @endforeach
-                        >
-                        <label for="">{{$cate->name}}</label>
-                    </div>
-                @endforeach
-                   </div>
+                    </select> 
                 </div>
+
                 <div class="form-group">
                     <label for="exampleInputFile">Tác giả</label>
                     <br>
-                   <div class="row">
-                    @foreach ($authors as $author)
-                    <div class="col-4">
-                        <input type="checkbox" name="author_id[]" id="" value="{{$author->id}}"
-                            @foreach ($model->authors as $model_author)
-                                @if ($model_author->id==$author->id) 
-                                    checked
-                                @endif
-                            @endforeach
-                        >
-                        <label for="">{{$author->name}}</label>
-                    </div>
-                @endforeach
-                   </div>
+                    <select id="choices-multiple-remove-button" name="author_id[]" placeholder="Select upto 10 tags" multiple>
+                        @foreach ($authors as $author)
+                            <option value="{{$author->id}}" 
+                                @foreach ($model->authors as $au)
+                                    @if ($au->id==$author->id)
+                                        selected
+                                    @endif
+                                @endforeach
+                            >{{$author->name}}</option>
+                        @endforeach
+                    </select> 
                 </div>
 
                 <div class="form-group">

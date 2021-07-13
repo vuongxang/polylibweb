@@ -31,7 +31,7 @@ class BookController extends Controller
 
     public function store(Request $request){
         $model = new Book();
-        
+
         $model->fill($request->all());
         // dd($request->all());
         $model->slug =str_slug($request->title, '-');
@@ -67,7 +67,7 @@ class BookController extends Controller
                 DB::table('book_galleries')->insert($item);
             }
         }
-        
+
         return redirect(route('book.index'))->with('message','Thêm mới sách thành công !');
     }
 
@@ -87,28 +87,26 @@ class BookController extends Controller
         $model->slug =str_slug($request->title, '-');
         $model->save();
 
+        CategoryBook::where('book_id',$model->id)->delete();
+        AuthorBooks::where('book_id',$model->id)->delete();
+
         if($request->cate_id){
             foreach($request->cate_id as $cate_id){
-                $exist = CategoryBook::where('cate_id',$cate_id)->where('book_id',$model->id)->get();
-                if(count($exist)==0){
-                    $item =[
-                        'cate_id'=> $cate_id,
-                        'book_id'=> $model->id
-                    ];
-                    DB::table('category_books')->insert($item);
-                }
+                $item =[
+                    'cate_id'=> $cate_id,
+                    'book_id'=> $model->id
+                ];
+                DB::table('category_books')->insert($item);
             }
         }
+
         if($request->author_id){
             foreach($request->author_id as $author_id){
-                $exist = AuthorBooks::where('author_id',$author_id)->where('book_id',$model->id)->get();
-                if(count($exist)==0){
-                    $item =[
-                        'author_id'=> $author_id,
-                        'book_id'=> $model->id
-                    ];
-                    DB::table('author_books')->insert($item);
-                }
+                $item1 =[
+                    'author_id'=> $author_id,
+                    'book_id'=> $model->id
+                ];
+                DB::table('author_books')->insert($item1);
             }
         }
 
@@ -122,8 +120,8 @@ class BookController extends Controller
                 DB::table('book_galleries')->insert($item);
             }
         }
-        
-        return redirect(route('book.index'));
+
+        return redirect(route('book.index'))->with('message','Cập nhật thành công !');
     }
 
     public function destroy($id){
@@ -136,7 +134,17 @@ class BookController extends Controller
         $model = Book::find($request->id);
         $model->status = $request->status;
         $model->save();
-  
+
         return response()->json(['success'=>'Book status change successfully!']);
+    }
+
+    public  function bookDetail($id)
+    {
+        $book = Book::find($id);
+        $book->load('categories');
+        $book->load('authors');
+        $book->load('bookGalleries');
+        // $book->load('bookAudio');
+        return view('client.pages.book-detail',['book'=>$book]);
     }
 }
