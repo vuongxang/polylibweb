@@ -39,9 +39,7 @@
 .book-detail-content__header-star,.book-star{
     color: var(--base-color2);
 }
-.book-detail-content__button{
 
-}
 .borrow-btn{
     background-color: var(--base-color);
     padding: 10px 50px;
@@ -49,12 +47,16 @@
     color:var(--white-color);
     border: none;
     border-radius: 30px;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 600;
     font-family: "Nunito";
     box-shadow: 3px 6px 6px var(--text-color2);
     cursor: pointer;
     margin-right: 17px;
+}
+.book-detail-content__button .borrow-btn:hover{
+    text-decoration: none;
+    color:var(--white-color);;
 }
 .review-btn{
     background-color: var(--base-color2);
@@ -63,11 +65,15 @@
     color:var(--black-color);
     border: none;
     border-radius: 30px;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 600;
     font-family: "Nunito";
     box-shadow: 3px 6px 6px var(--text-color2);
     cursor: pointer;
+}
+.book-detail-content__button .review-btn:hover{
+    text-decoration: none;
+    color:var(--black-color);
 }
 .book-detail-content__desc{
     margin: 36px 0px;
