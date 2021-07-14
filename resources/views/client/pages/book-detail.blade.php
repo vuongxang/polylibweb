@@ -70,40 +70,23 @@
                 <button class="book-comment__button">Đánh giá</button>
             </div>
             <div class="book-comment__body">
-                <div class="book-comment-body__detail">
-                    <div class="book-comment-body-detail__img">
-                        <img src="{{ asset('images/avatar.png') }}" alt="">
+                @include('client.blocks.commentsDisplay', ['comments' => $book->comments, 'book_id' => $book->id])
+                
+                <h3 class="h3">Bình luận</h3>
+                <form method="post" action="{{ route('comments.store') }}">
+                    @csrf
+                    <div class="form-group">
+                        <textarea class="form-control" name=body></textarea>
+                        <input type=hidden name=book_id value="{{ $book->id }}" />
                     </div>
-                    <div class="book-comment-body-detail__content">
-                        <div class="book-comment-body-detail__username">Trần Văn A</div>
-                        <div class="book-comment-body-detail__date">01/06/2021</div>
-                        <div class="book-comment-body-detail__comment">Đáng đọc, truyện hay lôi cuốn và đầy bất ngờ</div>
+                    <div class="form-group">
+                        <input type=submit class="btn btn-success" value="Gửi" />
                     </div>
-                </div>
-                <div class="book-comment-body__detail">
-                    <div class="book-comment-body-detail__img">
-                        <img src="{{ asset('images/avatar.png') }}" alt="">
-                    </div>
-                    <div class="book-comment-body-detail__content">
-                        <div class="book-comment-body-detail__username">Trần Văn A</div>
-                        <div class="book-comment-body-detail__date">01/06/2021</div>
-                        <div class="book-comment-body-detail__comment">Đáng đọc, truyện hay lôi cuốn và đầy bất ngờ</div>
-                    </div>
-                </div>
-                <div class="book-comment-body__detail">
-                    <div class="book-comment-body-detail__img">
-                        <img src="{{ asset('images/avatar.png') }}" alt="">
-                    </div>
-                    <div class="book-comment-body-detail__content">
-                        <div class="book-comment-body-detail__username">Trần Văn A</div>
-                        <div class="book-comment-body-detail__date">01/06/2021</div>
-                        <div class="book-comment-body-detail__comment">Đáng đọc, truyện hay lôi cuốn và đầy bất ngờ</div>
-                    </div>
-                </div>
+                </form>
             </div>
 
         </div>
-
+                
         <div class="book-list book__list--background">
             <div class="book-list__heading space__between">
                 <h2>Sách cùng thể loại</h2>

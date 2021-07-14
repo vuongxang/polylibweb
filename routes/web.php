@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\CommentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +25,10 @@ Route::get('/', [HomeController::class,'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')->name('book.detail');
+Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')
+                                                                    ->name('book.detail');
+Route::post('/comment-store',[ CommentController::class,'store'])->middleware('auth')
+                                                                    ->name('comments.store');
 
 
 Route::prefix('admin')->middleware('check-role')->group(function () {
