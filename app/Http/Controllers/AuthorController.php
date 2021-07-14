@@ -23,11 +23,14 @@ class AuthorController extends Controller
     }
 
     public function forceDelete($id){
-        $model = Author::find($id);
+      
+        $model = Author::withTrashed()->find($id);
         if($model){
-           Author::withTrashed()->where('id', $id)->forceDelete();
+            $model = Author::withTrashed()->where('id', $id)->forceDelete();
+            return redirect(route('author.trashlist'))->with('message','Xóa tác giả thành công !');         
+        }else{
+            return redirect(route('author.trashlist'))->with('message','Dữ liệu không tồn tại !');
         }
-        return redirect(route('author.trashlist'))->with('message','Xóa tác giả thành công');         
     }
 
     public function create(){
