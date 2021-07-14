@@ -60,7 +60,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('trash-list', [AuthorController::class, 'trashList'])->name('author.trashlist');
         Route::get('restore/{id}', [AuthorController::class, 'restore'])->name('author.restore');
         Route::get('force-delete/{id}', [AuthorController::class, 'forceDelete'])->name('author.forcedelete');
-        
+        Route::get('changePageSize', [AuthorController::class, 'changePageSize']);
     });
 
     Route::prefix('user')->group(function () {

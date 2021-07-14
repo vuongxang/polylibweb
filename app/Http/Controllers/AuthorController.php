@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
-    public function index(){
-        $authors  = Author::sortable()->paginate(5);
-        return view('admin.authors.index',compact('authors'));
+    public function index(Request $request){
+        $pagesize = 5;
+        $keyword=$request->keyword;
+        
+        if($request->page_size) $pagesize = $request->page_size;
+
+        $authors  = Author::sortable()->where('name','like',"%".$keyword."%")->paginate($pagesize);
+        return view('admin.authors.index',compact('authors','keyword','pagesize'));
     }
 
     public function trashList(){
@@ -71,4 +76,13 @@ class AuthorController extends Controller
                                                     ->with('alert-class','alert-danger');
         }
     }
+
+    // public function changePageSize(Request $request){
+    //     $keyword=$request->keyword;
+    //     $pagesize = $request->pagesize;
+    //     $authors  = Author::sortable()->where('name','like',"%".$keyword."%")->paginate($pagesize);
+
+    //     // return response()->json(['authors'=>$authors,'success'=>'Author pagesize change successfully!']);
+    // }
+
 }

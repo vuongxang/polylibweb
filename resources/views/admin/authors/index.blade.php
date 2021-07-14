@@ -29,28 +29,43 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($authors as $key=>$author)
-                        <tr>
-                            <td>{{$author->id}}</td>
-                            <td>{{$author->name}}</td>
-                            <td>
-                                <img src="{{asset($author->avatar)}}" alt="" width="50">
-                            </td>
-                            <td>
-                                {{$author->date_birth}}
-                            </td>
-                            <td>
-                                <div class="text-center">
-                                    <a href="{{route('author.edit',['id' => $author->id])}}" class="fa fa-edit text-success p-1 btn-action"></a>
-                                    <a onclick="return confirm('Bạn chắc chắn chuyển vào thùng rác?')" href="{{route('author.destroy',['id' => $author->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                <tbody id="table-body">
+                    @if (count($authors)>0)
+                        @foreach ($authors as $key=>$author)
+                            <tr>
+                                <td>{{$author->id}}</td>
+                                <td>{{$author->name}}</td>
+                                <td>
+                                    <img src="{{asset($author->avatar)}}" alt="" width="50">
+                                </td>
+                                <td>
+                                    {{$author->date_birth}}
+                                </td>
+                                <td>
+                                    <div class="text-center">
+                                        <a href="{{route('author.edit',['id' => $author->id])}}" class="fa fa-edit text-success p-1 btn-action"></a>
+                                        <a onclick="return confirm('Bạn chắc chắn chuyển vào thùng rác?')" href="{{route('author.destroy',['id' => $author->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                    <tr>
+                        <td colspan="5" class="text-center">Không tìm thấy tác giả nào !</td>
+                    </tr>
+                    @endif
+                    
                 </tbody>
             </table>
-            <div class="d-flex justify-content-center">{!!$authors->links('vendor.pagination.bootstrap-4')!!}</div>
+            <div class="d-flex justify-content-between">
+                <form action="" method="get" id="form-page-size">
+                    <select name="page_size" id="page_size" class="form-control">
+                        <option value="5" @if ($pagesize==5) selected @endif>5</option>
+                        <option value="10" @if ($pagesize==10) selected @endif>10</option>
+                        <option value="15" @if ($pagesize==15) selected @endif>15</option>
+                    </select>
+                </form>
+                {!!$authors->links('vendor.pagination.bootstrap-4')!!}</div>
         </div>
     </div>
 </div>

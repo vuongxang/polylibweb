@@ -100,4 +100,40 @@
         filemanager_title:"Responsive Filemanager" ,
         external_plugins: { "filemanager" : "/filemanager/plugin.min.js"}
    });
+
+   $('#page_size').change(function(){
+        var pagesize = $(this).val();
+        $('#form-page-size').submit();
+        // $.ajax({
+        //     type: "GET",
+        //     dataType: "json",
+        //     url: 'author/changePageSize',
+        //     data: {
+        //         'pagesize': pagesize,
+        //     },
+        //     success: function(data) {
+        //         console.log(data.authors.data);
+        //         let result = data.authors.data.map(item =>{
+        //             return `
+        //             <tr>
+        //                 <td>${item.id}</td>
+        //                 <td>${item.name}</td>
+        //                 <td>
+        //                     <img src="${item.avatar}" alt="" width="50">
+        //                 </td>
+        //                 <td>
+        //                     ${item.date_birth}
+        //                 </td>
+        //                 <td>
+        //                     <div class="text-center">
+        //                         
+        //                     </div>
+        //                 </td>
+        //             </tr>
+        //             `
+        //         }).join("");
+        //         $('#table-body').html(result);
+        //     }
+        // });
+   })
 </script>
