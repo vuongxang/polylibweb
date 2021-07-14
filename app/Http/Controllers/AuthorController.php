@@ -19,7 +19,8 @@ class AuthorController extends Controller
 
     public function restore($id){
         Author::withTrashed()->where('id', $id)->restore();
-        return redirect(route('author.trashlist'))->with('message','Khôi phục thành công');
+        return redirect(route('author.trashlist'))->with('message','Khôi phục thành công')
+                                                    ->with('alert-class','alert-success');
     }
 
     public function forceDelete($id){
@@ -27,9 +28,11 @@ class AuthorController extends Controller
         $model = Author::withTrashed()->find($id);
         if($model){
             $model = Author::withTrashed()->where('id', $id)->forceDelete();
-            return redirect(route('author.trashlist'))->with('message','Xóa tác giả thành công !');         
+            return redirect(route('author.trashlist'))->with('message','Xóa tác giả thành công !')
+                                                        ->with('alert-class','alert-success');         
         }else{
-            return redirect(route('author.trashlist'))->with('message','Dữ liệu không tồn tại !');
+            return redirect(route('author.trashlist'))->with('message','Dữ liệu không tồn tại !')
+                                                        ->with('alert-class','alert-danger');
         }
     }
 
@@ -58,8 +61,14 @@ class AuthorController extends Controller
     }
 
     public function destroy($id){
-        Author::where('id',$id)->delete();
-        
-        return redirect(route('author.index'));
+        $model = Author::find($id);
+        if($model){
+            Author::where('id',$id)->delete();
+            return redirect(route('author.index'))->with('message','Đã di chuyển vào thùng !')
+                                                    ->with('alert-class','alert-success');
+        }else{
+            return redirect(route('author.index'))->with('message','Dữ liệu không tồn tại !')
+                                                    ->with('alert-class','alert-danger');
+        }
     }
 }

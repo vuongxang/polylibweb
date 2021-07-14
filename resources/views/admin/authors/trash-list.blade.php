@@ -7,7 +7,7 @@
     <div class="card-body">
         <div class="table-responsive">
             @if(Session::has('message'))
-                <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">{{ Session::get('message') }}</p>
+                <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">

@@ -7,7 +7,7 @@
     <div class="card-body">
         <div class="table-responsive">
             @if(Session::has('message'))
-                <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">{{ Session::get('message') }}</p>
+                <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -24,7 +24,7 @@
                         <th>@sortablelink('name','Tên')</th>
                         <th>Avatar</th>
                         <th>@sortablelink('date_birt','Ngày sinh')</th>
-                        <th>
+                        <th class="text-center">
                             <a href="{{route('author.create')}}" class="btn btn-dark">Add new</a>
                         </th>
                     </tr>
@@ -41,9 +41,9 @@
                                 {{$author->date_birth}}
                             </td>
                             <td>
-                                <div class="btn-group">
-                                    <a href="{{route('author.edit',['id' => $author->id])}}" class="fa fa-edit btn btn-success"></a>
-                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('author.destroy',['id' => $author->id])}}" class="fas fa-trash-alt btn btn-danger"></a>
+                                <div class="text-center">
+                                    <a href="{{route('author.edit',['id' => $author->id])}}" class="fa fa-edit text-success p-1 btn-action"></a>
+                                    <a onclick="return confirm('Bạn chắc chắn chuyển vào thùng rác?')" href="{{route('author.destroy',['id' => $author->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
                                 </div>
                             </td>
                         </tr>
