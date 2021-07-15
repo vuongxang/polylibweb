@@ -41,4 +41,8 @@ class Book extends Model
     public function bookAudio(){
         return $this->hasMany(BookAudio::class, 'book_id');
     }
+
+    public function comments(){
+        return $this->hasMany(Comment::class, 'book_id');
+    }
 }
