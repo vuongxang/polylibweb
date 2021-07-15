@@ -6,6 +6,28 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
+            @if(Session::has('message'))
+                <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
+            @endif
+            <div class="d-flex justify-content-between ">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active bg-light">Danh sách</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cate.trashlist')}}">Thùng rác</a>
+                    </li>
+                </ul>
+                <div>   
+                    <form action="" method="get" id="form-page-size">
+                        <select name="page_size" id="page_size" class="form-control">
+                            <option value="5" @if ($pagesize==5) selected @endif>5</option>
+                            <option value="10" @if ($pagesize==10) selected @endif>10</option>
+                            <option value="15" @if ($pagesize==15) selected @endif>15</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -15,39 +37,45 @@
                         <th>@sortablelink('created_at','Ngày tạo')</th>
                         <th>@sortablelink('updated_at','Ngày cập nhật')</th>
                         <th>@sortablelink('status','Trạng thái')</th>
-                        <th>
+                        <th class="text-center">
                             <a href="{{route('cate.create')}}" class="btn btn-dark">Add new</a>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($cates as $key=>$cate)
-                        <tr>
-                            <td>{{$cate->id}}</td>
-                            <td>{{$cate->name}}</td>
-                            <td>
-                                <img src="{{asset($cate->image)}}" alt="" width="70">
-                            </td>
-                            <td>{{ date('d-m-Y', strtotime($cate->created_at))}}</td>
-                            <td>{{ date('d-m-Y', strtotime($cate->updated_at))}}</td>
-                            <td>
-                                {{-- <input data-id="{{$cate->id}}" data-width="75" data-height="15" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}> --}}
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input toggle-class" data-id="{{$cate->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}>
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="{{route('cate.edit',['id' => $cate->id])}}" class="fa fa-edit btn btn-success"></a>
-                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('cate.destroy',['id' => $cate->id])}}" class="fas fa-trash-alt btn btn-danger"></a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                    @if (count($cates)>0)
+                        @foreach ($cates as $key=>$cate)
+                            <tr>
+                                <td>{{$cate->id}}</td>
+                                <td>{{$cate->name}}</td>
+                                <td>
+                                    <img src="{{asset($cate->image)}}" alt="" width="70">
+                                </td>
+                                <td>{{ date('d-m-Y', strtotime($cate->created_at))}}</td>
+                                <td>{{ date('d-m-Y', strtotime($cate->updated_at))}}</td>
+                                <td>
+                                    {{-- <input data-id="{{$cate->id}}" data-width="75" data-height="15" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}> --}}
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input toggle-class" data-id="{{$cate->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $cate->status ? 'checked' : '' }}>
+                                        <span class="custom-control-indicator"></span>
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                        <a href="{{route('cate.edit',['id' => $cate->id])}}" class="fa fa-edit text-success p-1 btn-action"></a>
+                                        <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('cate.destroy',['id' => $cate->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                            <tr>
+                                <td colspan="6" class="text-center">Không tìm thấy danh mục nào !</td>
+                            </tr>
+                        @endif
                 </tbody>
             </table>
-            <div class="d-flex justify-content-center">{!!$cates->links('vendor.pagination.bootstrap-4')!!}</div>
+            <div class="d-flex justify-content-between">
+                {!!$cates->links('vendor.pagination.bootstrap-4')!!}
+            </div>
         </div>
     </div>
 </div>

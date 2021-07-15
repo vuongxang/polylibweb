@@ -7,14 +7,16 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function index(){
-        $cates  = Category::sortable()->paginate(5);
+    public function index(Request $request)
+    {
+        $pagesize = 5;
+        $keyword=$request->keyword;
+        if($request->page_size) $pagesize = $request->page_size;
+
+        $cates  = Category::sortable()->where('name','like',"%".$keyword."%")->paginate($pagesize);
         $cates->load('books');
 
-//        $cate1 = Category::find(1);
-//        $cate1->load('books');
-//        dd($cate1->books);
-        return view('admin.cates.index',compact('cates'));
+        return view('admin.cates.index',compact('cates','pagesize'));
     }
 
     public function create(){
@@ -44,8 +46,15 @@ class CategoryController extends Controller
     }
 
     public function destroy($id){
-        Category::destroy($id);
-        return redirect(route('cate.index'));
+        $model = Category::find($id);
+        if($model){
+            Category::destroy($id);
+            return redirect(route('cate.index'))->with('message','Chuyển vào thùng rác thành công !')
+                                                ->with('alert-class','alert-success');
+        }else{
+            return redirect(route('cate.index'))->with('message','Dữ liệu không tồn tại !')
+                                                ->with('alert-class','alert-danger');;
+        }
     }
 
     public function changeStatus(Request $request){
@@ -54,5 +63,29 @@ class CategoryController extends Controller
         $model->save();
 
         return response()->json(['success'=>'Category status change successfully!']);
+    }
+
+    public function trashList(){
+        $cates = Category::onlyTrashed()->paginate(5);
+        return view('admin.cates.trash-list',compact('cates'));
+    }
+
+    public function restore($id){
+        Category::withTrashed()->where('id', $id)->restore();
+        return redirect(route('cate.trashlist'))->with('message','Khôi phục thành công')
+                                                    ->with('alert-class','alert-success');
+    }
+
+    public function forceDelete($id){
+      
+        $model = Category::withTrashed()->find($id);
+        if($model){
+            $model = Category::withTrashed()->where('id', $id)->forceDelete();
+            return redirect(route('cate.trashlist'))->with('message','Xóa danh mục thành công !')
+                                                        ->with('alert-class','alert-success');         
+        }else{
+            return redirect(route('cate.trashlist'))->with('message','Dữ liệu không tồn tại !')
+                                                        ->with('alert-class','alert-danger');
+        }
     }
 }

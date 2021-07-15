@@ -39,6 +39,10 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::post('edit/{id}', [CategoryController::class, 'update'])->name('cate.update');
 
         Route::get('changeStatus', [CategoryController::class, 'changeStatus']);
+        Route::get('trash-list', [CategoryController::class, 'trashList'])->name('cate.trashlist');
+        Route::get('restore/{id}', [CategoryController::class, 'restore'])->name('cate.restore');
+        Route::get('force-delete/{id}', [CategoryController::class, 'forceDelete'])->name('cate.forcedelete');
+        Route::get('changePageSize', [CategoryController::class, 'changePageSize']);
     });
     Route::prefix('book')->group(function () {
         Route::get('/', [BookController::class, 'index'])->name('book.index');

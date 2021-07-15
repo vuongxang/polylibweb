@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Book;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory;
-    use Sortable;
+    use HasFactory , Sortable, SoftDeletes;
     protected $table='categories';
     protected $fillable = ['name','image','slug','status','parent_id','description'];
 

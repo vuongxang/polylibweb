@@ -7,9 +7,28 @@
     <div class="card-body">
         <div class="table-responsive">
             @if(Session::has('message'))
-                <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">{{ Session::get('message') }}</p>
+                <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
-            <table class="table table-bordred table-striped" id="dataTable" width="100%" cellspacing="0">
+            <div class="d-flex justify-content-between ">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active bg-light">Danh sách</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cate.trashlist')}}">Thùng rác</a>
+                    </li>
+                </ul>
+                <div>   
+                    <form action="" method="get" id="form-page-size">
+                        <select name="page_size" id="page_size" class="form-control">
+                            <option value="5" @if ($pagesize==5) selected @endif>5</option>
+                            <option value="10" @if ($pagesize==10) selected @endif>10</option>
+                            <option value="15" @if ($pagesize==15) selected @endif>15</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-bordred" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
@@ -20,54 +39,55 @@
                         <th>Nội dung</th>
                         {{-- <th>@sortablelink('publish_date_from','Ngày đăng')</th> --}}
                         <th>@sortablelink('status','Trạng thái')</th>
-                        <th>
+                        <th class="text-center">
                             <a href="{{route('book.create')}}" class="btn btn-dark">Add new</a>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($books as $key=>$book)
+                    @if (count($books)>0)
+                        @foreach ($books as $key=>$book)
+                            <tr>
+                                <td>{{$book->id}}</td>
+                                <td>{{$book->title}}</td>
+                                <td>
+                                    <img src="{{asset($book->image)}}" alt="" width="30" class="">
+                                </td>
+                                <td>
+                                    @foreach ($book->authors as $author)
+                                        <a href="" class="">{{$author->name}}</a>,
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($book->categories as $cate)
+                                        <a href="" class="">{{$cate->name}}</a>,
+                                        <br>
+                                    @endforeach
+                                </td>
+                                <td class="text-center">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gallery-{{$book->id}}">
+                                        gallery
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    {{-- <input data-id="{{$book->id}}" class="toggle-class-book" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Show" data-off="Hide" {{ $book->status ? 'checked' : '' }}> --}}
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input toggle-class-book" data-id="{{$book->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $book->status ? 'checked' : '' }}>
+                                        <span class="custom-control-indicator"></span>
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{route('book.edit',['id' => $book->id])}}" class="fa fa-edit text-success p-1 btn-action"></a>
+                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.destroy',['id' => $book->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
-                            <td>{{$book->id}}</td>
-                            <td>{{$book->title}}</td>
-                            <td>
-                                <img src="{{asset($book->image)}}" alt="" width="30" class="">
-                            </td>
-                            <td>
-                                @foreach ($book->authors as $author)
-                                    <a href="" class="">{{$author->name}}</a>,
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach ($book->categories as $cate)
-                                    <a href="" class="">{{$cate->name}}</a>,
-                                    <br>
-                                @endforeach
-                            </td>
-                            <td>
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gallery-{{$book->id}}">
-                                    gallery
-                                </button>
-                            </td>
-                            {{-- <td>
-                                {{$book->publish_date_from}}
-                            </td> --}}
-                            <td>
-                                {{-- <input data-id="{{$book->id}}" class="toggle-class-book" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Show" data-off="Hide" {{ $book->status ? 'checked' : '' }}> --}}
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input toggle-class-book" data-id="{{$book->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $book->status ? 'checked' : '' }}>
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="{{route('book.edit',['id' => $book->id])}}" class="fa fa-edit btn btn-sm btn-success"></a>
-                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.destroy',['id' => $book->id])}}" class="fas fa-trash-alt btn btn-sm btn-danger"></a>
-                                </div>
-                            </td>
+                            <td colspan="6" class="text-center">Không tìm thấy danh mục nào !</td>
                         </tr>
-                    @endforeach
+                    @endif
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">{!!$books->links('vendor.pagination.bootstrap-4')!!}</div>

@@ -65,7 +65,8 @@
                         <option value="15" @if ($pagesize==15) selected @endif>15</option>
                     </select>
                 </form>
-                {!!$authors->links('vendor.pagination.bootstrap-4')!!}</div>
+                {!!$authors->links('vendor.pagination.bootstrap-4')!!}
+            </div>
         </div>
     </div>
 </div>

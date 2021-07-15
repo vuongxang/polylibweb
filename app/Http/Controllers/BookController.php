@@ -13,14 +13,16 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
-    public function index(){
-        $books = Book::sortable()->paginate(5);
+    public function index(Request $request){
+        $pagesize = 5;
+
+        $books = Book::sortable()->paginate($pagesize);
         $books->load('categories');
         $books->load('authors');
         $books->load('bookGalleries');
         $books->load('bookAudio');
 
-        return view('admin.books.index',compact('books'));
+        return view('admin.books.index',compact('books','pagesize'));
     }
 
     public function create(){
@@ -121,7 +123,7 @@ class BookController extends Controller
             }
         }
 
-        return redirect(route('book.index'))->with('message','Cập nhật thành công !');
+        return redirect(route('book.index'))->with('message','Cập nhật thành công !')->with('alert-class','alert-success');
     }
 
     public function destroy($id){
