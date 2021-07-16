@@ -22,7 +22,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        QUẢN LÝ TÀI NGUYÊN
+        TÀI NGUYÊN
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -80,7 +80,7 @@
     <!-- Heading -->
 
     <div class="sidebar-heading">
-        Quản lý Tài khoản
+        Tài khoản
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -106,8 +106,9 @@
             <span>Tài khoản người dùng</span>
         </a>
     </li>
+    <hr class="sidebar-divider">
     <div class="sidebar-heading">
-        Quản lý bình luận
+        Bình luận - Phản hồi
     </div>
 
     <li class="nav-item">
@@ -123,6 +124,21 @@
             </div>
         </div>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+            aria-expanded="true" aria-controls="collapseFour">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Đánh giá - phản hồi</span>
+        </a>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('cate.index')}}">Danh sách</a>
+                <a class="collapse-item" href="{{route('cate.create')}}">Thêm mới</a>
+            </div>
+        </div>
+    </li>
+    
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

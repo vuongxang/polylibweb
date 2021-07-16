@@ -11,7 +11,7 @@
         <form method="post" action="{{ route('comments.store') }}">
             @csrf
             <div class="form-group">
-                <input type=text name="body" class="form-control" hidden/>
+                <input type=text name="body" class="form-control"/>
                 <input type=hidden name="book_id" value="{{ $book_id }}" />
                 <input type=hidden name="parent_id" value="{{ $comment->id }}" />
             </div>

@@ -20,7 +20,8 @@
                 </ul>
                 <div>   
                     <form action="" method="get" id="form-page-size">
-                        <select name="page_size" id="page_size" class="form-control">
+                        <label for="">Chọn số bản ghi</label>
+                        <select name="page_size" id="page_size" >
                             <option value="5" @if ($pagesize==5) selected @endif>5</option>
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
                             <option value="15" @if ($pagesize==15) selected @endif>15</option>
@@ -33,7 +34,7 @@
                     <tr>
                         <th>@sortablelink('id','ID')</th>
                         <th>@sortablelink('name','Tên danh mục')</th>
-                        <th>Ảnh</th>
+                        <th class="text-center">Ảnh</th>
                         <th>@sortablelink('created_at','Ngày tạo')</th>
                         <th>@sortablelink('updated_at','Ngày cập nhật')</th>
                         <th>@sortablelink('status','Trạng thái')</th>
@@ -48,8 +49,8 @@
                             <tr>
                                 <td>{{$cate->id}}</td>
                                 <td>{{$cate->name}}</td>
-                                <td>
-                                    <img src="{{asset($cate->image)}}" alt="" width="70">
+                                <td class="text-center">
+                                    <img src="{{asset($cate->image)}}" alt="" width="50">
                                 </td>
                                 <td>{{ date('d-m-Y', strtotime($cate->created_at))}}</td>
                                 <td>{{ date('d-m-Y', strtotime($cate->updated_at))}}</td>
@@ -67,10 +68,10 @@
                             </tr>
                         @endforeach
                     @else
-                            <tr>
-                                <td colspan="6" class="text-center">Không tìm thấy danh mục nào !</td>
-                            </tr>
-                        @endif
+                        <tr>
+                            <td colspan="6" class="text-center">Không tìm thấy danh mục nào !</td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
             <div class="d-flex justify-content-between">
