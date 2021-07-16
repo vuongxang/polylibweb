@@ -15,7 +15,7 @@
                       <a class="nav-link active bg-light">Danh sách</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cate.trashlist')}}">Thùng rác</a>
+                        <a class="nav-link" href="{{route('book.trashlist')}}">Thùng rác</a>
                     </li>
                 </ul>
                 <div>   
@@ -79,7 +79,7 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="{{route('book.edit',['id' => $book->id])}}" class="fa fa-edit text-success p-1 btn-action"></a>
-                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.destroy',['id' => $book->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
+                                    <a onclick="return confirm('Bạn chắc chuyển vào thùng rác?')" href="{{route('book.destroy',['id' => $book->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
                                 </td>
                             </tr>
                         @endforeach

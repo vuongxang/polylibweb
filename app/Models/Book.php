@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    use HasFactory;
-    use Sortable;
+    use HasFactory,Sortable,SoftDeletes;
 
     protected $table='books';
     protected $fillable = ['title','status','description','publish_date_from','image','slug'];

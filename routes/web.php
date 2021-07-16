@@ -57,6 +57,10 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('edit/{id}', [BookController::class, 'edit'])->name('book.edit');
         Route::post('edit/{id}', [BookController::class, 'update'])->name('book.update');
         Route::get('changeStatus', [BookController::class, 'changeStatus']);
+        Route::get('trash-list', [BookController::class, 'trashList'])->name('book.trashlist');
+        Route::get('restore/{id}', [BookController::class, 'restore'])->name('book.restore');
+        Route::get('force-delete/{id}', [BookController::class, 'forceDelete'])->name('book.forcedelete');
+        Route::get('changePageSize', [BookController::class, 'changePageSize']);
     });
 
     Route::prefix('author')->group(function () {
