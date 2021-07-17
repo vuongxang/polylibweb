@@ -29,6 +29,7 @@ Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middlewar
                                                                     ->name('book.detail');
 Route::post('/comment-store',[ CommentController::class,'store'])->middleware('auth')
                                                                     ->name('comments.store');
+Route::post('/rating',[ BookController::class,'bookStar'])->name('bookStar');
 
 
 Route::prefix('admin')->middleware('check-role')->group(function () {

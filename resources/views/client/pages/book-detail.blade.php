@@ -80,7 +80,7 @@
                         <input type=hidden name=book_id value="{{ $book->id }}" />
                     </div>
                     <div class="form-group">
-                        <input type=submit class="btn btn-success" value="Gửi" />
+                        <button type="submit" class="btn btn-success btn-lg">Gửi</button>
                     </div>
                 </form>
             </div>
@@ -138,9 +138,9 @@
                                                         </a>
 
                                                         <p> <span class="book-star"><i class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i></span></p>
+                                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                            class="fas fa-star"></i><i
+                                                            class="fas fa-star"></i></span></p>
                                                     </div>
                                                 </div>
                                             @endif
@@ -161,9 +161,27 @@
                             </a>
                     @endif
                 </div>
-
             </div>
 
-
-    </main>
+        </main>
+        <div>
+            <form action="{{ route('bookStar') }}" method="POST">
+                @csrf
+                <div class="card">
+                    <div class="container-fliud">
+                        <div class="wrapper row">
+                            <div class="details">
+                                <div class="rating">
+                                    <input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $book->userAverageRating }}" data-size="xs">
+                                    <input type="hidden" name="id" required="" value="{{ $book->id }}">
+                                    <span class="review-no">{{$book->ratingPercent(10)}} reviews</span>
+                                    <br/>
+                                    <button class="btn btn-success">Submit Review</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
 @endsection

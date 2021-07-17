@@ -4,8 +4,117 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4d2507be4a080e06175fcb4ed010ead",
+    "content-hash": "bb7d1d43a85afd29aec83ba6a7605a33",
     "packages": [
+        {
+            "name": "agilepixels/laravel-commentable",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/agilepixels/laravel-commentable.git",
+                "reference": "fab7108617c5f2ac1b74fdf6e67a6b4e2dfcfdb8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/agilepixels/laravel-commentable/zipball/fab7108617c5f2ac1b74fdf6e67a6b4e2dfcfdb8",
+                "reference": "fab7108617c5f2ac1b74fdf6e67a6b4e2dfcfdb8",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.8|^6.0|^7.0|^8.0",
+                "php": "^7.2|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AgilePixels\\Commentable\\CommentableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AgilePixels\\Commentable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lex de Willigen",
+                    "email": "lex@agilepixels.com",
+                    "homepage": "https://agilepixels.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package to add comments to Eloquent Models",
+            "homepage": "https://github.com/agilepixels/laravel-commentable",
+            "keywords": [
+                "agilepixels",
+                "laravel-commentable"
+            ],
+            "support": {
+                "issues": "https://github.com/agilepixels/laravel-commentable/issues",
+                "source": "https://github.com/agilepixels/laravel-commentable/tree/v1.3.0"
+            },
+            "time": "2021-02-25T08:59:23+00:00"
+        },
+        {
+            "name": "agilepixels/laravel-rateable",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AgilePixels/laravel-rateable.git",
+                "reference": "116f8c5ad57dc156e4776d6b1afc17563139effd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AgilePixels/laravel-rateable/zipball/116f8c5ad57dc156e4776d6b1afc17563139effd",
+                "reference": "116f8c5ad57dc156e4776d6b1afc17563139effd",
+                "shasum": ""
+            },
+            "require": {
+                "agilepixels/laravel-commentable": "^1.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AgilePixels\\Rateable\\RateableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AgilePixels\\Rateable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lex de Willigen",
+                    "email": "lex@agilepixels.com",
+                    "homepage": "https://agilepixels.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package to add ratings to Eloquent Models",
+            "homepage": "https://github.com/agilepixels/laravel-rateable",
+            "keywords": [
+                "agilepixels",
+                "laravel-rateable"
+            ],
+            "support": {
+                "issues": "https://github.com/AgilePixels/laravel-rateable/issues",
+                "source": "https://github.com/AgilePixels/laravel-rateable/tree/1.0.0"
+            },
+            "time": "2019-04-24T15:06:52+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.3",
@@ -5202,6 +5311,72 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "willvincent/laravel-rateable",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willvincent/laravel-rateable.git",
+                "reference": "f6b3440dbf4b791b235ea4e4bd3fa7f87fed236e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willvincent/laravel-rateable/zipball/f6b3440dbf4b791b235ea4e4bd3fa7f87fed236e",
+                "reference": "f6b3440dbf4b791b235ea4e4bd3fa7f87fed236e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^6.0|^7.0|^8.0",
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "orchestra/testbench": "^5.0",
+                "phpunit/phpunit": "^9.0",
+                "psalm/plugin-laravel": "^1.2",
+                "vimeo/psalm": "^3.11"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "willvincent\\Rateable\\RateableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "willvincent\\Rateable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Will Vincent",
+                    "email": "tcindie@gmail.com",
+                    "homepage": "https://willvincent.com"
+                }
+            ],
+            "description": "Allows multiple models to be rated with a fivestar like system.",
+            "homepage": "https://github.com/willvincent/laravel-rateable",
+            "keywords": [
+                "Rating",
+                "fivestar",
+                "laravel",
+                "laravel 7",
+                "rateable",
+                "vote"
+            ],
+            "support": {
+                "issues": "https://github.com/willvincent/laravel-rateable/issues",
+                "source": "https://github.com/willvincent/laravel-rateable/tree/2.3.0"
+            },
+            "time": "2020-11-10T20:18:05+00:00"
         }
     ],
     "packages-dev": [
@@ -7715,5 +7890,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use willvincent\Rateable\Rateable;
+use AgilePixels\Rateable\Traits\HasRating;
+use AgilePixels\Rateable\Traits\AddsRating;
+
 
 class Book extends Model
 {
-    use HasFactory,Sortable,SoftDeletes;
+    use HasFactory,Sortable,SoftDeletes,AddsRating;
 
     protected $table='books';
     protected $fillable = ['title','status','description','publish_date_from','image','slug'];
@@ -45,4 +49,5 @@ class Book extends Model
     public function comments(){
         return $this->hasMany(Comment::class, 'book_id');
     }
+
 }
