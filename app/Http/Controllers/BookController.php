@@ -174,9 +174,6 @@ class BookController extends Controller
     public  function bookDetail($id)
     {
         $book = Book::find($id);
-
-        $total = $book->averageRating();
-        dd($total);
         if(!$book) return redirect(route('home'));
         $book->load('categories');
         $book->load('authors');
@@ -188,14 +185,13 @@ class BookController extends Controller
     public function bookStar (Request $request) {
         request()->validate(['rate' => 'required']);
         $book = Book::find($request->id);
-        $body = "demo review";
-        $author = Auth::user();
-        $rating = $request->rate();
-        $book->createRating($rating, $author, $body);
-        // $rating = new \willvincent\Rateable\Rating;
-        // $rating->rating = $request->rate;
-        // $rating->user_id = auth()->user()->id;
-        // $book->ratings()->save($rating);
+        $body = $request->body;
+
+        $rating = new \willvincent\Rateable\Rating;
+        $rating->rating = $request->rate;
+        $rating->user_id = auth()->user()->id;
+        $rating->body = $body;
+        $book->ratings()->save($rating);
         
         return redirect()->back();
   }

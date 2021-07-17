@@ -14,7 +14,7 @@ use AgilePixels\Rateable\Traits\AddsRating;
 
 class Book extends Model
 {
-    use HasFactory,Sortable,SoftDeletes,AddsRating;
+    use HasFactory,Sortable,SoftDeletes,Rateable;
 
     protected $table='books';
     protected $fillable = ['title','status','description','publish_date_from','image','slug'];

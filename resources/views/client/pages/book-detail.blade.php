@@ -173,8 +173,9 @@
                             <div class="details">
                                 <div class="rating">
                                     <input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $book->userAverageRating }}" data-size="xs">
-                                    <input type="hidden" name="id" required="" value="{{ $book->id }}">
-                                    <span class="review-no">{{$book->ratingPercent(10)}} reviews</span>
+                                    <input type="hidden" name="id" required="true" value="{{ $book->id }}">
+                                    <input type="text" name="body" required="true">
+                                    <span class="review-no">112 reviews</span>
                                     <br/>
                                     <button class="btn btn-success">Submit Review</button>
                                 </div>
