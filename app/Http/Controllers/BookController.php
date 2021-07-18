@@ -146,8 +146,10 @@ class BookController extends Controller
         return response()->json(['success'=>'Book status change successfully!']);
     }
 
-    public function trashList(){
-        $books = Book::onlyTrashed()->paginate(5);
+    public function trashList(Request $request){
+        
+        $keyword = $request->keyword;
+        $books = Book::onlyTrashed()->where('title','like',"%".$keyword."%")->paginate(5);
         return view('admin.books.trash-list',compact('books'));
     }
 
