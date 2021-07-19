@@ -38,6 +38,15 @@ class Book extends Model
         );
     }
 
+    
+    public function orders(){
+        return $this->belongsToMany(
+            Order::class, 
+            'name_book', 
+            'status'
+        );
+    }
+
     public function bookGalleries(){
         return $this->hasMany(BookGallery::class, 'book_id');
     }

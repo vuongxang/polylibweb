@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->unique()->nullable();
+            $table->string('birth_date')->nullable();
             $table->string('google_id')->nullable();
             $table->string('avatar')->default('https://c0.klipartz.com/pngpicture/136/22/gratis-png-perfil-de-usuario-computadora-iconos-chica-cliente-avatar.png');
             $table->timestamp('email_verified_at')->nullable();

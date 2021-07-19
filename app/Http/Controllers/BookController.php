@@ -12,6 +12,7 @@ use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 
 class BookController extends Controller
 {
@@ -178,8 +179,9 @@ class BookController extends Controller
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
-        // $book->load('bookAudio');
-        return view('client.pages.book-detail',['book'=>$book]);
+        // $book->load('orders');
+        $order = Order::where('status', 'Đang mượn')->first();
+        return view('client.pages.book-detail',['book'=>$book],['order'=>$order]);
     }
 
     public function bookStar (Request $request) {

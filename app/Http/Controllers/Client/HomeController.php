@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\User;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -29,4 +31,24 @@ class HomeController extends Controller
         
         return view('client.pages.home', compact('books'));
     }
+    public function infomation($id){
+        return view('client.pages.infomation');
+    }
+    public function edit_infomation(Request $request,$id){
+        $infomation = User::find($id);
+        // $request->offsetUnset('_token');
+        // $infomation->update($request->all());
+        $infomation->phone = $request->phone;
+        $infomation->birth_date = $request->birth_date;
+        $infomation->gender = $request->gender;
+        $infomation->save();
+        return back();
+    }
+    public function history($id){
+        $book_order = Order::all();
+        $deleted_book = Order::onlyTrashed()->get();
+        $dt = now();
+        return view('client.pages.history', compact('book_order', 'deleted_book', 'dt'));
+    }
+
 }
