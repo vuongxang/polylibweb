@@ -39,7 +39,7 @@
                             @foreach ($book_order as $key => $book)
                             @if ($book->id == true)
                             <?php   
-                                    $time_order = strtotime($book->created_at->addDay(60));
+                                    $time_order = strtotime($book->created_at->addDay(5));
                                     $time_now = strtotime($dt);
                                     $time = $time_order-$time_now;
                                     // dd($time_order,$time_now);
@@ -96,7 +96,7 @@
                                 <td>{{$book->name_book}}</td>
                                 <td>{{$book->status}}</td>
                                 <td>
-                                    <a href="" class="btn btn-warning">Mượn lại</a>
+                                    <a href="{{route('book.detail', ['id'=>$book->id])}}" class="btn btn-warning">Mượn lại</a>
                                 </td>
                             </tr>
                             @endif

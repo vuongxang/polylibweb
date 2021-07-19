@@ -7,12 +7,12 @@
 @section('content')
 
 @if (session('thongbao'))
-<script>
+{{--<script>
     alert("{{ session('thongbao') }}")
-</script>
-{{--<div class="alert alert-success text-center">
+</script>--}}
+<div class="alert alert-success text-center">
     <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('thongbao') }}</h1>
-</div>--}}
+</div>
 @endif
 
 <main>
@@ -28,15 +28,19 @@
                 <p>Tác giả:
                     @foreach ($book->authors as $author)
                     <span class="book-detail-content__header-author"> {{ $author->name }} </span>
+                    @endforeach
                 </p>
-                @endforeach
                 <p>Đánh giá: <span class="book-detail-content__header-star"><i class="fas fa-star"></i><i
                             class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                             class="fas fa-star"></i></span></p>
             </div>
             <div class="book-detail-content__button">
-                <a href="{{route('Book.Order',['id'=>$book->id])}}" class="borrow-btn">Muợn sách</a>
-                <a class="review-btn">Xem trước</a>
+                    @if (DB::table('orders')->where('name_book', $book->title)->exists() && DB::table('orders')->where('name_book','==', 'Đang mượn'))
+                    <a href="doc-sach" class="btn btn-success">Đọc sách</a>
+                    @elseif(DB::table('orders')->where('name_book', $book->title)->doesntExist() || DB::table('orders')->where('name_book', 'Đã trả'))
+                    <a href="{{route('Book.Order',['id'=>$book->id])}}" class="borrow-btn">Mượn sách</a>
+                    <a class="review-btn">Xem trước</a>
+                    @endif
             </div>
             <div class="book-detail-content__desc">
                 <h3>Mô tả sách</h3>

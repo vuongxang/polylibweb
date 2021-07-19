@@ -69,11 +69,11 @@
                     <div class="img-gallery" class="mb-2">
                         @if ($model->bookGalleries)
                             @foreach ($model->bookGalleries as $item)
-                                <img src="{{$item->url}}" alt="" id="show_list_img" width="50">
+                                <img src="{{$item->url}}" alt="" id="show_list_img" width="50" readonly>
                             @endforeach
                         @endif
                     </div>
-                    <input type="text" id="list_image" name="list_image" class="form-control" value="{{ old('list_image') }}">
+                    <input type="text" id="list_image" name="list_image" class="form-control" value="{{ old('list_image') }}" readonly>
                     @if ($errors->has('list_image'))
                         <span class="text-danger">{{$errors->first('list_image')}}</span>
                     @endif

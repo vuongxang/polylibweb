@@ -173,4 +173,19 @@
     color: var(--black-color);
     font-weight: 700;
 }
+.btn-success{
+    padding: 10px 50px;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-family: "Nunito";
+    cursor: pointer;
+    margin-right: 17px;
+}
+.book-detail-content__button .btn-success:hover{
+    text-decoration: none;
+    color:var(--white-color);;
+}
 

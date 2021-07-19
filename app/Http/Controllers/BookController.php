@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\CategoryBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 
 class BookController extends Controller
 {
@@ -177,7 +178,8 @@ class BookController extends Controller
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
-        // $book->load('bookAudio');
-        return view('client.pages.book-detail',['book'=>$book]);
+        // $book->load('orders');
+        $order = Order::all();
+        return view('client.pages.book-detail',['book'=>$book],['order'=>$order]);
     }
 }
