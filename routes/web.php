@@ -30,6 +30,7 @@ Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middlewar
                                                                     ->name('book.detail');
 Route::post('/comment-store',[ CommentController::class,'store'])->middleware('auth')
                                                                     ->name('comments.store');
+
 Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
                                                                     ->name('user.infomation');
 Route::post('infomation/{id}',[HomeController::class, 'edit_infomation'])->name('infomation.edit');
@@ -37,6 +38,8 @@ Route::get('history/{id}',[HomeController::class, 'history'])->middleware('auth'
                                                                     ->name('user.history');
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
+
+Route::post('/rating',[ BookController::class,'bookStar'])->name('bookStar');
 
 
 Route::prefix('admin')->middleware('check-role')->group(function () {

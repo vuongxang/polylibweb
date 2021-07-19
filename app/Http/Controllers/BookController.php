@@ -8,7 +8,9 @@ use App\Models\Book;
 use App\Models\BookGallery;
 use App\Models\Category;
 use App\Models\CategoryBook;
+use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 
@@ -132,7 +134,7 @@ class BookController extends Controller
 
     public function destroy($id){
         Book::destroy($id);
-        return redirect(route('book.index'))->with('message','Chuyển vào thùng rác thành công')
+        return redirect(route('book.index'))->with('message','Chuyển vào thùng rác thành công !')
                                             ->with('alert-class','alert-success');
     }
 
@@ -174,7 +176,6 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         if(!$book) return redirect(route('home'));
-
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
@@ -182,4 +183,18 @@ class BookController extends Controller
         $order = Order::all();
         return view('client.pages.book-detail',['book'=>$book],['order'=>$order]);
     }
+
+    public function bookStar (Request $request) {
+        request()->validate(['rate' => 'required']);
+        $book = Book::find($request->id);
+        $body = $request->body;
+
+        $rating = new \willvincent\Rateable\Rating;
+        $rating->rating = $request->rate;
+        $rating->user_id = auth()->user()->id;
+        $rating->body = $body;
+        $book->ratings()->save($rating);
+        
+        return redirect()->back();
+  }
 }

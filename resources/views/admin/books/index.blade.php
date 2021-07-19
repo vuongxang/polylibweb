@@ -85,7 +85,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="6" class="text-center">Không tìm thấy danh mục nào !</td>
+                            <td colspan="8" class="text-center">Không tìm thấy cuốn sách nào !</td>
                         </tr>
                     @endif
                 </tbody>

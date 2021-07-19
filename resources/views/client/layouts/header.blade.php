@@ -1,6 +1,6 @@
 <header class="header">
     <div class="header__logo">
-        <img src="{{ asset('images/logo.png') }}" alt="" class="header__logo-img">
+        <a href="{{route('home')}}"><img src="{{ asset('images/logo.png') }}" alt="" class="header__logo-img"></a>
     </div>
     <ul class="header__nav">
         <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>

@@ -35,12 +35,14 @@
                             class="fas fa-star"></i></span></p>
             </div>
             <div class="book-detail-content__button">
-                    @if (DB::table('orders')->where('name_book', $book->title)->exists() && DB::table('orders')->where('name_book','==', 'Đang mượn'))
-                    <a href="doc-sach" class="btn btn-success">Đọc sách</a>
-                    @elseif(DB::table('orders')->where('name_book', $book->title)->doesntExist() || DB::table('orders')->where('name_book', 'Đã trả'))
-                    <a href="{{route('Book.Order',['id'=>$book->id])}}" class="borrow-btn">Mượn sách</a>
-                    <a class="review-btn">Xem trước</a>
-                    @endif
+                @if (DB::table('orders')->where('name_book', $book->title)->exists() &&
+                DB::table('orders')->where('name_book','==', 'Đang mượn'))
+                <a href="doc-sach" class="btn btn-success">Đọc sách</a>
+                @elseif(DB::table('orders')->where('name_book', $book->title)->doesntExist() ||
+                DB::table('orders')->where('name_book', 'Đã trả'))
+                <a href="{{route('Book.Order',['id'=>$book->id])}}" class="borrow-btn">Mượn sách</a>
+                <a class="review-btn">Xem trước</a>
+                @endif
             </div>
             <div class="book-detail-content__desc">
                 <h3>Mô tả sách</h3>
@@ -111,27 +113,27 @@
                 <div class="carousel-item active">
                     <div class="row  ">
                         @foreach ($book->categories as $cate)
-                        @foreach ($cate->books as $b)
-                        @if ($b->id != $book->id)
-                        @if ($loop->index <= 4) <div class="col-3  ">
-                            <div class="book-item">
-                                <a href="{{ route('book.detail', $b->id) }}">
-                                    <img src="{{ asset($b->image) }}" alt="">
-                                </a>
-                                <a href="{{ route('book.detail', $b->id) }}">
-                                    <h3>{{ $b->title }}</h3>
-                                </a>
+                            @foreach ($cate->books as $b)
+                                @if ($b->id != $book->id)
+                                    @if ($loop->index <= 4) <div class="col-3  ">
+                                        <div class="book-item">
+                                            <a href="{{ route('book.detail', $b->id) }}">
+                                                <img src="{{ asset($b->image) }}" alt="">
+                                            </a>
+                                            <a href="{{ route('book.detail', $b->id) }}">
+                                                <h3>{{ $b->title }}</h3>
+                                            </a>
 
-                                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                            class="fas fa-star"></i></span>
-                                </p>
-                            </div>
+                                            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                        class="fas fa-star"></i></span>
+                                            </p>
+                                        </div>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endforeach
                     </div>
-                    @endif
-                    @endif
-                    @endforeach
-                    @endforeach
                 </div>
             </div>
             @if (count($book->categories) > 4)

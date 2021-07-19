@@ -8,17 +8,19 @@
             <div class="book-comment-body-detail__date">{{ $comment->user->created_at }}</div>
             <div class="book-comment-body-detail__comment">{{ $comment->body }}</div>
         </div>
-        <form method="post" action="{{ route('comments.store') }}">
-            @csrf
-            <div class="form-group">
-                <input type=text name="body" class="form-control" />
-                <input type=hidden name="book_id" value="{{ $book_id }}" />
-                <input type=hidden name="parent_id" value="{{ $comment->id }}" />
-            </div>
-            <div class="form-group">
-                <input type=submit class="btn btn-warning" value="Reply" />
-            </div>
-        </form>
+        <div>
+            <form method="post" action="{{ route('comments.store') }}">
+                @csrf
+                <div class="form-group">
+                    <input type=text name="body" class="form-control" />
+                    <input type=hidden name="book_id" value="{{ $book_id }}" />
+                    <input type=hidden name="parent_id" value="{{ $comment->id }}" />
+                </div>
+                <div class="form-group">
+                    <input type=submit class="btn btn-warning" value="Reply" />
+                </div>
+            </form>
+        </div>
     </div>
 @endforeach
 

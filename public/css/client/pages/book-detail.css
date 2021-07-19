@@ -1,191 +1,190 @@
 .book-detail{
-    display: flex;
+  display: flex;
 }
 .book-detail__image{
-    background-color: var(--white-color);
-    padding: 35px 25px;
-    border: 1px solid var(--text-color2);
-    box-shadow: 3px 6px 6px var(--text-color2);
-    border-radius: 10px;
-    margin-right: 30px;
+  background-color: var(--white-color);
+  padding: 35px 25px;
+  border: 1px solid var(--text-color2);
+  box-shadow: 3px 6px 6px var(--text-color2);
+  border-radius: 10px;
+  margin-right: 30px;
 }
 .book-detail__image img{
-    width: 500px;
-    height: 100%;
+  width: 500px;
+  height: 100%;
 }
 .book-detail__content{
 
 }
 .book-detail-content__header {
-    font-family: "Nunito";
-    font-size: 2rem;
-    color: var(--text-color3);
+  font-family: "Nunito";
+  font-size: 2rem;
+  color: var(--text-color3);
 }
 .book-detail-content__header p{
-    margin: 24px 0px;
+  margin: 24px 0px;
 }
 .book-detail-content__header h2{
-    margin-bottom: 24px;
-    font-family: "Nunito";
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: var(--base-color);
+  margin-bottom: 24px;
+  font-family: "Nunito";
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--base-color);
 }
 .book-detail-content__header-author,.book-author{
-    margin: 24px 0px;
-    color: var(--base-color);
-    font-weight: 600;
+  margin: 24px 0px;
+  color: var(--base-color);
+  font-weight: 600;
 }
 .book-detail-content__header-star,.book-star{
-    color: var(--base-color2);
+  color: var(--base-color2);
 }
 
 .borrow-btn{
-    background-color: var(--base-color);
-    padding: 10px 50px;
-    outline: none;
-    color:var(--white-color);
-    border: none;
-    border-radius: 30px;
-    font-size: 1.6rem;
-    font-weight: 600;
-    font-family: "Nunito";
-    box-shadow: 3px 6px 6px var(--text-color2);
-    cursor: pointer;
-    margin-right: 17px;
+  background-color: var(--base-color);
+  padding: 10px 50px;
+  outline: none;
+  color:var(--white-color);
+  border: none;
+  border-radius: 30px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: "Nunito";
+  box-shadow: 3px 6px 6px var(--text-color2);
+  cursor: pointer;
+  margin-right: 17px;
 }
 .book-detail-content__button .borrow-btn:hover{
-    text-decoration: none;
-    color:var(--white-color);;
+  text-decoration: none;
+  color:var(--white-color);;
 }
 .review-btn{
-    background-color: var(--base-color2);
-    padding: 10px 50px;
-    outline: none;
-    color:var(--black-color);
-    border: none;
-    border-radius: 30px;
-    font-size: 1.6rem;
-    font-weight: 600;
-    font-family: "Nunito";
-    box-shadow: 3px 6px 6px var(--text-color2);
-    cursor: pointer;
+  background-color: var(--base-color2);
+  padding: 10px 50px;
+  outline: none;
+  color:var(--black-color);
+  border: none;
+  border-radius: 30px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: "Nunito";
+  box-shadow: 3px 6px 6px var(--text-color2);
+  cursor: pointer;
 }
 .book-detail-content__button .review-btn:hover{
-    text-decoration: none;
-    color:var(--black-color);
+  text-decoration: none;
+  color:var(--black-color);
 }
 .book-detail-content__desc{
-    margin: 36px 0px;
+  margin: 36px 0px;
 }
 .book-detail-content__desc h3{
-    margin: 18px 0px;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-color);
-    font-family: "Nunito";
+  margin: 18px 0px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  font-family: "Nunito";
 }
 .book-detail-content__desc p{
-    margin: 18px 0px;
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 2rem;
-    color: var(--text-color);
-    font-family: "Nunito";
+  margin: 18px 0px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2rem;
+  color: var(--text-color);
+  font-family: "Nunito";
 }
 .book-detail-content__tag button{
-    background-color: var(--white-color);
-    padding: 4px 30px;
-    outline: none;
-    color:var(--base-color);
-    border: 1px solid var(--text-color2);
-    border-radius: 30px;
-    font-weight: 600;
-    font-family: "Nunito";
-    box-shadow: 3px 6px 6px var(--text-color2);
-    cursor: pointer;
-    margin-right: 15px;
+  background-color: var(--white-color);
+  padding: 4px 30px;
+  outline: none;
+  color:var(--base-color);
+  border: 1px solid var(--text-color2);
+  border-radius: 30px;
+  font-weight: 600;
+  font-family: "Nunito";
+  box-shadow: 3px 6px 6px var(--text-color2);
+  cursor: pointer;
+  margin-right: 15px;
 }
 .book-comment{
-    margin-top: 64px;
+  margin-top: 64px;
 }
 .book-comment__tab{
-    border: 1px solid var(--text-color3);
-    padding: 10px 40px;
-    width: 550px;
-    border-radius: 30px;
-    display: flex;
-    justify-content: space-between;
+  border: 1px solid var(--text-color3);
+  padding: 10px 40px;
+  width: 550px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .book-comment__button{
-    outline: none;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 2rem;
-    color:var(--base-color);
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 2rem;
+  color:var(--base-color);
 }
 .book-comment__button--active{
-    border: none;
-    background-color: var(--base-color);
-    height: 40px;
-    width: 165px;
-    padding: 5px 10px;
-    color:var(--text-color2);
-    border-radius: 30px;
+  border: none;
+  background-color: var(--base-color);
+  height: 40px;
+  width: 165px;
+  padding: 5px 10px;
+  color:var(--text-color2);
+  border-radius: 30px;
 }
 .book-comment__body{
-    border:3px solid var(--text-color2);
-    border-radius: 20px;
-    margin-top: 20px;
-    padding: 30px 40px;
+  border:3px solid var(--text-color2);
+  border-radius: 20px;
+  margin-top: 20px;
+  padding: 30px 40px;
 }
 .book-comment-body__detail{
-    border-left: 2px solid var(--base-color);
-    display: flex;
-    padding-left:20px ;
-    margin-bottom: 20px;
+  border-left: 2px solid var(--base-color);
+  display: flex;
+  padding-left:20px ;
+  margin-bottom: 20px;
 }
 .book-comment-body-detail__img{
-    width: 40px;
-    height: 40px;
-    
+  width: 40px;
+  height: 40px;
+  
 
 }
 .book-comment-body-detail__content{
-    margin-left: 15px;
+  margin-left: 15px;
 }
 .book-comment-body-detail__username{
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: var(--black-color);
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--black-color);
 }
 .book-comment-body-detail__date{
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-    color: var(--text-color);
-    font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  font-weight: 700;
 }
 .book-comment-body-detail__comment{
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-    color: var(--black-color);
-    font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: var(--black-color);
+  font-weight: 700;
 }
 .btn-success{
-    padding: 10px 50px;
-    outline: none;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.6rem;
-    font-weight: 600;
-    font-family: "Nunito";
-    cursor: pointer;
-    margin-right: 17px;
+  padding: 10px 50px;
+  outline: none;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: "Nunito";
+  cursor: pointer;
+  margin-right: 17px;
 }
 .book-detail-content__button .btn-success:hover{
-    text-decoration: none;
-    color:var(--white-color);;
+  text-decoration: none;
+  color:var(--white-color);;
 }
-
