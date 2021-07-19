@@ -36,7 +36,7 @@
             </div>
             <div class="book-detail-content__button">
                 @if (DB::table('orders')->where('name_book', $book->title)->exists() &&
-                DB::table('orders')->where('name_book','==', 'Đang mượn'))
+                DB::table('orders')->where('status','==', 'Đang mượn'))
                 <a href="doc-sach" class="btn btn-success">Đọc sách</a>
                 @elseif(DB::table('orders')->where('name_book', $book->title)->doesntExist() ||
                 DB::table('orders')->where('name_book', 'Đã trả'))

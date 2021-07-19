@@ -180,7 +180,7 @@ class BookController extends Controller
         $book->load('authors');
         $book->load('bookGalleries');
         // $book->load('orders');
-        $order = Order::all();
+        $order = Order::where('status', 'Đang mượn')->first();
         return view('client.pages.book-detail',['book'=>$book],['order'=>$order]);
     }
 
