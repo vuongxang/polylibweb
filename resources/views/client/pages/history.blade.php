@@ -39,10 +39,10 @@
                             @foreach ($book_order as $key => $book)
                             @if ($book->id == true)
                             <?php   
-                                    $time_order = strtotime($book->created_at->addDay(5));
+                                    $time_order = strtotime($book->created_at->addDay(2));
                                     $time_now = strtotime($dt);
                                     $time = $time_order-$time_now;
-                                    // dd($time_order,$time_now);
+                                    // dd($time_order + strtotime(0000-00-07));
                                     $years = floor($time / (365*60*60*24));
                                     $months = floor(($time - $years * 365*60*60*24) / (30*60*60*24));
                                     $day = floor(($time - $years*365*60*60*24)/(60*60*24));
@@ -59,17 +59,19 @@
                                 <td>{{$book->name_book}}</td>
                                 <td>{{$book->status}}</td>
                                 <td>
-
+                                    @if ($day > 0)
                                     {{$day}} ngày
+                                    @else
+                                    @endif
                                     {{$hours}}:{{$minutes}}:{{$seconds}}
                                 </td>
                                 <td>
-                                    @if($time_order + 7 == true)
+                                    @if($time_order + 7 == false)
                                     <a href="{{route('deleted.book',['id'=>$book->id])}}" onclick="return Deleted_at()"
                                         class="btn btn-danger">Trả sách</a>
                                     @else
-                                    <a href="{{$book->id}}" class="btn btn-danger">Trả sách</a>
-                                    <a href="" class="btn btn-primary">Gia hạn</a>
+                                    <a href="{{route('deleted.book',['id'=>$book->id])}}" class="btn btn-danger">Trả sách</a>
+                                    <a href="" class="btn btn-warning">Gia hạn</a>
                                     @endif
                                 </td>
                             </tr>
@@ -96,7 +98,7 @@
                                 <td>{{$book->name_book}}</td>
                                 <td>{{$book->status}}</td>
                                 <td>
-                                    <a href="{{route('book.detail', ['id'=>$book->id])}}" class="btn btn-warning">Mượn lại</a>
+                                    <a href="{{route('book.detail', ['id'=>$book->id])}}" class="btn btn-primary">Mượn lại</a>
                                 </td>
                             </tr>
                             @endif
