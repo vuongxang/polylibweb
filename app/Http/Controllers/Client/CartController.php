@@ -24,7 +24,7 @@ class CartController extends Controller
     public function getAddCart($id){
         $book = Book::find($id);
         $addCart = Cart::add(['id' => $id, 'name' => $book->title, 'options' => ['image' => $book->image]]);
-        // dd($addCart);
+        dd($addCart);
         $order = new Order;
         $order->id_user = Auth::user()->id;
         $order->name_book = $book->title;
