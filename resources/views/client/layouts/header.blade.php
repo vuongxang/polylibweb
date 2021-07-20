@@ -102,6 +102,6 @@
             </div>
             @endif
         </div>
-        @endguest
+        @endguest 
     </div>
 </header>
