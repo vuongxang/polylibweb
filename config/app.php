@@ -162,7 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         willvincent\Rateable\RateableServiceProvider::class,
-        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        // Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         /*
          * Package Service Providers...
          */
