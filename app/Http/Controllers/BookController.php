@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\AuthorBooks;
 use App\Models\Book;
@@ -37,7 +38,7 @@ class BookController extends Controller
         return view('admin.books.add-form',compact('cates','authors'));
     }
 
-    public function store(Request $request){
+    public function store(BookRequest $request){
         $model = new Book();
 
         $model->fill($request->all());
