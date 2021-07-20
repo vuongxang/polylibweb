@@ -25,6 +25,7 @@ use App\Http\Controllers\CommentController;
 Route::get('/', [HomeController::class,'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::view('review', 'client.pages.review-book');
 
 Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')
                                                                     ->name('book.detail');
