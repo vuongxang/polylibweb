@@ -64,44 +64,55 @@
                 <div class="carousel-item active">
                     <div class="row  justify-content-center">
                         @foreach ($books as $book)
-                        @if($loop->index < 4) <div class="col-3  ">
-                            <div class="book-item">
-                                <a href="{{route('book.detail',$book->id)}}">
-                                    <img src="{{asset($book->image)}}" alt="">
-                                    <h3>{{$book->title}}</h3>
-                                </a>
-                                @foreach($book->authors->take(1) as $bookAuthor)
-                                <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
+                            @if($loop->index < 4) <div class="col-3  ">
+                                <div class="book-item">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <img src="{{asset($book->image)}}" alt="">
+                                        <h3>{{$book->title}}</h3>
+                                    </a>
+                                    @foreach($book->authors->take(1) as $bookAuthor)
+                                    <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
-                                @endforeach
-                                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-                            </div>
-                    </div>
-                    @endif
-                    @endforeach
+                                    @endforeach
+                                    <p> <span class="book-star">
+                                        @for ($i = 0; $i < floor($book->userAverageRating) ; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                    </span></p>
+                                </div>
+                                </div>
+                            @endif
+                        @endforeach
                 </div>
             </div>
             <div class="carousel-item ">
                 <div class="row  justify-content-center">
                     @foreach ($books as $book)
 
-                    @if($loop->index >= 4 && $loop->index <= 8) <div class="col-3  ">
-                        <div class="book-item">
-                            <a href="{{route('book.detail',$book->id)}}">
-                                <img src="{{asset($book->image)}}" alt="">
-                            </a>
-                            <a href="{{route('book.detail',$book->id)}}">
-                                <h3>{{$book->title}}</h3>
-                            </a>
-                            @foreach($book->authors as $bookAuthor)
-                            <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
+                        @if($loop->index >= 4 && $loop->index <= 8) 
+                        <div class="col-3  ">
+                            <div class="book-item">
+                                <a href="{{route('book.detail',$book->id)}}">
+                                    <img src="{{asset($book->image)}}" alt="">
+                                </a>
+                                <a href="{{route('book.detail',$book->id)}}">
+                                    <h3>{{$book->title}}</h3>
+                                </a>
+                                @foreach($book->authors as $bookAuthor)
+                                <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
-                            @endforeach
-                            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+                                @endforeach
+                                <p> 
+                                    <span class="book-star">
+                                        @for ($i = 0; $i < floor($book->userAverageRating) ; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                    </span>
+                                </p>
+                            </div>
                         </div>
-                </div>
-                @endif
-                @endforeach
+                        @endif
+                    @endforeach
             </div>
         </div>
     </div>
