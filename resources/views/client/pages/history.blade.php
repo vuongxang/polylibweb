@@ -13,9 +13,9 @@
             </div>
         </div>
         @if (session('deleted_book'))
-        <div class="alert alert-success text-center">
-            <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('deleted_book') }}</h1>
-        </div>
+            <div class="alert alert-success text-center">
+                <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('deleted_book') }}</h1>
+            </div>
         @endif
         <div class="data-tabs">
             <ul class="nav nav-tabs">
