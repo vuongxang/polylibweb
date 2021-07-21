@@ -33,14 +33,18 @@
                 <p>Đánh giá: <span class="book-detail-content__header-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
             </div>
             <div class="book-detail-content__button">
-                @if (DB::table('orders')->where('name_book', $book->title)->exists() &&
+                {{--@if (DB::table('orders')->where('name_book', $book->title)->exists() &&
                 DB::table('orders')->where('status', '==', 'Đang mượn'))
                 <a href="doc-sach" class="btn btn-success">Đọc sách</a>
                 @elseif(DB::table('orders')->where('name_book', $book->title)->doesntExist() ||
                 DB::table('orders')->where('name_book', 'Đã trả'))
                 <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="borrow-btn">Mượn sách</a>
                 <a class="review-btn">Xem trước</a>
-                @endif
+                @endif--}}
+
+                <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="borrow-btn">Mượn sách</a>
+                <a class="review-btn">Xem trước</a>
+
             </div>
             <div class="book-detail-content__desc">
                 <h3>Mô tả sách</h3>
