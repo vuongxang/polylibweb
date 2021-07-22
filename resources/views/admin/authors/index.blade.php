@@ -24,6 +24,7 @@
                     <tr>
                         <th>@sortablelink('id','ID')</th>
                         <th>@sortablelink('name','Tên')</th>
+                        <th>@sortablelink('email','email')</th>
                         <th>Ảnh đại diện</th>
                         <th>@sortablelink('date_birt','Ngày sinh')</th>
                         <th class="text-center">

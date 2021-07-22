@@ -29,7 +29,7 @@ Route::view('review', 'client.pages.review-book');
 
 Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 
-Route::get('read-online/{id}',[BookController::class,'readingBook'])->name('book.read');
+Route::get('read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
 
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 
@@ -43,7 +43,10 @@ Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('
 
 Route::post('/rating', [BookController::class, 'bookStar'])->name('bookStar');
 
+Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
+
+//Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('filemanager', [AdminController::class, 'fileManager'])->name('filemanager');
@@ -93,16 +96,19 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware('is-admin')->name('user.index');
         Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
         // Route::post('add-author',[AuthorController::class,'store'])->name('author.store');
-        // Route::get('remove/{id}',[AuthorController::class,'destroy'])->name('author.destroy');
-        // Route::get('edit/{id}',[AuthorController::class,'edit'])->name('author.edit');
-        // Route::post('edit/{id}', [AuthorController::class, 'update'])->name('author.update');
+        Route::get('remove/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+        Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');
+        Route::get('restore/{id}', [UserController::class, 'restore'])->name('user.restore');
+        Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
     });
 });
 
 
+//Route Auth
 Auth::routes();
 
-
+Route::get('admin-login', [App\Http\Controllers\Auth\LoginController::class, 'loginForm'])->name('adminLoginForm');
 
 Route::get('login/google', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);

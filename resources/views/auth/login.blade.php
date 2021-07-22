@@ -30,6 +30,11 @@
                             <img src="{{asset('images/google-icon.svg')}}" class="login__icon-google" alt=""><span> Google</span>
                         </a>
                     </div>
+                    @if (session('message'))
+                        <div class="alert alert-success text-center">
+                            <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
+                        </div>
+                    @endif
                 </div>
             </div>
 
