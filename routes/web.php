@@ -22,25 +22,26 @@ use App\Http\Controllers\CommentController;
 |
 */
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::view('review', 'client.pages.review-book');
 
-Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')
-                                                                    ->name('book.detail');
-Route::post('/comment-store',[ CommentController::class,'store'])->middleware('auth')
-                                                                    ->name('comments.store');
+Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 
-Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
-                                                                    ->name('user.infomation');
-Route::post('infomation/{id}',[HomeController::class, 'edit_infomation'])->name('infomation.edit');
-Route::get('history/{id}',[HomeController::class, 'history'])->middleware('auth')
-                                                                    ->name('user.history');
+Route::get('read-online/{id}',[BookController::class,'readingBook'])->name('book.read');
+
+Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
+
+Route::get('infomation/{id}', [HomeController::class, 'infomation'])->middleware('auth')->name('user.infomation');
+Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+
+Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
+
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 
-Route::post('/rating',[ BookController::class,'bookStar'])->name('bookStar');
+Route::post('/rating', [BookController::class, 'bookStar'])->name('bookStar');
 
 
 Route::prefix('admin')->middleware('check-role')->group(function () {
@@ -90,7 +91,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
     Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware('is-admin')->name('user.index');
-        Route::get('client',[UserController::class,'ListClient'])->name('user.client');
+        Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
         // Route::post('add-author',[AuthorController::class,'store'])->name('author.store');
         // Route::get('remove/{id}',[AuthorController::class,'destroy'])->name('author.destroy');
         // Route::get('edit/{id}',[AuthorController::class,'edit'])->name('author.edit');

@@ -43,7 +43,7 @@
                 <a href="doc-sach" class="btn btn-success">Đọc sách</a>
                 @elseif(DB::table('orders')->where('name_book', $book->title)->doesntExist() || DB::table('orders')->where('name_book', 'Đã trả'))
                 <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="borrow-btn">Mượn sách</a>
-                <a class="review-btn">Xem trước</a>
+                <a href="{{ route('book.read', ['id' => $book->id]) }}" class="review-btn">Xem trước</a>
                 @endif
             </div>
             <div class="book-detail-content__desc">
