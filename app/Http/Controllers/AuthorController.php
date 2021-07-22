@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,7 @@ class AuthorController extends Controller
         return view('admin.authors.add-form');
     }
 
-    public function store(Request $request){
+    public function store(AuthorRequest $request){
         $model = new Author();
         $model->fill($request->all());
         $model->save();

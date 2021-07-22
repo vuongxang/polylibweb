@@ -65,10 +65,10 @@
                         <div class="img-gallery" class="mb-2">
                             <img src="" alt="" id="show_list_img" width="50" readonly>
                         </div>
-                        <input type="text" id="list_image" name="list_image" class="form-control" readonly>
                         @if ($errors->has('list_image'))
                             <span class="text-danger">{{ $errors->first('list_image') }}</span>
                         @endif
+                        <input type="text" id="list_image" name="list_image" class="form-control" readonly>
                     </div>
 
                     <div class="form-group">

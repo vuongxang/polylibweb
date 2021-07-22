@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
@@ -23,7 +24,7 @@ class CategoryController extends Controller
         return view('admin.cates.add-form');
     }
 
-    public function store(Request $request){
+    public function store(CategoryRequest $request){
         $model = new Category();
         $model->fill($request->all());
         $model->slug =str_slug($request->name, '-');
