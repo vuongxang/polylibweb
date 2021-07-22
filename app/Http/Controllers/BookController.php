@@ -186,6 +186,12 @@ class BookController extends Controller
         return view('client.pages.book-detail',['book'=>$book],['order'=>$order]);
     }
 
+
+    public function reviewPage($id){
+        $book = Book::find($id);
+        return view('client.pages.review-book',['book'=>$book]);
+    }
+
     public function bookStar (Request $request) {
         request()->validate(['rate' => 'required']);
         $book = Book::find($request->id);
@@ -197,6 +203,6 @@ class BookController extends Controller
         $rating->body = $body;
         $book->ratings()->save($rating);
         
-        return redirect()->back();
+        return redirect(route('user.history',Auth::user()->id));
   }
 }

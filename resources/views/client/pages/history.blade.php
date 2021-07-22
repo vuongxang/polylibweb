@@ -71,6 +71,8 @@
                                     <a href="{{$book->id}}" class="btn btn-danger">Trả sách</a>
                                     <a href="" class="btn btn-primary">Gia hạn</a>
                                     @endif
+                                    <a href="" class="btn btn-dark">Đọc sách</a>
+                                    <a href="{{route('book.review',$book->id)}}" class="btn btn-success">Review</a>
                                 </td>
                             </tr>
                             @endif

@@ -25,8 +25,6 @@ use App\Http\Controllers\CommentController;
 Route::get('/', [HomeController::class,'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::view('review', 'client.pages.review-book');
-
 Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')
                                                                     ->name('book.detail');
 Route::post('/comment-store',[ CommentController::class,'store'])->middleware('auth')
@@ -42,7 +40,10 @@ Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('
 
 Route::post('/rating',[ BookController::class,'bookStar'])->name('bookStar');
 
+Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
+
+//Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('filemanager', [AdminController::class, 'fileManager'])->name('filemanager');
@@ -101,6 +102,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 });
 
 
+//Route Auth
 Auth::routes();
 
 Route::get('admin-login', [App\Http\Controllers\Auth\LoginController::class, 'loginForm'])->name('adminLoginForm');
