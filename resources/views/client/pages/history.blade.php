@@ -56,7 +56,7 @@
                                     ?>
                                 <tr>
                                     <td scope="row">{{$key+1}}</td>
-                                    <td>{{$order_book->books->title}}</td>
+                                    <td>{{$order_book->book->title}}</td>
                                     <td>{{$order_book->status}}</td>
                                     <td>
                                         @if ($day > 0)
@@ -100,7 +100,7 @@
                             @if ($book_trash->id == true)
                             <tr>
                                 <td>{{$key+1}}</td>
-                                <td>{{$book_trash->books->title}}</td>
+                                <td>{{$book_trash->book->title}}</td>
                                 <td>{{$book_trash->status}}</td>
                                 <td>
                                     <a href="{{route('book.detail', ['id'=>$book_trash->books->id])}}"

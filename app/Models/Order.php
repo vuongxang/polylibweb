@@ -13,9 +13,9 @@ class Order extends Model
     protected $table = 'orders';
     protected $dates = ['deleted_at'];
 
-    public function books(){
+    public function book(){
         return $this->belongsTo(
-            Book::class, 'id_book', 'id'
+            Book::class, 'book_id', 'id'
         );
     }
 
