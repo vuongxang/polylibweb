@@ -181,13 +181,13 @@ html {
 .center {
     display: flex;
     justify-content: center;
-    justify-items: center;
+    align-items: center;
 }
 
 .space__between {
     display: flex;
     justify-content: space-between;
-    justify-items: center;
+    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -384,3 +384,13 @@ html {
     justify-content: flex-end;
 }
 
+@keyframes FadeIn {
+    from {
+        transform: translateY(-10%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
