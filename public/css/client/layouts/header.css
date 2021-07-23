@@ -138,8 +138,9 @@
 .dropdown-item-custom:hover {
     color:var(--base-color);
 }
-.dropdown-item-custom img{
+.dropdown-item-custom i{
     margin-right: 8px;
-    
-
+}
+.dropdown-item-custom:hover img{
+    color:var(--base-color);
 }

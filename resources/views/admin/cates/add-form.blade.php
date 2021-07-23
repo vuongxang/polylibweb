@@ -2,22 +2,22 @@
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Thêm mới danh mục</h6>
+        <h3 class="m-0 font-weight-bold h6 text-primary">Thêm mới danh mục</h3>
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-8 offset-2">
             <form action="{{route('cate.store')}}" method="post" enctype="multipart/form-data" class="mt-4 mb-4">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleInputName">Tên danh mục</label>
-                    <input type="text" class="form-control" id="exampleInputName" placeholder="tên danh mục" name="name" value="{{ old('name') }}">
+                    <label for="exampleInputName" class="text-dark font-weight-bold">Tên danh mục</label>
+                    <input type="text" class="form-control" id="exampleInputName" placeholder="Tên danh mục" name="name" value="{{ old('name') }}">
                     @if ($errors->has('name'))
                         <span class="text-danger">{{$errors->first('name')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">Ảnh</label>
-                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
+                    <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh</label>
+                    <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#exampleModal">
                         Chọn ảnh
                     </button>
                     <div class="show_image" class="mb-2">
@@ -29,22 +29,22 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">Status</label>
+                    <label class="text-dark font-weight-bold" for="exampleInputFile">Trạng thái</label>
                     <select name="status" class="form-control">
-                        <option value="1">Enable</option>
-                        <option value="0">Disable</option>
+                        <option value="1">Hiển thị</option>
+                        <option value="0">Ẩn</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputDesc">Thông tin chi tiết</label>
+                    <label class="text-dark font-weight-bold" for="exampleInputDesc">Thông tin chi tiết</label>
                     <textarea type="text" class="form-control tinymce-editor" id="exampleInputDesc" rows="10" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description') }}</textarea>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-dark rounded-pill shadow-lg">LƯU</button>
-                    <a href="{{route('cate.index')}}" class="btn btn-danger rounded-pill shadow">HỦY</a>
+                    <button type="submit" class="btn btn-dark btn-sm shadow-lg">Thêm mới</button>
+                    <a href="{{route('cate.index')}}" class="btn btn-danger btn-sm shadow">Hủy</a>
                 </div>
             </form>
         </div>
@@ -67,7 +67,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          {{-- <button type="button" class="btn btn-primary">Lưu</button> --}}
+          {{-- <button type="button" class="btn btn-primary btn-sm">Lưu</button> --}}
         </div>
       </div>
     </div>

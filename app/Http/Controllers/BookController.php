@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\AuthorBooks;
 use App\Models\Book;
@@ -37,7 +38,7 @@ class BookController extends Controller
         return view('admin.books.add-form',compact('cates','authors'));
     }
 
-    public function store(Request $request){
+    public function store(BookRequest $request){
         $model = new Book();
 
         $model->fill($request->all());
@@ -146,8 +147,10 @@ class BookController extends Controller
         return response()->json(['success'=>'Book status change successfully!']);
     }
 
-    public function trashList(){
-        $books = Book::onlyTrashed()->paginate(5);
+    public function trashList(Request $request){
+        
+        $keyword = $request->keyword;
+        $books = Book::onlyTrashed()->where('title','like',"%".$keyword."%")->paginate(5);
         return view('admin.books.trash-list',compact('books'));
     }
 
@@ -184,6 +187,12 @@ class BookController extends Controller
         return view('client.pages.book-detail',['book'=>$book],['order'=>$order]);
     }
 
+
+    public function reviewPage($id){
+        $book = Book::find($id);
+        return view('client.pages.review-book',['book'=>$book]);
+    }
+
     public function bookStar (Request $request) {
         request()->validate(['rate' => 'required']);
         $book = Book::find($request->id);
@@ -195,6 +204,6 @@ class BookController extends Controller
         $rating->body = $body;
         $book->ratings()->save($rating);
         
-        return redirect()->back();
+        return redirect(route('user.history',Auth::user()->id));
   }
 }

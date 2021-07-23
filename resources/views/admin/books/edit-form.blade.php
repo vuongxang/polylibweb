@@ -9,15 +9,15 @@
             <form action="{{route('book.update',$model->id)}}" method="post" class="mt-4 mb-4">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleInputTitle">Tên Sách</label>
+                    <label class="text-dark font-weight-bold" for="exampleInputTitle">Tên Sách</label>
                     <input type="text" class="form-control" id="exampleInputTitle" placeholder="tên sách" name="title" value="{{ old('title',$model->title) }}">
                     @if ($errors->has('title'))
                         <span class="text-danger">{{$errors->first('title')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">Ảnh bìa sách</label>
-                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
+                    <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh bìa sách</label>
+                    <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal" data-target="#exampleModal">
                         Chọn ảnh
                     </button>
                     <div class="show_image" class="mb-2">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputFile">Danh mục</label>
+                    <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
                     <br>
                     <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Select upto 10 tags" multiple>
                         @foreach ($cates as $cate)
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputFile">Tác giả</label>
+                    <label class="text-dark font-weight-bold" for="exampleInputFile">Tác giả</label>
                     <br>
                     <select id="choices-multiple-remove-button" name="author_id[]" placeholder="Select upto 10 tags" multiple>
                         @foreach ($authors as $author)
@@ -62,8 +62,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputFile">Nội dung sách</label>
-                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#image_gallery">
+                    <label class="text-dark font-weight-bold" for="exampleInputFile">Nội dung sách</label>
+                    <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal" data-target="#image_gallery">
                         Chọn ảnh
                     </button>
                     <div class="img-gallery" class="mb-2">
@@ -80,14 +80,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputDesc">Thông tin chi tiết</label>
+                    <label class="text-dark font-weight-bold" for="exampleInputDesc">Thông tin chi tiết</label>
                     <textarea type="text" class="form-control" id="exampleInputDesc" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description',$model->description) }}</textarea>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputDate">Ngày đăng</label>
+                    <label class="text-dark font-weight-bold" for="exampleInputDate">Ngày đăng</label>
                     <input type="date" class="form-control" id="exampleInputDate" name="publish_date_from" value="{{ old('publish_date_from',$model->publish_date_from) }}">
                     @if ($errors->has('publish_date_from'))
                         <span class="text-danger">{{$errors->first('publish_date_from')}}</span>
