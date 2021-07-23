@@ -12,7 +12,7 @@
                 <h2>Hồ sơ cá nhân</h2>
             </div>
         </div>
-        <form action="{{ route('infomation.edit',Auth::user()->id) }}" method="post">
+        <form action="{{ route('infomation.edit',Auth::user()->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row infomation-form">
                 <div class="col-md-6 infomation-form-profile">
@@ -51,7 +51,8 @@
                         <label for="">Ảnh đại diện</label>
                     </div>
                     <div>
-                        <img src="{{Auth::user()->avatar}}" alt="">
+                        {{--<input type="file" name="avatar">--}}
+                        <img src="{{Auth::user()->avatar}}" name="image_avatar" alt="avatar">
                     </div>
                 </div>
                 <div class="col-md-12 infomation-form-save">
@@ -61,4 +62,5 @@
         </form>
     </div>
 </div>
+
 @endsection
