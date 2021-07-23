@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\User;
 use App\Models\Order;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -41,14 +42,26 @@ class HomeController extends Controller
         $infomation->phone = $request->phone;
         $infomation->birth_date = $request->birth_date;
         $infomation->gender = $request->gender;
+        // if($request->hasFile('avatar')){
+        //     $avatar = $request->file('avatar');
+        //     $name_file = $avatar->getClientOriginalName();
+        //     $name_avatar = uniqid().'-'.$name_file;
+        //     while(file_exists('images/avatar_infomation'.$name_avatar)){
+        //         $name_avatar = uniqid().'-'.$name_file;
+        //     }
+        //     $avatar->move('images/avatar_infomation',$name_avatar);
+        //     $infomation->avatar = $name_avatar;
+        // }
         $infomation->save();
         return back();
     }
     public function history($id){
+        // printf(Carbon::now());
         $book_order = Order::all();
+        $books = Order::where('status','Đang mượn')->get();
         $deleted_book = Order::onlyTrashed()->get();
         $dt = now();
-        return view('client.pages.history', compact('book_order', 'deleted_book', 'dt'));
+        return view('client.pages.history', compact('book_order', 'deleted_book', 'dt', 'books'));
     }
 
 }
