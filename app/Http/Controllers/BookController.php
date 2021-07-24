@@ -217,7 +217,6 @@ class BookController extends Controller
         return redirect(route('user.history',Auth::user()->id));
     }
 
-
     public function readingBook($id)
     {
         $book = Book::find($id);
@@ -228,4 +227,24 @@ class BookController extends Controller
             return abort(404);
         }
     }
+
+
+    public function getBookByCategory(){
+        $books = Book::all();
+        $categories = Category::all();
+        return view('client.pages.category',compact('categories','books'));
+
+    }
+    public function getCategory($slug){
+        $catee= Category::where('slug', '=',$slug)->get();
+        $catee->load('books');
+        $categories = Category::all();
+        $array = [];
+        foreach($catee as $a){
+            foreach($a->books as $b){
+                array_push($array,$b);
+            }
+        }
+        return view('client.pages.category',compact('categories','catee'));
+  }
 }
