@@ -1,0 +1,275 @@
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --text-color2: #eee;
+    --text-color3: #676767;
+    --base-color: #425ba8;
+    --base-color2: #EAAB23;
+}
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: Nunito;
+    src: url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+}
+main{
+    font-size: 13px;
+}
+.search{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+.search-text{
+    display: flex;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 50px;
+   
+}
+.search-text a{
+    border-left: 1px solid gray;
+    padding: 0 10px;
+    color: #000;
+    text-decoration: none;
+}
+.search-text input{
+    border: none;
+    width: 845px;
+    padding: 13px 16px;
+    outline: none;
+    border-radius: 50px;
+    background-color: #f8f9fa;
+}
+.search-icon{
+    background-color: royalblue;
+    border-radius: 50%;
+   padding: 17px;
+}
+/* //// */
+.filter{
+    padding-bottom: 10px;
+}
+.menu-link{
+    background-color: gainsboro;
+    border-radius: 20px;
+    margin-right: 10px;
+    padding: 3px 0;
+}
+.dropdown-toggle{
+    color: #000;
+}
+.dropdown-menu{
+    border-radius: 13px;
+    width: 250px;
+    height: 200px;
+    overflow: auto;
+}
+.dropdown-item{
+    font-size: 13px;
+    padding: 8px 10px;
+   
+}
+.center{
+    text-align: center;
+}
+.row{
+    display: grid;
+    /* grid-template-columns: 33% 33% 33%; */
+    grid-template-columns: auto auto auto auto;
+}
+.box{
+    text-align: center;
+    background-color: #ffffff;
+    height: 450px;
+    margin: 0 5px 30px 5px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px gainsboro;
+}
+.box a{
+    text-decoration: none;
+}
+.box-title{
+    color: royalblue;
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: "Nunito";
+    margin: 24px 0px 13px;
+  
+   
+}
+.box-authors{
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: "Nunito";
+    margin-bottom: 10px;
+}
+.box-image img{
+    width: 85%;
+    padding-top: 20px;
+    height: 330px;
+    border-radius: 20px 20px;
+}
+.box-image{
+    transition: transform .2s;
+  
+}
+.box-image:hover{
+    -ms-transform: scale(1.1); /* IE 9 */
+    -webkit-transform: scale(1.1); /* Safari 3-8 */
+    transform: scale(1.1); 
+}
+
+

@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Book;
+use App\Models\Author;
 
 class CategoryController extends Controller
 {
+    public function show(){
+
+        $data=Book::paginate(8);
+        $cate=Category::all();
+        $aut=Author::all(); 
+        return view('client.pages.category',['book'=>$data,'cate'=>$cate,'aut'=>$aut]);
+    }
     public function index(){
         $cates  = Category::sortable()->paginate(5);
         $cates->load('books');

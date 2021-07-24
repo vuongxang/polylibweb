@@ -22,6 +22,7 @@ use App\Http\Controllers\Client\HomeController;
 Route::get('/', [HomeController::class,'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::get('/category',[CategoryController::class,'show'])->name('category');
 
 Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')->name('book.detail');
 
