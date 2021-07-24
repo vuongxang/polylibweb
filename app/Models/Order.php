@@ -18,4 +18,5 @@ class Order extends Model
             Book::class, 'book_id', 'id'
         );
     }
+
 }

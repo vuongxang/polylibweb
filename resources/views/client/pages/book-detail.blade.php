@@ -10,6 +10,7 @@
 {{-- <script>
     alert("{{ session('thongbao') }}")
 </script> --}}
+
 <div class="alert alert-success text-center">
     <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('thongbao') }}</h1>
 </div>
@@ -136,7 +137,22 @@
                             Review</button>
                     </div>
                 </div>
+                @endif
+                @endif
+                @endforeach
+                @endforeach
             </div>
+            <a class="carousel-control-prev  " href="#carouselBookCate-background" role="button" data-slide="prev">
+                <button class="carousel-btn-custom " height="25px" width="25px"><i
+                        class="fas fa-chevron-left"></i></button>
+                <!-- <span class="sr-only">Previous</span> -->
+            </a>
+            <a class="carousel-control-next " height="25px" width="25px" href="#carouselBookCate-background"
+                role="button" data-slide="next">
+                <button class="carousel-btn-custom " height="25px" width="25px"><i
+                        class="fas fa-chevron-right"></i></button>
+            </a>
+            @endif
         </div>
     </div>
 </form>
