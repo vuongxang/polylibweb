@@ -27,7 +27,7 @@ class CartController extends Controller
         // dd($addCart);
         $order = new Order;
         $order->id_user = Auth::user()->id;
-        $order->name_book = $book->title;
+        $order->book_id = $book->id;
         $order->status = 'Đang mượn';
 
         $order->save();

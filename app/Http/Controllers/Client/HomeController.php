@@ -46,9 +46,11 @@ class HomeController extends Controller
     }
     public function history($id){
         $book_order = Order::all();
-        $deleted_book = Order::onlyTrashed()->get();
+        $deleted_book_order = Order::onlyTrashed()->get();
         $dt = now();
-        return view('client.pages.history', compact('book_order', 'deleted_book', 'dt'));
+
+        // $book_order->load('book');
+        return view('client.pages.history', compact('book_order', 'deleted_book_order', 'dt'));
     }
 
 }

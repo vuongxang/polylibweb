@@ -36,10 +36,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($book_order as $key => $book)
-                            @if ($book->id == true)
+                            @foreach ($book_order as $key => $order)
+                            @if ($order->id == true)
                             <?php   
-                                    $time_order = strtotime($book->created_at->addDay(5));
+                                    $time_order = strtotime($order->created_at->addDay(5));
                                     $time_now = strtotime($dt);
                                     $time = $time_order-$time_now;
                                     // dd($time_order,$time_now);
@@ -56,8 +56,8 @@
                                 ?>
                             <tr>
                                 <td>{{$key+1}}</td>
-                                <td>{{$book->name_book}}</td>
-                                <td>{{$book->status}}</td>
+                                <td>{{$order->book->title}}</td>
+                                <td>{{$order->status}}</td>
                                 <td>
 
                                     {{$day}} ngày
@@ -65,14 +65,14 @@
                                 </td>
                                 <td>
                                     @if($time_order + 7 == true)
-                                    <a href="{{route('deleted.book',['id'=>$book->id])}}" onclick="return Deleted_at()"
+                                    <a href="{{route('deleted.book',['id'=>$order->id])}}" onclick="return Deleted_at()"
                                         class="btn btn-danger">Trả sách</a>
                                     @else
-                                    <a href="{{$book->id}}" class="btn btn-danger">Trả sách</a>
+                                    <a href="{{$order->book_id}}" class="btn btn-danger">Trả sách</a>
                                     <a href="" class="btn btn-primary">Gia hạn</a>
                                     @endif
-                                    <a href="" class="btn btn-dark">Đọc sách</a>
-                                    <a href="{{route('book.review',$book->id)}}" class="btn btn-success">Review</a>
+                                    <a href="{{route('book.read',$order->book_id)}}" class="btn btn-dark">Đọc sách</a>
+                                    <a href="{{route('book.review',$order->book_id)}}" class="btn btn-success">Review</a>
                                 </td>
                             </tr>
                             @endif
@@ -91,14 +91,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($deleted_book as $key => $book)
-                            @if ($book->id == true)
+                            @foreach ($deleted_book_order as $key => $deleted_order)
+                            @if ($deleted_order->id == true)
                             <tr>
                                 <td>{{$key+1}}</td>
-                                <td>{{$book->name_book}}</td>
-                                <td>{{$book->status}}</td>
+                                <td>{{$deleted_order->book->title}}</td>
+                                <td>{{$deleted_order->status}}</td>
                                 <td>
-                                    <a href="{{route('book.detail', ['id'=>$book->id])}}" class="btn btn-warning">Mượn lại</a>
+                                    <a href="{{route('book.detail', ['id'=>$deleted_order->book_id])}}" class="btn btn-warning">Mượn lại</a>
                                 </td>
                             </tr>
                             @endif

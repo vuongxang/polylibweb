@@ -39,9 +39,9 @@
                 </p>
             </div>
             <div class="book-detail-content__button">
-                @if (DB::table('orders')->where('name_book', $book->title)->exists() && DB::table('orders')->where('status', '==', 'Đang mượn'))
-                <a href="doc-sach" class="btn btn-success">Đọc sách</a>
-                @elseif(DB::table('orders')->where('name_book', $book->title)->doesntExist() || DB::table('orders')->where('name_book', 'Đã trả'))
+                @if (DB::table('orders')->where('book_id', $book->id)->exists() && DB::table('orders')->where('status', '==', 'Đang mượn'))
+                <a href="{{route('book.read',$book->id)}}" class="btn btn-success">Đọc sách</a>
+                @elseif(DB::table('orders')->where('book_id', $book->id)->doesntExist() || DB::table('orders')->where('book_id', 'Đã trả'))
                 <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="borrow-btn">Mượn sách</a>
                 <a href="{{ route('book.read', ['id' => $book->id]) }}" class="review-btn">Xem trước</a>
                 @endif

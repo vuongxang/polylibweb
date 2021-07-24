@@ -27,7 +27,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::view('review', 'client.pages.review-book');
 
-Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
+Route::get('/book-detaíl/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 
 Route::get('read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
 
