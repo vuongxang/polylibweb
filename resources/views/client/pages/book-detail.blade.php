@@ -32,18 +32,13 @@
                     </p>
                     <p>
                         Đánh giá:<span class="book-detail-content__header-star">
-                            @for ($i = 0; $i < floor($book->userAverageRating); $i++)
+                            @for ($i = 0; $i < floor($avg_rating); $i++)
                                 <i class="fas fa-star"></i>
                             @endfor
                         </span>
                     </p>
                 </div>
                 <div class="book-detail-content__button">
-                    {{-- @if (DB::table('orders')->where('book_id', $book->id)->exists() &&
-                        DB::table('orders')->where('status', '==','Đang mượn'))
-                        <a href="{{ route('book.read', $book->id) }}" class="btn btn-success">Đọc sách</a>
-                    @elseif(DB::table('orders')->where('book_id', $book->id)->doesntExist() ||
-                        DB::table('orders')->where('status','Đã trả')) --}}
                     @if ($ordered)
                         <a href="{{ route('book.read', $book->id) }}" class="btn btn-success">Đọc sách</a>
                     @else
@@ -73,7 +68,7 @@
                         <a class="book-comment__button book-comment__button--active" data-toggle="tab" href="#comment-tab">Bình luận</a>
                     </li>
                     <li>
-                        <a class="book-comment__button" data-toggle="tab" href="#review-tab">Phản hồi </a>
+                        <a class="book-comment__button" data-toggle="tab" href="#review-tab">Phản hồi({{count($rates)}}) </a>
                     </li>
                 </ul>
             </div>
@@ -94,8 +89,24 @@
                 </div>
     
                 <div class="book-comment__body tab-pane" id="review-tab">
-    
-                    <h3 class="h3">Phản hồi</h3>
+                    @foreach ($rates as $rate)
+                        <div class="book-comment-body__detail">
+                            <div class="book-comment-body-detail__img">
+                                <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
+                            </div>
+                            <div class="book-comment-body-detail__content">
+                                <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
+                                <div class="book-comment-body-detail__date">
+                                    <span class="book-star">
+                                        @for ($i = 0; $i < $rate->rating; $i++)
+                                            <i class="fas fa-star text-"></i>
+                                        @endfor
+                                    <span>
+                                </div>
+                                <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use SebastianBergmann\Environment\Console;
+use willvincent\Rateable\Rating as RateableRating;
 
 class BookController extends Controller
 {
@@ -193,10 +194,16 @@ class BookController extends Controller
         $book->load('authors');
         $book->load('bookGalleries');
 
+        
         $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
                                 ->where('status','Đang mượn')->first();
-        // $book->load('orders');
-        return view('client.pages.book-detail', ['book' => $book,'ordered' => $ordered]);
+        
+        $rates = Rating::where('rateable_id',$id)->get();
+        $rates->load('user');
+        
+        $avg_rating = DB::table('ratings')->where('rateable_id',$id)->avg('rating');
+    
+        return view('client.pages.book-detail', ['book' => $book,'ordered' => $ordered,'rates'=>$rates,'avg_rating'=>$avg_rating]);
     }
 
 
@@ -204,24 +211,44 @@ class BookController extends Controller
         $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
                                 ->where('status','Đang mượn')->first();
 
-        if(!$ordered) return redirect()->back(); //Kiểm tra đã mượn sách chưa mới được review sách
+        $order_deleted = Order::onlyTrashed()->where('id_user',Auth::user()->id)
+        ->where('status','Đã trả')->first();
 
+        if(!$ordered && !$order_deleted) return redirect()->back(); //Kiểm tra đã mượn sách chưa mới được review sách
+
+        $rate = \willvincent\Rateable\Rating::where('rateable_id',$id)->where('user_id',Auth::user()->id)->first();
+        if(!$rate) $rate = new \willvincent\Rateable\Rating; 
         $book = Book::find($id);
-        return view('client.pages.review',['book'=>$book]);
+        return view('client.pages.review',['book'=>$book,'rate'=>$rate]);
     }
 
     public function bookStar (Request $request) {
+
+        $id = $request->id;
+        $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
+                                ->where('status','Đang mượn')->first();
+
+        $order_deleted = Order::onlyTrashed()->where('id_user',Auth::user()->id)
+        ->where('status','Đã trả')->first();
+
+        if(!$ordered && !$order_deleted) return redirect()->back();
+
         request()->validate(['rate' => 'required']);
+
         $book = Book::find($request->id);
+
         $body = $request->body;
 
-        $rating = new \willvincent\Rateable\Rating;
+        $rate = \willvincent\Rateable\Rating::where('rateable_id',$id)->where('user_id',Auth::user()->id)->first();
+        if($rate) $rating = $rate;
+        else $rating = new \willvincent\Rateable\Rating;
+        
         $rating->rating = $request->rate;
         $rating->user_id = auth()->user()->id;
         $rating->body = $body;
         $book->ratings()->save($rating);
 
-        return redirect(route('user.history',Auth::user()->id));
+        return redirect(route('user.history',Auth::user()->id))->with('message','Gửi đánh giá thành công !');
     }
 
 

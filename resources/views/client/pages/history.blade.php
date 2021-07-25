@@ -12,9 +12,9 @@
                     <h2>Sách đang mượn đọc</h2>
                 </div>
             </div>
-            @if (session('deleted_book'))
+            @if (session('message'))
                 <div class="alert alert-success text-center">
-                    <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('deleted_book') }}</h1>
+                    <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
                 </div>
             @endif
             <div class="data-tabs">

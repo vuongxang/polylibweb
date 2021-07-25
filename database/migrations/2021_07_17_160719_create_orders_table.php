@@ -17,7 +17,6 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('id_user');
             $table->string('book_id');
-            $table->integer('id_book');
             $table->string('status')->nullable();
             $table->softDeletes();
             $table->timestamps();

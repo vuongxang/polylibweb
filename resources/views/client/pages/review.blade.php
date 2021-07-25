@@ -22,16 +22,16 @@
                                         <div class="rating">
                                             <div class="form-group">
                                                 <input id="input-1" name="rate" class="rating rating-loading" data-min="0"
-                                                    data-max="5" data-step="1" value="" data-size="xs" value="{{old('rate')}}">
+                                                    data-max="5" data-step="1" data-size="xs" value="{{ old('rating',$rate->rating ) }}">
                                             </div>
                                             <input type="hidden" name="id" required="" value="{{ $book->id }}">
                                             <div class="form-group">
                                                 <label for="rating-body">Nội dung phản hồi</label>
                                                 <textarea name="body" id="" class="form-control" rows="10"
-                                                    id="rating-body">{{old('body')}}</textarea>
+                                                    id="rating-body">{{ old('body',$rate->body) }}</textarea>
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn-success">Đánh giá</button>
+                                                <button class="btn btn-success">Gửi Đánh giá</button>
                                             </div>
                                         </div>
                                     </div>

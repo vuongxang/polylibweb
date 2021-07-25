@@ -40,6 +40,6 @@ class CartController extends Controller
         $order->status = 'Đã trả';
         $order->save();
         Order::find($id)->delete();
-        return back()->with('deleted_book','Đã trả sách thành công');
+        return back()->with('message','Đã trả sách thành công');
     }
 }
