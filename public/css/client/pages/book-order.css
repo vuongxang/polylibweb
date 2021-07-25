@@ -28,3 +28,6 @@
 .tab-content table{
     margin-top: 10px;
 }
+.btn.btn-dark:hover{
+    color: #fff;
+}

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\User;
 use App\Models\Order;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -41,14 +43,27 @@ class HomeController extends Controller
         $infomation->phone = $request->phone;
         $infomation->birth_date = $request->birth_date;
         $infomation->gender = $request->gender;
+        // if($request->hasFile('avatar')){
+        //     $avatar = $request->file('avatar');
+        //     $name_file = $avatar->getClientOriginalName();
+        //     $name_avatar = uniqid().'-'.$name_file;
+        //     while(file_exists('images/avatar_infomation'.$name_avatar)){
+        //         $name_avatar = uniqid().'-'.$name_file;
+        //     }
+        //     $avatar->move('images/avatar_infomation',$name_avatar);
+        //     $infomation->avatar = $name_avatar;
+        // }
         $infomation->save();
         return back();
     }
-    public function history($id){
-        $book_order = Order::all();
-        $deleted_book = Order::onlyTrashed()->get();
+    public function history($user_id){
+        if(Auth::user()->id != $user_id)  return back(); //Check đúng tài khoản đang đăng nhập
+        
+        $book_order = Order::where('id_user',$user_id)->get();
+        $deleted_book_order = Order::onlyTrashed()->where('id_user',$user_id)->get();
         $dt = now();
-        return view('client.pages.history', compact('book_order', 'deleted_book', 'dt'));
-    }
 
+        $book_order->load('book');
+        return view('client.pages.history', compact('book_order', 'deleted_book_order', 'dt'));
+    }
 }

@@ -12,4 +12,11 @@ class Order extends Model
     use SoftDeletes;
     protected $table = 'orders';
     protected $dates = ['deleted_at'];
+
+    public function book(){
+        return $this->belongsTo(
+            Book::class, 'book_id', 'id'
+        );
+    }
+
 }

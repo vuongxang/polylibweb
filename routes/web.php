@@ -41,9 +41,9 @@ Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 
-Route::post('/rating', [BookController::class, 'bookStar'])->name('bookStar');
+Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 
-Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
+Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->middleware('auth')->name('book.review');
 
 
 //Route admin

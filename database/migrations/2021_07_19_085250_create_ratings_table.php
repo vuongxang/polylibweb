@@ -13,7 +13,6 @@ class CreateRatingsTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('ratings');
         Schema::create('ratings', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
