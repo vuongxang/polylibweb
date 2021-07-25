@@ -24,5 +24,4 @@
     </div>
 @endforeach
 
-<div class="">
-</div>
+
