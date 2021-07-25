@@ -140,7 +140,7 @@
                     </div>
                 </div>
                 @endforeach
-                
+
                 <!-- <div class="col-4 ">
 
                         <div class="book-card">
@@ -409,7 +409,8 @@
                     </div>
                 </div> -->
             </div>
-            {{ $books->links() }}
+
+            
         </div>
 
     </div>
