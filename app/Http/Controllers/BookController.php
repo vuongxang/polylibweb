@@ -201,8 +201,13 @@ class BookController extends Controller
 
 
     public function reviewPage($id){
+        $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
+                                ->where('status','Đang mượn')->first();
+
+        if(!$ordered) return redirect()->back(); //Kiểm tra đã mượn sách chưa mới được review sách
+
         $book = Book::find($id);
-        return view('client.pages.review-book',['book'=>$book]);
+        return view('client.pages.review',['book'=>$book]);
     }
 
     public function bookStar (Request $request) {

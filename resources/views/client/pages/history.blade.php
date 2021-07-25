@@ -107,6 +107,8 @@
                                                 <td>
                                                     <a href="{{ route('book.detail', ['id' => $deleted_order->book_id]) }}"
                                                         class="btn btn-warning">Mượn lại</a>
+                                                    <a href="{{ route('book.review', $deleted_order->book_id) }}" 
+                                                        class="btn btn-success">Phản hồi/Đánh giá</a>
                                                 </td>
                                             </tr>
                                         @endif

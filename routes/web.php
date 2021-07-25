@@ -42,7 +42,7 @@ Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->middle
 
 Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 
-Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->middleware('auth')->name('book.review');
+Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
 
 //Route admin
