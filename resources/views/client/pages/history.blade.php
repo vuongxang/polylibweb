@@ -13,7 +13,11 @@
                 </div>
             </div>
             @if (session('message'))
-                <div class="alert alert-success text-center">
+                <div class="alert 
+                    @if (session('alert'))
+                        {{session('alert')}}
+                    @endif
+                text-center">
                     <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
                 </div>
             @endif
