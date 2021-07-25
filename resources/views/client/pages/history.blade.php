@@ -12,9 +12,13 @@
                     <h2>Sách đang mượn đọc</h2>
                 </div>
             </div>
-            @if (session('deleted_book'))
-                <div class="alert alert-success text-center">
-                    <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('deleted_book') }}</h1>
+            @if (session('message'))
+                <div class="alert 
+                    @if (session('alert'))
+                        {{session('alert')}}
+                    @endif
+                text-center">
+                    <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
                 </div>
             @endif
             <div class="data-tabs">
@@ -107,6 +111,8 @@
                                                 <td>
                                                     <a href="{{ route('book.detail', ['id' => $deleted_order->book_id]) }}"
                                                         class="btn btn-warning">Mượn lại</a>
+                                                    <a href="{{ route('book.review', $deleted_order->book_id) }}" 
+                                                        class="btn btn-success">Phản hồi/Đánh giá</a>
                                                 </td>
                                             </tr>
                                         @endif

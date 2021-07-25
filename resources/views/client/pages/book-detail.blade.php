@@ -46,134 +46,121 @@
                             <i class="fas fa-star"></i>
 
                             @for ($i = 0; $i < floor($book->userAverageRating); $i++)
-                                <i class="fas fa-star"></i>
-                                @endfor
+                                </p>
+                                <p>
+                                    Đánh giá:<span class="book-detail-content__header-star">
+                                        @for ($i = 0; $i < floor($avg_rating); $i++) <i class="fas fa-star"></i>
+                                            @endfor
                         </div>
                         <span class="review-count ">( 352 )</span>
                     </div>
 
                 </div>
                 <div class="book-button-group">
-                    
-                @if ($ordered)
-                <div class="book-button-item">
-                    <a href="{{ route('book.read', $book->id) }}" class="button button__outline-lg button-custom">Đọc sách</a>
+
+                    @if ($ordered)
+                    <div class="book-button-item">
+                        <a href="{{ route('book.read', $book->id) }}" class="button button__outline-lg button-custom">Đọc sách</a>
+                    </div>
+                    @else
+                    <div class="book-button-item">
+                        <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="button button__background-lg">Mượn sách</a>
+                    </div>
+                    <div class="book-button-item">
+                        <a href="{{ route('book.read', ['id' => $book->id]) }}" class="button button__outline-lg ">Xem trước</a>
+                    </div>
+                    @endif
                 </div>
-                @else
-                <div class="book-button-item">
-                    <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="button button__background-lg">Mượn sách</a>
-                </div>
-                <div class="book-button-item">
-                    <a href="{{ route('book.read', ['id' => $book->id]) }}" class="button button__outline-lg ">Xem trước</a>
-                </div>
-                @endif
-            </div>
-            <div class="book-info__description">
-                <div class="book-description__text">
-                    {!! $book->description !!}
-                </div>
-                <a href="javascript:void(0);" id="js-read-more" class="read-more ">Xem thêm </a>
-            </div>
-            <div class="book-info__tags">
-                @foreach ($book->categories as $cate)
-                <div class="info-tag__item">
-                    <a href="{{route('book.category',$cate->slug)}}" class="button button__outline-sm">{{ $cate->name }}</a>
+                <div class="book-info__description">
+                    <div class="book-description__text">
+                        {!! $book->description !!}
+                    </div>
+                    <a href="javascript:void(0);" id="js-read-more" class="read-more ">Xem thêm </a>
                 </div>
 
+                <div class="book-comment data-tabs">
+                    <div class="book-comment__tab">
+                        <ul class="nav nav-tabs">
+                            <li>
+                                <a class="book-comment__button book-comment__button--active" data-toggle="tab" href="#comment-tab">Bình luận</a>
+                            </li>
+                            <li>
+                                <a class="book-comment__button" data-toggle="tab" href="#review-tab">Phản hồi({{count($rates)}}) </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="book-info__tags">
+                        @foreach ($book->categories as $cate)
+                        <div class="info-tag__item">
+                            <a href="{{route('book.category',$cate->slug)}}" class="button button__outline-sm">{{ $cate->name }}</a>
+                        </div>
 
-                @endforeach
 
+                        @endforeach
+
+                    </div>
+                </div>
             </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="book-comment__body tab-pane" id="review-tab">
+            @foreach ($rates as $rate)
+            <div class="book-comment-body__detail">
+                <div class="book-comment-body-detail__img">
+                    <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
+                </div>
+                <div class="book-comment-body-detail__content">
+                    <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
+                    <div class="book-comment-body-detail__date">
+                        <span class="book-star">
+                            @for ($i = 0; $i < $rate->rating; $i++)
+                                <i class="fas fa-star text-"></i>
+                                @endfor
+                                <span>
+                    </div>
+                    <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
-
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
     
-<!-- 
-
-    <div class="book-detail">
-        <div class="book-detail__image">
-            <img src="{{ asset($book->image) }}" alt="">
-        </div>
-        <div class="book-detail__content">
-            <div class="book-detail-content__header">
-                <h2>
-                    {{ $book->title }}
-                </h2>
-                <p>Tác giả:
-                    @foreach ($book->authors as $author)
-                    <span class="book-detail-content__header-author"> {{ $author->name }} </span>
-                    @endforeach
-                </p>
-                <p>
-                    Đánh giá:<span class="book-detail-content__header-star">
-                        @for ($i = 0; $i < floor($book->userAverageRating); $i++)
-                            <i class="fas fa-star"></i>
-                            @endfor
-                    </span>
-                </p>
-            </div>
-            <div class="book-detail-content__button">
-                {{-- @if (DB::table('orders')->where('book_id', $book->id)->exists() &&
-                        DB::table('orders')->where('status', '==','Đang mượn'))
-                        <a href="{{ route('book.read', $book->id) }}" class="btn btn-success">Đọc sách</a>
-                @elseif(DB::table('orders')->where('book_id', $book->id)->doesntExist() ||
-                DB::table('orders')->where('status','Đã trả')) --}}
-                @if ($ordered)
-                <a href="{{ route('book.read', $book->id) }}" class="btn btn-success">Đọc sách</a>
-                @else
-                <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="borrow-btn">Mượn sách</a>
-                <a href="{{ route('book.read', ['id' => $book->id]) }}" class="review-btn">Xem trước</a>
-                @endif
-            </div>
-            <div class="book-detail-content__desc">
-                <h3>Mô tả sách</h3>
-                <p>
-                    {!! $book->description !!}
-                </p>
-            </div>
-            <div class="book-detail-content__tag">
-                @foreach ($book->categories as $cate)
-                <button>{{ $cate->name }}</button>
-                @endforeach
-
-            </div>
-        </div>
-    </div>
- -->
 
 
 
@@ -254,13 +241,12 @@
     </div>
 </main>
 <script>
-
     let readMore = document.querySelector('#js-read-more');
-    
+
     readMore.addEventListener('click', () => {
         let x = readMore.parentElement.querySelector('.book-description__text')
         x.classList.toggle("show-more");
-        (x.classList.contains('show-more')) ? readMore.innerHTML = "Ẩn bớt " : readMore.innerHTML = "Xem thêm ";
+        (x.classList.contains('show-more')) ? readMore.innerHTML = "Ẩn bớt ": readMore.innerHTML = "Xem thêm ";
     })
 </script>
 @endsection
