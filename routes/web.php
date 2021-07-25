@@ -25,25 +25,24 @@ use App\Http\Controllers\CommentController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::view('review', 'client.pages.review-book');
 
 Route::get('/book-detaíl/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 
-Route::get('read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
+Route::get('read-online/{id}', [BookController::class, 'readingBook'])->middleware('auth')->name('book.read');
 
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 
 Route::get('infomation/{id}', [HomeController::class, 'infomation'])->middleware('auth')->name('user.infomation');
-Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
 
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
 
-Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
-Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
+Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->middleware('auth')->name('Book.Order');
+Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->middleware('auth')->name('deleted.book');
 
-Route::post('/rating', [BookController::class, 'bookStar'])->name('bookStar');
+Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 
-Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
+Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->middleware('auth')->name('book.review');
 
 
 //Route admin

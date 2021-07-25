@@ -36,9 +36,9 @@ class CartController extends Controller
         return back()->with('thongbao','Mượn sách thành công');
     }
     public function deleted_book($id){
-        $book = Order::find($id);
-        $book->status = 'Đã trả';
-        $book->save();
+        $order = Order::find($id);
+        $order->status = 'Đã trả';
+        $order->save();
         Order::find($id)->delete();
         return back()->with('deleted_book','Đã trả sách thành công');
     }

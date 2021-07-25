@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\User;
 use App\Models\Order;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -55,18 +56,14 @@ class HomeController extends Controller
         $infomation->save();
         return back();
     }
-    public function history($id){
-        // printf(Carbon::now());
-        $book_order = Order::all();
-        $deleted_book_order = Order::onlyTrashed()->get();
+    public function history($user_id){
+        if(Auth::user()->id != $user_id)  return back(); //Check đúng tài khoản đang đăng nhập
+        
+        $book_order = Order::where('id_user',$user_id)->get();
+        $deleted_book_order = Order::onlyTrashed()->where('id_user',$user_id)->get();
         $dt = now();
 
-        // $book_order->load('book');
-        // return view('client.pages.history', compact('book_order', 'deleted_book_order', 'dt'));
-        // $books = Order::where('status','Đang mượn')->get();
-        // $deleted_book = Order::onlyTrashed()->get();
-        // $dt = now();
-        return view('client.pages.history', compact('book_order', 'deleted_book', 'dt', 'books'));
+        $book_order->load('book');
+        return view('client.pages.history', compact('book_order', 'deleted_book_order', 'dt'));
     }
-
 }

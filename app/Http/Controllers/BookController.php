@@ -192,9 +192,11 @@ class BookController extends Controller
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
+
+        $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
+                                ->where('status','Đang mượn')->first();
         // $book->load('orders');
-        $order = Order::where('status', 'Đang mượn')->first();
-        return view('client.pages.book-detail', ['book' => $book], ['order' => $order]);
+        return view('client.pages.book-detail', ['book' => $book,'ordered' => $ordered]);
     }
 
 
@@ -220,6 +222,11 @@ class BookController extends Controller
 
     public function readingBook($id)
     {
+        $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
+                                                ->where('status','Đang mượn')->first();
+
+        if(!$ordered) return redirect()->back(); //Check xem đã mượn sách chưa nếu chưa thì không cho truy cập
+
         $book = Book::find($id);
         if ($book) {
             $pages = BookGallery::where('book_id', '=',$book->id)->orderBy('id','desc')->get();
