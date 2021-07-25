@@ -2,16 +2,24 @@
     padding: 1.5rem 1rem;
 
     border-radius: 1rem;
-    border: 1px solid #f3f3f3;
+    border: 1px solid var(--text-color2);
     box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
 }
-
+.book-category__aside{
+    padding: 0;
+}
+.row{
+}
+.book-category__content{
+    padding-left: 3.2rem;
+    padding-right: 0;
+}
 .filter-heading {
     padding: 1rem 1.5rem;
     font-size: 1.6rem;
     font-weight: 700;
-    color: #3d4145;
-    /* color:var(--base-color); */
+    /* color: #3d4145; */
+    color:var(--black-secondary-color);
 }
 .filter-list{
     list-style: none;
@@ -25,7 +33,7 @@
     cursor: pointer;
 }
 .filter-item:hover{
-    background-color: #ebeafa;
+    background-color: var(--text-color2);
     border-radius: 1rem;
     cursor: pointer;
     color:var(--base-color);
@@ -36,7 +44,7 @@
 }
 .filter-item:hover .filter-item__quantity{
     background-color:var(--base-color);
-    color: #ebeafa;
+    color: var(--text-color2);
 }
 .filter-item__link{
     max-width: 13rem;
@@ -81,7 +89,7 @@
 .filter-item__quantity{
     padding: .5rem 1rem;
 
-    background-color: #ebeafa;
+    background-color: var(--text-color2);
     border-radius: 1rem;
 
     font-size: 1.2rem;
@@ -95,12 +103,12 @@
 .search-text{
     font-size: 1.6rem;
     font-weight: 500;
-    color:#5c6468;
+    color:var(--text-color3);
 }
 .search-text-detail{
     font-size: 1.8rem;
     font-weight: 700;
-    color:#33383c;
+    color:var(--text-color);
 
 }
 
@@ -138,11 +146,12 @@
 .book-card__title a h3{
     height: 3.2rem;
     
-    color:#343734;
+    /* color:#343734; */
+    color:var(--black-secondary-color);
 
     font-size: 1.6rem;
     line-height: 1.6rem;
-    font-weight: 600;
+    font-weight: 700;
 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -157,7 +166,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color:#5c6468;
+    /* color:#5c6468; */
+    color:var(--text-color3);
 }
 .book-card__star{
     margin-top: 0.8rem;

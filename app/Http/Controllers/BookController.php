@@ -229,13 +229,13 @@ class BookController extends Controller
     }
 
 
-    public function getBookByCategory(){
-        $books = Book::all();
+    public function getBooks(){
+        $books = Book::paginate(9);
         $categories = Category::all();
         return view('client.pages.category',compact('categories','books'));
 
     }
-    public function getCategory($slug){
+    public function getBooksByCategory($slug){
         $catee= Category::where('slug', '=',$slug)->get();
         $catee->load('books');
         $categories = Category::all();

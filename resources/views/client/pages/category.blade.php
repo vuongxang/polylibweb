@@ -7,12 +7,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <div class="book-search__aside">
+        <div class="col-md-3 book-category__aside">
+            <div class="book-search__aside ">
 
                 <div class=" filter-group ">
                     <ul class="filter-list ">
-                        <a href="{{route('book.cate')}}" class="filter-item__link">
+                        <a href="{{route('book.categories')}}" class="filter-item__link">
                             <li class="filter-item">
                                 {{__('Tất cả')}}
                             </li>
@@ -25,7 +25,7 @@
                     <ul class="filter-list ">
 
                         @foreach($categories as $category)
-                        <a href="{{route('book.cat',$category->slug)}}" class="filter-item__link">
+                        <a href="{{route('book.category',$category->slug)}}" class="filter-item__link">
                             <li class="filter-item">
                                 {{$category->name}}
                                 <span class="filter-item__quantity">{{count($category->books)}}</span>
@@ -56,12 +56,21 @@
 
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 book-category__content">
+            @if(isset($catee) )
+            @foreach($catee as $cate)
             <!-- <div class="search-result">
                 <div class="search-text">
                     Tìm kiếm kết quả cho <span class="search-text-detail">"AN"</span>
                 </div>
             </div> -->
+            <div class="search-result">
+                <div class="search-text">
+                    Có <span class="search-text-detail">{{count($cate->books)}} </span>cuốn sách thuộc {{$cate->name}}
+                </div>
+            </div>
+            @endforeach
+            @endif
             <div class="book-card-collection">
                 @if(isset($catee) )
                 @foreach($catee as $cate)
@@ -131,6 +140,7 @@
                     </div>
                 </div>
                 @endforeach
+                
                 <!-- <div class="col-4 ">
 
                         <div class="book-card">
@@ -399,6 +409,7 @@
                     </div>
                 </div> -->
             </div>
+            {{ $books->links() }}
         </div>
 
     </div>

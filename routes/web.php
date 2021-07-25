@@ -28,8 +28,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
-Route::get('/category', [BookController::class, 'getBookByCategory'])->name('book.cate');
-Route::get('/category/{slug}', [BookController::class, 'getCategory'])->name('book.cat');
+Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
+Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
 
 
 Route::view('review', 'client.pages.review-book');
