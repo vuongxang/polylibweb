@@ -88,9 +88,9 @@
 }
 
 .book-info__description{
-  
+  margin-bottom: 1.5rem;
 }
-.book-description__text{
+.book-description__wrapper{
   font-size: 1.8rem;
   line-height: 2.4rem;
   color: var(--text-color3);
@@ -103,7 +103,7 @@
 }
 .read-more{
   display: inline-block;
-  margin: 2rem 0rem;
+  margin: 1.5rem 0;
   font-size: 1.4rem;
   font-weight: 600;
 }
@@ -168,11 +168,94 @@
   
   color:var(--white-color);
 }
+.book-tabs__comment {
+  padding: 2rem;
+  margin-top: 3rem;
+  border: 1px solid #555;
+  border-radius: 1rem;
+}
+.comment-box__wrapper{
+  margin: 1.5rem 0;
+  display: flex;
+  gap: 2rem;
+}
+.comment-box__image{
+  width: 4rem;
+  height: 4rem;
+}
+.comment-box__image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.comment-box__content{
+  width: 100%;
+}
+.comment__input textarea{
+  width: 100%;
+  padding: 1rem 1.5rem;
 
+  background-color: #f3f3f3;
+  font-size: 1.5rem;
+  outline: none;
+  border: 1px solid #7e7e7e;
+  border-radius: 1rem;
+  resize: none;
+}
+.comment__input input{
+  width:50rem;
+  background-color: #f3f3f3;
+  font-size: 1.5rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  outline: none;
+  border: 1px solid #7e7e7e;
+}
+.comment__btn{
+  margin-top: 1rem;
+  
+}
+.button-comment{
+  padding: 0.8rem 1.5rem;
+}
 
+.book-user-comment{
+  display: flex;
+  gap: 2rem;
+  margin:1.5rem 0rem;
+}
+.book-user-comment__body{
+  max-width: 80%;
+}
 
+.book-user-comment__heading{
+  
+}
+.book-user-comment__name{
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--black-secondary-color);
+  margin-bottom: 1rem;
+}
+.book-user-comment__date{
 
-
+}
+.book-user-comment__content{
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  line-height: 1.6rem;
+}
+.book-user-comment__footer{
+  display: flex;
+  gap: 1.5rem;
+}
+.book-user-comment__link{
+  font-size: 1.4rem;
+}
+.book-user-comment__date{
+  font-size: 1.4rem;
+}
 
 
 

@@ -65,8 +65,11 @@
                     @endif
                 </div>
                 <div class="book-info__description">
-                    <div class="book-description__text">
-                        {!! $book->description !!}
+                    <div class="book-description__wrapper">
+                        <div class="book-description__text">
+                            {!! $book->description !!}
+
+                        </div>
                     </div>
                     <a href="javascript:void(0);" id="js-read-more" class="read-more ">Xem thêm </a>
                 </div>
@@ -100,19 +103,28 @@
             </ul>
         </div>
         <div class="tab-content">
-            <div class="book-comment__body tab-pane in active" id="comment-tab">
+            <div class="book-tabs__comment tab-pane in active" id="comment-tab">
+
+
                 @include('client.blocks.commentsDisplay', ['comments' => $book->comments, 'book_id' => $book->id])
-                <h3 class="h3">Bình luận</h3>
-                <form method="post" action="{{ route('comments.store') }}">
-                    @csrf
-                    <div class="form-group">
-                        <textarea class="form-control" name=body></textarea>
-                        <input type=hidden name=book_id value="{{ $book->id }}" />
+
+                <div class="comment-box__wrapper">
+                    <div class="comment-box__image">
+                        <img src="{{Auth::user()->avatar}}" alt="">
                     </div>
-                    <div class="form-group">
-                        <input type=submit class="btn btn-success" value="Gửi" />
+                    <div class="comment-box__content">
+                        <form action="{{ route('comments.store') }}" method="post">
+                            @csrf
+                            <div class="comment__input">
+                                <textarea class="form-control" name="body" rows="2" placeholder="What are you thinking?"></textarea>
+                                <input type=hidden name=book_id value="{{ $book->id }}" />
+                            </div>
+                            <div class="comment__btn">
+                                <button type="submit" class="button button__background-lg button-comment">Bình luận</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
 
             <div class="book-comment__body tab-pane" id="review-tab">
@@ -137,67 +149,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-    <!-- <div class="book-comment__body tab-pane" id="review-tab">
-        @foreach ($rates as $rate)
-        <div class="book-comment-body__detail">
-            <div class="book-comment-body-detail__img">
-                <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
-            </div>
-            <div class="book-comment-body-detail__content">
-                <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
-                <div class="book-comment-body-detail__date">
-                    <span class="book-star">
-                        @for ($i = 0; $i < $rate->rating; $i++)
-                            <i class="fas fa-star text-"></i>
-                            @endfor
-                            <span>
-                </div>
-                <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
-            </div>
-        </div>
-        @endforeach
-    </div> -->
-
-
-
-    <!-- <div class="book-comment data-tabs">
-        <div class="book-comment__tab">
-            <ul class="nav nav-tabs">
-                <li>
-                    <a class="book-comment__button book-comment__button--active" data-toggle="tab" href="#comment-tab">Bình luận</a>
-                </li>
-                <li>
-                    <a class="book-comment__button" data-toggle="tab" href="#review-tab">Phản hồi </a>
-                </li>
-            </ul>
-        </div>
-        <div class="tab-content">
-            <div class="book-comment__body tab-pane in active" id="comment-tab">
-                @include('client.blocks.commentsDisplay', ['comments' => $book->comments, 'book_id' => $book->id])
-                <h3 class="h3">Bình luận</h3>
-                <form method="post" action="{{ route('comments.store') }}">
-                    @csrf
-                    <div class="form-group">
-                        <textarea class="form-control" name=body></textarea>
-                        <input type=hidden name=book_id value="{{ $book->id }}" />
-                    </div>
-                    <div class="form-group">
-                        <input type=submit class="btn btn-success" value="Gửi" />
-                    </div>
-                </form>
-            </div>
-
-            <div class="book-comment__body tab-pane" id="review-tab">
-
-                <h3 class="h3">Phản hồi</h3>
-            </div>
-        </div>
-    </div> -->
 
     <div class="book-list book__list--background">
         <div class="book-list__heading space__between">
@@ -240,9 +191,15 @@
     </main>
     <script>
         let readMore = document.querySelector('#js-read-more');
+        let desc = document.querySelector('.book-description__text');
+        console.log(desc.offsetHeight);
+        if(desc.offsetHeight < 240){
+            desc.parentNode.style.height = "auto";
+            readMore.style.display = "none";
+        }
 
         readMore.addEventListener('click', () => {
-            let x = readMore.parentElement.querySelector('.book-description__text')
+            let x = readMore.parentElement.querySelector('.book-description__wrapper')
             x.classList.toggle("show-more");
             (x.classList.contains('show-more')) ? readMore.innerHTML = "Ẩn bớt ": readMore.innerHTML = "Xem thêm ";
         })
