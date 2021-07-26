@@ -12,12 +12,17 @@ class Comment extends Model
     use HasFactory, Sortable,SoftDeletes;
 
     protected $table='comments';
-    protected $fillable = ['user_id', 'book_id', 'parent_id', 'body'];
-    public $sortable = ['id', 'user_id', 'post_id','parent_id','body','created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'book_id','status','parent_id', 'body'];
+    public $sortable = ['id', 'user_id', 'book_id','status','parent_id','body','created_at', 'updated_at'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class,'book_id');
     }
 
     public function replies()

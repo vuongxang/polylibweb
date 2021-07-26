@@ -37,7 +37,16 @@ Route::post('/comment-store', [CommentController::class, 'store'])->middleware('
 
 Route::get('infomation/{id}', [HomeController::class, 'infomation'])->middleware('auth')->name('user.infomation');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
+Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
+                                                                    ->name('user.infomation');
+Route::get('setting',[HomeController::class, 'setting'])->middleware('auth')
+                                                        ->name('user.setting');
+Route::get('rate/{id}',[HomeController::class, 'rate'])->middleware('auth')
+                                                        ->name('user.rate');
+Route::get('help',[HomeController::class, 'help'])->middleware('auth')
+                                                    ->name('user.help');
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 
@@ -101,6 +110,19 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');
         Route::get('restore/{id}', [UserController::class, 'restore'])->name('user.restore');
         Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
+    });
+
+    Route::prefix('comment')->group(function () {
+        Route::get('/', [CommentController::class, 'index'])->name('comment.index');
+        // Route::get('add-author', [AuthorController::class, 'create'])->name('author.create');
+        // Route::post('add-author', [AuthorController::class, 'store'])->name('author.store');
+        // Route::get('remove/{id}', [AuthorController::class, 'destroy'])->name('author.destroy');
+        // Route::get('edit/{id}', [AuthorController::class, 'edit'])->name('author.edit');
+        // Route::post('edit/{id}', [AuthorController::class, 'update'])->name('author.update');
+        // Route::get('trash-list', [AuthorController::class, 'trashList'])->name('author.trashlist');
+        // Route::get('restore/{id}', [AuthorController::class, 'restore'])->name('author.restore');
+        // Route::get('force-delete/{id}', [AuthorController::class, 'forceDelete'])->name('author.forcedelete');
+        // Route::get('changePageSize', [AuthorController::class, 'changePageSize']);
     });
 });
 

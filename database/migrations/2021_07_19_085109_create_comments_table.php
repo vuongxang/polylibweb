@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('book_id')->unsigned();
             $table->integer('parent_id')->unsigned()->nullable();
+            $table->integer('status')->default(0);
             $table->text('body');
             $table->timestamps();
             $table->softDeletes();
