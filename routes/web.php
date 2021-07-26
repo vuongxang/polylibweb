@@ -26,19 +26,20 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/book-detaíl/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
+Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
+Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
+Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
+Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
 
-Route::get('read-online/{id}', [BookController::class, 'readingBook'])->middleware('auth')->name('book.read');
 
+Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 
 Route::get('infomation/{id}', [HomeController::class, 'infomation'])->middleware('auth')->name('user.infomation');
-Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
-
+Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
-
-Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->middleware('auth')->name('Book.Order');
-Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->middleware('auth')->name('deleted.book');
+Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
+Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 
 Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 

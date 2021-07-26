@@ -30,7 +30,7 @@
     <div class="container-custom">
         <div class="grid-custom">
             @include('client.layouts.header')
-            @yield('content');
+            @yield('content')
         </div>
         @include('client.layouts.footer')
     </div>

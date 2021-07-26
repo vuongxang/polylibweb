@@ -4,7 +4,7 @@
     </div>
     <ul class="header__nav">
         <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
-        <li class="header__nav-li"><a class="link" href="{{route('book.detail',1)}}">Danh Mục</a></li>
+        <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}">Danh Mục</a></li>
         <li class="header__nav-li"><a class="link" href="">Tin Tức</a></li>
     </ul>
     <div class="header__search">

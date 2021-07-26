@@ -251,7 +251,6 @@ class BookController extends Controller
         return redirect(route('user.history',Auth::user()->id))->with('message','Gửi đánh giá thành công !');
     }
 
-
     public function readingBook($id)
     {
         $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
@@ -267,4 +266,24 @@ class BookController extends Controller
             return abort(404);
         }
     }
+
+
+    public function getBooks(){
+        $books = Book::paginate(9);
+        $categories = Category::all();
+        return view('client.pages.category',compact('categories','books'));
+
+    }
+    public function getBooksByCategory($slug){
+        $catee= Category::where('slug', '=',$slug)->get();
+        $catee->load('books');
+        $categories = Category::all();
+        $array = [];
+        foreach($catee as $a){
+            foreach($a->books as $b){
+                array_push($array,$b);
+            }
+        }
+        return view('client.pages.category',compact('categories','catee'));
+  }
 }
