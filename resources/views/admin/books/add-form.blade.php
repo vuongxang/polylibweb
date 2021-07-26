@@ -73,7 +73,7 @@
 
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputDesc">Thông tin chi tiết</label>
-                        <textarea type="text" class="form-control" id="exampleInputDesc"
+                        <textarea  cols="30" rows="20" class="form-control" id="exampleInputDesc"
                             placeholder="Nhập thông tin chi tiết" name="description"
                             value="{{ old('description') }}"></textarea>
                         @if ($errors->has('description'))

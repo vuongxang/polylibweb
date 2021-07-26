@@ -85,11 +85,20 @@
                     <i class="fas fa-users-cog"></i>Quản trị
                 </a>
                 @endif
+                <a class="dropdown-item dropdown-item-custom" href="{{ route('user.setting') }}">
+                    <i class="fas fa-cog"></i>Cài đặt
+                </a>
                 <a class="dropdown-item dropdown-item-custom" href="{{ route('user.infomation', Auth::user()->id) }}">
                     <i class="fas fa-user"></i>Hồ sơ cá nhân
                 </a>
                 <a class="dropdown-item dropdown-item-custom" href="{{ route('user.history', Auth::user()->id) }}">
                     <i class="fas fa-history"></i>Lịch sử mượn sách
+                </a>
+                <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
+                    <i class="fas fa-star"></i>Đánh giá
+                </a>
+                <a class="dropdown-item dropdown-item-custom" href="{{ route('user.help') }}">
+                    <i class="fas fa-headphones-alt"></i>Trợ giúp
                 </a>
                 <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">

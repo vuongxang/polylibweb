@@ -414,7 +414,7 @@ $config = array(
     // Add or modify the options below as needed - they will be json encoded when added to the configuration so arrays can be utilized as needed
     'tui_active'                           => true,
     'tui_position'                         => 'bottom',
-    // 'common.bi.image'                      => "../assets/images/logo.png",
+    'common.bi.image'                      => "../assets/images/logo.png",
     // 'common.bisize.width'                  => '70px',
     // 'common.bisize.height'                 => '25px',
     'common.backgroundImage'               => 'none',
