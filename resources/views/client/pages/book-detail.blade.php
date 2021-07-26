@@ -129,22 +129,24 @@
 
             <div class="book-comment__body tab-pane" id="review-tab">
                 @foreach ($rates as $rate)
-                <div class="book-comment-body__detail">
-                    <div class="book-comment-body-detail__img">
-                        <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
-                    </div>
-                    <div class="book-comment-body-detail__content">
-                        <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
-                        <div class="book-comment-body-detail__date">
-                            <span class="book-star">
-                                @for ($i = 0; $i < $rate->rating; $i++)
-                                    <i class="fas fa-star text-"></i>
-                                    @endfor
-                                    <span>
+                    @if ($rate->user)
+                        <div class="book-comment-body__detail">
+                            <div class="book-comment-body-detail__img">
+                                <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
+                            </div>
+                            <div class="book-comment-body-detail__content">
+                                <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
+                                <div class="book-comment-body-detail__date">
+                                    <span class="book-star">
+                                        @for ($i = 0; $i < $rate->rating; $i++)
+                                            <i class="fas fa-star text-"></i>
+                                            @endfor
+                                            <span>
+                                </div>
+                                <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
+                            </div>
                         </div>
-                        <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
-                    </div>
-                </div>
+                    @endif
                 @endforeach
             </div>
         </div>

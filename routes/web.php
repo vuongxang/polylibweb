@@ -102,6 +102,19 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('restore/{id}', [UserController::class, 'restore'])->name('user.restore');
         Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
     });
+
+    Route::prefix('comment')->group(function () {
+        Route::get('/', [CommentController::class, 'index'])->name('comment.index');
+        // Route::get('add-author', [AuthorController::class, 'create'])->name('author.create');
+        // Route::post('add-author', [AuthorController::class, 'store'])->name('author.store');
+        // Route::get('remove/{id}', [AuthorController::class, 'destroy'])->name('author.destroy');
+        // Route::get('edit/{id}', [AuthorController::class, 'edit'])->name('author.edit');
+        // Route::post('edit/{id}', [AuthorController::class, 'update'])->name('author.update');
+        // Route::get('trash-list', [AuthorController::class, 'trashList'])->name('author.trashlist');
+        // Route::get('restore/{id}', [AuthorController::class, 'restore'])->name('author.restore');
+        // Route::get('force-delete/{id}', [AuthorController::class, 'forceDelete'])->name('author.forcedelete');
+        // Route::get('changePageSize', [AuthorController::class, 'changePageSize']);
+    });
 });
 
 
