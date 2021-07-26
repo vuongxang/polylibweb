@@ -48,6 +48,7 @@
                 @endif
             </div>
             <div class="book-detail-content__desc">
+                {!! $book->description !!}
                 <h3>Mô tả sách</h3>
                 <p>Robert Langdon, giáo sư biểu tượng và biểu tượng tôn giáo đến từ trường đại học Harvard, đã tới Bảo
                     tàng Guggenheim Museum Bilbao để tham dự một tuyên bố quan trọng - công bố phát hiện "sẽ thay đổi bộ

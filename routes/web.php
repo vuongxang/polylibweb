@@ -33,8 +33,15 @@ Route::post('/comment-store',[ CommentController::class,'store'])->middleware('a
 Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
                                                                     ->name('user.infomation');
 Route::post('infomation/{id}',[HomeController::class, 'edit_infomation'])->name('infomation.edit');
+
 Route::get('history/{id}',[HomeController::class, 'history'])->middleware('auth')
                                                                     ->name('user.history');
+Route::get('setting',[HomeController::class, 'setting'])->middleware('auth')
+                                                        ->name('user.setting');
+Route::get('rate/{id}',[HomeController::class, 'rate'])->middleware('auth')
+                                                        ->name('user.rate');
+Route::get('help',[HomeController::class, 'help'])->middleware('auth')
+                                                    ->name('user.help');
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 
