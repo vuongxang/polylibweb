@@ -25,19 +25,13 @@ use App\Http\Controllers\CommentController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-
 Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
 Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
 Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
-
-
 Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
-
-Route::get('infomation/{id}', [HomeController::class, 'infomation'])->middleware('auth')->name('user.infomation');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
-
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
 Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
                                                                     ->name('user.infomation');
@@ -49,9 +43,7 @@ Route::get('help',[HomeController::class, 'help'])->middleware('auth')
                                                     ->name('user.help');
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
-
 Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
-
 Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
 
@@ -114,7 +106,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
     Route::prefix('comment')->group(function () {
         Route::get('/', [CommentController::class, 'index'])->name('comment.index');
-        // Route::get('add-author', [AuthorController::class, 'create'])->name('author.create');
+        Route::get('comment-approv/{id}', [CommentController::class, 'commentApprov'])->name('comment.approv');
         // Route::post('add-author', [AuthorController::class, 'store'])->name('author.store');
         // Route::get('remove/{id}', [AuthorController::class, 'destroy'])->name('author.destroy');
         // Route::get('edit/{id}', [AuthorController::class, 'edit'])->name('author.edit');

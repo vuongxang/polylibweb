@@ -12,7 +12,7 @@
     <div class="input-group">
         <form action="" method="get">
             <input type="text" class="form-control bg-light border-0 small" name="keyword" placeholder="Nhập từ khóa tìm kiếm"
-            aria-label="Search" aria-describedby="basic-addon2" value="@isset($keyword) {{$keyword}}@endisset">
+            aria-label="Search" aria-describedby="basic-addon2" value="@isset($_GET['keyword']) {{$_GET['keyword']  }}@endisset">
         <div class="input-group-append">
             <button class="btn btn-primary" type="submit">
                 <i class="fas fa-search fa-sm"></i>
