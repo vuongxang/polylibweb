@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use SebastianBergmann\Environment\Console;
 use willvincent\Rateable\Rating as RateableRating;
-
+use Carbon\Carbon;
 class BookController extends Controller
 {
     public function index(Request $request)
@@ -188,6 +188,9 @@ class BookController extends Controller
 
     public  function bookDetail($id)
     {
+
+        Carbon::setLocale('vi');
+
         $book = Book::find($id);
         if (!$book) return redirect(route('home'));
         $book->load('categories');
