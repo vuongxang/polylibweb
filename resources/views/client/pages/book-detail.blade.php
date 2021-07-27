@@ -116,7 +116,7 @@
                         <form action="{{ route('comments.store') }}" method="post">
                             @csrf
                             <div class="comment__input">
-                                <textarea class="form-control" name="body" rows="2" placeholder="What are you thinking?"></textarea>
+                                <textarea class="form-control" name="body" rows="2" placeholder="Viết bình luận..."></textarea>
                                 <input type=hidden name=book_id value="{{ $book->id }}" />
                             </div>
                             <div class="comment__btn">
@@ -195,7 +195,7 @@
         let readMore = document.querySelector('#js-read-more');
         let desc = document.querySelector('.book-description__text');
         console.log(desc.offsetHeight);
-        if(desc.offsetHeight < 240){
+        if (desc.offsetHeight < 240) {
             desc.parentNode.style.height = "auto";
             readMore.style.display = "none";
         }
@@ -204,6 +204,38 @@
             let x = readMore.parentElement.querySelector('.book-description__wrapper')
             x.classList.toggle("show-more");
             (x.classList.contains('show-more')) ? readMore.innerHTML = "Ẩn bớt ": readMore.innerHTML = "Xem thêm ";
+        })
+
+
+
+
+        let replyParentElement = document.querySelectorAll('.js-comment-reply');
+        let btnCancelElement = document.querySelectorAll('.button-cancel');
+        let commentWrapperElement = document.querySelectorAll('.comment-box__wrapper');
+        let replyChildElement = document.querySelectorAll('.js-comment-reply-child');
+        replyParentElement.forEach((item) => {
+            item.addEventListener('click', () => {
+                item.closest('.js-comment-body').querySelector('.comment-box__wrapper').classList.remove('comment-box__hidden');
+                item.closest('.js-comment-body').querySelector('input[name="body"]').focus();
+            })
+        })
+        // turn off comment box
+        btnCancelElement.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                commentWrapperElement[index].classList.add('comment-box__hidden');
+                commentWrapperElement[index].querySelector('form').reset();
+
+            })
+        })
+        // Chọn trả lời thằng con 
+        replyChildElement.forEach((item, index) => {
+            console.log(item, index);
+            item.addEventListener('click', () => {
+                const a = item.closest('.js-comment-body').querySelector('.comment-box__wrapper');
+                a.classList.remove('comment-box__hidden');
+                a.querySelector('input[name="body"]').focus();
+                // console.log(item.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.comment-box__wrapper').classList.remove('comment-box__hidden'))
+            })
         })
     </script>
     @endsection

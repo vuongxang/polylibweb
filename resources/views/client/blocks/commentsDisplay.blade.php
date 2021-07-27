@@ -4,14 +4,14 @@
     <div class="comment-box__image">
         <img src="{{ asset($comment->user->avatar) }}" alt="">
     </div>
-    <div class="book-user-comment__body">
+    <div class="book-user-comment__body js-comment-body">
         <div class="book-user-comment__heading">
             <div class="book-user-comment__name">{{ $comment->user->name }}</div>
             <div class="book-user-comment__content">{{ $comment->body }}</div>
         </div>
         <div class="book-user-comment__footer">
-            <a href="" class="book-user-comment__link">Trả lời</a>
-            <div class="book-user-comment__date">{{ $comment->user->created_at }}</div>
+            <div class="book-user-comment__link"><a href="javascript:void(0);" class="js-comment-reply" id="js-comment-reply-{{$comment->id}}" >Trả lời</a></div>
+            <div class="book-user-comment__date">{{Carbon\Carbon::parse($comment->created_at)->diffForHumans()}}</div>
         </div>
         @foreach ($comments as $commentChild)
         @if ($commentChild->parent_id != null && $commentChild->parent_id == $comment->id)
@@ -26,14 +26,14 @@
                     <div class="book-user-comment__content">{{ $commentChild->body }}</div>
                 </div>
                 <div class="book-user-comment__footer">
-                    <a href="" class="book-user-comment__link">Trả lời</a>
-                    <div class="book-user-comment__date">{{ $commentChild->user->created_at }}</div>
+                <div class="book-user-comment__link"><a href="javascript:void(0);" class="js-comment-reply-child" >Trả lời</a></div>
+                    <div class="book-user-comment__date">{{Carbon\Carbon::parse($commentChild->created_at)->diffForHumans()}}</div>
                 </div>
             </div>
         </div>
         @endif
         @endforeach
-        <div class="comment-box__wrapper">
+        <div class="comment-box__wrapper comment-box__hidden">
             <div class="comment-box__image">
                 <img src="{{Auth::user()->avatar}}" alt="">
             </div>
@@ -41,12 +41,13 @@
                 <form action="{{ route('comments.store') }}" method="post">
                     @csrf
                     <div class="comment__input">
-                        <input type="text" name="body">
+                        <input type="text" name="body" placeholder="Viết bình luận..." id= "js-reply-input-{{$comment->id}}">
                         <input type=hidden name="book_id" value="{{ $book_id }}" />
                         <input type=hidden name="parent_id" value="{{ $comment->id }}" />
                     </div>
                     <div class="comment__btn">
                         <button type="submit" class="button button__background-lg button-comment">Bình luận</button>
+                        <button type="button" class="button button__background-lg button-cancel">Hủy</button>
                     </div>
                 </form>
             </div>
