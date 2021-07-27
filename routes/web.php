@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,14 +108,17 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::prefix('comment')->group(function () {
         Route::get('/', [CommentController::class, 'index'])->name('comment.index');
         Route::get('comment-approv/{id}', [CommentController::class, 'commentApprov'])->name('comment.approv');
-        // Route::post('add-author', [AuthorController::class, 'store'])->name('author.store');
-        // Route::get('remove/{id}', [AuthorController::class, 'destroy'])->name('author.destroy');
-        // Route::get('edit/{id}', [AuthorController::class, 'edit'])->name('author.edit');
-        // Route::post('edit/{id}', [AuthorController::class, 'update'])->name('author.update');
-        // Route::get('trash-list', [AuthorController::class, 'trashList'])->name('author.trashlist');
-        // Route::get('restore/{id}', [AuthorController::class, 'restore'])->name('author.restore');
-        // Route::get('force-delete/{id}', [AuthorController::class, 'forceDelete'])->name('author.forcedelete');
-        // Route::get('changePageSize', [AuthorController::class, 'changePageSize']);
+        Route::get('remove/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+        Route::get('restore/{id}', [CommentController::class, 'restore'])->name('comment.restore');
+        Route::get('force-delete/{id}', [CommentController::class, 'forceDelete'])->name('comment.forcedelete');
+    });
+
+    Route::prefix('review')->group(function () {
+        Route::get('/', [RatingController::class, 'index'])->name('rate.index');
+        // Route::get('comment-approv/{id}', [CommentController::class, 'commentApprov'])->name('comment.approv');
+        // Route::get('remove/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+        // Route::get('restore/{id}', [CommentController::class, 'restore'])->name('comment.restore');
+        // Route::get('force-delete/{id}', [CommentController::class, 'forceDelete'])->name('comment.forcedelete');
     });
 });
 

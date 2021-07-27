@@ -225,7 +225,7 @@ class BookController extends Controller
         return view('client.pages.review',['book'=>$book,'rate'=>$rate]);
     }
 
-    public function bookStar (Request $request) {
+    public function bookStar ( $request) {
 
         $id = $request->id;
         $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)

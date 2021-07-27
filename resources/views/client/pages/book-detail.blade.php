@@ -10,8 +10,8 @@
 {{-- <script>
     alert("{{ session('thongbao') }}")
 </script> --}}
-<div class="alert alert-success text-center">
-    <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('thongbao') }}</h1>
+<div class="alert @if ((session('alert'))) {{(session('alert'))}} @endif text-center">
+    <h1 class="@if ((session('text-alert'))) {{(session('text-alert'))}} @endif" style="font-size: 20pt; font-weight:700">{{ session('thongbao') }}</h1>
 </div>
 @endif
 

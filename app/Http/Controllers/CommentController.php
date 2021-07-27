@@ -52,4 +52,35 @@ class CommentController extends Controller
         return redirect(route('comment.index'))->with('message','Xét duyệt bình luận thành công')
                                                 ->with('alert-class','alert-success');
     }
+
+    public function destroy($id){
+        $model = Comment::find($id);
+        if($model){
+            Comment::destroy($id);
+            return redirect(route('comment.index'))->with('message','Chuyển vào thùng rác thành công !')
+                                                ->with('alert-class','alert-success');
+        }else{
+            return redirect(route('comment.index'))->with('message','Dữ liệu không tồn tại !')
+                                                ->with('alert-class','alert-danger');
+        }
+    }
+
+    public function restore($id){
+        Comment::withTrashed()->where('id', $id)->restore();
+        return redirect(route('comment.index'))->with('message','Khôi phục thành công')
+                                                    ->with('alert-class','alert-success');
+    }
+
+    public function forceDelete($id){
+      
+        $model = Comment::withTrashed()->find($id);
+        if($model){
+            $model = Comment::withTrashed()->where('id', $id)->forceDelete();
+            return redirect(route('comment.index'))->with('message','Xóa bình luận thành công !')
+                                                        ->with('alert-class','alert-success');         
+        }else{
+            return redirect(route('comment.index'))->with('message','Dữ liệu không tồn tại !')
+                                                        ->with('alert-class','alert-danger');
+        }
+    }
 }
