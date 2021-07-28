@@ -122,25 +122,35 @@
                 </div>
             </div>
 
-            <div class="book-comment__body tab-pane" id="review-tab">
+            <div class="book-tabs__comment tab-pane" id="review-tab">
                 @foreach ($rates as $rate)
                 @if ($rate->user)
-                <div class="book-comment-body__detail">
-                    <div class="book-comment-body-detail__img">
-                        <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
+                <div class="book-user-comment">
+                    <div class="comment-box__image">
+                        <img src="{{ $rate->user->avatar}}" alt="">
                     </div>
-                    <div class="book-comment-body-detail__content">
-                        <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
-                        <div class="book-comment-body-detail__date">
-                            <span class="book-star">
-                                @for ($i = 0; $i < $rate->rating; $i++)
-                                    <i class="fas fa-star text-"></i>
-                                    @endfor
-                                    <span>
+                    <div class="book-user-comment__body">
+                        <div class="book-user-comment__heading">
+                            <div class="book-user-comment__name">{{ $rate->user->name }}</div>
+                            <div class="book-user-comment__footer">
+                                <div class="book-user-comment__link"><span class="book-star">
+                                        @for ($i = 0; $i < $rate->rating; $i++)
+                                            <i class="fas fa-star "></i>
+                                            @endfor
+                                            <span>
+
+                                </div>
+                                <div class="book-user-comment__date">{{date('d-m-Y', strtotime($rate->created_at))}}</div>
+                            </div>
+                            <div class="book-user-comment__content">
+                                {{ $rate->body }}
+
+                            </div>
                         </div>
-                        <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
+
                     </div>
                 </div>
+                
                 @endif
                 @endforeach
             </div>
@@ -277,39 +287,37 @@
 
                             @foreach ($sameBooksUnique as $book)
 
-                            @if($loop->index < 4 )
-                            
-                                <div class="book-card ">
-                                    <div class="book-card__img">
-                                        <a href="{{route('book.detail',$book->id)}}">
-                                            <img src="{{$book->image}}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="book-card__title">
-                                        <a href="{{route('book.detail',$book->id)}}">
-                                            <h3> {{$book->title}} </h3>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__author">
-                                        @foreach($book->authors as $author)
-                                        @if($loop->last)
-                                        {{$author->name}}
-                                        @else
-                                        {{$author->name}},
-                                        @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="book-card__star">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="book-card__btn">
-                                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
-                                    </div>
+                            @if($loop->index < 4 ) <div class="book-card ">
+                                <div class="book-card__img">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <img src="{{$book->image}}" alt="">
+                                    </a>
                                 </div>
-                            @endif
+                                <div class="book-card__title">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <h3> {{$book->title}} </h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author">
+                                    @foreach($book->authors as $author)
+                                    @if($loop->last)
+                                    {{$author->name}}
+                                    @else
+                                    {{$author->name}},
+                                    @endif
+                                    @endforeach
+                                </div>
+                                <div class="book-card__star">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                                </div>
+                        </div>
+                        @endif
                         @endforeach
                     </div>
                     @endif
