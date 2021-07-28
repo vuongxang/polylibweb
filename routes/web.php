@@ -94,15 +94,19 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('changePageSize', [AuthorController::class, 'changePageSize']);
     });
 
-    Route::prefix('user')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->middleware('is-admin')->name('user.index');
+    Route::prefix('user')->middleware('is-admin')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
         Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
-        // Route::post('add-author',[AuthorController::class,'store'])->name('author.store');
+        Route::get('add-user',[UserController::class,'create'])->name('user.create');
+        Route::post('add-user',[UserController::class,'store'])->name('user.store');
         Route::get('remove/{id}', [UserController::class, 'destroy'])->name('user.destroy');
         Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');
         Route::get('restore/{id}', [UserController::class, 'restore'])->name('user.restore');
         Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
+    });
+
+    Route::prefix('profile')->group(function () {
         Route::get('my-profile/{id}', [UserController::class, 'profile'])->name('user.profile');
         Route::post('my-profile/{id}', [UserController::class, 'updateProfile'])->name('user.profile');
     });
