@@ -304,9 +304,17 @@ class BookController extends Controller
         return view('client.pages.category', compact('categories', 'catee'));
     }
 
-    public function search(){
-        $books = Book::paginate(9);
+    public function search(Request $request){
+        $keyword = $request->keyword;
+        $shares = DB::table('books')
+        ->join('author_books', 'books.id', '=', 'author_books.book_id')
+        ->join('authors', 'authors.id', '=', 'author_books.author_id')
+        ->where('books.title', 'like', '%'. $keyword . '%')
+        ->where('authors.name', 'like', '%'. $keyword . '%')
+        ->get();
+        dd($shares);
+        $books = Book::where('title','like', '%' . $request->keyword . '%')->get();
         $categories = Category::all();
-        return view('client.pages.search',compact('categories', 'books'));
+        return view('client.pages.search',compact('categories', 'books','keyword'));
     }
 }

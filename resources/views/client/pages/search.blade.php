@@ -46,7 +46,7 @@
         <div class="col-md-9 book-category__content">
             <div class="search-result">
                 <div class="search-text">
-                    Tìm kiếm kết quả cho <span class="search-text-detail">"AN"</span>
+                    Tìm kiếm kết quả cho <span class="search-text-detail">"{{$keyword}}"</span>
                 </div>
             </div>
             @if(isset($catee) )

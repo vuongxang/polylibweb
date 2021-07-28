@@ -8,8 +8,8 @@
         <li class="header__nav-li"><a class="link" href="">Tin Tức</a></li>
     </ul>
     <div class="header__search">
-        <form action="" class="search-form">
-            <input class="search-input" type="text" placeholder="Tìm kiếm theo tên sách, danh mục, tác giả">
+        <form action="{{route('search')}}" method="Get" class="search-form">
+            <input class="search-input" name="keyword" type="text" placeholder="Tìm kiếm theo tên sách, danh mục, tác giả">
             <button class="search-btn">
                 <i class="fas fa-search"></i>
             </button>
