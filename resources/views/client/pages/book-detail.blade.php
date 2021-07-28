@@ -6,21 +6,14 @@
 
 @section('content')
 
-@if (session('thongbao'))
-{{-- <script>
-    alert("{{ session('thongbao') }}")
-</script> --}}
-<div class="alert alert-success text-center">
-    <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('thongbao') }}</h1>
-</div>
-@endif
 
-<div>
+
+<div class="container">
     <div class="book-detail-content row">
 
         <div class="col-md-4 book-cover">
             <div class="book-cover__wrapper">
-                <img src="{{ asset($book->image) }}" class="book-cover__image" alt="">
+                <img src="{{ $book->image }}" class="book-cover__image" alt="">
             </div>
         </div>
 
@@ -129,113 +122,215 @@
 
             <div class="book-comment__body tab-pane" id="review-tab">
                 @foreach ($rates as $rate)
-                    @if ($rate->user)
-                        <div class="book-comment-body__detail">
-                            <div class="book-comment-body-detail__img">
-                                <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
-                            </div>
-                            <div class="book-comment-body-detail__content">
-                                <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
-                                <div class="book-comment-body-detail__date">
-                                    <span class="book-star">
-                                        @for ($i = 0; $i < $rate->rating; $i++)
-                                            <i class="fas fa-star text-"></i>
-                                            @endfor
-                                            <span>
-                                </div>
-                                <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
-                            </div>
+                @if ($rate->user)
+                <div class="book-comment-body__detail">
+                    <div class="book-comment-body-detail__img">
+                        <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
+                    </div>
+                    <div class="book-comment-body-detail__content">
+                        <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
+                        <div class="book-comment-body-detail__date">
+                            <span class="book-star">
+                                @for ($i = 0; $i < $rate->rating; $i++)
+                                    <i class="fas fa-star text-"></i>
+                                    @endfor
+                                    <span>
                         </div>
-                    @endif
+                        <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
+                    </div>
+                </div>
+                @endif
                 @endforeach
             </div>
         </div>
     </div>
 
-    <div class="book-list book__list--background">
-        <div class="book-list__heading space__between">
-            <h2>Sách cùng thể loại</h2>
-            <a href="">Xem thêm</a>
-        </div>
-        <div id="carouselBookCate-background" class="carousel slide" data-ride="carousel" data-pause="hover">
-            <div class="carousel-inner ">
-                <div class="carousel-item active">
-                    <div class="row">
-                        @foreach ($book->categories as $cate)
-                        @foreach ($cate->books as $b)
-                        @if ($b->id != $book->id)
-                        @if ($loop->index <= 4) <div class="col-3">
-                            <div class="book-item">
-                                <a href="{{ route('book.detail', $b->id) }}">
-                                    <img src="{{ asset($b->image) }}" alt="">
-                                </a>
-                                <a href="{{ route('book.detail', $b->id) }}">
-                                    <h3>{{ $b->title }}</h3>
-                                </a>
 
-                                <p>
-                                    <span class="book-star">
-                                        @for ($i = 0; $i < floor($b->userAverageRating); $i++)
-                                            <i class="fas fa-star"></i>
-                                            @endfor
-                                    </span>
-                                </p>
+    <div class="book-carouse">
+        <div class="book-carouse__header">
+            <div class="carouse-header__title">Sách cùng thể loại</div>
+        </div>
+        <div class="book-carouse__body">
+
+
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+                <!-- Carouse Content -->
+                <div class="carousel-inner">
+                    <!-- Carouse Item -->
+                    @if(count($sameBooksUnique)>0)
+                    <div class="carousel-item active">
+                        <div class="row">
+
+                            @foreach ($sameBooksUnique as $book)
+
+                            @if($loop->index < 4 ) <div class="col-3">
+                                <div class="book-card ">
+                                    <div class="book-card__img">
+                                        <a href="{{route('book.detail',$book->id)}}">
+                                            <img src="{{$book->image}}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="book-card__title">
+                                        <a href="{{route('book.detail',$book->id)}}">
+                                            <h3> {{$book->title}} </h3>
+                                        </a>
+                                    </div>
+                                    <div class="book-card__author">
+                                        @foreach($book->authors as $author)
+                                        @if($loop->last)
+                                        {{$author->name}}
+                                        @else
+                                        {{$author->name}},
+                                        @endif
+                                        @endforeach
+                                    </div>
+                                    <div class="book-card__star">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="book-card__btn">
+                                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                                    </div>
+                                </div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                    @endif
+                </div>
+                @if(count($sameBooksUnique)>4)
+                <div class="carousel-item">
+                    <div class="row">
+
+                        @foreach ($sameBooksUnique as $book)
+                        @if($loop->index >= 4 && $loop->index < 8 ) <div class="col-3">
+                            <div class="book-card ">
+                                <div class="book-card__img">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <img src="{{$book->image}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="book-card__title">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <h3> {{$book->title}} </h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author">
+                                    @foreach($book->authors as $author)
+                                    @if($loop->last)
+                                    {{$author->name}}
+                                    @else
+                                    {{$author->name}},
+                                    @endif
+                                    @endforeach
+                                </div>
+                                <div class="book-card__star">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                                </div>
                             </div>
                     </div>
                     @endif
-                    @endif
-                    @endforeach
                     @endforeach
                 </div>
+                @endif
             </div>
+
+
+            <a class="carousel-control-prev carousel-custom-prev " href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next carousel-custom-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
+
+        <!-- Button Carouse -->
+
     </div>
-    </main>
-    <script>
-        let readMore = document.querySelector('#js-read-more');
-        let desc = document.querySelector('.book-description__text');
-        console.log(desc.offsetHeight);
-        if (desc.offsetHeight < 240) {
-            desc.parentNode.style.height = "auto";
-            readMore.style.display = "none";
-        }
+</div>
+</div>
 
-        readMore.addEventListener('click', () => {
-            let x = readMore.parentElement.querySelector('.book-description__wrapper')
-            x.classList.toggle("show-more");
-            (x.classList.contains('show-more')) ? readMore.innerHTML = "Ẩn bớt ": readMore.innerHTML = "Xem thêm ";
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    let readMore = document.querySelector('#js-read-more');
+    let desc = document.querySelector('.book-description__text');
+    console.log(desc.offsetHeight);
+    if (desc.offsetHeight < 240) {
+        desc.parentNode.style.height = "auto";
+        readMore.style.display = "none";
+    }
+
+    readMore.addEventListener('click', () => {
+        let x = readMore.parentElement.querySelector('.book-description__wrapper')
+        x.classList.toggle("show-more");
+        (x.classList.contains('show-more')) ? readMore.innerHTML = "Ẩn bớt ": readMore.innerHTML = "Xem thêm ";
+    })
+
+
+
+
+    let replyParentElement = document.querySelectorAll('.js-comment-reply');
+    let btnCancelElement = document.querySelectorAll('.button-cancel');
+    let commentWrapperElement = document.querySelectorAll('.comment-box__wrapper');
+    let replyChildElement = document.querySelectorAll('.js-comment-reply-child');
+    replyParentElement.forEach((item) => {
+        item.addEventListener('click', () => {
+            item.closest('.js-comment-body').querySelector('.comment-box__wrapper').classList.remove('comment-box__hidden');
+            item.closest('.js-comment-body').querySelector('input[name="body"]').focus();
         })
+    })
+    // turn off comment box
+    btnCancelElement.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            commentWrapperElement[index].classList.add('comment-box__hidden');
+            commentWrapperElement[index].querySelector('form').reset();
 
-
-
-
-        let replyParentElement = document.querySelectorAll('.js-comment-reply');
-        let btnCancelElement = document.querySelectorAll('.button-cancel');
-        let commentWrapperElement = document.querySelectorAll('.comment-box__wrapper');
-        let replyChildElement = document.querySelectorAll('.js-comment-reply-child');
-        replyParentElement.forEach((item) => {
-            item.addEventListener('click', () => {
-                item.closest('.js-comment-body').querySelector('.comment-box__wrapper').classList.remove('comment-box__hidden');
-                item.closest('.js-comment-body').querySelector('input[name="body"]').focus();
-            })
         })
-        // turn off comment box
-        btnCancelElement.forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                commentWrapperElement[index].classList.add('comment-box__hidden');
-                commentWrapperElement[index].querySelector('form').reset();
+    })
+    // Chọn trả lời thằng con 
+    replyChildElement.forEach((item, index) => {
+        console.log(item, index);
+        item.addEventListener('click', () => {
+            const a = item.closest('.js-comment-body').querySelector('.comment-box__wrapper');
+            a.classList.remove('comment-box__hidden');
+            a.querySelector('input[name="body"]').focus();
+            // console.log(item.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.comment-box__wrapper').classList.remove('comment-box__hidden'))
+        })
+    })
+</script>
 
-            })
-        })
-        // Chọn trả lời thằng con 
-        replyChildElement.forEach((item, index) => {
-            console.log(item, index);
-            item.addEventListener('click', () => {
-                const a = item.closest('.js-comment-body').querySelector('.comment-box__wrapper');
-                a.classList.remove('comment-box__hidden');
-                a.querySelector('input[name="body"]').focus();
-                // console.log(item.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.comment-box__wrapper').classList.remove('comment-box__hidden'))
-            })
-        })
-    </script>
-    @endsection
+
+@endsection
