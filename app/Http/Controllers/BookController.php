@@ -48,8 +48,9 @@ class BookController extends Controller
         $model = new Book();
 
         $model->fill($request->all());
-        // dd($request->all());
-        $model->slug = str_slug($request->title, '-');
+        $milliseconds = round(microtime(true) * 1000);
+        $model->slug = $milliseconds."-".str_slug($request->title, '-');
+
         $model->save();
 
         if ($request->cate_id) {
@@ -100,8 +101,8 @@ class BookController extends Controller
     {
         $model = Book::find($id);
         $model->fill($request->all());
-        // dd($request->all());
-        $model->slug = str_slug($request->title, '-');
+        $milliseconds = round(microtime(true) * 1000);
+        $model->slug = $milliseconds."-".str_slug($request->title, '-');
         $model->save();
 
         CategoryBook::where('book_id', $model->id)->delete();
