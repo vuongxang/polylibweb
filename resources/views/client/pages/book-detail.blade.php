@@ -81,16 +81,10 @@
                         <a href="{{route('book.category',$cate->slug)}}" class="button button__outline-sm">{{ $cate->name }}</a>
                     </div>
                     @endforeach
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
-
 
     <div class="book-tabs data-tabs">
         <div class="book-tabs__wrapper">
@@ -153,6 +147,7 @@
         </div>
     </div>
 
+    <!-- 
 
     <div class="book-carouse">
         <div class="book-carouse__header">
@@ -160,12 +155,9 @@
         </div>
         <div class="book-carouse__body">
 
-
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
-                <!-- Carouse Content -->
                 <div class="carousel-inner">
-                    <!-- Carouse Item -->
                     @if(count($sameBooksUnique)>0)
                     <div class="carousel-item active">
                         <div class="row">
@@ -251,7 +243,7 @@
                 </div>
                 @endif
             </div>
-
+            @if(count($sameBooksUnique)>4)
 
             <a class="carousel-control-prev carousel-custom-prev " href="#carouselExampleControls" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -260,7 +252,122 @@
             <a class="carousel-control-next carousel-custom-next" href="#carouselExampleControls" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
+                
             </a>
+            @endif
+        </div>
+
+
+    </div> -->
+
+    <div class="book-carouse">
+        <div class="book-carouse__header">
+            <div class="carouse-header__title">Sách cùng thể loại</div>
+        </div>
+        <div class="book-carouse__body">
+
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+                <!-- Carouse Content -->
+                <div class="carousel-inner">
+                    <!-- Carouse Item -->
+                    @if(count($sameBooksUnique)>0)
+                    <div class="carousel-item active">
+                        <div class="book-carousel__wrapper">
+
+                            @foreach ($sameBooksUnique as $book)
+
+                            @if($loop->index < 4 )
+                            
+                                <div class="book-card ">
+                                    <div class="book-card__img">
+                                        <a href="{{route('book.detail',$book->id)}}">
+                                            <img src="{{$book->image}}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="book-card__title">
+                                        <a href="{{route('book.detail',$book->id)}}">
+                                            <h3> {{$book->title}} </h3>
+                                        </a>
+                                    </div>
+                                    <div class="book-card__author">
+                                        @foreach($book->authors as $author)
+                                        @if($loop->last)
+                                        {{$author->name}}
+                                        @else
+                                        {{$author->name}},
+                                        @endif
+                                        @endforeach
+                                    </div>
+                                    <div class="book-card__star">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="book-card__btn">
+                                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    @endif
+                </div>
+                @if(count($sameBooksUnique)>4)
+                <div class="carousel-item">
+                    <div class="row">
+
+                        @foreach ($sameBooksUnique as $book)
+                        @if($loop->index >= 4 && $loop->index < 8 ) <div class="col-3">
+                            <div class="book-card ">
+                                <div class="book-card__img">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <img src="{{$book->image}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="book-card__title">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <h3> {{$book->title}} </h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author">
+                                    @foreach($book->authors as $author)
+                                    @if($loop->last)
+                                    {{$author->name}}
+                                    @else
+                                    {{$author->name}},
+                                    @endif
+                                    @endforeach
+                                </div>
+                                <div class="book-card__star">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                                </div>
+                            </div>
+                    </div>
+                    @endif
+                    @endforeach
+                </div>
+                @endif
+            </div>
+            @if(count($sameBooksUnique)>4)
+
+            <a class="carousel-control-prev carousel-custom-prev " href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next carousel-custom-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+
+            </a>
+            @endif
         </div>
 
         <!-- Button Carouse -->
