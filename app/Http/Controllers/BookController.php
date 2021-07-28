@@ -303,4 +303,10 @@ class BookController extends Controller
         }
         return view('client.pages.category', compact('categories', 'catee'));
     }
+
+    public function search(){
+        $books = Book::paginate(9);
+        $categories = Category::all();
+        return view('client.pages.search',compact('categories', 'books'));
+    }
 }

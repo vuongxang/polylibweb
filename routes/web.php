@@ -30,6 +30,8 @@ Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middlewa
 Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
 Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
 Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
+Route::get('/search',[BookController::class, 'search'])->name('search');
+
 Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
