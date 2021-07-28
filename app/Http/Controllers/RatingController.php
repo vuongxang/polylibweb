@@ -24,4 +24,44 @@ class RatingController extends Controller
                                             'pagesize'          =>  $pagesize
                                         ]);
     }
+
+    public function rateApprov($id){
+        $rate = Rating::find($id);
+        if(!$rate) return back();
+        $rate->status = 1;
+        $rate->save();
+        return redirect(route('rate.index'))->with('message','Xét duyệt đánh giá thành công')
+                                                ->with('alert-class','alert-success');
+    }
+
+    public function destroy($id){
+        $model = Rating::find($id);
+        if($model){
+            Rating::destroy($id);
+            return redirect(route('rate.index'))->with('message','Chuyển vào thùng rác thành công !')
+                                                ->with('alert-class','alert-success');
+        }else{
+            return redirect(route('rate.index'))->with('message','Dữ liệu không tồn tại !')
+                                                ->with('alert-class','alert-danger');
+        }
+    }
+
+    public function restore($id){
+        Rating::withTrashed()->where('id', $id)->restore();
+        return redirect(route('rate.index'))->with('message','Khôi phục thành công')
+                                                    ->with('alert-class','alert-success');
+    }
+
+    public function forceDelete($id){
+      
+        $model = Rating::withTrashed()->find($id);
+        if($model){
+            $model = Rating::withTrashed()->where('id', $id)->forceDelete();
+            return redirect(route('rate.index'))->with('message','Xóa bình luận thành công !')
+                                                        ->with('alert-class','alert-success');         
+        }else{
+            return redirect(route('rate.index'))->with('message','Dữ liệu không tồn tại !')
+                                                        ->with('alert-class','alert-danger');
+        }
+    }
 }
