@@ -325,9 +325,12 @@
   color:var(--text-color);
 }
 .book-carouse__body {
-  display: flex;
-  justify-content: center;
   
+  
+}
+.book-carousel__wrapper{
+  display: flex;
+  gap: 1.6rem;
 }
 
 .book-carouse__body .col-3{
@@ -453,3 +456,4 @@
   text-decoration: none;
   color:var(--text-color2);
 }
+
