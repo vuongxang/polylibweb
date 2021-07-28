@@ -115,10 +115,10 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
     Route::prefix('review')->group(function () {
         Route::get('/', [RatingController::class, 'index'])->name('rate.index');
-        // Route::get('comment-approv/{id}', [CommentController::class, 'commentApprov'])->name('comment.approv');
-        // Route::get('remove/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
-        // Route::get('restore/{id}', [CommentController::class, 'restore'])->name('comment.restore');
-        // Route::get('force-delete/{id}', [CommentController::class, 'forceDelete'])->name('comment.forcedelete');
+        Route::get('rate-approv/{id}', [RatingController::class, 'rateApprov'])->name('rate.approv');
+        Route::get('remove/{id}', [RatingController::class, 'destroy'])->name('rate.destroy');
+        Route::get('restore/{id}', [RatingController::class, 'restore'])->name('rate.restore');
+        Route::get('force-delete/{id}', [RatingController::class, 'forceDelete'])->name('rate.forcedelete');
     });
 });
 

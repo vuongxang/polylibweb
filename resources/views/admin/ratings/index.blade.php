@@ -39,6 +39,7 @@
                                         <th>User</th>
                                         <th>Tên Sách</th>
                                         <th>@sortablelink('rating','Số điểm')</th>
+                                        <th>@sortablelink('body','Nội dung')</th>
                                         <th>@sortablelink('created_at','Ngày gửi')</th>
                                         <th>
                                             Hành động
@@ -46,22 +47,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($ratings_approved as $key => $comment)
+                                    @if (count($ratings_approved))
+                                        @foreach ($ratings_approved as $key => $rating)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $rating->user->name }}</td>
+                                                <td>{{ $rating->book->title }}</td>
+                                                <td>
+                                                    <div class="book-info-rating">
+                                                        <div class="rate-stars">
+                                                            @for ($i=0; $i < $rating->rating; $i++) <i class="fas fa-star text-warning"></i>
+                                                            @endfor
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $rating->body }}</td>
+                                                <td>
+                                                    {{ date_format($rating->created_at, 'Y-m-d') }}
+                                                </td>
+                                                <td class="text-center">
+                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy đánh giá này?')" href="{{route('rate.destroy',$rating->id)}}"
+                                                        class="fas fa-trash text-danger p-1 btn-action"></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <td>{{ $comment->id }}</td>
-                                            <td>{{ $comment->user->email }}</td>
-                                            <td>{{ $comment->book->title }}</td>
-                                            <td>{{ $comment->body }}</td>
-                                            <td>
-                                                {{ date_format($comment->created_at, 'Y-m-d') }}
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="" class="fas fa-eye text-warning p-1 btn-action"></a>
-                                                <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')" href="{{route('comment.destroy',$comment->id)}}"
-                                                    class="fas fa-trash text-danger p-1 btn-action"></a>
-                                            </td>
+                                            <td colspan="10" class="text-center">Không có đánh giá nào !</td>
                                         </tr>
-                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                             {!! $ratings_approved->links('vendor.pagination.bootstrap-4') !!}
@@ -70,11 +84,12 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>@sortablelink('id','ID')</th>
-                                        <th>email</th>
+                                        <th>STT</th>
+                                        <th>User</th>
                                         <th>Tên Sách</th>
-                                        <th>Nội dung</th>
-                                        <th>@sortablelink('created_at','Ngày bình luận')</th>
+                                        <th>@sortablelink('rating','Số điểm')</th>
+                                        <th>@sortablelink('body','Nội dung')</th>
+                                        <th>@sortablelink('created_at','Ngày gửi')</th>
                                         <th>
                                             Hành động
                                         </th>
@@ -82,25 +97,33 @@
                                 </thead>
                                 <tbody>
                                     @if (count($ratings_pending) > 0)
-                                        @foreach ($ratings_pending as $key => $comment)
+                                        @foreach ($ratings_pending as $key => $rating)
                                             <tr>
-                                                <td>{{ $comment->id }}</td>
-                                                <td>{{ $comment->user->email }}</td>
-                                                <td>{{ $comment->book->title }}</td>
-                                                <td>{{ $comment->body }}</td>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $rating->user->name }}</td>
+                                                <td>{{ $rating->book->title }}</td>
                                                 <td>
-                                                    {{ date_format($comment->created_at, 'Y-m-d') }}
+                                                    <div class="book-info-rating">
+                                                        <div class="rate-stars">
+                                                            @for ($i=0; $i < $rating->rating; $i++) <i class="fas fa-star text-warning"></i>
+                                                            @endfor
+                                                        </div>
+                                                    </div>    
+                                                </td>
+                                                <td>{{ $rating->body }}</td>
+                                                <td>
+                                                    {{ date_format($rating->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('comment.approv',$comment->id)}}" class="">Duyệt</a>
-                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
-                                                        href="{{route('comment.destroy',$comment->id)}}" class="text-danger p-1 btn-action">Hủy</a>
+                                                    <a href="{{route('rate.approv',$rating->id)}}" class="">Duyệt</a>
+                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy đánh giá này?')"
+                                                        href="{{route('rate.destroy',$rating->id)}}" class="text-danger p-1 btn-action">Hủy</a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td colspan="10" class="text-center">Không có bình luận nào !</td>
+                                            <td colspan="10" class="text-center">Không có đánh giá nào !</td>
                                         </tr>
                                     @endif
                                 </tbody>
@@ -110,11 +133,12 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>@sortablelink('id','ID')</th>
-                                        <th>email</th>
+                                        <th>STT</th>
+                                        <th>User</th>
                                         <th>Tên Sách</th>
-                                        <th>Nội dung</th>
-                                        <th>@sortablelink('created_at','Ngày bình luận')</th>
+                                        <th>@sortablelink('rating','Số điểm')</th>
+                                        <th>@sortablelink('body','Nội dung')</th>
+                                        <th>@sortablelink('created_at','Ngày gửi')</th>
                                         <th>
                                             Hành động
                                         </th>
@@ -122,32 +146,40 @@
                                 </thead>
                                 <tbody>
                                     @if (count($ratings_deleted) > 0)
-                                        @foreach ($ratings_deleted as $key => $comment)
+                                        @foreach ($ratings_deleted as $key => $rating)
                                             <tr>
-                                                <td>{{ $comment->id }}</td>
-                                                <td>{{ $comment->user->email }}</td>
-                                                <td>{{ $comment->book->title }}</td>
-                                                <td>{{ $comment->body }}</td>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $rating->user->name }}</td>
+                                                <td>{{ $rating->book->title }}</td>
                                                 <td>
-                                                    {{ date_format($comment->created_at, 'Y-m-d') }}
+                                                    <div class="book-info-rating">
+                                                        <div class="rate-stars">
+                                                            @for ($i=0; $i < $rating->rating; $i++) <i class="fas fa-star text-warning"></i>
+                                                            @endfor
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $rating->body }}</td>
+                                                <td>
+                                                    {{ date_format($rating->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('comment.restore',$comment->id)}}" class="text-success">Phục hồi</a>
-                                                    <a href="{{route('comment.forcedelete',$comment->id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này?')" class="text-danger">Xóa</a>
+                                                    <a href="{{route('rate.restore',$rating->id)}}" class="text-success">Phục hồi</a>
+                                                    <a href="{{route('rate.forcedelete',$rating->id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa đánh giá này?')" class="text-danger">Xóa</a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td colspan="10" class="text-center">Không có bình luận nào !</td>
+                                            <td colspan="10" class="text-center">Không có đánh giá nào !</td>
                                         </tr>
                                     @endif
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center">{!!$ratings_deleted->links('vendor.pagination.bootstrap-4')!!}</div>
                         </div>
                     </div>
                 </div>
-                {{-- <div class="d-flex justify-content-center">{!!$users->links('vendor.pagination.bootstrap-4')!!}</div> --}}
             </div>
         </div>
     </div>
