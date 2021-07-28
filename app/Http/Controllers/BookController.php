@@ -17,6 +17,7 @@ use App\Models\Order;
 use SebastianBergmann\Environment\Console;
 use willvincent\Rateable\Rating as RateableRating;
 use Carbon\Carbon;
+
 class BookController extends Controller
 {
     public function index(Request $request)
@@ -42,7 +43,8 @@ class BookController extends Controller
         return view('admin.books.add-form', compact('cates', 'authors'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $model = new Book();
 
         $model->fill($request->all());
@@ -197,44 +199,55 @@ class BookController extends Controller
         $book->load('authors');
         $book->load('bookGalleries');
 
-        
-        $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
-                                ->where('status','Đang mượn')->first();
-        
-        $rates = Rating::where('rateable_id',$id)->get();
+        $sameBooks = [];
+        foreach ($book->categories as $cate) {
+            foreach ($cate->books as $books) {
+                if($books->id !== $book->id){
+                    
+                    array_push($sameBooks, $books);
+                }
+            }
+        }
+        $sameBooksUnique = array_unique($sameBooks);
+        $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
+            ->where('status', 'Đang mượn')->first();
+
+        $rates = Rating::where('rateable_id', $id)->get();
         $rates->load('user');
 
-        $avg_rating = DB::table('ratings')->where('rateable_id',$id)->avg('rating');
-    
-        return view('client.pages.book-detail', ['book' => $book,'ordered' => $ordered,'rates'=>$rates,'avg_rating'=>$avg_rating]);
+        $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
+
+        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating,'sameBooksUnique'=>$sameBooksUnique]);
     }
 
 
-    public function reviewPage($id){
-        $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
-                                ->where('status','Đang mượn')->first();
+    public function reviewPage($id)
+    {
+        $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
+            ->where('status', 'Đang mượn')->first();
 
-        $order_deleted = Order::onlyTrashed()->where('id_user',Auth::user()->id)
-        ->where('status','Đã trả')->first();
+        $order_deleted = Order::onlyTrashed()->where('id_user', Auth::user()->id)
+            ->where('status', 'Đã trả')->first();
 
-        if(!$ordered && !$order_deleted) return redirect()->back(); //Kiểm tra đã mượn sách chưa mới được review sách
+        if (!$ordered && !$order_deleted) return redirect()->back(); //Kiểm tra đã mượn sách chưa mới được review sách
 
-        $rate = \willvincent\Rateable\Rating::where('rateable_id',$id)->where('user_id',Auth::user()->id)->first();
-        if(!$rate) $rate = new \willvincent\Rateable\Rating; 
+        $rate = \willvincent\Rateable\Rating::where('rateable_id', $id)->where('user_id', Auth::user()->id)->first();
+        if (!$rate) $rate = new \willvincent\Rateable\Rating;
         $book = Book::find($id);
-        return view('client.pages.review',['book'=>$book,'rate'=>$rate]);
+        return view('client.pages.review', ['book' => $book, 'rate' => $rate]);
     }
 
-    public function bookStar ( $request) {
+    public function bookStar(Request $request)
+    {
 
         $id = $request->id;
-        $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
-                                ->where('status','Đang mượn')->first();
+        $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
+            ->where('status', 'Đang mượn')->first();
 
-        $order_deleted = Order::onlyTrashed()->where('id_user',Auth::user()->id)
-        ->where('status','Đã trả')->first();
+        $order_deleted = Order::onlyTrashed()->where('id_user', Auth::user()->id)
+            ->where('status', 'Đã trả')->first();
 
-        if(!$ordered && !$order_deleted) return redirect()->back();
+        if (!$ordered && !$order_deleted) return redirect()->back();
 
         request()->validate(['rate' => 'required']);
 
@@ -242,28 +255,28 @@ class BookController extends Controller
 
         $body = $request->body;
 
-        $rate = \willvincent\Rateable\Rating::where('rateable_id',$id)->where('user_id',Auth::user()->id)->first();
-        if($rate) $rating = $rate;
+        $rate = \willvincent\Rateable\Rating::where('rateable_id', $id)->where('user_id', Auth::user()->id)->first();
+        if ($rate) $rating = $rate;
         else $rating = new \willvincent\Rateable\Rating;
-        
+
         $rating->rating = $request->rate;
         $rating->user_id = auth()->user()->id;
         $rating->body = $body;
         $book->ratings()->save($rating);
 
-        return redirect(route('user.history',Auth::user()->id))->with('message','Gửi đánh giá thành công !');
+        return redirect(route('user.history', Auth::user()->id))->with('message', 'Gửi đánh giá thành công !');
     }
 
     public function readingBook($id)
     {
-        $ordered = Order::where('book_id',$id)->where('id_user',Auth::user()->id)
-                                                ->where('status','Đang mượn')->first();
+        $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
+            ->where('status', 'Đang mượn')->first();
 
-        if(!$ordered) return redirect()->back(); //Check xem đã mượn sách chưa nếu chưa thì không cho truy cập
+        if (!$ordered) return redirect()->back(); //Check xem đã mượn sách chưa nếu chưa thì không cho truy cập
 
         $book = Book::find($id);
         if ($book) {
-            $pages = BookGallery::where('book_id', '=',$book->id)->orderBy('id','desc')->get();
+            $pages = BookGallery::where('book_id', '=', $book->id)->orderBy('id', 'desc')->get();
             return view('client.pages.reading-book', ['pages' => $pages], ['book' => $book]);
         } else {
             return abort(404);
@@ -271,22 +284,23 @@ class BookController extends Controller
     }
 
 
-    public function getBooks(){
+    public function getBooks()
+    {
         $books = Book::paginate(9);
         $categories = Category::all();
-        return view('client.pages.category',compact('categories','books'));
-
+        return view('client.pages.category', compact('categories', 'books'));
     }
-    public function getBooksByCategory($slug){
-        $catee= Category::where('slug', '=',$slug)->get();
+    public function getBooksByCategory($slug)
+    {
+        $catee = Category::where('slug', '=', $slug)->get();
         $catee->load('books');
         $categories = Category::all();
         $array = [];
-        foreach($catee as $a){
-            foreach($a->books as $b){
-                array_push($array,$b);
+        foreach ($catee as $a) {
+            foreach ($a->books as $b) {
+                array_push($array, $b);
             }
         }
-        return view('client.pages.category',compact('categories','catee'));
-  }
+        return view('client.pages.category', compact('categories', 'catee'));
+    }
 }
