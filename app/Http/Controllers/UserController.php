@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -54,5 +55,17 @@ class UserController extends Controller
             return back()->with('message','Dữ liệu không tồn tại !')
                                                         ->with('alert-class','alert-danger');
         }
+    }
+
+    public function profile($id){
+        $user = Auth::user();
+        return view('admin.users.profile',['user'=>$user]);
+    }
+
+    public function updateProfile(Request $request,$id){
+        $user = User::find($id);
+        $user->fill($request->all());
+        $user->save();
+        return back()->with('message','Cập nhật thành công !');
     }
 }

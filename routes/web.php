@@ -103,6 +103,8 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');
         Route::get('restore/{id}', [UserController::class, 'restore'])->name('user.restore');
         Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
+        Route::get('my-profile/{id}', [UserController::class, 'profile'])->name('user.profile');
+        Route::post('my-profile/{id}', [UserController::class, 'updateProfile'])->name('user.profile');
     });
 
     Route::prefix('comment')->group(function () {
