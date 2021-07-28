@@ -6,6 +6,14 @@
 
 @section('content')
 
+@if (session('thongbao'))
+{{-- <script>
+    alert("{{ session('thongbao') }}")
+</script> --}}
+<div class="alert @if ((session('alert'))) {{(session('alert'))}} @endif text-center">
+    <h1 class="@if ((session('text-alert'))) {{(session('text-alert'))}} @endif" style="font-size: 20pt; font-weight:700">{{ session('thongbao') }}</h1>
+</div>
+@endif
 
 
 <div class="container">

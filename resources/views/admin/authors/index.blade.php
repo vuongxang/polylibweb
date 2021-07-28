@@ -13,18 +13,17 @@
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active bg-light">Danh sách</a>
+                    <a class="nav-link active">Danh sách<span>({{count($authors)}})</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('author.trashlist')}}">Thùng rác</a>
                 </li>
             </ul>
-            <table class="table table-striped bg-light" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
                         <th>@sortablelink('name','Tên')</th>
-                        <th>@sortablelink('email','email')</th>
                         <th>Ảnh đại diện</th>
                         <th>@sortablelink('date_birt','Ngày sinh')</th>
                         <th class="text-center">
