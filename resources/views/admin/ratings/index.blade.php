@@ -22,31 +22,31 @@
                 </div>
                 <div class="data-tabs">
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#home">Bình luận đã
-                                duyệt <span>({{count($comments_approved)}})</span> </a></li>
-                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu1">Bình luận chờ duyệt
-                            <span>({{count($comments_pending)}})</span></a>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#home">Đánh giá đã duyệt
+                            <span>({{count($ratings_approved)}})</span> </a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu1">Đánh giá chờ duyệt
+                            <span>({{count($ratings_pending)}})</span></a>
                         </li>
-                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu2">Bình luận bị xóa
-                            <span>({{count($comments_deleted)}})</span></a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu2">Đánh giá bị xóa
+                            <span>({{count($ratings_deleted)}})</span></a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="home" class="tab-pane in active">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>@sortablelink('id','ID')</th>
-                                        <th>email</th>
+                                        <th>STT</th>
+                                        <th>User</th>
                                         <th>Tên Sách</th>
-                                        <th>Nội dung</th>
-                                        <th>@sortablelink('created_at','Ngày bình luận')</th>
+                                        <th>@sortablelink('rating','Số điểm')</th>
+                                        <th>@sortablelink('created_at','Ngày gửi')</th>
                                         <th>
                                             Hành động
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($comments_approved as $key => $comment)
+                                    @foreach ($ratings_approved as $key => $comment)
                                         <tr>
                                             <td>{{ $comment->id }}</td>
                                             <td>{{ $comment->user->email }}</td>
@@ -64,7 +64,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {!! $comments_approved->links('vendor.pagination.bootstrap-4') !!}
+                            {!! $ratings_approved->links('vendor.pagination.bootstrap-4') !!}
                         </div>
                         <div id="menu1" class="tab-pane">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -81,8 +81,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (count($comments_pending) > 0)
-                                        @foreach ($comments_pending as $key => $comment)
+                                    @if (count($ratings_pending) > 0)
+                                        @foreach ($ratings_pending as $key => $comment)
                                             <tr>
                                                 <td>{{ $comment->id }}</td>
                                                 <td>{{ $comment->user->email }}</td>
@@ -121,8 +121,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (count($comments_deleted) > 0)
-                                        @foreach ($comments_deleted as $key => $comment)
+                                    @if (count($ratings_deleted) > 0)
+                                        @foreach ($ratings_deleted as $key => $comment)
                                             <tr>
                                                 <td>{{ $comment->id }}</td>
                                                 <td>{{ $comment->user->email }}</td>
