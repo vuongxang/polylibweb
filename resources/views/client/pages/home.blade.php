@@ -75,7 +75,7 @@
 
                                     @endforeach
                                     <p> <span class="book-star">
-                                        @for ($i = 0; $i < floor($book->userAverageRating) ; $i++)
+                                        @for ($i = 0; $i < floor(DB::table('ratings')->where('rateable_id',$book->id)->avg('rating')) ; $i++)
                                             <i class="fas fa-star"></i>
                                         @endfor
                                     </span></p>
@@ -104,7 +104,7 @@
                                 @endforeach
                                 <p> 
                                     <span class="book-star">
-                                        @for ($i = 0; $i < floor($book->userAverageRating) ; $i++)
+                                        @for ($i = 0; $i < floor(DB::table('ratings')->where('rateable_id',$book->id)->avg('rating')) ; $i++)
                                             <i class="fas fa-star"></i>
                                         @endfor
                                     </span>
@@ -125,26 +125,6 @@
     </a>
     </div>
 
-
-
-
-
-
-
-    <!-- <div class=" space__between">
-        @foreach ($books as $book)
-        <div class="book-item">
-            <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-            <h3>{{$loop->index}}</h3>
-            @foreach($book->authors as $bookAuthor)
-            <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
-
-            @endforeach
-            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-        </div>
-        @endforeach
-        </div> -->
-    {{-- </div> --}}
 
     <div class="book-list book__list--background">
         <div class="book-list__heading space__between">

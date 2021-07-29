@@ -94,8 +94,8 @@
                     @endif
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-dark rounded-pill shadow-lg">LƯU</button>
-                    <a href="{{route('book.index')}}" class="btn btn-danger rounded-pill shadow">HỦY</a>
+                    <button type="submit" class="btn btn-dark btn-sm shadow-lg">Cập nhật</button>
+                    <a href="{{route('book.index')}}" class="btn btn-danger btn-sm shadow">Hủy</a>
                 </div>
             </form>
         </div>

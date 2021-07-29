@@ -22,20 +22,22 @@ use App\Http\Controllers\CommentController;
 |
 */
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/book-detail/{id}',[ BookController::class,'bookDetail'])->middleware('auth')
-                                                                    ->name('book.detail');
-Route::post('/comment-store',[ CommentController::class,'store'])->middleware('auth')
-                                                                    ->name('comments.store');
 
-Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
-                                                                    ->name('user.infomation');
-Route::post('infomation/{id}',[HomeController::class, 'edit_infomation'])->name('infomation.edit');
+Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
+Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
+Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
+Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
 
-Route::get('history/{id}',[HomeController::class, 'history'])->middleware('auth')
-                                                                    ->name('user.history');
+
+Route::view('review', 'client.pages.review-book');
+Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
+
+Route::get('infomation/{id}', [HomeController::class, 'infomation'])->middleware('auth')->name('user.infomation');
+Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
 Route::get('setting',[HomeController::class, 'setting'])->middleware('auth')
                                                         ->name('user.setting');
 Route::get('rate/{id}',[HomeController::class, 'rate'])->middleware('auth')
@@ -45,7 +47,7 @@ Route::get('help',[HomeController::class, 'help'])->middleware('auth')
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 
-Route::post('/rating',[ BookController::class,'bookStar'])->name('bookStar');
+Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 
 Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
@@ -98,13 +100,26 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
     Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware('is-admin')->name('user.index');
-        Route::get('client',[UserController::class,'ListClient'])->name('user.client');
+        Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
         // Route::post('add-author',[AuthorController::class,'store'])->name('author.store');
-        Route::get('remove/{id}',[UserController::class,'destroy'])->name('user.destroy');
-        Route::get('edit/{id}',[UserController::class,'edit'])->name('user.edit');
+        Route::get('remove/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+        Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');
         Route::get('restore/{id}', [UserController::class, 'restore'])->name('user.restore');
         Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
+    });
+
+    Route::prefix('comment')->group(function () {
+        Route::get('/', [CommentController::class, 'index'])->name('comment.index');
+        // Route::get('add-author', [AuthorController::class, 'create'])->name('author.create');
+        // Route::post('add-author', [AuthorController::class, 'store'])->name('author.store');
+        // Route::get('remove/{id}', [AuthorController::class, 'destroy'])->name('author.destroy');
+        // Route::get('edit/{id}', [AuthorController::class, 'edit'])->name('author.edit');
+        // Route::post('edit/{id}', [AuthorController::class, 'update'])->name('author.update');
+        // Route::get('trash-list', [AuthorController::class, 'trashList'])->name('author.trashlist');
+        // Route::get('restore/{id}', [AuthorController::class, 'restore'])->name('author.restore');
+        // Route::get('force-delete/{id}', [AuthorController::class, 'forceDelete'])->name('author.forcedelete');
+        // Route::get('changePageSize', [AuthorController::class, 'changePageSize']);
     });
 });
 
