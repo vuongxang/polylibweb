@@ -213,7 +213,7 @@ class BookController extends Controller
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
 
-        $rates = Rating::where('rateable_id', $id)->get();
+        $rates = Rating::where('rateable_id', $id)->where('status',1)->get();
         $rates->load('user');
 
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
@@ -307,13 +307,7 @@ class BookController extends Controller
 
     public function search(Request $request){
         $keyword = $request->keyword;
-        $shares = DB::table('books')
-        ->join('author_books', 'books.id', '=', 'author_books.book_id')
-        ->join('authors', 'authors.id', '=', 'author_books.author_id')
-        ->where('books.title', 'like', '%'. $keyword . '%')
-        ->where('authors.name', 'like', '%'. $keyword . '%')
-        ->get();
-        dd($shares);
+
         $books = Book::where('title','like', '%' . $request->keyword . '%')->get();
         $categories = Category::all();
         return view('client.pages.search',compact('categories', 'books','keyword'));

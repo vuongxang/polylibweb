@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Notifications\InvoicePaid;
+use Illuminate\Support\Facades\Notification;
 
 class CommentController extends Controller
 {
@@ -40,7 +43,14 @@ class CommentController extends Controller
         $input['user_id'] = auth()->user()->id;
     
         Comment::create($input);
-   
+        $user = User::find(auth()->user()->id);
+        
+        $data = [
+            'title'=> 'aaaaa',
+            'content' => 'demo content'
+        ];
+
+        $user->notify(new InvoicePaid($data));   
         return back();
     }
 
