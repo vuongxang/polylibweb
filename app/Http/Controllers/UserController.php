@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -54,5 +55,21 @@ class UserController extends Controller
             return back()->with('message','Dữ liệu không tồn tại !')
                                                         ->with('alert-class','alert-danger');
         }
+    }
+    public function create(){
+        return view('admin.users.create');
+    }
+
+    public function store(Request $request){
+        $model = User::where('email',$request->email)->first();
+        if($model) return back();
+        $model = new User();
+        $model->name = $request->name;
+        $model->email = $request->email;
+        $model->role_id = 2;
+        $model->password = Hash::make($request->password);
+        $model->save();
+
+        return redirect(route('user.create'))->with('message','Tạo tài khoản thành công');
     }
 }

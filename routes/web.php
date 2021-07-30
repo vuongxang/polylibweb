@@ -25,8 +25,11 @@ use App\Http\Controllers\CommentController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::prefix('/')->middleware('auth')->group(function () {
+    Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
+});
 
-Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
+
 Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
 Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
 Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
@@ -101,7 +104,9 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware('is-admin')->name('user.index');
         Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
-        // Route::post('add-author',[AuthorController::class,'store'])->name('author.store');
+        // Route::post('add-author',[AuthorController::class,'store'])->name('author.store'); 
+        Route::get('add-user',[UserController::class,'create'])->name('user.create');
+        Route::post('add-user',[UserController::class,'store'])->name('user.store');
         Route::get('remove/{id}', [UserController::class, 'destroy'])->name('user.destroy');
         Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');

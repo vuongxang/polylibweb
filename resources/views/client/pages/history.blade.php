@@ -9,7 +9,7 @@
         <div class=" profile-info">
             <div class="row ho-so-ca-nhan">
                 <div class="col-md-12 ho-so-ca-nhan">
-                    <h2>Sách đang mượn đọc</h2>
+                    <h2>Lịch sử mượn sách</h2>
                 </div>
             </div>
             @if (session('message'))
@@ -33,6 +33,7 @@
                             <thead>
                                 <tr>
                                     <td>STT</td>
+                                    <td>Ảnh bìa</td>
                                     <td>Tên sách</td>
                                     <td>Trạng thái</td>
                                     <td>Thời gian còn lại</td>
@@ -43,7 +44,7 @@
                                 @if (count($book_order) > 0)
                                     @foreach ($book_order as $key => $order_book)
                                         <?php
-                                        $time_order = strtotime($order_book->created_at->addDay(0));
+                                        $time_order = strtotime($order_book->created_at->addDays(3));
                                         $time_now = strtotime($dt);
                                         $time = $time_order - $time_now;
                                         // dd($time_order + strtotime(0000-00-07));
@@ -60,6 +61,11 @@
                                         ?>
                                         <tr>
                                             <td scope="row">{{ $key + 1 }}</td>
+                                            <td class="text-center">
+                                                <a href="{{route('book.detail',$order_book->book->id)}}">
+                                                    <img src="{{ $order_book->book->image }}" width="50" alt="Ảnh bìa">
+                                                </a>
+                                            </td>
                                             <td>{{ $order_book->book->title }}</td>
                                             <td>{{ $order_book->status }}</td>
                                             <td>
@@ -93,6 +99,7 @@
                             <thead>
                                 <tr>
                                     <td>STT</td>
+                                    <td>Ảnh bìa</td>
                                     <td>Tên sách</td>
                                     <td>Trạng thái</td>
                                     <td>Ngày trả</td>
@@ -105,6 +112,11 @@
                                         @if ($deleted_order->id == true)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{route('book.detail',$deleted_order->book->id)}}">
+                                                        <img src="{{ $deleted_order->book->image }}" width="50" alt="Ảnh bìa"> 
+                                                    </a>
+                                                </td>
                                                 <td>{{ $deleted_order->book->title }}</td>
                                                 <td>{{ $deleted_order->status }}</td>
                                                 <td>{{ $deleted_order->deleted_at }}</td>

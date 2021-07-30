@@ -54,16 +54,19 @@ class HomeController extends Controller
         //     $infomation->avatar = $name_avatar;
         // }
         $infomation->save();
-        return back();
+        return back()->with('message','Cập nhật thông tin tài khoản thành công');
     }
     public function history($user_id){
         if(Auth::user()->id != $user_id)  return back(); //Check đúng tài khoản đang đăng nhập
         
         $book_order = Order::where('id_user',$user_id)->get();
-        $deleted_book_order = Order::onlyTrashed()->where('id_user',$user_id)->get();
+        $deleted_book_order = Order::onlyTrashed()->where('id_user',$user_id)->paginate(8);
         $dt = now();
 
         $book_order->load('book');
         return view('client.pages.history', compact('book_order', 'deleted_book_order', 'dt'));
+    }
+    public function rate($id){
+        return view('client.pages.rating');
     }
 }

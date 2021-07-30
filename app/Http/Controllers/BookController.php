@@ -202,6 +202,7 @@ class BookController extends Controller
         $rates->load('user');
 
         $avg_rating = DB::table('ratings')->where('rateable_id',$id)->avg('rating');
+        // dd($avg_rating);
     
         return view('client.pages.book-detail', ['book' => $book,'ordered' => $ordered,'rates'=>$rates,'avg_rating'=>$avg_rating]);
     }

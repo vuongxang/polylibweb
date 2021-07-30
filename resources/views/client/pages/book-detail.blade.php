@@ -39,13 +39,19 @@
                     </div>
                     <div class="book-info-rating">
                         <div class="rate-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            @for ($i=0; $i < floor($avg_rating); $i++) <i class="fas fa-star"></i>
-                                @endfor
+                            @for ($i=1; $i <= 5; $i++) 
+                                @if (round($avg_rating,1) >= round($i,1) )
+                                    <i class="fas fa-star"></i>
+                                @else
+                                    <i class="far fa-star"></i>
+                                @endif
+                                <!-- <i class="fas fa-star"></i> -->
+                            @endfor
+                            @if($avg_rating>0)
+                                {{ round($avg_rating,1) }}
+                            @endif
                         </div>
-                        <span class="review-count ">( 352 )</span>
+                        <span class="review-count ">( {{ count($rates) }} đánh giá )</span>
                     </div>
 
                 </div>
@@ -99,7 +105,7 @@
                     <a class="book-tabs__link active" data-toggle="tab" href="#comment-tab">Bình luận</a>
                 </li>
                 <li class="book-tabs__item">
-                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Phản hồi ({{count($rates)}}) </a>
+                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá/Phản hồi ({{count($rates)}}) </a>
                 </li>
             </ul>
         </div>
@@ -138,13 +144,24 @@
                         <img src="{{ asset($rate->user->avatar) }}" alt="" class="rounded-circle" width="40">
                     </div>
                     <div class="book-comment-body-detail__content">
-                        <div class="book-comment-body-detail__username">{{ $rate->user->name }}</div>
+                        <div class="book-comment-body-detail__username">
+                            {{ $rate->user->name }}
+                            <p style="color:#bdbdbd; font-size:10pt">
+                                {{ $rate->created_at->toDateString() }}
+                            </p>
+
+                        </div>
                         <div class="book-comment-body-detail__date">
                             <span class="book-star">
-                                @for ($i = 0; $i < $rate->rating; $i++)
-                                    <i class="fas fa-star text-"></i>
-                                    @endfor
-                                    <span>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <!-- <i class="fas fa-star text-"></i> -->
+                                    @if ($rate->rating >= $i )
+                                    <i class="fas fa-star"></i>
+                                    @else
+                                    <i class="far fa-star"></i>
+                                    @endif
+                                @endfor
+                            <span>
                         </div>
                         <div class="book-comment-body-detail__comment">{{ $rate->body }}</div>
                     </div>

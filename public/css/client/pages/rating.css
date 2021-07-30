@@ -1,0 +1,14 @@
+
+.book-rating__header h2{
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 49px;
+    font-size: 20pt;
+    display: flex;
+    align-items: center;
+    color: #425BA8;
+}
+.book-rating__content{
+    
+}

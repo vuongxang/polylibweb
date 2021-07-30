@@ -5,6 +5,14 @@
 @endsection
 
 @section('content')
+
+
+@if (session('message'))
+    <div class="alert alert-success text-center">
+        <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
+    </div>
+@endif
+
 <div class="container">
     <div class="profile-info">
         <div class="row ho-so-ca-nhan">

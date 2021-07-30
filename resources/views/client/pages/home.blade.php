@@ -128,8 +128,8 @@
 
     <div class="book-list book__list--background">
         <div class="book-list__heading space__between">
-            <h2>Sách được đọc nhiều nhất</h2>
-            <a href="">Xem thêm</a>
+            <h2 style="color:#fff">Sách được đọc nhiều nhất</h2>
+            <a href=""  style="color:#fff">Xem thêm</a>
         </div>
         <div id="book__list--background" class="carousel slide" data-ride="carousel" data-pause="hover">
             <div class="carousel-inner ">
