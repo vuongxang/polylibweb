@@ -30,28 +30,32 @@
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Alerts -->
                     <span class="badge badge-danger badge-counter">
-                        @if (count(Auth::user()->notifications)<=3)
-                            {{count(Auth::user()->notifications)}}
+                        @if (auth()->user()->unreadNotifications->count()<=3)
+                            {{auth()->user()->unreadNotifications->count()}}
                         @else
                             3+
                         @endif
                     </span>
                 </a>
                 <!-- Dropdown - Alerts -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" id="menu_notification" aria-labelledby="alertsDropdown">
                     <h6 class="dropdown-header">
                         Alerts Center
                     </h6>
                     @foreach (Auth::user()->notifications as $notification)
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('notification.read',$notification->id)}}">
                             <div class="mr-3">
-                                <div class="icon-circle bg-primary">
-                                    <i class="fas fa-file-alt text-white"></i>
+                                <div class="icon-circle">
+                                    @if ($notification->read_at==null)
+                                        <i class="fas fa-file-alt text-white"></i>
+                                    @else
+                                        <i class="fas fa-check text-success bg-white"></i>
+                                    @endif
                                 </div>
                             </div>
-                            <div>
+                            <div class="@if ($notification->read_at==null) font-weight-bold @endif">
                                 <div class="small text-gray-500">{{ $notification->data['title'] }}</div>
-                                <span class="font-weight-bold">{{ $notification->data['content'] }}</span>
+                                <span class="">{{ $notification->data['content'] }}</span>
                             </div>
                         </a>
                     @endforeach

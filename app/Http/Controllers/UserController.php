@@ -87,4 +87,14 @@ class UserController extends Controller
 
         return redirect(route('user.create'))->with('message','Tạo tài khoản thành công');
     }
+
+    public function readeNotification($id){
+        $notifications = Auth::user()->notifications;
+        foreach ($notifications as $key => $value) {
+            if($value->id == $id)     $notification = $value;
+        }
+
+        $notification->markAsRead();
+        return back();
+    }
 }

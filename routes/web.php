@@ -49,6 +49,7 @@ Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('
 Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
+Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
 
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
