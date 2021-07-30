@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Auth;
+>>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -56,11 +61,31 @@ class UserController extends Controller
                                                         ->with('alert-class','alert-danger');
         }
     }
+<<<<<<< HEAD
+=======
+
+    public function profile($id){
+        $user = Auth::user();
+        return view('admin.users.profile',['user'=>$user]);
+    }
+
+    public function updateProfile(Request $request,$id){
+        $user = User::find($id);
+        $user->fill($request->all());
+        $user->save();
+        return back()->with('message','Cập nhật thành công !');
+    }
+
+>>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
     public function create(){
         return view('admin.users.create');
     }
 
+<<<<<<< HEAD
     public function store(Request $request){
+=======
+    public function store(UserRequest $request){
+>>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
         $model = User::where('email',$request->email)->first();
         if($model) return back();
         $model = new User();
@@ -72,4 +97,17 @@ class UserController extends Controller
 
         return redirect(route('user.create'))->with('message','Tạo tài khoản thành công');
     }
+<<<<<<< HEAD
+=======
+
+    public function readeNotification($id){
+        $notifications = Auth::user()->notifications;
+        foreach ($notifications as $key => $value) {
+            if($value->id == $id)     $notification = $value;
+        }
+
+        $notification->markAsRead();
+        return back();
+    }
+>>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
 }

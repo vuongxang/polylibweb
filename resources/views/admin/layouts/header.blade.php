@@ -12,7 +12,7 @@
     <div class="input-group">
         <form action="" method="get">
             <input type="text" class="form-control bg-light border-0 small" name="keyword" placeholder="Nhập từ khóa tìm kiếm"
-            aria-label="Search" aria-describedby="basic-addon2" value="@isset($keyword) {{$keyword}}@endisset">
+            aria-label="Search" aria-describedby="basic-addon2" value="@isset($_GET['keyword']) {{$_GET['keyword']  }}@endisset">
         <div class="input-group-append">
             <button class="btn btn-primary" type="submit">
                 <i class="fas fa-search fa-sm"></i>
@@ -55,7 +55,7 @@
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-bell fa-fw"></i>
             <!-- Counter - Alerts -->
-            <span class="badge badge-danger badge-counter">3+</span>
+            <span class="badge badge-danger badge-counter">{{count(Auth::user()->notifications)}}</span>
         </a>
         <!-- Dropdown - Alerts -->
         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -63,7 +63,20 @@
             <h6 class="dropdown-header">
                 Alerts Center
             </h6>
-            <a class="dropdown-item d-flex align-items-center" href="#">
+            @foreach (Auth::user()->notifications as $notification)
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-primary">
+                            <i class="fas fa-file-alt text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">{{ $notification->data['title'] }}</div>
+                        <span class="font-weight-bold">{{ $notification->data['content'] }}</span>
+                    </div>
+                </a>
+            @endforeach
+            {{-- <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="mr-3">
                     <div class="icon-circle bg-primary">
                         <i class="fas fa-file-alt text-white"></i>
@@ -95,7 +108,7 @@
                     <div class="small text-gray-500">December 2, 2019</div>
                     Spending Alert: We've noticed unusually high spending for your account.
                 </div>
-            </a>
+            </a> --}}
             <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
         </div>
     </li>
@@ -181,7 +194,7 @@
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{route('user.profile',Auth::user()->id)}}">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
             </a>

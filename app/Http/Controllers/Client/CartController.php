@@ -25,19 +25,20 @@ class CartController extends Controller
         $book = Book::find($id);
 
         $book_order = Order::where('id_user',Auth::user()->id)->get();
-        // dd(count($book_order));
-        // if(Auth::user()->role_id==4){
-        //     if(count($book_order)>=5) return redirect(route('user.history',Auth::user()->id))
-        //             ->with('message','Bạn chỉ được mượn tối đa 5 quyển sách')
-        //             ->with('alert','alert-danger');
-        // }elseif(Auth::user()->role_id==3){
-        //     if(count($book_order)>=10) return redirect(route('user.history',Auth::user()->id))
-        //             ->with('message','Bạn chỉ được mượn tối đa 10 quyển sách')
-        //             ->with('alert','alert-danger');
-        // }
-        if(count($book_order)>=5) return redirect(route('user.history',Auth::user()->id))
-                    ->with('message','Bạn chỉ được mượn tối đa 5 quyển sách')
-                    ->with('alert','alert-danger');
+
+        if(Auth::user()->role_id==4){
+            if(count($book_order)>=5) return back()
+                                ->with('thongbao','Bạn chỉ được mượn tối đa 5 quyển sách')
+                                ->with('alert','alert-danger')->with('text-alert','text-danger');
+        }elseif(Auth::user()->role_id==3){
+            if(count($book_order)>=10) return back()
+                                ->with('thongbao','Bạn chỉ được mượn tối đa 10 quyển sách')
+                                ->with('alert','alert-danger')->with('text-alert','text-danger');
+        }else{
+            if(count($book_order)>=5) return back()
+                                ->with('thongbao','Bạn chỉ được mượn tối đa 5 quyển sách')
+                                ->with('alert','alert-danger')->with('text-alert','text-danger');
+        }
 
         $addCart = Cart::add(['id' => $id, 'name' => $book->title, 'options' => ['image' => $book->image]]);
         // dd($addCart);
@@ -49,7 +50,8 @@ class CartController extends Controller
         $order->save();
 
         Session::forget('cart');
-        return back()->with('thongbao','Mượn sách thành công');
+        return back()->with('thongbao','Mượn sách thành công')->with('alert','alert-success')
+                        ->with('text-alert','text-success');
     }
     public function deleted_book($id){
         $order = Order::find($id);
