@@ -40,19 +40,23 @@
                         </div>
                         <div class="book-info-rating">
                             <div class="rate-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                @for ($i = 0; $i < floor($avg_rating); $i++) <i
-                                        class="fas fa-star"></i>
+                                @for ($i=1; $i <= 5; $i++) 
+                                    @if (round($avg_rating,1) >= round($i,1) )
+                                        <i class="fas fa-star"></i>
+                                    @else
+                                        <i class="far fa-star"></i>
+                                    @endif
+                                    <!-- <i class="fas fa-star"></i> -->
                                 @endfor
+                                @if($avg_rating>0)
+                                    {{ round($avg_rating,1) }}
+                                @endif
                             </div>
-                            <span class="review-count ">( 352 )</span>
+                            <span class="review-count ">( {{ count($rates) }} đánh giá )</span>
                         </div>
 
                     </div>
                     <div class="book-button-group">
-
                         @if ($ordered)
                             <div class="book-button-item">
                                 <a href="{{ route('book.read', $book->id) }}"
@@ -128,7 +132,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="book-tabs__comment tab-pane" id="review-tab">
                     @foreach ($rates as $rate)
                         @if ($rate->user)
@@ -158,6 +161,7 @@
 
                                 </div>
                             </div>
+>>>>>>> main
 
                         @endif
                     @endforeach
@@ -181,7 +185,6 @@
                             <div class="row">
 
                                 @foreach ($sameBooksUnique as $book)
-
                                 @if ($loop->index < 4) <div class="col-3">
                                     <div class="book-card ">
                                         <div class="book-card__img">
@@ -222,7 +225,6 @@
                     @if (count($sameBooksUnique) > 4)
                     <div class="carousel-item">
                         <div class="row">
-
                             @foreach ($sameBooksUnique as $book)
                             @if ($loop->index >= 4 && $loop->index < 8) <div class="col-3">
                                 <div class="book-card ">
