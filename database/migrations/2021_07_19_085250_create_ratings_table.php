@@ -20,9 +20,11 @@ class CreateRatingsTable extends Migration
             $table->string('body')->nullable();
             $table->morphs('rateable');
             $table->bigInteger('user_id')->unsigned();
+            $table->integer('status')->default(0);
             $table->index('rateable_id');
             $table->index('rateable_type');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->softDeletes();
         });
     }
 

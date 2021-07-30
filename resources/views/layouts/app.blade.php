@@ -79,5 +79,30 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script type="text/javascript">
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            encrypted: true,
+            cluster: "ap1"
+        });
+        var channel = pusher.subscribe('NotificationEvent');
+        channel.bind('send-message', function(data) {
+            var newNotificationHtml = `
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                        <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="small text-gray-500">${data.title}</div>
+                    <span class="font-weight-bold">${data.content}</span>
+                </div>
+            </a>
+            `;
+    
+            $('.menu-notification').prepend(newNotificationHtml);
+        });
+    </script>
 </body>
 </html>

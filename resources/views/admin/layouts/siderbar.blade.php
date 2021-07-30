@@ -78,13 +78,12 @@
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-
+    @if (Auth::user()->role_id==1)
     <div class="sidebar-heading">
         Tài khoản
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    @if (Auth::user()->role_id==1)
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
@@ -94,12 +93,10 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('user.index')}}">Tài khoản nhân viên</a>
-                <a class="collapse-item" href="register.html">Thêm mới tài khoản</a>
+                <a class="collapse-item" href="{{route('user.create')}}">Thêm mới tài khoản</a>
             </div>
         </div>
     </li>
-    @endif
-
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('user.client')}}">
             <i class="fas fa-fw fa-users-cog"></i>
@@ -107,7 +104,7 @@
         </a>
     </li>
     <hr class="sidebar-divider">
-
+    @endif
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
             aria-expanded="true" aria-controls="collapseFour">
@@ -117,7 +114,7 @@
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('comment.index')}}">Bình luận</a>
-                <a class="collapse-item" href="{{route('comment.index')}}">Phản hồi</a>
+                <a class="collapse-item" href="{{route('rate.index')}}">Phản hồi</a>
             </div>
         </div>
     </li>

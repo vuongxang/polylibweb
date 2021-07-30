@@ -14,7 +14,7 @@ class AddSoftDeleteToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('gender');
+            $table->integer('gender')->default(0);
             $table->date('birth_date')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->softDeletes();
@@ -29,7 +29,6 @@ class AddSoftDeleteToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
         });
     }
 }
