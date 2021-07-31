@@ -46,13 +46,12 @@
                                     @else
                                         <i class="far fa-star"></i>
                                     @endif
-                                    <!-- <i class="fas fa-star"></i> -->
                                 @endfor
                                 @if($avg_rating>0)
                                     {{ round($avg_rating,1) }}
                                 @endif
                             </div>
-                            <span class="review-count ">( {{ count($rates) }} đánh giá )</span>
+                            <span class="review-count ">( {{ round($avg_rating,1) }} đánh giá )</span>
                         </div>
 
                     </div>
