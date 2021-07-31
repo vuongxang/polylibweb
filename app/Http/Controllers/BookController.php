@@ -213,7 +213,7 @@ class BookController extends Controller
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
 
-        $rates = Rating::where('rateable_id', $id)->get();
+        $rates = Rating::where('rateable_id', $id)->where('status',1)->get();
         $rates->load('user');
 
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');

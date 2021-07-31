@@ -26,6 +26,10 @@ use App\Http\Controllers\RatingController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
 Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
 Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
@@ -38,8 +42,11 @@ Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
+<<<<<<< HEAD
+=======
 Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
                                                                     ->name('user.infomation');
+>>>>>>> main
 Route::get('setting',[HomeController::class, 'setting'])->middleware('auth')
                                                         ->name('user.setting');
 Route::get('rate/{id}',[HomeController::class, 'rate'])->middleware('auth')
@@ -51,6 +58,7 @@ Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('
 Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
+Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
 
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {

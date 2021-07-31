@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Notifications\InvoicePaid;
+use Illuminate\Support\Facades\Notification;
+use Pusher\Pusher;
 
 class CommentController extends Controller
 {
@@ -40,7 +44,29 @@ class CommentController extends Controller
         $input['user_id'] = auth()->user()->id;
     
         Comment::create($input);
-   
+        $user = User::find(auth()->user()->id);
+        
+        $data = [
+            'title'=> 'test real time',
+            'content' => 'Bình luận thành công'
+        ];
+
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $pusher->trigger('NotificationEvent', 'send-message', $data);
+        
+        $user->notify(new InvoicePaid($data));
+        
         return back();
     }
 
