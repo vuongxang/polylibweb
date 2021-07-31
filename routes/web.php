@@ -31,6 +31,8 @@ Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('b
 Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
 Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
 Route::get('/search',[BookController::class, 'search'])->name('search');
+Route::get('/filter',[BookController::class, 'filter'])->name('filter');
+Route::post('/searchapi',[BookController::class, 'searchApi'])->name('searchapi');
 
 Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');

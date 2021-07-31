@@ -20,23 +20,25 @@
 
                     </ul>
                 </div>
-                
+
                 <div class=" filter-group ">
                     <h3 class="filter-heading">Danh mục</h3>
-                    <ul class="filter-list ">
+                    <form action="" id="filter-form">
+                        <ul class="filter-list ">
 
-                        @foreach($categories as $cate)
-                        <li class="filter-item js-filter-item">
-                            <div class="filter-item__checkbox">
-                                <input type="checkbox" name="" class="check" id="check-box-{{$cate->id}}">
-                                <label>{{$cate->name}}</label>
-                            </div>
-                            <span class="filter-item__quantity">{{count($cate->books)}}</span>
-                        </li>
-                        @endforeach
+                            @foreach($categories as $cate)
+                            <li class="filter-item js-filter-item">
+                                <div class="filter-item__checkbox">
+                                    <input type="checkbox" name="cate[]" value="{{$cate->id}}" class="filter-item__input" id="check-box-{{$cate->id}}">
+                                    <label>{{$cate->name}}</label>
+                                </div>
+                                <span class="filter-item__quantity">{{count($cate->books)}}</span>
+                            </li>
+                            @endforeach
 
 
-                    </ul>
+                        </ul>
+                    </form>
                 </div>
 
 
@@ -51,7 +53,7 @@
             </div>
             @if(isset($catee) )
             @foreach($catee as $cate)
-            
+
             <div class="search-result">
                 <div class="search-text">
                     Có <span class="search-text-detail">{{count($cate->books)}} </span>cuốn sách thuộc {{$cate->name}}
@@ -129,295 +131,62 @@
                 </div>
                 @endforeach
 
-                <!-- <div class="col-4 ">
-
-                        <div class="book-card">
-                            <div class="book-card__img">
-                                <a href="">
-                                    <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                                </a>
-                            </div>
-                            <div class="book-card__title">
-                                <a href="">
-                                    <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                                </a>
-                            </div>
-                            <div class="book-card__author">Dale Carnegie</div>
-                            <div class="book-card__star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="book-card__btn">
-                                <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 ">
-
-                        <div class="book-card">
-                            <div class="book-card__img">
-                                <a href="">
-                                    <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                                </a>
-                            </div>
-                            <div class="book-card__title">
-                                <a href="">
-                                    <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                                </a>
-                            </div>
-                            <div class="book-card__author">Dale Carnegie</div>
-                            <div class="book-card__star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="book-card__btn">
-                                <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-4 ">
-
-                        <div class="book-card">
-                            <div class="book-card__img">
-                                <a href="">
-                                    <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                                </a>
-                            </div>
-                            <div class="book-card__title">
-                                <a href="">
-                                    <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                                </a>
-                            </div>
-                            <div class="book-card__author">Dale Carnegie</div>
-                            <div class="book-card__star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="book-card__btn">
-                                <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                            </div>
-                        </div>
-                    </div> -->
-
                 @endif
-                <!--                 
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
 
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div> -->
             </div>
 
-            
+
         </div>
 
     </div>
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+    $(function($) {
     let jsFilterItem = document.getElementsByClassName('js-filter-item');
+    let jsFilterInput = document.getElementsByClassName('filter-item__input');
+
+    let cates = []
     for (const item of jsFilterItem) {
         item.addEventListener("click", () => {
-            console.log(item.querySelector('input'));
             if (item.querySelector('input').checked == false) {
                 item.querySelector('input').checked = true;
+                cates.push(parseInt(item.querySelector('input').value))
             } else {
                 if (item.querySelector('input').checked == true) {
                     item.querySelector('input').checked = false;
+                    cates = cates.filter(cate => {
+                        return cate != parseInt(item.querySelector('input').value)
+                    })
                 }
             }
+            $.ajax({
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // },
+                url: '{{route("filter")}}',
+                method: "get",
+                data: {
+                    cates: cates
+                },
+                dataType: 'json',
+                success: function(res) {
+                    console.log(res)
+                }
+            })
         })
     }
+
+    // $('#filter-form :checkbox').change(function() {
+    //     if(this.checked){
+    //         console.log(1);
+    //     }
+    // })
+    for (const item of jsFilterInput) {
+        item.addEventListener("click", (e) => {
+            e.stopPropagation();
+        })
+    }})
 </script>
 
 @endsection

@@ -49,7 +49,7 @@ class BookController extends Controller
 
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
-        $model->slug = $milliseconds."-".str_slug($request->title, '-');
+        $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
 
         $model->save();
 
@@ -102,7 +102,7 @@ class BookController extends Controller
         $model = Book::find($id);
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
-        $model->slug = $milliseconds."-".str_slug($request->title, '-');
+        $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
         $model->save();
 
         CategoryBook::where('book_id', $model->id)->delete();
@@ -203,8 +203,8 @@ class BookController extends Controller
         $sameBooks = [];
         foreach ($book->categories as $cate) {
             foreach ($cate->books as $books) {
-                if($books->id !== $book->id){
-                    
+                if ($books->id !== $book->id) {
+
                     array_push($sameBooks, $books);
                 }
             }
@@ -218,7 +218,7 @@ class BookController extends Controller
 
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
 
-        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating,'sameBooksUnique'=>$sameBooksUnique]);
+        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique]);
     }
 
 
@@ -305,17 +305,40 @@ class BookController extends Controller
         return view('client.pages.category', compact('categories', 'catee'));
     }
 
-    public function search(Request $request){
+    
+    public function search(Request $request)
+    {
         $keyword = $request->keyword;
-        $shares = DB::table('books')
-        ->join('author_books', 'books.id', '=', 'author_books.book_id')
-        ->join('authors', 'authors.id', '=', 'author_books.author_id')
-        ->where('books.title', 'like', '%'. $keyword . '%')
-        ->where('authors.name', 'like', '%'. $keyword . '%')
-        ->get();
-        dd($shares);
-        $books = Book::where('title','like', '%' . $request->keyword . '%')->get();
+        $shares = Book::join('author_books', 'books.id', '=', 'author_books.book_id')
+            ->join('authors', 'authors.id', '=', 'author_books.author_id')
+            ->where('books.title', 'like', '%' . $keyword . '%')
+            ->orWhere('authors.name', 'like', '%' . $keyword . '%')
+            ->get();
+        $books = Book::where('title', 'like', '%' . $request->keyword . '%')->get();
         $categories = Category::all();
-        return view('client.pages.search',compact('categories', 'books','keyword'));
+        return view('client.pages.search',compact('categories', 'books', 'keyword'))->with('keyword', $keyword);
+        // return redirect(route('search',compact('categories', 'books', 'keyword')))->with('keyword', $keyword);
+    }
+    public function filter(Request $request){
+        $numArray = array_map('intval', $request->cates);
+        $books = Book::join('category_books', 'books.id' ,'category_books.book_id')
+        ->join('categories', 'categories.id','category_books.cate_id')
+        
+        ->whereIn('categories.id', $numArray)
+        // 
+        // ->groupBy('books.id')
+        // ->having('occurences', '>', 1)
+        ->get();
+        // $cate = Category::whereIn('id', $numArray)->get();
+        // return array(1, 2, 3);
+        return response()->json($books) ;
+    }
+    public function searchApi(Request $request)
+    {
+        $keyword = $request->keyword;
+        $bookSeach = Book::with('authors')->where('title', 'like', '%' . $keyword . '%')
+            ->get();
+
+        return response()->json($bookSeach);
     }
 }

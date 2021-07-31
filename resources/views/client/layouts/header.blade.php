@@ -8,12 +8,22 @@
         <li class="header__nav-li"><a class="link" href="">Tin Tức</a></li>
     </ul>
     <div class="header__search">
-        <form action="{{route('search')}}" method="Get" class="search-form">
+        <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
             <input class="search-input" name="keyword" type="text" placeholder="Tìm kiếm theo tên sách, danh mục, tác giả">
             <button class="search-btn">
                 <i class="fas fa-search"></i>
             </button>
         </form>
+        <div class="search__dropdown hidden" id="js-search__dropdown">
+            <div class="search-dropdown__heading">
+                Sách
+            </div>
+            
+            <ul class="search-dropdown__ul " id="js-search-dropdown__ul">
+
+
+            </ul>
+        </div>
     </div>
     <div class="header__information">
 
@@ -111,6 +121,91 @@
             </div>
             @endif
         </div>
-        @endguest 
+        @endguest
     </div>
 </header>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script>
+    $(function($) {
+        let timer;
+        let keyword = $('input[name= "keyword"]');
+        $('.container-custom').click(() => {
+            $('#js-search-dropdown__ul').parent().addClass('hidden');
+        })
+        $('#js-search__dropdown').click((e) => {
+            e.stopPropagation();
+        })
+        $(document).on({
+            ajaxStart: function() {
+                console.log('Loading...')
+                $('#js-search-dropdown__ul').append(
+                    ` <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>`
+                )
+            },
+            ajaxStop: function() {
+                $('.lds-ellipsis').remove()
+            }
+        });
+        keyword.on('input', function(e) {
+
+            // if (e.which <= 90 && e.which >= 48) {
+            //     console.log('hello');
+            // }
+            if (keyword.val().trim().length == 0 || keyword.val().length == 0 ) return;
+            if (keyword.val().trim().length > 1 ) {
+                console.log(keyword.val().trim());
+                $('#js-search-dropdown__ul').parent().removeClass('hidden');
+                $('#js-search-dropdown__ul').empty();
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: '{{route("searchapi")}}',
+                        method: "post",
+                        data: {
+                            keyword: keyword.val()
+                        },
+                        dataType: 'json',
+                        success: function(res) {
+                            if (res.length >0) {
+                                console.log(res)
+                                searchBookResult = [...res];
+                                const results = searchBookResult.map((item) => {
+                                    return `<li class="search-dropdown__li">
+                                            <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                                                <div class="book-card-horizontal">
+                                                    <div class="book-card-cover-image">
+                                                        <img src="${item.image}" alt="">
+                                                    </div>
+                                                    <div class="book-search-info">
+                                                        <div class="book-search-info__title">${item.title}</div>
+                                                        <div class="book-search-info__author">
+                                                        ${item.authors.map(item=>{return `${item.name}`})}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>`
+                                }).join("");
+
+                                $('#js-search-dropdown__ul').append(results);
+                            }
+                            else{
+                                $('#js-search-dropdown__ul').append(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>
+                                `);
+                            }
+                        }
+                    })
+                }, 500);
+            }
+        })
+    })
+</script>
