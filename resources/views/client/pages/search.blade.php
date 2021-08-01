@@ -2,6 +2,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/client/pages/search.css') }}">
 @endsection
+@section('title','PolyLib')
 @section('content')
 
 
@@ -10,7 +11,7 @@
         <div class="col-md-3 book-category__aside">
             <div class="book-search__aside ">
 
-                <div class=" filter-group ">
+                <!-- <div class=" filter-group ">
                     <ul class="filter-list ">
                         <a href="{{route('book.categories')}}" class="filter-item__link">
                             <li class="filter-item">
@@ -19,7 +20,7 @@
                         </a>
 
                     </ul>
-                </div>
+                </div> -->
 
                 <div class=" filter-group ">
                     <h3 class="filter-heading">Danh mục</h3>
@@ -47,7 +48,7 @@
         </div>
         <div class="col-md-9 book-category__content">
             <div class="search-result">
-                <div class="search-text">
+                <div class="search-text" id="js-search-text">
                     Tìm thấy <span id="book-qty">{{count($books)}}</span> kết quả cho <span class="search-text-detail">"{{$keyword}}"</span>
                 </div>
             </div>
@@ -176,19 +177,24 @@
                     }
                 }
                 // if(Array.isArray(cates) && cates.length > 0){
+                    console.log(cates);
                 $.ajax({
                     // headers: {
                     //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     // },
                     url: '{{route("filter")}}',
                     method: "get",
-                    data: {
+                    data: 
+                    // jQuery.param({ cates: cates, keyword : keyword})  ,
+                    {
                         cates: cates,
                         keyword: keyword
                     },
+                    
                     dataType: 'json',
                     success: function(res) {
                         const books = [...res];
+                        console.log(books);
                         if (Array.isArray(books) && books.length > 0) {
                             const result = books.map((book) => {
                                 return `<div class="book-card ">
@@ -220,13 +226,15 @@
                             }).join("");
                             $('#book-qty').empty();
                             $('#book-qty').append((books.length));
+                            $('#js-search-text').html(`Tìm thấy <span id="book-qty">${books.length}</span> kết quả cho <span class="search-text-detail">"${keyword}"</span>`);
                             $('#js-book-card-collection').empty();
-                            $('#js-book-card-collection').append(result);
+                            $('#js-book-card-collection').html(result);
                         }
-                        // if (Array.isArray(books) && books.length == 0) {
-                        //     $('#search-text').empty();
-                        //     $('#search-text').append('Không tìm thấy kết quả nào');
-                        // }
+                        if (Array.isArray(books) && books.length == 0) {
+                            $('#js-book-card-collection').empty();
+                            $('#js-search-text').html('Không tìm thấy kết quả nào');
+                            console.log('Không tìm thấy kết quả nào');
+                        }
 
                     },
                     error: function(xhr, status, error) {
