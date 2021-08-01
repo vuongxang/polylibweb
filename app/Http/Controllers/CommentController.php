@@ -38,17 +38,21 @@ class CommentController extends Controller
             'body'=>'required',
         ]);
    
-        
-        $input = $request->all();
+        $model = new Comment();
+        $model->fill($request->all());
 
-        $input['user_id'] = auth()->user()->id;
+        $model->user_id= auth()->user()->id;
     
-        Comment::create($input);
-        $user = User::find(auth()->user()->id);
+        $model->save();
+        $model->load(['book','user']);
+
+        $users = User::where('role_id',1)->orWhere('role_id',2)->get();
         
         $data = [
-            'title'=> 'test real time',
-            'content' => 'Bình luận thành công'
+            'title'     => 'Bình luận mới',
+            'content'   => '<strong>'.$model->user->name.'</strong> Đã bình luận về sách <strong>'.$model->book->title.'</strong>',
+            'time'      => $model->created_at,
+            'icon-class'=> 'icon-circle'
         ];
 
         $options = array(
@@ -64,8 +68,9 @@ class CommentController extends Controller
         );
 
         $pusher->trigger('NotificationEvent', 'send-message', $data);
-        
-        $user->notify(new InvoicePaid($data));
+        foreach ($users as $key => $user) {
+            $user->notify(new InvoicePaid($data)); 
+        }
         
         return back();
     }
