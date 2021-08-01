@@ -46,12 +46,6 @@ class SearchController extends Controller
                 ->where('title', 'like', '%' . $request->keyword . '%')
                 ->get();
         }
-        if (count($books) == 0) {
-            $books = Book::with('authors')
-                ->where('title', 'like', '%' . $request->keyword . '%')
-                ->get();
-        }
-
 
         return response()->json($books);
     }

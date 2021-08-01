@@ -272,8 +272,9 @@
                                 searchAuthorResult = [...res[1]];
                                 console.log(searchAuthorResult)
                                 if (searchBookResult.length > 0) {
-                                    const booksResult = searchBookResult.map((item) => {
-                                        return `<li class="search-dropdown__li">
+                                    const booksResult = searchBookResult.map((item, index) => {
+                                        if (index < 3) {
+                                            return `<li class="search-dropdown__li">
                                             <a href="/book-detail/${item.id}" class="search-dropdown__link">
                                                 <div class="book-card-horizontal">
                                                     <div class="book-card-cover-image">
@@ -288,14 +289,16 @@
                                                 </div>
                                             </a>
                                         </li>`
+                                        }
                                     }).join("");
                                     $('#js-search-dropdown__ul--cate').html(booksResult);
                                 } else {
                                     $('#js-search-dropdown__ul--cate').html(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>`);
                                 }
                                 if (searchAuthorResult.length > 0) {
-                                    const authorsResult = searchAuthorResult.map((item) => {
-                                        return `<li class="search-dropdown__li">
+                                    const authorsResult = searchAuthorResult.map((item,index) => {
+                                        if (index < 3) {
+                                            return `<li class="search-dropdown__li">
                                                 <a href="/book-detail/${item.id}" class="search-dropdown__link">
                                                     <div class="book-card-horizontal">
                                                         <div class="book-card-author-avatar ">
@@ -311,6 +314,7 @@
                                                     </div>
                                                 </a>
                                             </li>`
+                                        }
                                     }).join("");
 
                                     $('#js-search-dropdown__ul--author').empty();
