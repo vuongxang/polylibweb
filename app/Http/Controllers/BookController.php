@@ -18,6 +18,7 @@ use SebastianBergmann\Environment\Console;
 use willvincent\Rateable\Rating as RateableRating;
 use Spatie\PdfToImage\Pdf;
 use Carbon\Carbon;
+use PHPUnit\Framework\Constraint\Count;
 use Imagick;
 
 class BookController extends Controller
@@ -51,7 +52,7 @@ class BookController extends Controller
 
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
-        $model->slug = $milliseconds."-".str_slug($request->title, '-');
+        $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
 
         // $pathToPdf = public_path('kinh-nghiem.pdf');
 
@@ -116,7 +117,7 @@ class BookController extends Controller
         $model = Book::find($id);
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
-        $model->slug = $milliseconds."-".str_slug($request->title, '-');
+        $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
         $model->save();
 
         CategoryBook::where('book_id', $model->id)->delete();
@@ -217,8 +218,8 @@ class BookController extends Controller
         $sameBooks = [];
         foreach ($book->categories as $cate) {
             foreach ($cate->books as $books) {
-                if($books->id !== $book->id){
-                    
+                if ($books->id !== $book->id) {
+
                     array_push($sameBooks, $books);
                 }
             }
@@ -227,12 +228,11 @@ class BookController extends Controller
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
 
-        $rates = Rating::where('rateable_id', $id)->where('status',1)->get();
+        $rates = Rating::where('rateable_id', $id)->where('status', 1)->get();
         $rates->load('user');
 
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
-
-        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating,'sameBooksUnique'=>$sameBooksUnique]);
+        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique]);
     }
 
 
@@ -319,11 +319,58 @@ class BookController extends Controller
         return view('client.pages.category', compact('categories', 'catee'));
     }
 
-    public function search(Request $request){
-        $keyword = $request->keyword;
 
-        $books = Book::where('title','like', '%' . $request->keyword . '%')->get();
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+        $shares = Book::join('author_books', 'books.id', '=', 'author_books.book_id')
+            ->join('authors', 'authors.id', '=', 'author_books.author_id')
+            ->where('books.title', 'like', '%' . $keyword . '%')
+            ->orWhere('authors.name', 'like', '%' . $keyword . '%')
+            ->get();
+        $books = Book::where('title', 'like', '%' . $request->keyword . '%')->get();
         $categories = Category::all();
-        return view('client.pages.search',compact('categories', 'books','keyword'));
+        return view('client.pages.search', compact('categories', 'books', 'keyword'))->with('keyword', $keyword);
+
+    }
+    public function filter(Request $request)
+    {
+        $cateFilter = $request->cates;
+        if (!empty($cateFilter)) {
+            $numArray = array_map('intval', $request->cates);
+            $books = Book::with('authors')
+                ->distinct()
+
+                ->join('category_books', 'books.id', 'category_books.book_id')
+                ->join('categories', 'categories.id', 'category_books.cate_id')
+                ->select(DB::raw('DISTINCT(books.id),books.*'))
+                ->where('title', 'like', '%' . $request->keyword . '%')
+                ->whereIn('categories.id', $numArray)
+
+                ->get();
+        } else {
+            $books = Book::with('authors')
+                ->where('title', 'like', '%' . $request->keyword . '%')
+                ->get();
+        }
+        if (count($books) == 0) {
+            $books = Book::with('authors')
+                ->where('title', 'like', '%' . $request->keyword . '%')
+                ->get();
+        }
+
+
+        return response()->json($books);
+    }
+    public function searchApi(Request $request)
+    {
+        $keyword = $request->keyword;
+        if ($keyword) {
+            $bookSearch = Book::with('authors')->where('title', 'like', '%' . $keyword . '%')
+                ->get();
+            $authorSearch = Author::with('books')->where('name', 'like', '%' . $keyword . '%')
+                ->get();
+        }
+        return response()->json([$bookSearch,$authorSearch]);
     }
 }

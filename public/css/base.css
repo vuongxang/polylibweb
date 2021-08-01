@@ -3,6 +3,7 @@
     
     --black-color: #000;
     --black-secondary-color:#1d1d1d;
+    --black-primary-color:#322651;
 
     --text-color: #333;
     --text-color2: #eee;
@@ -153,6 +154,8 @@ table {
 
 * {
     box-sizing: inherit;
+    margin: 0;
+        padding: 0;
 }
 
 html {
