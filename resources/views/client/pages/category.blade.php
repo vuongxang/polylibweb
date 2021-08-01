@@ -39,7 +39,7 @@
         <div class="col-md-9 book-category__content">
             @if(isset($catee) )
             @foreach($catee as $cate)
-            
+
             <div class="search-result">
                 <div class="search-text">
                     Có <span class="search-text-detail">{{count($cate->books)}} </span>cuốn sách thuộc {{$cate->name}}
@@ -117,15 +117,15 @@
                 </div>
                 @endforeach
 
-                
+
 
                 @endif
-            
-        </div>
 
+            </div>
+
+        </div>
     </div>
 </div>
-
 
 
 @endsection

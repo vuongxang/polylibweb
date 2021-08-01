@@ -335,28 +335,29 @@ class BookController extends Controller
                 ->whereIn('categories.id', $numArray)
 
                 ->get();
-            
-            
         } else {
             $books = Book::with('authors')
                 ->where('title', 'like', '%' . $request->keyword . '%')
                 ->get();
         }
-        if(count($books) == 0){
+        if (count($books) == 0) {
             $books = Book::with('authors')
-            ->where('title', 'like', '%' . $request->keyword . '%')
-            ->get();
+                ->where('title', 'like', '%' . $request->keyword . '%')
+                ->get();
         }
-        
+
 
         return response()->json($books);
     }
     public function searchApi(Request $request)
     {
         $keyword = $request->keyword;
-        $bookSeach = Book::with('authors')->where('title', 'like', '%' . $keyword . '%')
-            ->get();
-
-        return response()->json($bookSeach);
+        if ($keyword) {
+            $bookSearch = Book::with('authors')->where('title', 'like', '%' . $keyword . '%')
+                ->get();
+            $authorSearch = Author::with('books')->where('name', 'like', '%' . $keyword . '%')
+                ->get();
+        }
+        return response()->json([$bookSearch,$authorSearch]);
     }
 }

@@ -15,14 +15,60 @@
             </button>
         </form>
         <div class="search__dropdown hidden" id="js-search__dropdown">
-            <div class="search-dropdown__heading">
-                Sách
+            <div class="search-dropdown__categories">
+
+                <div class="search-dropdown__heading">
+                    Sách
+                </div>
+
+                <ul class="search-dropdown__ul " id="js-search-dropdown__ul--cate">
+
+
+                </ul>
             </div>
-            
-            <ul class="search-dropdown__ul " id="js-search-dropdown__ul">
+            <div class="search-dropdown__authors">
+
+                <div class="search-dropdown__heading">
+                    Tác giả
+                </div>
+
+                <ul class="search-dropdown__ul " id="js-search-dropdown__ul--author">
+                    <!-- <li class="search-dropdown__li">
+                        <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                            <div class="book-card-horizontal">
+                                <div class="book-card-author-avatar ">
+                                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+                                </div>
+                                <div class="book-search-info">
+                                    <div class="book-search-info__name">The Chew</div>
+                                    <div class="book-search-info__dob">1/8/2021</div>
+                                    <div class="book-search-info__description">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum doloremque, similique explicabo nemo tempora non vero aliquam repudiandae inventore ipsa incidunt impedit qui quod culpa officia quis dicta eaque tempore?
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="search-dropdown__li">
+                        <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                            <div class="book-card-horizontal">
+                                <div class="book-card-author-avatar ">
+                                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+                                </div>
+                                <div class="book-search-info">
+                                    <div class="book-search-info__name">The Chew</div>
+                                    <div class="book-search-info__dob">1/8/2021</div>
+                                    <div class="book-search-info__description">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum doloremque, similique explicabo nemo tempora non vero aliquam repudiandae inventore ipsa incidunt impedit qui quod culpa officia quis dicta eaque tempore?
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
 
 
-            </ul>
         </div>
     </div>
     <div class="header__information">
@@ -40,12 +86,7 @@
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Alerts -->
                     <span class="badge badge-danger badge-counter">
-                        @if (auth()->user()->unreadNotifications->count()<=3)
-                            {{auth()->user()->unreadNotifications->count()}}
-                        @else
-                            3+
-                        @endif
-                    </span>
+                        @if (auth()->user()->unreadNotifications->count()<=3) {{auth()->user()->unreadNotifications->count()}} @else 3+ @endif </span>
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" id="menu_notification" aria-labelledby="alertsDropdown">
@@ -53,21 +94,21 @@
                         Alerts Center
                     </h6>
                     @foreach (Auth::user()->notifications as $notification)
-                        <a class="dropdown-item d-flex align-items-center" href="{{route('notification.read',$notification->id)}}">
-                            <div class="mr-3">
-                                <div class="icon-circle">
-                                    @if ($notification->read_at==null)
-                                        <i class="fas fa-file-alt text-white"></i>
-                                    @else
-                                        <i class="fas fa-check text-success bg-white"></i>
-                                    @endif
-                                </div>
+                    <a class="dropdown-item d-flex align-items-center" href="{{route('notification.read',$notification->id)}}">
+                        <div class="mr-3">
+                            <div class="icon-circle">
+                                @if ($notification->read_at==null)
+                                <i class="fas fa-file-alt text-white"></i>
+                                @else
+                                <i class="fas fa-check text-success bg-white"></i>
+                                @endif
                             </div>
-                            <div class="@if ($notification->read_at==null) font-weight-bold @endif">
-                                <div class="small text-gray-500">{{ $notification->data['title'] }}</div>
-                                <span class="">{{ $notification->data['content'] }}</span>
-                            </div>
-                        </a>
+                        </div>
+                        <div class="@if ($notification->read_at==null) font-weight-bold @endif">
+                            <div class="small text-gray-500">{{ $notification->data['title'] }}</div>
+                            <span class="">{{ $notification->data['content'] }}</span>
+                        </div>
+                    </a>
                     @endforeach
                     {{-- <a class="dropdown-item d-flex align-items-center" href="#">
                         <div class="mr-3">
@@ -153,16 +194,35 @@
     $(function($) {
         let timer;
         let keyword = $('input[name= "keyword"]');
+
+        /**
+         * Bắt sự kiện click vào layout tắt dropdown
+         * Và bắt nổi bọt khi bấm vào dropdown
+         */
+
         $('.container-custom').click(() => {
-            $('#js-search-dropdown__ul').parent().addClass('hidden');
+            $('#js-search__dropdown').addClass('hidden');
         })
         $('#js-search__dropdown').click((e) => {
             e.stopPropagation();
         })
+
+        /** 
+         * Loading danh mục
+         */
         $(document).on({
             ajaxStart: function() {
                 console.log('Loading...')
-                $('#js-search-dropdown__ul').append(
+                $('#js-search-dropdown__ul--cate').append(
+                    ` <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>`
+                )
+                console.log('Loading...')
+                $('#js-search-dropdown__ul--author').append(
                     ` <div class="lds-ellipsis">
                     <div></div>
                     <div></div>
@@ -175,18 +235,27 @@
                 $('.lds-ellipsis').remove()
             }
         });
+
+        /** 
+         * Bắt sự kiện khi nhập ô input 
+         * Gọi ajax và đổ dữ liệu ra dropdown
+         */
         keyword.on('input', function(e) {
+            console.log(keyword.val().length);
 
             // if (e.which <= 90 && e.which >= 48) {
             //     console.log('hello');
             // }
-            if (keyword.val().trim().length == 0 || keyword.val().length == 0 ) return;
-            if (keyword.val().trim().length > 1 ) {
-                console.log(keyword.val().trim());
-                $('#js-search-dropdown__ul').parent().removeClass('hidden');
-                $('#js-search-dropdown__ul').empty();
-                clearTimeout(timer);
-                timer = setTimeout(function() {
+            if (keyword.val().trim().length == 0 || keyword.val().length <= 1) {
+                $('#js-search__dropdown').addClass('hidden')
+            };
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                if (keyword.val() && keyword.val().trim().length > 1 && keyword.val().length > 1) {
+                    console.log(keyword.val().trim().length);
+                    $('#js-search__dropdown').removeClass('hidden');
+                    $('#js-search-dropdown__ul--cate').empty();
+                    $('#js-search-dropdown__ul--author').empty();
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -198,11 +267,13 @@
                         },
                         dataType: 'json',
                         success: function(res) {
-                            if (res.length >0) {
-                                console.log(res)
-                                searchBookResult = [...res];
-                                const results = searchBookResult.map((item) => {
-                                    return `<li class="search-dropdown__li">
+                            if (res.length > 0) {
+                                searchBookResult = [...res[0]];
+                                searchAuthorResult = [...res[1]];
+                                console.log(searchAuthorResult)
+                                if (searchBookResult.length > 0) {
+                                    const booksResult = searchBookResult.map((item) => {
+                                        return `<li class="search-dropdown__li">
                                             <a href="/book-detail/${item.id}" class="search-dropdown__link">
                                                 <div class="book-card-horizontal">
                                                     <div class="book-card-cover-image">
@@ -217,18 +288,45 @@
                                                 </div>
                                             </a>
                                         </li>`
-                                }).join("");
+                                    }).join("");
+                                    $('#js-search-dropdown__ul--cate').html(booksResult);
+                                } else {
+                                    $('#js-search-dropdown__ul--cate').html(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>`);
+                                }
+                                if (searchAuthorResult.length > 0) {
+                                    const authorsResult = searchAuthorResult.map((item) => {
+                                        return `<li class="search-dropdown__li">
+                                                <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                                                    <div class="book-card-horizontal">
+                                                        <div class="book-card-author-avatar ">
+                                                            <img src="${item.avatar}" alt="">
+                                                        </div>
+                                                        <div class="book-search-info">
+                                                            <div class="book-search-info__name">${item.name}</div>
+                                                            <div class="book-search-info__dob">${item.date_birth}</div>
+                                                            <div class="book-search-info__description">
+                                                                ${item.description}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>`
+                                    }).join("");
 
-                                $('#js-search-dropdown__ul').append(results);
-                            }
-                            else{
-                                $('#js-search-dropdown__ul').append(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>
+                                    $('#js-search-dropdown__ul--author').empty();
+                                    $('#js-search-dropdown__ul--author').html(authorsResult);
+                                } else {
+                                    $('#js-search-dropdown__ul--author').empty();
+                                    $('#js-search-dropdown__ul--author').html(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>`);
+                                }
+                            } else {
+                                $('#js-search-dropdown__ul--cate').append(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>
                                 `);
                             }
                         }
                     })
-                }, 500);
-            }
+                }
+            }, 500);
         })
     })
 </script>
