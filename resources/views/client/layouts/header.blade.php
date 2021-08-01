@@ -94,21 +94,21 @@
                         Alerts Center
                     </h6>
                     @foreach (Auth::user()->notifications as $notification)
-                    <a class="dropdown-item d-flex align-items-center" href="{{route('notification.read',$notification->id)}}">
-                        <div class="mr-3">
-                            <div class="{{$notification->data['icon-class']}}">
-                                @if ($notification->read_at==null)
-                                <i class="fas fa-file-alt text-white"></i>
-                                @else
-                                <i class="fas fa-check text-success bg-white"></i>
-                                @endif
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('notification.read',$notification->id)}}">
+                            <div class="mr-3">
+                                <div class="{{$notification->data['icon-class']}}">
+                                    @if ($notification->read_at==null)
+                                        <i class="fas fa-file-alt text-white"></i>
+                                    @else
+                                        <i class="fas fa-check text-success bg-white"></i>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="@if ($notification->read_at==null) font-weight-bold @endif">
-                            <div class="small text-gray-500">{{ $notification->data['title'] }}</div>
-                            <span class="">{!! $notification->data['content'] !!}</span>
-                        </div>
-                    </a>
+                            <div class="@if ($notification->read_at==null) font-weight-bold @endif">
+                                <div class="small text-gray-500">{{ $notification->data['title'] }}</div>
+                                <span class="">{!! $notification->data['content'] !!}</span>
+                            </div>
+                        </a>
                     @endforeach
                     <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                 </div>
