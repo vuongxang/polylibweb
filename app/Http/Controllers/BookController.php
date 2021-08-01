@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use SebastianBergmann\Environment\Console;
 use willvincent\Rateable\Rating as RateableRating;
+use Spatie\PdfToImage\Pdf;
 use Carbon\Carbon;
+use Imagick;
 
 class BookController extends Controller
 {
@@ -50,6 +52,18 @@ class BookController extends Controller
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
         $model->slug = $milliseconds."-".str_slug($request->title, '-');
+
+        // $pathToPdf = public_path('kinh-nghiem.pdf');
+
+        // $forder_existed = mkdir(public_path("/uploads/pdf/$model->slug"), 0777);
+        // $output_path = public_path("/uploads/pdf/".$model->slug);
+
+        // $pdf = new Pdf($pathToPdf);
+        // $number_page = $pdf->getNumberOfPages();
+        // for($i=1;$i<=$number_page;$i++){
+        //     $pdf->setPage($i)->saveImage($output_path);
+        // }
+        // die;
 
         $model->save();
 
