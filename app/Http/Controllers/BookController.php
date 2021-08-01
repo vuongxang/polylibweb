@@ -332,7 +332,6 @@ class BookController extends Controller
         $categories = Category::all();
         return view('client.pages.search', compact('categories', 'books', 'keyword'))->with('keyword', $keyword);
 
-        // return redirect(route('search',compact('categories', 'books', 'keyword')))->with('keyword', $keyword);
     }
     public function filter(Request $request)
     {
