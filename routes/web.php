@@ -32,6 +32,7 @@ Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('b
 Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
 Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
 Route::get('/search',[SearchController::class, 'search'])->name('search');
+Route::get('/search/{id}',[SearchController::class, 'search'])->name('searchID');
 Route::get('/filter',[SearchController::class, 'filter'])->name('filter');
 Route::post('/searchapi',[SearchController::class, 'searchApi'])->name('searchapi');
 

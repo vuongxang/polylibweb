@@ -1,3 +1,47 @@
+.search-tab__container{
+    margin: 0 -1.5rem;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+}
+.search-tab__header {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.5rem;
+    margin-right: 2.4rem;
+}
+
+.search-tab__nav{
+
+}
+.search-tab__nav .search-tab__item {
+    margin-right: 1rem ;
+}
+.search-tab__nav .search-tab__item:last-child {
+    margin-right: 0 ;
+}
+.search-tab__nav .search-tab__link{
+    font-size: 1.4rem;
+    line-height: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white-color);
+    font-weight: 600;
+    border: none;
+    padding: 1rem 2rem;
+    color: #4f6c7a;
+    outline: none;
+}
+.search-tab__nav .search-tab__item  .active{
+    background-color: var(--base-color);
+    border-radius: 2rem;
+}
+.search-tab__nav .search-tab__item  a{
+    border-radius: 2rem;
+    color:var(--text-color3)
+}
 .book-search__aside{
     padding: 1.5rem 1rem;
 
@@ -15,6 +59,7 @@
     padding-right: 0;
 }
 .filter-heading {
+    text-transform: uppercase;
     padding: 1rem 1.5rem;
     font-size: 1.6rem;
     font-weight: 700;
