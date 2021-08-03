@@ -1,7 +1,7 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
-
+var myLineChart;
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
   // *     return: '1 234,56'
@@ -31,8 +31,12 @@ function showChartArea(url){
   fetch(url)
   .then(response => response.json())
   .then(data => {
+    console.log(data);
     var ctx = document.getElementById("myAreaChart");
-    var myLineChart = new Chart(ctx, {
+    if(myLineChart){
+      myLineChart.destroy();
+    }
+    myLineChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: data.label.reverse(),
@@ -130,7 +134,7 @@ function editDataChart(time){
   console.log(time);
   if(time === "week"){
     url = 'http://localhost:8000/api/order-data';
-  }else if(time==="month"){
+  }else if(time === "month"){
     url = 'http://localhost:8000/api/order-data-month';
   }else{
     url = 'http://localhost:8000/api/order-data-year';

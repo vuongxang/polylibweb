@@ -67,19 +67,19 @@ class AdminController extends Controller
         }
 
         $arrDay=[];
-        for($i=0;$i<7;$i++){
-            $now = Carbon::now();
-            $arrDay[$i] = $now->subDay($i);
+        for($i=0;$i<12;$i++){
+            $month = Carbon::now()->subMonth($i)->format('m');
+            $arrDay[$i] = $month;
         }
 
         $arrOrderDatas = [];
         foreach($arrDay as $key=> $item){
-            $model = Order::where('created_at', '>=', $item->format('Y-m-d'). " 00:00:00")
-                                ->where('created_at', '<=', $item->format('Y-m-d'). " 23:59:59")
-                                ->count();
+            $model = Order::withTrashed()
+                            ->whereMonth('created_at', '=', $item)
+                            ->count();
             $arrOrderDatas[$key] = $model;
         }
-        $arrOrderDatas = [100,200,300,200,400,500,400,600,700,600,800,700,900];
+        // $arrOrderDatas = [100,200,300,200,400,500,400,600,700,600,800,700,900];
         $data['label'] =   $arrMonthNames;
         $data['data'] =   $arrOrderDatas;
         return response()->json($data);
