@@ -160,8 +160,8 @@
                 }
             }
         }
-
-        const keyword = GetURLParameter('keyword')
+        
+        const keyword = decodeURI(GetURLParameter('keyword'))
         for (const item of jsFilterItem) {
 
             item.addEventListener("click", () => {
@@ -196,7 +196,8 @@
                     dataType: 'json',
                     success: function(res) {
                         console.log(res);
-                        const books = [...res];
+                        const books = [...res[0]];
+                        const key = [res[1]];
                         console.log(books);
                         if (Array.isArray(books) && books.length > 0) {
                             const result = books.map((book) => {
@@ -212,7 +213,7 @@
                                             </a>
                                         </div>
                                         <div class="book-card__author">
-                                        ${book.authors.map(item=>{return `${item.name}`})}
+                                        ${book.authors.map(item=>{return ` ${item.name}`})}
                                         </div>
                                         <div class="book-card__star">
                                             <i class="fas fa-star"></i>
@@ -229,7 +230,7 @@
                             }).join("");
                             $('#book-qty').empty();
                             $('#book-qty').append((books.length));
-                            $('#js-search-text').html(`Tìm thấy <span id="book-qty">${books.length}</span> kết quả cho <span class="search-text-detail">"${keyword}"</span>`);
+                            $('#js-search-text').html(`Tìm thấy <span id="book-qty">${books.length}</span> kết quả cho <span class="search-text-detail">"${key}"</span>`);
                             $('#js-book-card-collection').empty();
                             $('#js-book-card-collection').html(result);
                         }
@@ -259,18 +260,18 @@
             }
             console.log(cates);
             $.ajax({
-                
+
                 url: '{{route("filter")}}',
                 method: "get",
-                data:
-                {
+                data: {
                     cates: cates,
                     keyword: keyword
                 },
 
                 dataType: 'json',
                 success: function(res) {
-                    const books = [...res];
+                    const books = [...res[0]];
+                    const key = [res[1]];
                     console.log(res);
                     if (Array.isArray(books) && books.length > 0) {
                         const result = books.map((book) => {
@@ -303,7 +304,7 @@
                         }).join("");
                         $('#book-qty').empty();
                         $('#book-qty').append((books.length));
-                        $('#js-search-text').html(`Tìm thấy <span id="book-qty">${books.length}</span> kết quả cho <span class="search-text-detail">"${keyword}"</span>`);
+                        $('#js-search-text').html(`Tìm thấy <span id="book-qty">${books.length}</span> kết quả cho <span class="search-text-detail">"${key}"</span>`);
                         $('#js-book-card-collection').empty();
                         $('#js-book-card-collection').html(result);
                     }
