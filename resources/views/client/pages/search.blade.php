@@ -160,10 +160,12 @@
                 }
             }
         }
-
-        const keyword = GetURLParameter('keyword')
+        
+        const keyword = decodeURI(GetURLParameter('keyword'))
         for (const item of jsFilterItem) {
+
             item.addEventListener("click", () => {
+
                 if (item.querySelector('input').checked == false) {
                     item.querySelector('input').checked = true;
                     cates.push(parseInt(item.querySelector('input').value))
@@ -177,27 +179,103 @@
                     }
                 }
                 // if(Array.isArray(cates) && cates.length > 0){
-                    console.log(cates);
+                console.log(cates);
                 $.ajax({
                     // headers: {
                     //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     // },
                     url: '{{route("filter")}}',
                     method: "get",
-                    data: 
+                    data:
                     // jQuery.param({ cates: cates, keyword : keyword})  ,
                     {
                         cates: cates,
                         keyword: keyword
                     },
-                    
+
                     dataType: 'json',
                     success: function(res) {
-                        const books = [...res];
+                        console.log(res);
+                        const books = [...res[0]];
+                        const key = [res[1]];
                         console.log(books);
                         if (Array.isArray(books) && books.length > 0) {
                             const result = books.map((book) => {
                                 return `<div class="book-card ">
+                                        <div class="book-card__img">
+                                            <a href="/book-detail/${book.id}">
+                                                <img src="${book.image}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="book-card__title">
+                                            <a href="/book-detail/${book.id}">
+                                                <h3> ${book.title} </h3>
+                                            </a>
+                                        </div>
+                                        <div class="book-card__author">
+                                        ${book.authors.map(item=>{return ` ${item.name}`})}
+                                        </div>
+                                        <div class="book-card__star">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="book-card__btn">
+                                            <a href="/book-order/${book.id}" class="borrow-btn">Mượn sách</a>
+                                            <a href="/read-online/${book.id}" class="review-btn">Xem trước</a>
+                                        </div>
+                                    </div>
+                                    `
+                            }).join("");
+                            $('#book-qty').empty();
+                            $('#book-qty').append((books.length));
+                            $('#js-search-text').html(`Tìm thấy <span id="book-qty">${books.length}</span> kết quả cho <span class="search-text-detail">"${key}"</span>`);
+                            $('#js-book-card-collection').empty();
+                            $('#js-book-card-collection').html(result);
+                        }
+                        if (Array.isArray(books) && books.length == 0) {
+                            $('#js-book-card-collection').empty();
+                            $('#js-search-text').html('Không tìm thấy kết quả nào');
+                            console.log('Không tìm thấy kết quả nào');
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error!" + xhr.error);
+                    },
+
+                })
+                // }
+            })
+        }
+
+        $('#filter-form :checkbox').change(function() {
+            if (this.checked) {
+                cates.push(parseInt(this.value))
+            } else {
+                cates = cates.filter(cate => {
+                    return cate != parseInt(this.value)
+                })
+            }
+            console.log(cates);
+            $.ajax({
+
+                url: '{{route("filter")}}',
+                method: "get",
+                data: {
+                    cates: cates,
+                    keyword: keyword
+                },
+
+                dataType: 'json',
+                success: function(res) {
+                    const books = [...res[0]];
+                    const key = [res[1]];
+                    console.log(res);
+                    if (Array.isArray(books) && books.length > 0) {
+                        const result = books.map((book) => {
+                            return `<div class="book-card ">
                                         <div class="book-card__img">
                                             <a href="/book-detail/${book.id}">
                                                 <img src="${book.image}" alt="">
@@ -223,38 +301,32 @@
                                         </div>
                                     </div>
                                     `
-                            }).join("");
-                            $('#book-qty').empty();
-                            $('#book-qty').append((books.length));
-                            $('#js-search-text').html(`Tìm thấy <span id="book-qty">${books.length}</span> kết quả cho <span class="search-text-detail">"${keyword}"</span>`);
-                            $('#js-book-card-collection').empty();
-                            $('#js-book-card-collection').html(result);
-                        }
-                        if (Array.isArray(books) && books.length == 0) {
-                            $('#js-book-card-collection').empty();
-                            $('#js-search-text').html('Không tìm thấy kết quả nào');
-                            console.log('Không tìm thấy kết quả nào');
-                        }
+                        }).join("");
+                        $('#book-qty').empty();
+                        $('#book-qty').append((books.length));
+                        $('#js-search-text').html(`Tìm thấy <span id="book-qty">${books.length}</span> kết quả cho <span class="search-text-detail">"${key}"</span>`);
+                        $('#js-book-card-collection').empty();
+                        $('#js-book-card-collection').html(result);
+                    }
+                    if (Array.isArray(books) && books.length == 0) {
+                        $('#js-book-card-collection').empty();
+                        $('#js-search-text').html('Không tìm thấy kết quả nào');
+                        console.log('Không tìm thấy kết quả nào');
+                    }
 
-                    },
-                    error: function(xhr, status, error) {
-                        console.log("Error!" + xhr.error);
-                    },
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error!" + xhr.error);
+                },
 
-                })
-                // }
             })
-        }
-
-        // $('#filter-form :checkbox').change(function() {
-        //     if(this.checked){
-        //         console.log(1);
-        //     }
-        // })
+        })
         for (const item of jsFilterInput) {
             item.addEventListener("click", (e) => {
+                console.log(item)
                 e.stopPropagation();
             })
+
         }
     })
 </script>
