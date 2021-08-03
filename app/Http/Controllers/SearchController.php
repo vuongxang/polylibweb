@@ -29,6 +29,7 @@ class SearchController extends Controller
     public function filter(Request $request)
     {
         $cateFilter = $request->cates;
+        $a = urldecode($request->keyword);
         if (!empty($cateFilter)) {
             $numArray = array_map('intval', $request->cates);
             $books = Book::with('authors')
@@ -37,13 +38,14 @@ class SearchController extends Controller
                 ->join('category_books', 'books.id', 'category_books.book_id')
                 ->join('categories', 'categories.id', 'category_books.cate_id')
                 ->select(DB::raw('DISTINCT(books.id),books.*'))
-                ->where('title', 'like', '%' . $request->keyword . '%')
                 ->whereIn('categories.id', $numArray)
-
+                // ->where('title', 'like', '%' . $request->keyword . '%')
+                ->where('title', 'like', '%' . $a . '%')
+                // ->where('title', 'LIKE', "%\"{$$request->keyword}\"%")
                 ->get();
         } else {
             $books = Book::with('authors')
-                ->where('title', 'like', '%' . $request->keyword . '%')
+                ->where('title', 'like', '%' . $a . '%')
                 ->get();
         }
 

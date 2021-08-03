@@ -195,6 +195,7 @@
 
                     dataType: 'json',
                     success: function(res) {
+                        console.log(res);
                         const books = [...res];
                         console.log(books);
                         if (Array.isArray(books) && books.length > 0) {
@@ -256,6 +257,7 @@
                     return cate != parseInt(this.value)
                 })
             }
+            console.log(cates);
             $.ajax({
                 
                 url: '{{route("filter")}}',
@@ -269,7 +271,7 @@
                 dataType: 'json',
                 success: function(res) {
                     const books = [...res];
-                    console.log(books);
+                    console.log(res);
                     if (Array.isArray(books) && books.length > 0) {
                         const result = books.map((book) => {
                             return `<div class="book-card ">

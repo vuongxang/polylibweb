@@ -239,6 +239,7 @@
                                 searchAuthorResult = [...res[1]];
                                 console.log(searchAuthorResult)
                                 if (searchBookResult.length > 0) {
+                                    console.log(searchBookResult);
                                     const booksResult = searchBookResult.map((item, index) => {
                                         if (index < 3) {
                                             return `<li class="search-dropdown__li">
