@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\User;
+use App\Notifications\Demo;
 use Illuminate\Http\Request;
 use App\Notifications\InvoicePaid;
 use Illuminate\Support\Facades\Notification;
@@ -76,7 +77,31 @@ class CommentController extends Controller
     }
 
     public function commentApprov($id){
+
         $comment = Comment::find($id);
+
+        $user = User::where('id',$comment->user_id)->first();
+        $data = [
+            'title'     => 'Duyệt bình luận',
+            'content'   => 'Bình luận của bạn đã được duyệt',
+            'icon-class'=> 'icon-circle'
+        ];
+
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $pusher->trigger('NotificationEvent', 'send-message', $data);
+        $user->notify(new Demo($data));
+
         if(!$comment) return back();
         $comment->status = 1;
         $comment->save();
