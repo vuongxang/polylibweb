@@ -72,7 +72,7 @@
                     </div>
                     <div>
                         <div class="small text-gray-500">{{ $notification->data['title'] }}</div>
-                        <span class="font-weight-bold">{{ $notification->data['content'] }}</span>
+                        <span class="font-weight-bold">{!! $notification->data['content'] !!}</span>
                     </div>
                 </a>
             @endforeach

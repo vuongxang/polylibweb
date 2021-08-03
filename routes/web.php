@@ -136,7 +136,12 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
 
 //Route Auth
-Auth::routes();
+// Auth::routes();
+Auth::routes([
+    'register' => false, // Registration Routes...
+    'reset' => true, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
+  ]);
 
 Route::get('admin-login', [App\Http\Controllers\Auth\LoginController::class, 'loginForm'])->name('adminLoginForm');
 

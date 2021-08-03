@@ -42,12 +42,6 @@
         Some text inside the toast body
         </div>
     </div>
-    <script>
-        function Deleted_at() {
-            var conf = confirm('Bạn chắc chắn muốn trả sách');
-            return conf;
-        }
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
@@ -91,6 +85,11 @@
             $('#menu_notification').prepend(newNotificationHtml);
             $('.toast').toast('show');
         });
+
+        function Deleted_at() {
+            var conf = confirm('Bạn chắc chắn muốn trả sách');
+            return conf;
+        }
     </script>
 </body>
 
