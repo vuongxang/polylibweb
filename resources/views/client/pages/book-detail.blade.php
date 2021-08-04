@@ -101,7 +101,7 @@
                         <a class="book-tabs__link active" data-toggle="tab" href="#comment-tab">Bình luận</a>
                     </li>
                     <li class="book-tabs__item">
-                        <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Phản hồi ({{ count($rates) }}) </a>
+                        <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá ({{ count($rates) }}) </a>
                     </li>
                 </ul>
             </div>
@@ -160,7 +160,6 @@
 
                                 </div>
                             </div>
->>>>>>> main
 
                         @endif
                     @endforeach
