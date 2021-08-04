@@ -267,7 +267,7 @@
                                     const authorsResult = searchAuthorResult.map((item,index) => {
                                         if (index < 3) {
                                             return `<li class="search-dropdown__li">
-                                                <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                                                <a href="/author/${item.id}" class="search-dropdown__link">
                                                     <div class="book-card-horizontal">
                                                         <div class="book-card-author-avatar ">
                                                             <img src="${item.avatar}" alt="">
