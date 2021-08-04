@@ -9,7 +9,7 @@
     </ul>
     <div class="header__search">
         <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
-            <input class="search-input" name="keyword" type="text" placeholder="Tìm kiếm theo tên sách, tác giả" value="{{ old('keyword') }}">
+            <input class="search-input" name="keyword" type="text" placeholder="Tìm kiếm theo tên sách, tác giả" value="@isset($_GET['keyword']) {{$_GET['keyword']  }}@endisset">
             <button class="search-btn">
                 <i class="fas fa-search"></i>
             </button>

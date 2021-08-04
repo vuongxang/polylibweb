@@ -61,6 +61,7 @@ class AuthorController extends Controller
 
     public function update($id,Request $request){
         $model = Author::find($id);
+        dd($request->all());
         $model->fill($request->all());
         $model->save();
         return redirect(route('author.index'));

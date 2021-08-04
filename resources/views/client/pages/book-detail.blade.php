@@ -102,8 +102,6 @@
         </div>
         <div class="tab-content">
             <div class="book-tabs__comment tab-pane in active" id="comment-tab">
-
-
                 @include('client.blocks.commentsDisplay', ['comments' => $book->comments, 'book_id' => $book->id])
 
                 <div class="comment-box__wrapper">
@@ -154,10 +152,9 @@
                         </div>
 
                     </div>
+                        @endif
+                    @endforeach
                 </div>
-
-                @endif
-                @endforeach
             </div>
         </div>
     </div>

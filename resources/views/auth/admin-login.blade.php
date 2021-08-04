@@ -34,7 +34,7 @@
                         </a>
                     </div>
                     <div class="text-center mb-4">
-                        <h1 class="h3 mb-0">Please sign in</h1>
+                        <h1 class="h3 mb-0">Vui lòng đăng nhập</h1>
                         <p>Signin to manage your account.</p>
                     </div>
                     @if(session()->has('error'))
@@ -91,7 +91,7 @@
                         <button type="submit" class="btn btn-primary login-btn btn-block">Signup</button>
                     </div>
                     <div class="text-center mb-3">
-                        <p class="text-muted">Quên mật khẩu? <a href="{{route('password.request')}}">Gửi lại</a></p>
+                        <p class="text-muted"><a href="{{route('password.request')}}">Quên mật khẩu?</a></p>
                     </div>
                     <p class="small text-center text-muted mb-0">All rights reserved. © Space. 2021 soengsouy.com.</p>
                 </form>

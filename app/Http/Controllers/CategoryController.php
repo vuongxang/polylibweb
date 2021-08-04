@@ -29,7 +29,8 @@ class CategoryController extends Controller
         $model->fill($request->all());
         $model->slug =str_slug($request->name, '-');
         $model->save();
-        return redirect(route('cate.index'));
+        return redirect(route('cate.index'))->with('message','Tạo mới thành công !')
+                                            ->with('alert-class','alert-success');
     }
 
     public function edit($id){
@@ -43,7 +44,8 @@ class CategoryController extends Controller
         $model->fill($request->all());
         $model->slug =str_slug($request->name, '-');
         $model->save();
-        return redirect(route('cate.index'));
+        return redirect(route('cate.index'))->with('message','Cập nhật thành công !')
+                                            ->with('alert-class','alert-success');;
     }
 
     public function destroy($id){

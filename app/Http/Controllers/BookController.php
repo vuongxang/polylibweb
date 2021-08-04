@@ -25,7 +25,7 @@ class BookController extends Controller
 {
     public function index(Request $request)
     {
-        $pagesize = 5;
+        $pagesize = 10;
         $keyword = $request->keyword;
 
         if ($request->page_size) $pagesize = $request->page_size;
