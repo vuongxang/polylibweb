@@ -23,8 +23,10 @@ class SearchController extends Controller
             ->orWhere('authors.name', 'like', '%' . $keyword . '%')
             ->get();
         $books = Book::where('title', 'like', '%' . $request->keyword . '%')->get();
+        $authors = Author::where('name', 'like', '%' . $request->keyword . '%')->get();
         $categories = Category::all();
-        return view('client.pages.search', compact('categories', 'books', 'keyword'))->with('keyword', $a);
+        $authors->load('books');
+        return view('client.pages.search', compact('categories', 'books', 'keyword', 'authors'))->with('keyword', $a);
 
     }
     public function filter(Request $request)

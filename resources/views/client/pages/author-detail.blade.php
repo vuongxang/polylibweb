@@ -29,12 +29,12 @@
                 @foreach($author->books as $book)
                 <div class="book-card ">
                     <div class="book-card__img">
-                        <a href="">
+                        <a href="{{route('book.detail',$book->id)}}">
                             <img src="{{$book->image}}" alt="">
                         </a>
                     </div>
                     <div class="book-card__title">
-                        <a href="">
+                        <a href="{{route('book.detail',$book->id)}}">
                             <h3> {{$book->title}}</h3>
                         </a>
                     </div>
@@ -54,12 +54,11 @@
                         <i class="fas fa-star"></i>
                     </div>
                     <div class="book-card__btn">
-                        <a href="" class="borrow-btn">Mượn sách</a>
-                        <a href="" class="review-btn">Xem trước</a>
+                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a>
+                        <a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
                     </div>
                 </div>
                 @endforeach
-                
 
             </div>
         </div>

@@ -13,10 +13,10 @@
         </div>
         <ul class="nav nav-tabs search-tab__nav">
             <li class="nav-item search-tab__item">
-                <a class="search-tab__link" data-toggle="tab" href="#books">Sách</a>
+                <a class="search-tab__link active" data-toggle="tab" href="#books">Sách</a>
             </li>
             <li class="nav-item search-tab__item">
-                <a class="search-tab__link active" data-toggle="tab" href="#authors">Tác giả</a>
+                <a class="search-tab__link " data-toggle="tab" href="#authors">Tác giả</a>
             </li>
             <!-- <li class="nav-item search-tab__item">
                 <a class="nav-link search-tab__link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
@@ -25,7 +25,7 @@
 
     </div>
     <div class="tab-content">
-        <div class="tab-pane in " id="books">
+        <div class="tab-pane in active" id="books">
             <div class="search-container">
 
                 <div class="row">
@@ -153,29 +153,30 @@
             </div>
 
         </div>
-        <div class="tab-pane  active" id="authors">
+        <div class="tab-pane  " id="authors">
             <div class="search-container">
                 <div class="search-result">
                     <div class="search-text" id="js-search-text">
-                        Tìm thấy <span id="book-qty">{{count($books)}}</span> kết quả cho <span class="search-text-detail">"{{$keyword}}"</span>
+                        Tìm thấy <span id="book-qty">{{count($authors)}}</span> kết quả cho <span class="search-text-detail">"{{$keyword}}"</span>
                     </div>
                 </div>
+                @foreach($authors as $author)
                 <div class="row">
                     <div class="col-md-4 search-author__aside">
                         <div class="search-author-wrapper">
                             <div class="author-avatar ">
                                 <a href="">
-                                    <img src="https://cdn.dribbble.com/users/1418633/avatars/normal/1f3114a05eee34cc04e80e80daef10e0.jpg?1483969865" alt="">
+                                    <img src="{{$author->avatar}}" alt="">
                                 </a>
                             </div>
                             <div class="author-info">
                                 <div class="author-info__name">
                                     <a href="">
-                                        Rahul Khobragade
+                                        {{$author->name}}
                                     </a>
                                 </div>
                                 <div class="author-info__description">
-                                    Passionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of working in the Product Design and video pr...
+                                    {{$author->description}}
                                 </div>
                             </div>
                         </div>
@@ -183,241 +184,22 @@
                     <div class="col-md-8 search-author__container">
                         <div class="author-books">
                             <div class="author-books__list">
+                                @foreach($author->books as $book)
                                 <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://m.media-amazon.com/images/I/91tehktTqyL._AC_US218_..jpg" alt="">
+
+                                    <a href="{{route('author.detail',$book->id)}}" class="author-books__link">
+                                        <img class="author-books__img" src="{{$book->image}}" alt="">
                                     </a>
                                 </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://res.cloudinary.com/bookbub/image/upload/t_ci_ar_6:9_scaled,f_auto,q_auto,dpr_1,c_scale,w_170/v1611670738/pro_pbid_1036135.jpg" alt="">
-                                    </a>
-                                </div>
+                                @endforeach
+                                
 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 search-author__aside">
-                        <div class="search-author-wrapper">
-                            <div class="author-avatar ">
-                                <a href="">
-                                    <img src="https://cdn.dribbble.com/users/1418633/avatars/normal/1f3114a05eee34cc04e80e80daef10e0.jpg?1483969865" alt="">
-                                </a>
-                            </div>
-                            <div class="author-info">
-                                <div class="author-info__name">
-                                    <a href="">
-                                        Rahul Khobragade
-                                    </a>
-                                </div>
-                                <div class="author-info__description">
-                                    Passionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of working in the Product Design and video pr...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 search-author__container">
-                        <div class="author-books">
-                            <div class="author-books__list">
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://m.media-amazon.com/images/I/91tehktTqyL._AC_US218_..jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://res.cloudinary.com/bookbub/image/upload/t_ci_ar_6:9_scaled,f_auto,q_auto,dpr_1,c_scale,w_170/v1611670738/pro_pbid_1036135.jpg" alt="">
-                                    </a>
-                                </div>
+                @endforeach
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 search-author__aside">
-                        <div class="search-author-wrapper">
-                            <div class="author-avatar ">
-                                <a href="">
-                                    <img src="https://cdn.dribbble.com/users/1418633/avatars/normal/1f3114a05eee34cc04e80e80daef10e0.jpg?1483969865" alt="">
-                                </a>
-                            </div>
-                            <div class="author-info">
-                                <div class="author-info__name">
-                                    <a href="">
-                                        Rahul Khobragade
-                                    </a>
-                                </div>
-                                <div class="author-info__description">
-                                    Passionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of working in the Product Design and video pr...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 search-author__container">
-                        <div class="author-books">
-                            <div class="author-books__list">
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://m.media-amazon.com/images/I/91tehktTqyL._AC_US218_..jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://res.cloudinary.com/bookbub/image/upload/t_ci_ar_6:9_scaled,f_auto,q_auto,dpr_1,c_scale,w_170/v1611670738/pro_pbid_1036135.jpg" alt="">
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 search-author__aside">
-                        <div class="search-author-wrapper">
-                            <div class="author-avatar ">
-                                <a href="">
-                                    <img src="https://cdn.dribbble.com/users/1418633/avatars/normal/1f3114a05eee34cc04e80e80daef10e0.jpg?1483969865" alt="">
-                                </a>
-                            </div>
-                            <div class="author-info">
-                                <div class="author-info__name">
-                                    <a href="">
-                                        Rahul Khobragade
-                                    </a>
-                                </div>
-                                <div class="author-info__description">
-                                    Passionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of working in the Product Design and video pr...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 search-author__container">
-                        <div class="author-books">
-                            <div class="author-books__list">
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://m.media-amazon.com/images/I/91tehktTqyL._AC_US218_..jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://res.cloudinary.com/bookbub/image/upload/t_ci_ar_6:9_scaled,f_auto,q_auto,dpr_1,c_scale,w_170/v1611670738/pro_pbid_1036135.jpg" alt="">
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 search-author__aside">
-                        <div class="search-author-wrapper">
-                            <div class="author-avatar ">
-                                <a href="">
-                                    <img src="https://cdn.dribbble.com/users/1418633/avatars/normal/1f3114a05eee34cc04e80e80daef10e0.jpg?1483969865" alt="">
-                                </a>
-                            </div>
-                            <div class="author-info">
-                                <div class="author-info__name">
-                                    <a href="">
-                                        Rahul Khobragade
-                                    </a>
-                                </div>
-                                <div class="author-info__description">
-                                    Passionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of working in the Product Design and video pr...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 search-author__container">
-                        <div class="author-books">
-                            <div class="author-books__list">
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://m.media-amazon.com/images/I/91tehktTqyL._AC_US218_..jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://res.cloudinary.com/bookbub/image/upload/t_ci_ar_6:9_scaled,f_auto,q_auto,dpr_1,c_scale,w_170/v1611670738/pro_pbid_1036135.jpg" alt="">
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 search-author__aside">
-                        <div class="search-author-wrapper">
-                            <div class="author-avatar ">
-                                <a href="">
-                                    <img src="https://cdn.dribbble.com/users/1418633/avatars/normal/1f3114a05eee34cc04e80e80daef10e0.jpg?1483969865" alt="">
-                                </a>
-                            </div>
-                            <div class="author-info">
-                                <div class="author-info__name">
-                                    <a href="">
-                                        Rahul Khobragade
-                                    </a>
-                                </div>
-                                <div class="author-info__description">
-                                    Passionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of workingPassionate graphic designer and illustrator with a demonstrated history of working in the Product Design and video pr...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 search-author__container">
-                        <div class="author-books">
-                            <div class="author-books__list">
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://m.media-amazon.com/images/I/91tehktTqyL._AC_US218_..jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="author-books__item">
-                                    <a href="" class="author-books__link">
-                                        <img class="author-books__img" src="https://res.cloudinary.com/bookbub/image/upload/t_ci_ar_6:9_scaled,f_auto,q_auto,dpr_1,c_scale,w_170/v1611670738/pro_pbid_1036135.jpg" alt="">
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </div>
