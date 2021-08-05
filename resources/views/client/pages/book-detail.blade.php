@@ -25,37 +25,6 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
-        <div class="col-md-8">
-            <div class="book-detail-info">
-                <div class="book-info__header">
-                    <div class="book-info__title">
-                        <h2>
-                            {{ $book->title }}
-                        </h2>
-                    </div>
-                    <div class="book-info__authors">
-                        @foreach ($book->authors as $author)
-                        <span class="info-authors__name"> {{ $author->name }}</span>
-                        @endforeach
-                    </div>
-                    <div class="book-info-rating">
-                        <div class="rate-stars">
-                            @for ($i=1; $i <= 5; $i++) 
-                                @if (round($avg_rating,1) >= round($i,1) )
-                                    <i class="fas fa-star"></i>
-                                @else
-                                    <i class="far fa-star"></i>
-                                @endif
-                                <!-- <i class="fas fa-star"></i> -->
-                            @endfor
-                            @if($avg_rating>0)
-                                {{ round($avg_rating,1) }}
-                            @endif
-                        </div>
-                        <span class="review-count ">( {{ count($rates) }} đánh giá )</span>
-                    </div>
-=======
             <div class="col-md-8">
                 <div class="book-detail-info">
                     <div class="book-info__header">
@@ -85,7 +54,6 @@
                             </div>
                             <span class="review-count ">( {{ count($rates) }} đánh giá )</span>
                         </div>
->>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
 
                     </div>
                     <div class="book-button-group">
@@ -144,21 +112,6 @@
 
                     @include('client.blocks.commentsDisplay', ['comments' => $book->comments, 'book_id' => $book->id])
 
-<<<<<<< HEAD
-    <div class="book-tabs data-tabs">
-        <div class="book-tabs__wrapper">
-            <ul class=" nav nav-tabs book-tabs__list">
-                <li class="book-tabs__item">
-                    <a class="book-tabs__link active" data-toggle="tab" href="#comment-tab">Bình luận</a>
-                </li>
-                <li class="book-tabs__item">
-                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá/Phản hồi ({{count($rates)}}) </a>
-                </li>
-            </ul>
-        </div>
-        <div class="tab-content">
-            <div class="book-tabs__comment tab-pane in active" id="comment-tab">
-=======
                     <div class="comment-box__wrapper">
                         <div class="comment-box__image">
                             <img src="{{ Auth::user()->avatar }}" alt="">
@@ -195,8 +148,6 @@
                                                         <i class="fas fa-star "></i>
                                                     @endfor
                                                     <span>
->>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
-
                                             </div>
                                             <div class="book-user-comment__date">
                                                 {{ date('d-m-Y', strtotime($rate->created_at)) }}</div>
@@ -209,8 +160,6 @@
 
                                 </div>
                             </div>
->>>>>>> main
-
                         @endif
                     @endforeach
                 </div>
@@ -270,27 +219,6 @@
                         </div>
                         @endif
                     </div>
-<<<<<<< HEAD
-                    <div class="book-comment-body-detail__content">
-                        <div class="book-comment-body-detail__username">
-                            {{ $rate->user->name }}
-                            <p style="color:#bdbdbd; font-size:10pt">
-                                {{ $rate->created_at->toDateString() }}
-                            </p>
-
-                        </div>
-                        <div class="book-comment-body-detail__date">
-                            <span class="book-star">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    <!-- <i class="fas fa-star text-"></i> -->
-                                    @if ($rate->rating >= $i )
-                                    <i class="fas fa-star"></i>
-                                    @else
-                                    <i class="far fa-star"></i>
-                                    @endif
-                                @endfor
-                            <span>
-=======
                     @if (count($sameBooksUnique) > 4)
                     <div class="carousel-item">
                         <div class="row">
@@ -326,7 +254,6 @@
                                         <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a><a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
                                     </div>
                                 </div>
->>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
                         </div>
                         @endif
                         @endforeach

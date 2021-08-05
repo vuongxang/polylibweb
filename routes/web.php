@@ -26,19 +26,12 @@ use App\Http\Controllers\RatingController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-<<<<<<< HEAD
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
 });
 
 
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
->>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
 Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
 Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
 Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
@@ -48,11 +41,8 @@ Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
-<<<<<<< HEAD
-=======
 Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
                                                                     ->name('user.infomation');
->>>>>>> main
 Route::get('setting',[HomeController::class, 'setting'])->middleware('auth')
                                                         ->name('user.setting');
 Route::get('rate/{id}',[HomeController::class, 'rate'])->middleware('auth')
@@ -115,10 +105,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::prefix('user')->middleware('is-admin')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user.index');
         Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
-<<<<<<< HEAD
         // Route::post('add-author',[AuthorController::class,'store'])->name('author.store'); 
-=======
->>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
         Route::get('add-user',[UserController::class,'create'])->name('user.create');
         Route::post('add-user',[UserController::class,'store'])->name('user.store');
         Route::get('remove/{id}', [UserController::class, 'destroy'])->name('user.destroy');

@@ -216,16 +216,9 @@ class BookController extends Controller
         $rates = Rating::where('rateable_id', $id)->where('status',1)->get();
         $rates->load('user');
 
-<<<<<<< HEAD
-        $avg_rating = DB::table('ratings')->where('rateable_id',$id)->avg('rating');
-        // dd($avg_rating);
-    
-        return view('client.pages.book-detail', ['book' => $book,'ordered' => $ordered,'rates'=>$rates,'avg_rating'=>$avg_rating]);
-=======
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
 
         return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating,'sameBooksUnique'=>$sameBooksUnique]);
->>>>>>> 1223927534c04bcf6f7bfe2b23a8e1a6953af6a1
     }
 
 
@@ -270,6 +263,7 @@ class BookController extends Controller
         $rating->rating = $request->rate;
         $rating->user_id = auth()->user()->id;
         $rating->body = $body;
+        $rating->status = 1;
         $book->ratings()->save($rating);
 
         return redirect(route('user.history', Auth::user()->id))->with('message', 'Gửi đánh giá thành công !');

@@ -9,6 +9,27 @@
     align-items: center;
     color: #425BA8;
 }
-.book-rating__content{
-    
+.book-rating__user{
+    margin-top: 40px;
+}
+.book-rating__user__title h1{
+    font-weight: 700;
+    font-size: 20pt;
+}
+.book-rating__user__rating{
+    font-size: 10px;
+    margin-top: 10px;
+}
+.book-rating__user__date{
+    font-size: 16px;
+}
+.book-rating__user__button a{
+    /* bottom: 0px; */
+}
+.book-user-comment__name a{
+    font-size: 16pt;
+}
+.book-rating__content ul li a{
+    color: #000;
+    font-size: 16px;
 }

@@ -1,7 +1,7 @@
 @extends('client.layouts.index')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/client/pages/book-order.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/client/pages/history.css') }}">
 @endsection
 
 @section('content')
@@ -40,7 +40,11 @@
                                 @if (count($book_order) > 0)
                                     @foreach ($book_order as $key => $order_book)
                                         <?php
-                                        $time_order = strtotime($order_book->created_at->addDays(3));
+                                        $timeDaysNow = $order_book->created_at->addDays(0);
+                                        // $timeHoursNow = $order_book->created_at->addHours(1);
+                                        // $timeMinutesNow = $order_book->created_at->addMinutes(60);
+                                        echo $timeMinutesNow . "<br>";
+                                        $time_order = strtotime($order_book->created_at->addDays(0));
                                         $time_now = strtotime($dt);
                                         $time = $time_order - $time_now;
                                         // dd($time_order + strtotime(0000-00-07));
@@ -62,16 +66,34 @@
                                                     <img src="{{ $order_book->book->image }}" width="50" alt="Ảnh bìa">
                                                 </a>
                                             </td>
-                                            <td>{{ $order_book->book->title }}</td>
+                                            <td>
+                                                <a href="{{route('book.detail',$order_book->book->id)}}" style="color:#000">
+                                                    {{ $order_book->book->title }}
+                                                </a>
+                                            </td>
                                             <td>{{ $order_book->status }}</td>
                                             <td>
-                                                @if ($day > 0)
+                                                @if ($timeDaysNow->diffInDays($dt) > 0)
                                                     {{ $day }} ngày
                                                     {{ $hours }}:{{ $minutes }}:{{ $seconds }}
-                                                @elseif ($hours > 0 || $minutes > 0 || $seconds > 0)
+                                                @elseif ($timeDaysNow->diffInHours($dt) > 0)
                                                     {{ $hours }}:{{ $minutes }}:{{ $seconds }}
-                                                @elseif ($day<=0 && $hours<=0 && $minutes<=0 && $seconds<=0) abc
-                                                        @endif
+                                                @elseif ($timeDaysNow->diffInMinutes($dt) > 0)
+                                                    {{ $hours }}:{{ $minutes }}:{{ $seconds }}
+                                                @elseif ($timeDaysNow->diffInSeconds($dt) > 0)
+                                                    {{ $hours }}:{{ $minutes }}:{{ $seconds }}
+                                                @elseif (
+                                                    $timeDaysNow->diffInHours($dt) > 0 || 
+                                                    $timeDaysNow->diffInMinutes($dt) > 0 || 
+                                                    $timeDaysNow->diffInSeconds($dt) > 0)
+                                                    {{ $hours }}:{{ $minutes }}:{{ $seconds }}
+                                                @elseif ($timeDaysNow->diffInDays($dt) == 0 &&
+                                                        $timeDaysNow->diffInHours($dt) == 0 &&
+                                                        $timeDaysNow->diffInMinutes($dt) == 0 &&
+                                                        $timeDaysNow->diffInSeconds($dt) == 0
+                                                    ) 
+                                                <link rel="stylesheet" href="{{ route('deleted.book', ['id' => $order_book->id]) }}">
+                                                @endif
                                             </td>
                                             <td width="400">
                                                 <a href="{{ route('deleted.book', ['id' => $order_book->id]) }}"
@@ -113,7 +135,10 @@
                                                         <img src="{{ $deleted_order->book->image }}" width="50" alt="Ảnh bìa"> 
                                                     </a>
                                                 </td>
-                                                <td>{{ $deleted_order->book->title }}</td>
+                                                <td>
+                                                    <a href="{{route('book.detail',$deleted_order->book->id)}}" style="color:#000">
+                                                        {{ $deleted_order->book->title }}
+                                                    </a>
                                                 <td>{{ $deleted_order->status }}</td>
                                                 <td>{{ $deleted_order->deleted_at }}</td>
                                                 <td>
@@ -137,4 +162,13 @@
             </div>
         </div>
     </div>
+<script>
+    var date = new Date();
+    var newDate = new Date(date.getTime()+(5*24*60*60*1000));
+    function myFunction(){
+        // window.location.href = "https://www.google.com";
+        // window.location.reload();
+        alert(newDate);
+    }
+</script>
 @endsection
