@@ -16,13 +16,16 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use SebastianBergmann\Environment\Console;
 use willvincent\Rateable\Rating as RateableRating;
+use Spatie\PdfToImage\Pdf;
 use Carbon\Carbon;
+use PHPUnit\Framework\Constraint\Count;
+use Imagick;
 
 class BookController extends Controller
 {
     public function index(Request $request)
     {
-        $pagesize = 5;
+        $pagesize = 10;
         $keyword = $request->keyword;
 
         if ($request->page_size) $pagesize = $request->page_size;
@@ -49,7 +52,19 @@ class BookController extends Controller
 
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
-        $model->slug = $milliseconds."-".str_slug($request->title, '-');
+        $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
+
+        // $pathToPdf = public_path('kinh-nghiem.pdf');
+
+        // $forder_existed = mkdir(public_path("/uploads/pdf/$model->slug"), 0777);
+        // $output_path = public_path("/uploads/pdf/".$model->slug);
+
+        // $pdf = new Pdf($pathToPdf);
+        // $number_page = $pdf->getNumberOfPages();
+        // for($i=1;$i<=$number_page;$i++){
+        //     $pdf->setPage($i)->saveImage($output_path);
+        // }
+        // die;
 
         $model->save();
 
@@ -102,7 +117,7 @@ class BookController extends Controller
         $model = Book::find($id);
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
-        $model->slug = $milliseconds."-".str_slug($request->title, '-');
+        $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
         $model->save();
 
         CategoryBook::where('book_id', $model->id)->delete();
@@ -203,8 +218,8 @@ class BookController extends Controller
         $sameBooks = [];
         foreach ($book->categories as $cate) {
             foreach ($cate->books as $books) {
-                if($books->id !== $book->id){
-                    
+                if ($books->id !== $book->id) {
+
                     array_push($sameBooks, $books);
                 }
             }
@@ -213,12 +228,11 @@ class BookController extends Controller
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
 
-        $rates = Rating::where('rateable_id', $id)->where('status',1)->get();
+        $rates = Rating::where('rateable_id', $id)->where('status', 1)->get();
         $rates->load('user');
 
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
-
-        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating,'sameBooksUnique'=>$sameBooksUnique]);
+        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique]);
     }
 
 
@@ -306,11 +320,6 @@ class BookController extends Controller
         return view('client.pages.category', compact('categories', 'catee'));
     }
 
-    public function search(Request $request){
-        $keyword = $request->keyword;
 
-        $books = Book::where('title','like', '%' . $request->keyword . '%')->get();
-        $categories = Category::all();
-        return view('client.pages.search',compact('categories', 'books','keyword'));
-    }
+    
 }

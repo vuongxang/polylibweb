@@ -11,6 +11,7 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +33,14 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
 
 Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
+Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->middleware('auth')->name('author.detail');
 Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
 Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
 Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
-Route::get('/search',[BookController::class, 'search'])->name('search');
+Route::get('/search',[SearchController::class, 'search'])->name('search');
+Route::get('/search/{id}',[SearchController::class, 'search'])->name('searchID');
+Route::get('/filter',[SearchController::class, 'filter'])->name('filter');
+Route::post('/searchapi',[SearchController::class, 'searchApi'])->name('searchapi');
 
 Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
@@ -139,7 +144,12 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
 
 //Route Auth
-Auth::routes();
+// Auth::routes();
+Auth::routes([
+    'register' => true, // Registration Routes...
+    'reset' => true, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
+  ]);
 
 Route::get('admin-login', [App\Http\Controllers\Auth\LoginController::class, 'loginForm'])->name('adminLoginForm');
 

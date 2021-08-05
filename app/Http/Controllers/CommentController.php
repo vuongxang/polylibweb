@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\User;
+use App\Notifications\Demo;
 use Illuminate\Http\Request;
 use App\Notifications\InvoicePaid;
 use Illuminate\Support\Facades\Notification;
@@ -38,17 +39,21 @@ class CommentController extends Controller
             'body'=>'required',
         ]);
    
-        
-        $input = $request->all();
+        $model = new Comment();
+        $model->fill($request->all());
 
-        $input['user_id'] = auth()->user()->id;
+        $model->user_id= auth()->user()->id;
     
-        Comment::create($input);
-        $user = User::find(auth()->user()->id);
+        $model->save();
+        $model->load(['book','user']);
+
+        $users = User::where('role_id',1)->orWhere('role_id',2)->get();
         
         $data = [
-            'title'=> 'test real time',
-            'content' => 'Bình luận thành công'
+            'title'     => 'Bình luận mới',
+            'content'   => '<strong>'.$model->user->name.'</strong> Đã bình luận về sách <strong>'.$model->book->title.'</strong>',
+            'time'      => $model->created_at,
+            'icon-class'=> 'icon-circle'
         ];
 
         $options = array(
@@ -64,14 +69,39 @@ class CommentController extends Controller
         );
 
         $pusher->trigger('NotificationEvent', 'send-message', $data);
-        
-        $user->notify(new InvoicePaid($data));
+        foreach ($users as $key => $user) {
+            $user->notify(new InvoicePaid($data)); 
+        }
         
         return back();
     }
 
     public function commentApprov($id){
+
         $comment = Comment::find($id);
+
+        $user = User::where('id',$comment->user_id)->first();
+        $data = [
+            'title'     => 'Duyệt bình luận',
+            'content'   => 'Bình luận của bạn đã được duyệt',
+            'icon-class'=> 'icon-circle'
+        ];
+
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $pusher->trigger('NotificationEvent', 'send-message', $data);
+        $user->notify(new Demo($data));
+
         if(!$comment) return back();
         $comment->status = 1;
         $comment->save();

@@ -2,422 +2,215 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/client/pages/search.css') }}">
 @endsection
+@section('title','PolyLib')
 @section('content')
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-3 book-category__aside">
-            <div class="book-search__aside ">
-
-                <div class=" filter-group ">
-                    <ul class="filter-list ">
-                        <a href="{{route('book.categories')}}" class="filter-item__link">
-                            <li class="filter-item">
-                                {{__('Tất cả')}}
-                            </li>
-                        </a>
-
-                    </ul>
-                </div>
-                
-                <div class=" filter-group ">
-                    <h3 class="filter-heading">Danh mục</h3>
-                    <ul class="filter-list ">
-
-                        @foreach($categories as $cate)
-                        <li class="filter-item js-filter-item">
-                            <div class="filter-item__checkbox">
-                                <input type="checkbox" name="" class="check" id="check-box-{{$cate->id}}">
-                                <label>{{$cate->name}}</label>
-                            </div>
-                            <span class="filter-item__quantity">{{count($cate->books)}}</span>
-                        </li>
-                        @endforeach
-
-
-                    </ul>
-                </div>
-
-
-
-            </div>
+<div class="grid-custom">
+    <div class="search-tab__container">
+        <div class="search-tab__header">
+            Hiển thị theo:
         </div>
-        <div class="col-md-9 book-category__content">
-            <div class="search-result">
-                <div class="search-text">
-                    Tìm kiếm kết quả cho <span class="search-text-detail">"{{$keyword}}"</span>
-                </div>
-            </div>
-            @if(isset($catee) )
-            @foreach($catee as $cate)
-            
-            <div class="search-result">
-                <div class="search-text">
-                    Có <span class="search-text-detail">{{count($cate->books)}} </span>cuốn sách thuộc {{$cate->name}}
-                </div>
-            </div>
-            @endforeach
-            @endif
-            <div class="book-card-collection">
-                @if(isset($catee) )
-                @foreach($catee as $cate)
-                @foreach($cate->books as $book)
-                <div class="book-card ">
-                    <div class="book-card__img">
-                        <a href="{{route('book.detail',$book->id)}}">
-                            <img src="{{$book->image}}" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="{{route('book.detail',$book->id)}}">
-                            <h3> {{$book->title}} </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">
-                        @foreach($book->authors as $author)
-                        @if($loop->last)
-                        {{$author->name}}
-                        @else
-                        {{$author->name}},
-                        @endif
-                        @endforeach
-                    </div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
-                    </div>
-                </div>
-                @endforeach
-                @endforeach
-                @else
-                @foreach($books as $book)
-                <div class="book-card ">
-                    <div class="book-card__img">
-                        <a href="{{route('book.detail',$book->id)}}">
-                            <img src="{{$book->image}}" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="{{route('book.detail',$book->id)}}">
-                            <h3> {{$book->title}} </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">
-                        @foreach($book->authors as $author)
-                        @if($loop->last)
-                        {{$author->name}}
-                        @else
-                        {{$author->name}},
-                        @endif
-                        @endforeach
-                    </div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
-                    </div>
-                </div>
-                @endforeach
-
-                <!-- <div class="col-4 ">
-
-                        <div class="book-card">
-                            <div class="book-card__img">
-                                <a href="">
-                                    <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                                </a>
-                            </div>
-                            <div class="book-card__title">
-                                <a href="">
-                                    <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                                </a>
-                            </div>
-                            <div class="book-card__author">Dale Carnegie</div>
-                            <div class="book-card__star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="book-card__btn">
-                                <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 ">
-
-                        <div class="book-card">
-                            <div class="book-card__img">
-                                <a href="">
-                                    <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                                </a>
-                            </div>
-                            <div class="book-card__title">
-                                <a href="">
-                                    <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                                </a>
-                            </div>
-                            <div class="book-card__author">Dale Carnegie</div>
-                            <div class="book-card__star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="book-card__btn">
-                                <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-4 ">
-
-                        <div class="book-card">
-                            <div class="book-card__img">
-                                <a href="">
-                                    <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                                </a>
-                            </div>
-                            <div class="book-card__title">
-                                <a href="">
-                                    <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                                </a>
-                            </div>
-                            <div class="book-card__author">Dale Carnegie</div>
-                            <div class="book-card__star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="book-card__btn">
-                                <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                            </div>
-                        </div>
-                    </div> -->
-
-                @endif
-                <!--                 
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm Đắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâmĐắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale CarnegieDale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div>
-
-                <div class="book-card">
-                    <div class="book-card__img">
-                        <a href="">
-                            <img src="https://newshop.vn/public/uploads/products/12383/dac-nhan-tam-bia-cung-phien-ban-moi-nhat-bia-truoc.gif" alt="">
-                        </a>
-                    </div>
-                    <div class="book-card__title">
-                        <a href="">
-                            <h3> Đắc nhân tâm </h3>
-                        </a>
-                    </div>
-                    <div class="book-card__author">Dale Carnegie</div>
-                    <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="book-card__btn">
-                        <button class="borrow-btn">Mượn sách</button><button class="review-btn">Xem trước</button>
-                    </div>
-                </div> -->
-            </div>
-
-            
-        </div>
+        <ul class="nav nav-tabs search-tab__nav">
+            <li class="nav-item search-tab__item">
+                <a class="search-tab__link active" data-toggle="tab" href="#books">Sách</a>
+            </li>
+            <li class="nav-item search-tab__item">
+                <a class="search-tab__link " data-toggle="tab" href="#authors">Tác giả</a>
+            </li>
+            <!-- <li class="nav-item search-tab__item">
+                <a class="nav-link search-tab__link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+            </li> -->
+        </ul>
 
     </div>
+    <div class="tab-content">
+        <div class="tab-pane in active" id="books">
+            <div class="search-container">
+
+                <div class="row">
+                    <div class="col-md-3 book-category__aside">
+                        <div class="book-search__aside ">
+
+                            <div class=" filter-group ">
+                                <h3 class="filter-heading">Danh mục</h3>
+                                <form action="" id="filter-form">
+                                    <ul class="filter-list ">
+
+                                        @foreach($categories as $cate)
+                                        <li class="filter-item js-filter-item">
+                                            <div class="filter-item__checkbox">
+                                                <input type="checkbox" name="cate[]" value="{{$cate->id}}" class="filter-item__input" id="check-box-{{$cate->id}}">
+                                                <label>{{$cate->name}}</label>
+                                            </div>
+                                            <span class="filter-item__quantity">{{count($cate->books)}}</span>
+                                        </li>
+                                        @endforeach
+
+
+                                    </ul>
+                                </form>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-9 book-category__content">
+                        <div class="search-result">
+                            <div class="search-text" id="js-search-text">
+                                Tìm thấy <span id="book-qty">{{count($books)}}</span> kết quả cho <span class="search-text-detail">"{{$keyword}}"</span>
+                            </div>
+                        </div>
+                        @if(isset($catee) )
+                        @foreach($catee as $cate)
+
+                        <div class="search-result">
+                            <div class="search-text">
+                                Có <span class="search-text-detail">{{count($cate->books)}} </span>cuốn sách thuộc {{$cate->name}}
+                            </div>
+                        </div>
+                        @endforeach
+                        @endif
+                        <div class="book-card-collection" id="js-book-card-collection">
+                            @if(isset($catee) )
+                            @foreach($catee as $cate)
+                            @foreach($cate->books as $book)
+                            <div class="book-card ">
+                                <div class="book-card__img">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <img src="{{$book->image}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="book-card__title">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <h3> {{$book->title}} </h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author">
+                                    @foreach($book->authors as $author)
+                                    @if($loop->last)
+                                    {{$author->name}}
+                                    @else
+                                    {{$author->name}},
+                                    @endif
+                                    @endforeach
+                                </div>
+                                <div class="book-card__star">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endforeach
+                            @else
+                            @foreach($books as $book)
+                            <div class="book-card ">
+                                <div class="book-card__img">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <img src="{{$book->image}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="book-card__title">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <h3> {{$book->title}} </h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author">
+                                    @foreach($book->authors as $author)
+                                    @if($loop->last)
+                                    {{$author->name}}
+                                    @else
+                                    {{$author->name}},
+                                    @endif
+                                    @endforeach
+                                </div>
+                                <div class="book-card__star">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                                </div>
+                            </div>
+                            @endforeach
+
+                            @endif
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane  " id="authors">
+            <div class="search-container">
+                <div class="search-result">
+                    <div class="search-text" id="js-search-text">
+                        Tìm thấy <span id="book-qty">{{count($authors)}}</span> kết quả cho <span class="search-text-detail">"{{$keyword}}"</span>
+                    </div>
+                </div>
+                @foreach($authors as $author)
+                <div class="row">
+                    <div class="col-md-4 search-author__aside">
+                        <div class="search-author-wrapper">
+                            <div class="author-avatar ">
+                                <a href="">
+                                    <img src="{{$author->avatar}}" alt="">
+                                </a>
+                            </div>
+                            <div class="author-info">
+                                <div class="author-info__name">
+                                    <a href="">
+                                        {{$author->name}}
+                                    </a>
+                                </div>
+                                <div class="author-info__description">
+                                    {{$author->description}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 search-author__container">
+                        <div class="author-books">
+                            <div class="author-books__list">
+                                @foreach($author->books as $book)
+                                <div class="author-books__item">
+
+                                    <a href="{{route('author.detail',$book->id)}}" class="author-books__link">
+                                        <img class="author-books__img" src="{{$book->image}}" alt="">
+                                    </a>
+                                </div>
+                                @endforeach
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+
+            </div>
+
+        </div>
+    </div>
+
+
+
 </div>
 
-<script>
-    let jsFilterItem = document.getElementsByClassName('js-filter-item');
-    for (const item of jsFilterItem) {
-        item.addEventListener("click", () => {
-            console.log(item.querySelector('input'));
-            if (item.querySelector('input').checked == false) {
-                item.querySelector('input').checked = true;
-            } else {
-                if (item.querySelector('input').checked == true) {
-                    item.querySelector('input').checked = false;
-                }
-            }
-        })
-    }
-</script>
 
+@endsection
+@section('script')
+<script src="{{asset('js\client\search.js')}}"></script>
 @endsection

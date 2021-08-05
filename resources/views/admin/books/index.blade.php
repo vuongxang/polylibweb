@@ -21,9 +21,9 @@
                 <div>
                     <form action="" method="get" id="form-page-size">
                         <select name="page_size" id="page_size" class="form-control">
-                            <option value="5" @if ($pagesize==5) selected @endif>5</option>
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
-                            <option value="15" @if ($pagesize==15) selected @endif>15</option>
+                            <option value="25" @if ($pagesize==25) selected @endif>25</option>
+                            <option value="50" @if ($pagesize==50) selected @endif>50</option>
                         </select>
                     </form>
                 </div>
@@ -66,8 +66,8 @@
                         </td>
                         <td class="text-center">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gallery-{{$book->id}}">
-                                Thư viện ảnh
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#gallery-{{$book->id}}">
+                                Ảnh
                             </button>
                         </td>
                         <td class="text-center">

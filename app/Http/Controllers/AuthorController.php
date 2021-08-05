@@ -61,6 +61,7 @@ class AuthorController extends Controller
 
     public function update($id,Request $request){
         $model = Author::find($id);
+        dd($request->all());
         $model->fill($request->all());
         $model->save();
         return redirect(route('author.index'));
@@ -85,5 +86,15 @@ class AuthorController extends Controller
 
     //     // return response()->json(['authors'=>$authors,'success'=>'Author pagesize change successfully!']);
     // }
+    public function authorDetail($id){
+
+        $author = Author::find($id);
+
+        if (!$author) return  abort(404);;
+        $author->load('books');
+        
+        
+        return view('client.pages.author-detail', compact('author'));
+    }
 
 }
