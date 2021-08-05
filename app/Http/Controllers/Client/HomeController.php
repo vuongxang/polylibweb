@@ -66,7 +66,7 @@ class HomeController extends Controller
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
 
         $rating = Rating::all();
-        $order = Order::where('id_user', $id)->get();
+        $order = Order::all();
 
         // dd($user_rating);
         return view('client.pages.rating', compact('user_rating', 'avg_rating', 'rating', 'order'));

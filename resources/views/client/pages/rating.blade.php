@@ -11,12 +11,9 @@
     <div class="book-rating__wrapper">
         <div class="row book-rating__header">
             <div class="col-md-12 ho-so-ca-nhan">
-                <h2>Đánh giá của bạn</h2>
+                <h2>Đánh giá của tôi</h2>
             </div>
         </div>
-        @foreach($order as $or)
-                {{$or->id}} <br>
-        @endforeach
         <div class="data-tabs book-rating__content">
             <ul class="nav nav-tabs">
                 <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#all">Tất cả</a></li>
@@ -28,7 +25,6 @@
                 <div id="all" class="tab-pane in active">
                     @foreach ($order as $user_order)
                     <table class="table table-bordered">
-                        @if ($user_order->book)
                         <div class="book-user-comment">
                             <tr>
                                 <td width="100px">
@@ -64,7 +60,7 @@
                                             </div>
                                             <div class="book-user-comment__content text-justify">
                                                 @if($user_order->body != "")
-                                                {{ $user_order->body }}
+                                                    {{ $user_order->body }}
                                                 @endif
                                             </div>
                                         </div>
@@ -74,7 +70,7 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="book-rating__user__button">
-                                        <a href="{{ route('book.review', $user_order->rate->rateable_id) }}"
+                                        <a href="{{ route('book.review', $user_order->book_id) }}"
                                             class="btn btn-primary">
                                             Xem đánh giá
                                         </a>
@@ -82,7 +78,6 @@
                                 </td>
                             </tr>
                         </div>
-                        @endif
                     </table>
                     @endforeach
                 </div>
@@ -125,7 +120,7 @@
                                             </div>
                                             <div class="book-user-comment__content text-justify">
                                                 @if($user_rate->body != "")
-                                                {{ $user_rate->body }}
+                                                    {{ $user_rate->body }}
                                                 @endif
                                             </div>
                                         </div>
