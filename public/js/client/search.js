@@ -10,19 +10,21 @@ $(function ($) {
 
     const track = document.querySelectorAll('.author-books__list');
 
-    let carouselWidth = document.querySelector('.search-author__container').offsetWidth;
+    // let carouselWidth = document.querySelector('.search-author__container').offsetWidth;
+    let carouselWidth = 855;
 
     // window.addEventListener('resize', () => {
     //     carouselWidth = document.querySelector('.search-author__container').offsetWidth;
     // })
+    console.log(carouselWidth)
     const newTrack = [...track]
     let index = 0;
     const indexArray = newTrack.map(function (){
         return 0
     })
+    
     next.forEach((item, i) => {
         item.addEventListener('click', () => {
-            console.log(1)
             indexArray[i]++;
             prev[i].classList.add('show');
             track[i].style.transform = `translateX(-${indexArray[i] * carouselWidth}px)`;
@@ -30,6 +32,7 @@ $(function ($) {
             if (track[i].offsetWidth - (indexArray[i] * carouselWidth) < carouselWidth) {
                 item.classList.add('hide');
             }
+            console.log(indexArray)
         })
     })
 
