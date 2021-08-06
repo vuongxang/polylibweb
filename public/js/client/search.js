@@ -1,8 +1,49 @@
-$(function($) {
+$(function ($) {
     let jsFilterItem = document.getElementsByClassName('js-filter-item');
     let jsFilterInput = document.getElementsByClassName('filter-item__input');
 
     let cates = []
+
+
+    const prev = document.querySelectorAll('.slide-nav__prev');
+    const next = document.querySelectorAll('.slide-nav__next');
+
+    const track = document.querySelectorAll('.author-books__list');
+
+    let carouselWidth = document.querySelector('.search-author__container').offsetWidth;
+
+    // window.addEventListener('resize', () => {
+    //     carouselWidth = document.querySelector('.search-author__container').offsetWidth;
+    // })
+
+    let index = 0;
+    next.forEach((item, i) => {
+        item.addEventListener('click', () => {
+            console.log(1)
+            index++;
+            prev[i].classList.add('show');
+            track[i].style.transform = `translateX(-${index * carouselWidth}px)`;
+            console.log()
+            // track.style.transform = `translateX(-${index * carouselWidth}px)`;
+
+            if (track[i].offsetWidth - (index * carouselWidth) < carouselWidth) {
+                item.classList.add('hide');
+            }
+        })
+    })
+
+
+    prev.forEach((item, i) => {
+        item.addEventListener('click', () => {
+            index--;
+            next[i].classList.remove('hide');
+            if (index === 0) {
+                item.classList.remove('show');
+            }
+            track[i].style.transform = `translateX(-${index * carouselWidth}px)`;
+        })
+    })
+
 
 
     function GetURLParameter(sParam) {
@@ -15,7 +56,7 @@ $(function($) {
             }
         }
     }
-    
+
     const keyword = decodeURI(GetURLParameter('keyword'))
     for (const item of jsFilterItem) {
 
@@ -48,7 +89,7 @@ $(function($) {
                 },
 
                 dataType: 'json',
-                success: function(res) {
+                success: function (res) {
                     const books = [...res[0]];
                     const key = [res[1]];
                     if (Array.isArray(books) && books.length > 0) {
@@ -65,7 +106,7 @@ $(function($) {
                                         </a>
                                     </div>
                                     <div class="book-card__author">
-                                    ${book.authors.map(item=>{return ` ${item.name}`})}
+                                    ${book.authors.map(item => { return ` ${item.name}` })}
                                     </div>
                                     <div class="book-card__star">
                                         <i class="fas fa-star"></i>
@@ -92,7 +133,7 @@ $(function($) {
                     }
 
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log("Error!" + xhr.error);
                 },
 
@@ -101,7 +142,7 @@ $(function($) {
         })
     }
 
-    $('#filter-form :checkbox').change(function() {
+    $('#filter-form :checkbox').change(function () {
         if (this.checked) {
             cates.push(parseInt(this.value))
         } else {
@@ -119,7 +160,7 @@ $(function($) {
             },
 
             dataType: 'json',
-            success: function(res) {
+            success: function (res) {
                 const books = [...res[0]];
                 const key = [res[1]];
                 if (Array.isArray(books) && books.length > 0) {
@@ -136,7 +177,7 @@ $(function($) {
                                         </a>
                                     </div>
                                     <div class="book-card__author">
-                                    ${book.authors.map(item=>{return `${item.name}`})}
+                                    ${book.authors.map(item => { return `${item.name}` })}
                                     </div>
                                     <div class="book-card__star">
                                         <i class="fas fa-star"></i>
@@ -163,7 +204,7 @@ $(function($) {
                 }
 
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log("Error!" + xhr.error);
             },
 

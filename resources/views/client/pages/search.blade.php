@@ -25,7 +25,7 @@
 
     </div>
     <div class="tab-content">
-        <div class="tab-pane in active" id="books">
+        <div class="tab-pane " id="books">
             <div class="search-container">
 
                 <div class="row">
@@ -153,7 +153,7 @@
             </div>
 
         </div>
-        <div class="tab-pane  " id="authors">
+        <div class="tab-pane in active" id="authors">
             <div class="search-container">
                 <div class="search-result">
                     <div class="search-text" id="js-search-text">
@@ -162,39 +162,76 @@
                 </div>
                 @foreach($authors as $author)
                 <div class="row">
-                    <div class="col-md-4 search-author__aside">
+                    <div class="col-md-3 search-author__aside">
                         <div class="search-author-wrapper">
                             <div class="author-avatar ">
-                                <a href="">
+                                <a href="{{route('author.detail',$author->id)}}">
                                     <img src="{{$author->avatar}}" alt="">
                                 </a>
                             </div>
                             <div class="author-info">
                                 <div class="author-info__name">
-                                    <a href="">
+                                    <a href="{{route('author.detail',$author->id)}}">
                                         {{$author->name}}
                                     </a>
+                                </div>
+                                <div class="author-info__dob">
+                                    {{date('d-m-Y', strtotime($author->date_birth)) }}
                                 </div>
                                 <div class="author-info__description">
                                     {{$author->description}}
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                    <div class="col-md-8 search-author__container">
-                        <div class="author-books">
-                            <div class="author-books__list">
+                    <div class="col-md-9 search-author__container">
+                        <div class="author-books ">
+                            <div class="author-books__list ">
                                 @foreach($author->books as $book)
-                                <div class="author-books__item">
-
-                                    <a href="{{route('author.detail',$book->id)}}" class="author-books__link">
-                                        <img class="author-books__img" src="{{$book->image}}" alt="">
-                                    </a>
+                                <div class="book-card ">
+                                    <div class="book-card__img">
+                                        <a href="{{route('book.detail',$book->id)}}">
+                                            <img src="{{$book->image}}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="book-card__title">
+                                        <a href="{{route('book.detail',$book->id)}}">
+                                            <h3> {{$book->title}}{{$loop->iteration}}</h3>
+                                        </a>
+                                    </div>
+                                    <div class="book-card__author">
+                                        @foreach($book->authors as $author)
+                                        @if($loop->last)
+                                        {{$author->name}}
+                                        @else
+                                        {{$author->name}},
+                                        @endif
+                                        @endforeach
+                                    </div>
+                                    <div class="book-card__star">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="book-card__btn">
+                                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a>
+                                        <a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                                    </div>
                                 </div>
                                 @endforeach
-                                
+
 
                             </div>
+                        </div>
+                        <div class="slide-nav">
+                            <button class="slide-nav__prev">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="slide-nav__next">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

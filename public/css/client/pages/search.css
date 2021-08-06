@@ -51,14 +51,14 @@
     padding: 0;
 }
 .search-author-wrapper{
-    display: flex;
-    gap:2rem;
 }
 .author-avatar{
-    width: 8.6rem;
-    height: 8.6rem;
+    margin-bottom: 2rem;
+    width: 20rem;
+    height: 20rem;
 }
 .author-avatar a {
+    
     text-decoration: none;
 }
 .author-avatar img{
@@ -71,14 +71,29 @@
     width: 27rem;
 }
 .author-info__name{
+    text-transform: uppercase;
     margin-bottom: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .author-info__name a{
+    
     text-decoration: none;
     font-size: 1.6rem;
     font-weight: 700;
     line-height: 1.2;
     color:var(--black-primary-color);
+}
+.author-info__dob  {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text-color3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .author-info__description{
     color: #0d0c22;
@@ -86,10 +101,14 @@
     margin-bottom: 5px;
     font-size: 13px;
     line-height: 1.4;
-    
+    text-overflow: ellipsis;
+    height: 10.7rem;
+    overflow: hidden;
 }
 .search-author__container{
-    
+    padding:  0;
+    position: relative;
+    width: 855px;
 }
 #books .row{
     margin-top: 0;
@@ -100,16 +119,16 @@
     border-bottom: 1px solid var(--text-color2);
 }
 .author-books{
-    
+    overflow: hidden;
 }
 .author-books__list{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 2rem;
+    display: inline-flex;
+    padding: 1rem 0;
+    gap: 5.2rem;
+    transition: transform 0.5s;
 }
 .author-books__item{
-    max-width: 20rem;
+    max-width: 17rem;
     height: 25rem;
 }
 .author-books__link{
@@ -121,6 +140,23 @@
     height: 100%;
     border-radius: 1rem;
 }
+
+.slide-nav button{
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid #aaa;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.slide-nav__prev{
+    left: 0;
+}
+.slide-nav__next{
+    right: 0;
+}
+
 .book-search__aside{
     padding: 1.5rem 1rem;
 
@@ -240,6 +276,13 @@
     flex-wrap: wrap;
     gap: 3.6rem;
 }
+.author-books__list .book-card{
+    width: 25rem;
+    padding: 2.5rem;
+
+    border-radius: 1rem;
+    box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
+}
 .book-card{
     max-width: 25rem;
     padding: 2.5rem;
@@ -337,3 +380,7 @@
     text-decoration: none;
     color:var(--text-color2);
 }
+
+
+
+/* Book card sm */
