@@ -18,5 +18,10 @@ class Order extends Model
             Book::class, 'book_id', 'id'
         );
     }
+    
+    public function rate(){
+        return $this->belongsTo(
+            Rating::class, 'book_id', 'rateable_id');
+    }
 
 }

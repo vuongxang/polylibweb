@@ -16,10 +16,14 @@ class Rating extends Model
     public $sortable = ['id', 'rating', 'body','status','user_id','rateable_id','created_at', 'updated_at'];
 
     public function user(){
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function book(){
-        return $this->belongsTo(Book::class, 'rateable_id');
+        return $this->belongsTo(Book::class, 'rateable_id', 'id');
+    }
+
+    public function order(){
+        return $this->belongsTo(Order::class, 'user_id', 'id_user');
     }
 }

@@ -27,6 +27,11 @@ use App\Http\Controllers\SearchController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::prefix('/')->middleware('auth')->group(function () {
+    Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
+});
+
+
 Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->middleware('auth')->name('author.detail');
 Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
@@ -105,6 +110,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::prefix('user')->middleware('is-admin')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user.index');
         Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
+        // Route::post('add-author',[AuthorController::class,'store'])->name('author.store'); 
         Route::get('add-user',[UserController::class,'create'])->name('user.create');
         Route::post('add-user',[UserController::class,'store'])->name('user.store');
         Route::get('remove/{id}', [UserController::class, 'destroy'])->name('user.destroy');

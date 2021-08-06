@@ -74,7 +74,6 @@ class UserController extends Controller
     public function create(){
         return view('admin.users.create');
     }
-
     public function store(UserRequest $request){
         $model = User::where('email',$request->email)->first();
         if($model) return back();
@@ -87,7 +86,6 @@ class UserController extends Controller
 
         return redirect(route('user.create'))->with('message','Tạo tài khoản thành công');
     }
-
     public function readeNotification($id){
         $notifications = Auth::user()->notifications;
         foreach ($notifications as $key => $value) {
