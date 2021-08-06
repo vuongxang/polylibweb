@@ -106,7 +106,7 @@
     overflow: hidden;
 }
 .search-author__container{
-    padding:  0;
+    padding: 0;
     position: relative;
     width: 855px;
 }
@@ -120,11 +120,12 @@
 }
 .author-books{
     overflow: hidden;
+    padding:0 2rem;
 }
 .author-books__list{
     display: inline-flex;
-    padding: 1rem 0;
-    gap: 5.2rem;
+    padding:  0;
+    /* gap: 3rem; */
     transition: transform 0.5s;
 }
 .author-books__item{
@@ -152,6 +153,7 @@
 }
 .slide-nav__prev{
     left: 0;
+    display: none;
 }
 .slide-nav__next{
     right: 0;
@@ -279,9 +281,14 @@
 .author-books__list .book-card{
     width: 25rem;
     padding: 2.5rem;
-
+    margin:.5rem 1.7rem;
     border-radius: 1rem;
     box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
+}
+.author-books__list .book-card:first-child{
+    
+    margin-left: 0;
+    
 }
 .book-card{
     max-width: 25rem;

@@ -15,18 +15,19 @@ $(function ($) {
     // window.addEventListener('resize', () => {
     //     carouselWidth = document.querySelector('.search-author__container').offsetWidth;
     // })
-
+    const newTrack = [...track]
     let index = 0;
+    const indexArray = newTrack.map(function (){
+        return 0
+    })
     next.forEach((item, i) => {
         item.addEventListener('click', () => {
             console.log(1)
-            index++;
+            indexArray[i]++;
             prev[i].classList.add('show');
-            track[i].style.transform = `translateX(-${index * carouselWidth}px)`;
-            console.log()
-            // track.style.transform = `translateX(-${index * carouselWidth}px)`;
+            track[i].style.transform = `translateX(-${indexArray[i] * carouselWidth}px)`;
 
-            if (track[i].offsetWidth - (index * carouselWidth) < carouselWidth) {
+            if (track[i].offsetWidth - (indexArray[i] * carouselWidth) < carouselWidth) {
                 item.classList.add('hide');
             }
         })
@@ -35,12 +36,12 @@ $(function ($) {
 
     prev.forEach((item, i) => {
         item.addEventListener('click', () => {
-            index--;
+            indexArray[i]--;
             next[i].classList.remove('hide');
-            if (index === 0) {
+            if (indexArray[i] === 0) {
                 item.classList.remove('show');
             }
-            track[i].style.transform = `translateX(-${index * carouselWidth}px)`;
+            track[i].style.transform = `translateX(-${indexArray[i] * carouselWidth}px)`;
         })
     })
 

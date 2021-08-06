@@ -25,7 +25,7 @@
 
     </div>
     <div class="tab-content">
-        <div class="tab-pane " id="books">
+        <div class="tab-pane in active" id="books">
             <div class="search-container">
 
                 <div class="row">
@@ -153,7 +153,7 @@
             </div>
 
         </div>
-        <div class="tab-pane in active" id="authors">
+        <div class="tab-pane " id="authors">
             <div class="search-container">
                 <div class="search-result">
                     <div class="search-text" id="js-search-text">
