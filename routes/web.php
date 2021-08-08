@@ -60,6 +60,7 @@ Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')-
 Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
 Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
+Route::get('my-alerts', [UserController::class, 'showArlers'])->name('notification.alerts');
 
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {

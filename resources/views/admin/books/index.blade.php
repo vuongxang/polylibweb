@@ -12,7 +12,7 @@
             <div class="d-flex justify-content-between ">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active bg-light">Danh sách</a>
+                        <a class="nav-link active">Danh sách</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('book.trashlist')}}">Thùng rác</a>
@@ -28,7 +28,7 @@
                     </form>
                 </div>
             </div>
-            <table class="table table-bordred" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
@@ -55,18 +55,17 @@
                         </td>
                         <td>
                             @foreach ($book->authors as $author)
-                            <a href="" class="">{{$author->name}}</a>,
+                            <span>{{$author->name}}<span></br>
                             @endforeach
                         </td>
                         <td>
                             @foreach ($book->categories as $cate)
-                            <a href="" class="">{{$cate->name}}</a>,
-                            <br>
+                            <span>{{$cate->name}}<span></br>
                             @endforeach
                         </td>
                         <td class="text-center">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#gallery-{{$book->id}}">
+                            <button type="button" class="btn btn-dark shadow-lg rounded-pill" data-toggle="modal" data-target="#gallery-{{$book->id}}">
                                 Ảnh
                             </button>
                         </td>

@@ -95,4 +95,8 @@ class UserController extends Controller
         $notification->markAsRead();
         return back();
     }
+
+    public function showArlers(){
+        return view('client.pages.alerts');
+    }
 }

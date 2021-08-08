@@ -51,9 +51,9 @@ class CommentController extends Controller
         
         $data = [
             'title'     => 'Bình luận mới',
-            'content'   => '<strong>'.$model->user->name.'</strong> Đã bình luận về sách <strong>'.$model->book->title.'</strong>',
-            'time'      => $model->created_at,
-            'icon-class'=> 'icon-circle'
+            'content'   => $model->user->name." Đã bình luận về sách <a href=".route('book.detail',$model->book->id).">" .$model->book->title."</a>",
+            'icon-class'=> 'icon-circle',
+            'book_id'   => $model->book->id
         ];
 
         $options = array(
@@ -83,8 +83,9 @@ class CommentController extends Controller
         $user = User::where('id',$comment->user_id)->first();
         $data = [
             'title'     => 'Duyệt bình luận',
-            'content'   => 'Bình luận của bạn đã được duyệt',
-            'icon-class'=> 'icon-circle'
+            'content'   => "Bình luận của bạn về sách <a href=".route('book.detail',$comment->book->id).">" .$comment->book->title."</a> Đã được duyệt",
+            'icon-class'=> 'icon-circle',
+            'book_id'   => $comment->book->id
         ];
 
         $options = array(
@@ -112,7 +113,31 @@ class CommentController extends Controller
     public function destroy($id){
         $model = Comment::find($id);
         if($model){
+            $user = User::where('id',$model->user_id)->first();
+            $data = [
+                'title'     => 'Hủy bình luận',
+                'content'   => "Bình luận của bạn về sách <a href=".route('book.detail',$model->book->id).">" .$model->book->title."</a> Đã bị hủy !",
+                'icon-class'=> 'icon-circle',
+                'book_id'   => $model->book->id
+            ];
+
+            $options = array(
+                'cluster' => 'ap1',
+                'encrypted' => true
+            );
+
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+
+            $pusher->trigger('NotificationEvent', 'send-message', $data);
+            $user->notify(new InvoicePaid($data));
+            
             Comment::destroy($id);
+            
             return redirect(route('comment.index'))->with('message','Chuyển vào thùng rác thành công !')
                                                 ->with('alert-class','alert-success');
         }else{
@@ -131,6 +156,28 @@ class CommentController extends Controller
       
         $model = Comment::withTrashed()->find($id);
         if($model){
+            $user = User::where('id',$model->user_id)->first();
+            $data = [
+                'title'     => 'Xóa bình luận',
+                'content'   => "Bình luận của bạn về sách <a href=".route('book.detail',$model->book->id).">" .$model->book->title."</a> Đã bị xóa !",
+                'icon-class'=> 'icon-circle',
+                'book_id'   => $model->book->id
+            ];
+
+            $options = array(
+                'cluster' => 'ap1',
+                'encrypted' => true
+            );
+
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+
+            $pusher->trigger('NotificationEvent', 'send-message', $data);
+            $user->notify(new InvoicePaid($data));
             $model = Comment::withTrashed()->where('id', $id)->forceDelete();
             return redirect(route('comment.index'))->with('message','Xóa bình luận thành công !')
                                                         ->with('alert-class','alert-success');         

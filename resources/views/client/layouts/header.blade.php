@@ -93,7 +93,10 @@
                     <h6 class="dropdown-header">
                         Alerts Center
                     </h6>
-                    @foreach (Auth::user()->notifications as $notification)
+                    @foreach (Auth::user()->notifications as $key   =>  $notification)
+                        @php
+                            if($key==15) break;
+                        @endphp
                         <a class="dropdown-item d-flex align-items-center" href="{{route('notification.read',$notification->id)}}">
                             <div class="mr-3">
                                 <div class="{{$notification->data['icon-class']}}">
@@ -105,12 +108,12 @@
                                 </div>
                             </div>
                             <div class="@if ($notification->read_at==null) font-weight-bold @endif">
-                                <div class="small text-gray-500">{{ $notification->data['title'] }}</div>
-                                <span class="">{!! $notification->data['content'] !!}</span>
+                                <span class="small text-gray-500">{{ $notification->data['title'] }}</span>
+                                <div class="">{!! $notification->data['content'] !!}</div>
                             </div>
                         </a>
                     @endforeach
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                    <a class="dropdown-item text-center small text-gray-500" href="{{route('notification.alerts')}}">Show All Alerts</a>
                 </div>
             </div>
         </div>

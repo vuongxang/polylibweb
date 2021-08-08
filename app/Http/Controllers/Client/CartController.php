@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\User;
 use App\Models\Order;
+use App\Notifications\InvoicePaid;
 use Cart;
+use Pusher\Pusher;
 use Session;
 
 class CartController extends Controller
@@ -48,6 +50,32 @@ class CartController extends Controller
         $order->status = 'Đang mượn';
 
         $order->save();
+
+        $users = User::where('role_id',1)->orWhere('role_id',2)->get();
+        
+        $data = [
+            'title'     => 'Mượn sách',
+            'content'   => $order->user->name." Đã mượn sách <a href=".route('book.detail',$order->book_id).">" .$order->book->title."</a>",
+            'icon-class'=> 'icon-circle',
+            'book_id'   => $order->book_id
+        ];
+
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $pusher->trigger('NotificationEvent', 'send-message', $data);
+        foreach ($users as $key => $user) {
+            $user->notify(new InvoicePaid($data)); 
+        }
 
         Session::forget('cart');
         return back()->with('thongbao','Mượn sách thành công')->with('alert','alert-success')
