@@ -14,10 +14,10 @@
                   <a class="nav-link" href="{{route('book.index')}}">Danh sách</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active bg-light">Thùng rác</a>
+                    <a class="nav-link active">Thùng rác</a>
                   </li>
             </ul>
-            <table class="table table-bordered bg-light" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
