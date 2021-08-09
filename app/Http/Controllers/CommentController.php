@@ -41,7 +41,7 @@ class CommentController extends Controller
    
         $model = new Comment();
         $model->fill($request->all());
-
+        $model->status = 0;
         $model->user_id= auth()->user()->id;
     
         $model->save();

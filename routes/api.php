@@ -25,4 +25,5 @@ Route::get('order-data', [AdminController::class, 'ordersData']);
 Route::get('order-data-month', [AdminController::class, 'ordersDataMonth']);
 
 Route::Post('comment',[BookDetailController::class,'getComment'])->name('book.comment');
+Route::Post('rate',[BookDetailController::class,'getRate'])->name('book.rate');
 Route::Post('comment-child',[BookDetailController::class,'getCommentChild'])->name('book.comment.child');

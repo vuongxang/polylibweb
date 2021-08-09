@@ -102,7 +102,7 @@
                     <a class="book-tabs__link active" data-toggle="tab" href="#comment-tab">Bình luận</a>
                 </li>
                 <li class="book-tabs__item">
-                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá ({{ count($rates) }}) </a>
+                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá </a>
                 </li>
             </ul>
         </div>
@@ -130,10 +130,10 @@
                 </div>
             </div>
             <div class="book-tabs__comment tab-pane" id="review-tab">
-                @if(count($rates)> 0)
+                <!-- @if(count($rates)> 0)
                 @foreach ($rates as $rate)
                 @if ($rate->user)
-                <div class="book-user-comment">
+                <div class="book-user-comment " >
                     <div class="comment-box__image">
                         <img src="{{ $rate->user->avatar }}" alt="">
                     </div>
@@ -171,7 +171,7 @@
                 <div class="book-user-comment__message">
                     Chưa có đánh giá nào
                 </div>
-                @endif
+                @endif -->
             </div>
         </div>
     </div>

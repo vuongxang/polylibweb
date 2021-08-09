@@ -1,6 +1,3 @@
-// const { comment } = require("postcss");
-
-
 let readMore = document.querySelector('#js-read-more');
 let desc = document.querySelector('.book-description__text');
 if (desc.offsetHeight < 240) {
@@ -14,35 +11,6 @@ readMore.addEventListener('click', () => {
     (x.classList.contains('show-more')) ? readMore.innerHTML = "Ẩn bớt " : readMore.innerHTML = "Xem thêm ";
 })
 
-
-// let replyParentElement = document.querySelectorAll('.js-comment-reply');
-// let btnCancelElement = document.querySelectorAll('.button-cancel');
-// let commentWrapperElement = document.querySelectorAll('.comment-box__wrapper');
-// let replyChildElement = document.querySelectorAll('.js-comment-reply-child');
-// replyParentElement.forEach((item) => {
-//     item.addEventListener('click', () => {
-//         item.closest('.js-comment-body').querySelector('.comment-box__wrapper').classList.remove(
-//             'comment-box__hidden');
-//         item.closest('.js-comment-body').querySelector('input[name="body"]').focus();
-//     })
-// })
-// // turn off comment box
-// btnCancelElement.forEach((btn, index) => {
-//     btn.addEventListener('click', () => {
-//         commentWrapperElement[index].classList.add('comment-box__hidden');
-//         commentWrapperElement[index].querySelector('form').reset();
-
-//     })
-// })
-// // Chọn trả lời thằng con 
-// replyChildElement.forEach((item, index) => {
-//     item.addEventListener('click', () => {
-//         const a = item.closest('.js-comment-body').querySelector('.comment-box__wrapper');
-//         a.classList.remove('comment-box__hidden');
-//         a.querySelector('input[name="body"]').focus();
-//         // console.log(item.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.comment-box__wrapper').classList.remove('comment-box__hidden'))
-//     })
-// })
 
 
 /**
@@ -61,7 +29,7 @@ let jsUserAvatar = document.querySelector('#js-user-avatar');
 moment.locale('vi');
 
 
-loadMore()
+loadMoreParentComment()
 
 
 const replyParent = (replyParentElement) => {
@@ -79,7 +47,6 @@ const replyChild = (replyChildElement) => {
 
     replyChildElement.forEach((item, index) => {
         item.addEventListener('click', () => {
-            console.log(item, index);
             const a = item.closest('.js-comment-body').querySelector('.comment-box__wrapper');
             a.classList.remove('comment-box__hidden');
             a.querySelector('input[name="body"]').focus();
@@ -99,16 +66,8 @@ const cancelReply = (btnCancelElement) => {
         })
     })
 }
-
-
-
-
-// Gửi dữ liệu đăng nhập bằng ajax
-
-
-
-
-function loadMore(bookId = "") {
+// Xem thêm bình luận cha
+function loadMoreParentComment(bookId = "") {
     $.ajax({
         url: "/api/comment",
         method: "POST",
@@ -126,7 +85,6 @@ function loadMore(bookId = "") {
                 let arrId = [];
                 const comments = [...data[0]];
                 const commentsChild = [...data[1]];
-                console.log(commentsChild)
 
                 // Hiển thị dữ liệu
                 const result = comments.map(comment => {
@@ -203,39 +161,11 @@ function loadMore(bookId = "") {
                     $('#js-book-user-comment').append(`<button type="button" name="abc" id="js_load_more_btn" data-id="${lastId}" class="button btn-load-more">Xem thêm bình luận</button>`);
                 }
 
-                // let jsCommentBody = document.querySelectorAll('.js-comment-body');
-                // jsCommentBody.forEach((item, index) => {
-                //     const loadMoreButtonChild = $(`<button type="button" class="button btn-load-more js-btn-load-more-child">Xem thêm bình luận</button>`);
-                //     let hasX = item.querySelector('.js-btn-load-more-child')
-                //     if (hasX) {
 
-                //         hasX.remove()
-                //     }
-                //     console.log(item,index)
-                //     item.append(loadMoreButtonChild[0]);
-                //     let x = item.querySelector('.js-btn-load-more-child')
-
-
-
-                //     x.addEventListener('click', () => {
-                //         let lasttiem;
-                //         const jsCommentChild = item.querySelectorAll('.js-comment-child');
-                //         const abcccc = item.getAttribute("data-parent_id");
-                //         console.log(abcccc)
-                //         jsCommentChild.forEach(item => {
-                //             lasttiem = item.getAttribute("data-comment_id")
-                //         })
-                //         console.log(lasttiem)
-                //         console.log(item)
-                //         loadMoreChild(lasttiem, abcccc, item)
-
-                //     })
-                // })
                 let jsCommentBody = document.querySelectorAll('.js-comment-child-wrapper');
                 if (commentsChild.length > 0) {
                     jsCommentBody.forEach((item, index) => {
                         parentIde = item.getAttribute("data-parent_id")
-                        console.log(parentIde)
 
                         const loadMoreButtonChild = $(`<button type="button" class="button btn-load-more js-btn-load-more-child">Xem thêm bình luận</button>`);
                         let hasX = item.querySelector('.js-btn-load-more-child')
@@ -243,30 +173,27 @@ function loadMore(bookId = "") {
 
                             hasX.remove()
                         }
-                        
+
 
                         let count = 0;
                         commentsChild.forEach(child => {
                             if (child.parent_id == parentIde) {
-                                console.log(child)
                                 count++;
                             }
                         })
-                        console.log(count)
-                        if(count  == 3){
+                        if (count == 3) {
                             item.append(loadMoreButtonChild[0]);
                             let x = item.querySelector('.js-btn-load-more-child')
                             x.addEventListener('click', () => {
                                 let lasttiem;
                                 const jsCommentChild = item.querySelectorAll('.js-comment-child');
                                 const abcccc = item.getAttribute("data-parent_id");
-                                console.log(abcccc)
                                 jsCommentChild.forEach(commentChildItem => {
                                     lasttiem = commentChildItem.getAttribute("data-comment_id")
                                 })
                                 console.log(lasttiem)
                                 loadMoreChild(lasttiem, abcccc, item)
-    
+
                             })
                         }
 
@@ -329,7 +256,7 @@ function loadMore(bookId = "") {
 
     })
 }
-
+// Xem thêm bình luận con
 function loadMoreChild(commentId, parrentId, item) {
     $.ajax({
         url: '/api/comment-child',
@@ -379,23 +306,20 @@ function loadMoreChild(commentId, parrentId, item) {
 
             let x = item.querySelector('.js-btn-load-more-child')
 
-            console.log(x)
             if (x != null) {
                 x.addEventListener('click', () => {
                     let lasttiem;
                     const jsCommentChild = item.querySelectorAll('.js-comment-child');
                     const abcccc = item.getAttribute("data-parent_id");
-                    console.log(abcccc)
                     jsCommentChild.forEach(item => {
                         lasttiem = item.getAttribute("data-comment_id")
                     })
-                    console.log(lasttiem)
                     loadMoreChild(lasttiem, abcccc, item)
 
                 })
             }
 
-            
+
             let loading = document.querySelectorAll('.spinner-grow'); // Loadding spinner
             let btnCancelElement = document.querySelectorAll('.button-cancel'); // Nút hủy bình luận
             let replyChildElement = document.querySelectorAll('.js-comment-reply-child'); // Nút trả lời của bình luận con
@@ -404,70 +328,137 @@ function loadMoreChild(commentId, parrentId, item) {
             replyChild(replyChildElement);
             cancelReply(btnCancelElement);
 
-            // item.remove()
-            // let jsCommentBody = document.querySelectorAll('.js-comment-body'); // Nút trả lời của bình luận con
-            // console.log(result)
-            // item.append(result);
-            // jsCommentBody.forEach((item, index) => {
-            //     const loadMoreButtonChild = $(`<button type="button" class="button btn-load-more js-btn-load-more-child">Xem thêm bình luận</button>`);
-            //     item.append(loadMoreButtonChild[0]);
-            //     let x = item.querySelector('.js-btn-load-more-child')
-            //     const jsCommentChild = item.querySelectorAll('.js-comment-child');
-
-
-
-            //     x.addEventListener('click', () => {
-            //         let lasttiem;
-            //         const abcccc = item.getAttribute("data-parent_id");
-            //         console.log(abcccc)
-            //         console.log(jsCommentChild[2], index);
-            //         jsCommentChild.forEach(item => {
-            //             lasttiem = item.getAttribute("data-comment_id")
-            //         })
-            //         console.log(lasttiem)
-            //         loadMoreChild(lasttiem, abcccc)
-            //         console.log('Click xem thêm ' + newArr[index])
-            //     })
-            // })
         }
     })
 }
 $(document).on('click', '#js_load_more_btn', (e) => {
     const bookId = $(e.target).attr("data-id");
     let jsCommentBody = document.querySelectorAll('.js-comment-body');
-    // console.log(jsCommentBody)
-    // jsCommentBody.forEach((item, index) => {
-    //     let x = item.querySelector('.js-btn-load-more-child')
-    //     x.remove()
-    // })
 
-    loadMore(bookId)
+
+    loadMoreParentComment(bookId)
 
 })
 
-// window.onload = (function () {
-//     let jsCommentBody = document.querySelectorAll('.js-btn-load-more-child');
-//     console.log(jsCommentBody)
+/**
+ * Phân trang đánh giá
+ * 
+ */
+loadMoreRate();
+function loadMoreRate(lastRateId = "") {
+    $.ajax({
+        url: '/api/rate',
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            book_id: id,
+            last_rate_id: lastRateId
+        },
+        success: function (data) {
+            console.log(data)
 
-// });
+            const rateList = [...data[0]];
+            
+            let lastRateId;
+
+            const result = rateList.map(rateItem => {
+                lastRateId = rateItem.id;
+                return `<div class="book-user-comment" id="js-rate-wrapper">
+                            <div class="comment-box__image">
+                                <img src="${rateItem.user.avatar}" alt="">
+                            </div>
+                            <div class="book-user-comment__body">
+                                <div class="book-user-comment__heading">
+                                    <div class="book-user-comment__name">${rateItem.user.name}</div>
+                                    <div class="book-user-comment__footer">
+                                        <div class="book-user-comment__link">
+                                            <span class="book-star">
+                                                
+                                                ${(function fun() {
+                        let rateStar = "";
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= rateItem.rating) {
+                                rateStar += '<i class="fas fa-star "></i>'
+
+                            } else {
+                                rateStar += `<i class="far fa-star " ></i>`
+                            }
+
+                        }
+                        return rateStar;
+                    }
+                    )()}
+                                            <span>
+                                                        
+                                        </div>
+                                        <div class="book-user-comment__date">
+                                            ${moment(rateItem.created_at).format('l')}
+                                        </div>
+                                    </div >
+                                    <div class="book-user-comment__content">
+                                        ${rateItem.body}
+
+                                    </div>
+                                </div >
+
+                            </div >
+
+                        </div >
+
+    `
+            }).join('');
+            const reviewTab = document.querySelector('#review-tab');
+            if(data[1]){
+                $(reviewTab).append(`<div class="book-user-comment__message">
+                ${data[1]}
+            </div>`);
+            }
+            $('#js_load_more_review').remove();
+
+
+            $(reviewTab).append(result);
+
+
+            if (rateList.length == 3) {
+
+                $(reviewTab).append(`<button type="button" id="js_load_more_review"  data-id="${lastRateId}" class="button btn-load-more">Xem thêm đánh giá</button>`);
+            }
+        }
+    })
+}
+
+
+
+$(document).on('click', '#js_load_more_review', (e) => {
+
+    const rateId = $(e.target).attr("data-id");
+    // let jsCommentBody = document.querySelectorAll('.js-comment-body');
+
+
+    console.log(rateId)
+    loadMoreRate(rateId)
+
+})
 
     // @foreach (comments as commentChild)
     //                     @if (commentChild.parent_id != null && commentChild.parent_id == comment.id && comment.status==1)
 
     //                         <div class="book-user-comment">
     //                             <div class="comment-box__image">
-    //                                 <img src="${ commentChild.user.avatar }" alt="">
+    //                                 <img src="${commentChild.user.avatar}" alt="">
     //                             </div>
     //                             <div class="book-user-comment__body">
     //                                 <div class="book-user-comment__heading">
-    //                                     <div class="book-user-comment__name">${ commentChild.user.name }</div>
-    //                                     <div class="book-user-comment__content">${ commentChild.body }</div>
+    //                                     <div class="book-user-comment__name">${commentChild.user.name}</div>
+    //                                     <div class="book-user-comment__content">${commentChild.body}</div>
     //                                 </div>
     //                                 <div class="book-user-comment__footer">
     //                                     <div class="book-user-comment__link"><a href="javascript:void(0);"
     //                                             class="js-comment-reply-child">Trả lời</a></div>
     //                                     <div class="book-user-comment__date">
-    //                                         ${ commentChild.created_at }</div>
+    //                                         ${commentChild.created_at}</div>
     //                                 </div>
     //                             </div>
     //                         </div>
@@ -475,7 +466,7 @@ $(document).on('click', '#js_load_more_btn', (e) => {
     //                 @endforeach
     //                 <div class="comment-box__wrapper comment-box__hidden">
     //                     <div class="comment-box__image">
-    //                         <img src="${ Auth::user().avatar }" alt="">
+    //                         <img src="${Auth:: user().avatar }" alt="">
     //                     </div>
     //                     <div class="comment-box__content">
     //                         <form action="${ route('comments.store') }" method="post">
