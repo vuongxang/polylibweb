@@ -55,7 +55,7 @@
             });
         });
 
-        var pusher = new Pusher('{{ env('PUSHER_APP_KEY')}}',  {
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY')}}' ,  {
             encrypted: true,
             cluster: "ap1"
         });

@@ -56,19 +56,19 @@ class CommentController extends Controller
             'icon-class'=> 'icon-circle'
         ];
 
-        $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-        );
+        // $options = array(
+        //     'cluster' => 'ap1',
+        //     'encrypted' => true
+        // );
 
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
+        // $pusher = new Pusher(
+        //     env('PUSHER_APP_KEY'),
+        //     env('PUSHER_APP_SECRET'),
+        //     env('PUSHER_APP_ID'),
+        //     $options
+        // );
 
-        $pusher->trigger('NotificationEvent', 'send-message', $data);
+        // $pusher->trigger('NotificationEvent', 'send-message', $data);
         foreach ($users as $key => $user) {
             $user->notify(new InvoicePaid($data)); 
         }
@@ -92,15 +92,15 @@ class CommentController extends Controller
             'encrypted' => true
         );
 
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
+        // $pusher = new Pusher(
+        //     env('PUSHER_APP_KEY'),
+        //     env('PUSHER_APP_SECRET'),
+        //     env('PUSHER_APP_ID'),
+        //     $options
+        // );
 
-        $pusher->trigger('NotificationEvent', 'send-message', $data);
-        $user->notify(new Demo($data));
+        // $pusher->trigger('NotificationEvent', 'send-message', $data);
+        // $user->notify(new Demo($data));
 
         if(!$comment) return back();
         $comment->status = 1;
