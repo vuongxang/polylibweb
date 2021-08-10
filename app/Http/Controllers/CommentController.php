@@ -41,7 +41,7 @@ class CommentController extends Controller
    
         $model = new Comment();
         $model->fill($request->all());
-
+        $model->status = 0;
         $model->user_id= auth()->user()->id;
     
         $model->save();
@@ -56,19 +56,19 @@ class CommentController extends Controller
             'book_id'   => $model->book->id
         ];
 
-        $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-        );
+        // $options = array(
+        //     'cluster' => 'ap1',
+        //     'encrypted' => true
+        // );
 
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
+        // $pusher = new Pusher(
+        //     env('PUSHER_APP_KEY'),
+        //     env('PUSHER_APP_SECRET'),
+        //     env('PUSHER_APP_ID'),
+        //     $options
+        // );
 
-        $pusher->trigger('NotificationEvent', 'send-message', $data);
+        // $pusher->trigger('NotificationEvent', 'send-message', $data);
         foreach ($users as $key => $user) {
             $user->notify(new InvoicePaid($data)); 
         }
@@ -93,15 +93,15 @@ class CommentController extends Controller
             'encrypted' => true
         );
 
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
+        // $pusher = new Pusher(
+        //     env('PUSHER_APP_KEY'),
+        //     env('PUSHER_APP_SECRET'),
+        //     env('PUSHER_APP_ID'),
+        //     $options
+        // );
 
-        $pusher->trigger('NotificationEvent', 'send-message', $data);
-        $user->notify(new Demo($data));
+        // $pusher->trigger('NotificationEvent', 'send-message', $data);
+        // $user->notify(new Demo($data));
 
         if(!$comment) return back();
         $comment->status = 1;

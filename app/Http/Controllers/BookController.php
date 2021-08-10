@@ -9,6 +9,7 @@ use App\Models\Book;
 use App\Models\BookGallery;
 use App\Models\Category;
 use App\Models\CategoryBook;
+use App\Models\Comment;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -214,7 +215,6 @@ class BookController extends Controller
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
-
         $sameBooks = [];
         foreach ($book->categories as $cate) {
             foreach ($cate->books as $books) {
@@ -227,12 +227,14 @@ class BookController extends Controller
         $sameBooksUnique = array_unique($sameBooks);
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
-
+        $comments = Comment::where('book_id', $id)->where('parent_id', Null)->get();
         $rates = Rating::where('rateable_id', $id)->where('status', 1)->get();
         $rates->load('user');
 
+        $arr = [19, 15, 14];
+        
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
-        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique]);
+        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique, 'comments' => $comments]);
     }
 
 
@@ -319,7 +321,4 @@ class BookController extends Controller
         }
         return view('client.pages.category', compact('categories', 'catee'));
     }
-
-
-    
 }
