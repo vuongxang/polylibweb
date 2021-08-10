@@ -60,8 +60,8 @@
                             </label>
                         </td>
                         <td class="text-center">
-                            <a href="{{route('book.restore',['id' => $book->id])}}" class="mr-2">Khôi phục</a> |
-                            <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.forcedelete',['id' => $book->id])}}" class="ml-2">Xóa</a>
+                            <a href="{{route('book.restore',['id' => $book->id])}}" class="mr-2 text-success">Khôi phục</a> |
+                            <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.forcedelete',['id' => $book->id])}}" class="ml-2 text-danger">Xóa</a>
                         </td>
                     </tr>
                     @endforeach
