@@ -102,7 +102,7 @@
                     <a class="book-tabs__link active" data-toggle="tab" href="#comment-tab">Bình luận</a>
                 </li>
                 <li class="book-tabs__item">
-                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá </a>
+                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá    </a>
                 </li>
             </ul>
         </div>

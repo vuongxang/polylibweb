@@ -5,7 +5,6 @@
     <ul class="header__nav">
         <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
         <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}">Danh Mục</a></li>
-        <li class="header__nav-li"><a class="link" href="">Tin Tức</a></li>
     </ul>
     <div class="header__search">
         <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
@@ -81,39 +80,47 @@
         <div class="header__information-notification ">
 
             <!-- Nav Item - Alerts -->
-            <div class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="header-notification" id="header-notification">
+                <button class=" header-notification__bell"  id="alertsDropdown">
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Alerts -->
                     <span class="badge badge-danger badge-counter">
-                        @if (auth()->user()->unreadNotifications->count()<=3) {{auth()->user()->unreadNotifications->count()}} @else 3+ @endif </span>
-                </a>
+                        {{auth()->user()->unreadNotifications->count()}}</span>
+                </button>
                 <!-- Dropdown - Alerts -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" id="menu_notification" aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">
-                        Alerts Center
-                    </h6>
-                    @foreach (Auth::user()->notifications as $key   =>  $notification)
-                        @php
-                            if($key==15) break;
-                        @endphp
-                        <a class="dropdown-item d-flex align-items-center" href="{{route('notification.read',$notification->id)}}">
-                            <div class="mr-3">
-                                <div class="{{$notification->data['icon-class']}}">
+                <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown">
+                    <div class="notification-dropdown-header">
+                        <div class="notification-header__title">Thông báo</div>
+                        <div class="notification-header__more"><a href="{{route('notification.alerts')}}">Xem tất cả</a></div>
+                    </div>
+                    @foreach (Auth::user()->notifications as $key => $notification)
+                    @if($key==5) @break
+                    @endif
+                    <div class=" notification-dropdown">
+                        <a class="" href="{{route('notification.read',$notification->id)}}">
+                            <div class="notification-dropdown-wrapper">
+
+                                <div class="notification-avatar">
+                                    <img src="{{$notification->data['avatar']}}" alt="">
+
+                                </div>
+                                <div class=" notification-body">
+                                    <div class="notification-body__content ">{{ $notification->data['content'] }}</div>
+                                    <span class="notification-body__time ">{{ Carbon\Carbon::parse($notification->created_at)->locale('vi')->diffForHumans() }}</span>
+                                </div>
+                                <div class="{{$notification->data['icon-class']}} notification-icon">
                                     @if ($notification->read_at==null)
-                                        <i class="fas fa-file-alt text-white"></i>
+                                    <!-- <i class="fas fa-file-alt text-white"></i> -->
+                                    <i class="fas fa-circle"></i>
                                     @else
-                                        <i class="fas fa-check text-success bg-white"></i>
+                                    <i class="fas fa-check "></i>
                                     @endif
                                 </div>
                             </div>
-                            <div class="@if ($notification->read_at==null) font-weight-bold @endif">
-                                <span class="small text-gray-500">{{ $notification->data['title'] }}</span>
-                                <div class="">{!! $notification->data['content'] !!}</div>
-                            </div>
                         </a>
+                    </div>
                     @endforeach
-                    <a class="dropdown-item text-center small text-gray-500" href="{{route('notification.alerts')}}">Show All Alerts</a>
+                    <a class="load-more__notification" href="{{route('notification.alerts')}}">Xem thêm </a>
                 </div>
             </div>
         </div>
@@ -172,8 +179,23 @@
 
         $('.container-custom').click(() => {
             $('#js-search__dropdown').addClass('hidden');
+            $('#menu_notification').addClass('hidden');
+            
         })
+        
         $('#js-search__dropdown').click((e) => {
+            e.stopPropagation();
+        })
+        $('#alertsDropdown').click((e) => {
+            console.log(1)
+            e.stopPropagation();
+            if ($('#menu_notification').hasClass('hidden')) {
+                $('#menu_notification').removeClass('hidden');
+            } else {
+                $('#menu_notification').addClass('hidden');
+            }
+        })
+        $('#menu_notification').click(e => {
             e.stopPropagation();
         })
 
@@ -267,7 +289,7 @@
                                     $('#js-search-dropdown__ul--cate').html(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>`);
                                 }
                                 if (searchAuthorResult.length > 0) {
-                                    const authorsResult = searchAuthorResult.map((item,index) => {
+                                    const authorsResult = searchAuthorResult.map((item, index) => {
                                         if (index < 3) {
                                             return `<li class="search-dropdown__li">
                                                 <a href="/author/${item.id}" class="search-dropdown__link">
