@@ -84,8 +84,10 @@
                 <button class=" header-notification__bell"  id="alertsDropdown">
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Alerts -->
+                    @if(auth()->user()->unreadNotifications->count() > 0)
                     <span class="badge badge-danger badge-counter">
                         {{auth()->user()->unreadNotifications->count()}}</span>
+                        @endif
                 </button>
                 <!-- Dropdown - Alerts -->
                 <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown">

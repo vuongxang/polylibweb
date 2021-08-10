@@ -231,7 +231,6 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 1.5rem;
 }
 
 .header__information-notification {}
@@ -351,16 +350,6 @@
     width: 210px;
 }
 
-.notification-body__title {
-    color: red;
-    text-decoration: none;
-}
-
-.notification-body__title:hover {
-    color: red;
-    text-decoration: none;
-}
-
 .notification-font-thin {
     font-weight: 300;
 }
@@ -398,7 +387,6 @@
 
 i.fas.fa-circle {
     color: var(--base-color);
-    font-size: 1.4rem;
 }
 
 i.fas.fa-check {
