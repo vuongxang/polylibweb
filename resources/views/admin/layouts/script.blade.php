@@ -41,15 +41,51 @@
 
         $('#image_gallery').on('hide.bs.modal', function() {
             var image_list = $('input#list_image').val();
-            var image_gallery = $.parseJSON(image_list);
-            // console.log(image_gallery);
-            var html = '';
-            image_gallery.forEach((item, index) => {
-                html +=
-                    `<img src="${item}" id="show_list_image" width="50" class="img-thumbnail">`;
-            });
-            console.log(html);
-            $('.img-gallery').html(html);
+            if(image_list.length>0){
+                if (/^[\],:{}\s]*$/.test(image_list.replace(/\\["\\\/bfnrtu]/g, '@').
+                    replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                    replace(/(?:^|:|,)(?:\s*\[)+/g, ''))){
+                    var image_gallery = $.parseJSON(image_list);
+                    console.log(image_gallery);
+                    var html = '';
+                    image_gallery.forEach((item, index) => {
+                        html +=
+                            `<img src="${item}" id="show_list_image" width="50" class="img-thumbnail">`;
+                    });
+                    console.log(html);
+                    $('.img-gallery').html(html);
+                }else{
+                    html = `<img src="${image_list}" id="show_list_image" width="50" class="img-thumbnail">`;
+                    $('.img-gallery').html(html);
+                }
+            }
+            
+        })
+
+        $('#audio_gallery').on('hide.bs.modal', function() {
+            var audio_list = $('input#list_audio').val();
+                if(audio_list.length){
+                    if (/^[\],:{}\s]*$/.test(audio_list.replace(/\\["\\\/bfnrtu]/g, '@').
+                    replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                    replace(/(?:^|:|,)(?:\s*\[)+/g, ''))){
+                        var audio_gallery = $.parseJSON(audio_list);
+                        var html = '';
+                        audio_gallery.forEach((item, index) => {
+                            console.log(item);
+                            html +=
+                                `<audio src="${item}" id="show_list_audio" controls>
+                                Trình duyệt không hỗ trợ phát âm thanh
+                                </audio></br>`;
+                        });
+                        $('.audio-gallery').html(html);
+                    }else{
+                        console.log(audio_list);
+                        html = `<audio src="${audio_list}" id="show_list_audio" controls>
+                        Trình duyệt không hỗ trợ phát âm thanh
+                        </audio>`;
+                        $('.audio-gallery').html(html);
+                    }
+            }
         })
 
         $(function() {
@@ -128,9 +164,9 @@
         // image_advtab: true,
         // importcss_append: true,
         tinycomments_author: 'Author name',
-            external_filemanager_path:"/filemanager/",
-            filemanager_title:"Responsive Filemanager" ,
-            external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
+        external_filemanager_path:"/filemanager/",
+        filemanager_title:"Responsive Filemanager" ,
+        external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
         // templates: [
         //         { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
         //     { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },

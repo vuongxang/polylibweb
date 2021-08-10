@@ -141,7 +141,7 @@
                                 <a href="{{route('book.detail',$book->id)}}">
                                     <img src="{{asset($book->image)}}" alt="">
                                 </a>
-                                <h3>{{$book->title}}</h3>
+                                <h3 class="text-white">{{$book->title}}</h3>
                                 @foreach($book->authors->take(1) as $bookAuthor)
                                 <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
@@ -163,7 +163,7 @@
                                 <img src="{{asset($book->image)}}" alt="">
                             </a>
                             <a href="{{route('book.detail',$book->id)}}">
-                                <h3>{{$book->title}}</h3>
+                                <h3 class="text-white">{{$book->title}}</h3>
                             </a>
                             @foreach($book->authors as $bookAuthor)
                             <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>

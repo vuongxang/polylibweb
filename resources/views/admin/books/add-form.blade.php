@@ -22,7 +22,7 @@
                             Chọn ảnh
                         </button>
                         <div class="show_image" class="mb-2">
-                            <img src="" alt="" id="show_img" width="200">
+                            <img src="" class="img-thumbnail" id="show_img" width="250">
                         </div>
                         <input type="text" id="image" name="image" hidden class="form-control">
                         @if ($errors->has('image'))
@@ -58,7 +58,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="text-dark font-weight-bold" for="exampleInputFile">Nội dung sách</label>
+                        <label class="text-dark font-weight-bold">Audio file(Nếu có)</label>
+                        <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal" data-target="#audio_gallery">
+                            Chọn file
+                        </button>
+                        <div class="audio-gallery" class="mb-2">
+                            
+                        </div>
+                        @if ($errors->has('list_audio'))
+                            <span class="text-danger">{{ $errors->first('list_audio') }}</span>
+                        @endif
+                        <input type="hidden" id="list_audio" name="list_audio" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-dark font-weight-bold">Nội dung sách</label>
                         <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal" data-target="#image_gallery">
                             Chọn ảnh
                         </button>
@@ -68,12 +82,13 @@
                         @if ($errors->has('list_image'))
                             <span class="text-danger">{{ $errors->first('list_image') }}</span>
                         @endif
-                        <input type="text" id="list_image" name="list_image" class="form-control" readonly>
+                        <input type="hidden" id="list_image" name="list_image" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputDesc">Thông tin chi tiết</label>
-                        <textarea  cols="30" rows="20" class="form-control" id="exampleInputDesc"
+                        <textarea  cols="30" rows="20" class="form-control" 
+                        {{-- id="exampleInputDesc" --}}
                             placeholder="Nhập thông tin chi tiết" name="description"
                             value="{{ old('description') }}"></textarea>
                         @if ($errors->has('description'))
@@ -132,6 +147,28 @@
                 <div class="modal-body">
                     <iframe
                         src="{{ url('') }}/filemanager/dialog.php?field_id=list_image&lang=en_EN&akey=urDy9RR9agzmDEQw7u7gPO6qee"
+                        frameborder="0" width="100%" height="500"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-primary">Lưu</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Modal audio -->
+    <div class="modal fade" id="audio_gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Quản lý file</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe
+                        src="{{ url('') }}/filemanager/dialog.php?field_id=list_audio&lang=en_EN&akey=urDy9RR9agzmDEQw7u7gPO6qee"
                         frameborder="0" width="100%" height="500"></iframe>
                 </div>
                 <div class="modal-footer">

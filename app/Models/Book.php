@@ -51,7 +51,7 @@ class Book extends Model
         return $this->hasMany(BookGallery::class, 'book_id');
     }
 
-    public function bookAudio(){
+    public function bookAudios(){
         return $this->hasMany(BookAudio::class, 'book_id');
     }
 
