@@ -88,12 +88,12 @@ class UserController extends Controller
     }
     public function readeNotification($id){
         $notifications = Auth::user()->notifications;
+        
         foreach ($notifications as $key => $value) {
             if($value->id == $id)     $notification = $value;
         }
-
         $notification->markAsRead();
-        return back();
+        return redirect(route('book.detail',$notification->data['book_id']));
     }
 
     public function showArlers(){

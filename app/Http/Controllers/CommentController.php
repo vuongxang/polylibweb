@@ -47,11 +47,14 @@ class CommentController extends Controller
         $model->save();
         $model->load(['book','user']);
 
-        $users = User::where('role_id',1)->orWhere('role_id',2)->get();
-        
+
+        // Lấy ra danh sách để gửi thông báo
+        $users = User::where('role_id',1)->orWhere('role_id',4)->get();
+        // Nội dung của thông báo
         $data = [
+            'avatar'    => $model->user->avatar,
             'title'     => 'Bình luận mới',
-            'content'   => $model->user->name." Đã bình luận về sách <a href=".route('book.detail',$model->book->id).">" .$model->book->title."</a>",
+            'content'   => $model->user->name. " đã bình luận về sách " . $model->book->title ,
             'icon-class'=> 'icon-circle',
             'book_id'   => $model->book->id
         ];
@@ -69,6 +72,8 @@ class CommentController extends Controller
         // );
 
         // $pusher->trigger('NotificationEvent', 'send-message', $data);
+
+        // Gửi thông báo cho từng user sau khi comment một cuốn sách
         foreach ($users as $key => $user) {
             $user->notify(new InvoicePaid($data)); 
         }
