@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-    use Sortable;
+    use HasFactory, Notifiable,SoftDeletes,Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +22,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'birth_date',
+        'gender'
     ];
-    public $sortable = ['id', 'name','created_at', 'updated_at','role_id'];
+    public $sortable = ['id', 'name','created_at', 'phone','birth_date','updated_at','role_id'];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -45,5 +48,9 @@ class User extends Authenticatable
 
     public function role(){
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class, 'book_id');
     }
 }

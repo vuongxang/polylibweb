@@ -14,7 +14,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Trang Chủ</span></a>
+            <span>Dashboard</span></a>
     </li>
 
     <!-- Divider -->
@@ -22,7 +22,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        QUẢN LÝ TÀI NGUYÊN
+        TÀI NGUYÊN
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -70,21 +70,27 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{route('filemanager')}}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven"
+            aria-expanded="true" aria-controls="collapseSeven">
             <i class="fas fa-fw fa-file"></i>
             <span>Quản lý file</span></a>
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('filemanager')}}">Quản lý file</a>
+                <a class="collapse-item" href="{{route('file.convertForm')}}">Convert pdf file</a>
+            </div>
+        </div>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-
+    @if (Auth::user()->role_id==1)
     <div class="sidebar-heading">
-        Quản lý Tài khoản
+        Tài khoản
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    @if (Auth::user()->role_id==1)
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
@@ -94,35 +100,49 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('user.index')}}">Tài khoản nhân viên</a>
-                <a class="collapse-item" href="register.html">Thêm mới tài khoản</a>
+                <a class="collapse-item" href="{{route('user.create')}}">Thêm mới tài khoản</a>
             </div>
         </div>
     </li>
-    @endif
-
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{route('user.client')}}">
             <i class="fas fa-fw fa-users-cog"></i>
             <span>Tài khoản người dùng</span>
         </a>
     </li>
-    <div class="sidebar-heading">
-        Quản lý bình luận
-    </div>
-
+    <hr class="sidebar-divider">
+    @endif
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
             aria-expanded="true" aria-controls="collapseFour">
             <i class="fas fa-fw fa-comments"></i>
-            <span>Bình luận</span>
+            <span>Bình luận-phản hồi</span>
         </a>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('comment.index')}}">Bình luận</a>
+                <a class="collapse-item" href="{{route('rate.index')}}">Phản hồi</a>
+            </div>
+        </div>
+    </li>
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">
+        Thống kê
+    </div>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
+            aria-expanded="true" aria-controls="collapseFive">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Báo cáo</span>
+        </a>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('cate.index')}}">Danh sách</a>
                 <a class="collapse-item" href="{{route('cate.create')}}">Thêm mới</a>
             </div>
         </div>
     </li>
+    
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

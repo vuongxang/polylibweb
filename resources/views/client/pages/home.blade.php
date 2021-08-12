@@ -64,44 +64,55 @@
                 <div class="carousel-item active">
                     <div class="row  justify-content-center">
                         @foreach ($books as $book)
-                        @if($loop->index < 4) <div class="col-3  ">
-                            <div class="book-item">
-                                <a href="{{route('book.detail',$book->id)}}">
-                                    <img src="{{asset($book->image)}}" alt="">
-                                    <h3>{{$book->title}}</h3>
-                                </a>
-                                @foreach($book->authors->take(1) as $bookAuthor)
-                                <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
+                            @if($loop->index < 4) <div class="col-3  ">
+                                <div class="book-item">
+                                    <a href="{{route('book.detail',$book->id)}}">
+                                        <img src="{{asset($book->image)}}" alt="">
+                                        <h3>{{$book->title}}</h3>
+                                    </a>
+                                    @foreach($book->authors->take(1) as $bookAuthor)
+                                    <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
-                                @endforeach
-                                <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-                            </div>
-                    </div>
-                    @endif
-                    @endforeach
+                                    @endforeach
+                                    <p> <span class="book-star">
+                                        @for ($i = 0; $i < floor(DB::table('ratings')->where('rateable_id',$book->id)->avg('rating')) ; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                    </span></p>
+                                </div>
+                                </div>
+                            @endif
+                        @endforeach
                 </div>
             </div>
             <div class="carousel-item ">
                 <div class="row  justify-content-center">
                     @foreach ($books as $book)
 
-                    @if($loop->index >= 4 && $loop->index <= 8) <div class="col-3  ">
-                        <div class="book-item">
-                            <a href="{{route('book.detail',$book->id)}}">
-                                <img src="{{asset($book->image)}}" alt="">
-                            </a>
-                            <a href="{{route('book.detail',$book->id)}}">
-                                <h3>{{$book->title}}</h3>
-                            </a>
-                            @foreach($book->authors as $bookAuthor)
-                            <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
+                        @if($loop->index >= 4 && $loop->index <= 8) 
+                        <div class="col-3  ">
+                            <div class="book-item">
+                                <a href="{{route('book.detail',$book->id)}}">
+                                    <img src="{{asset($book->image)}}" alt="">
+                                </a>
+                                <a href="{{route('book.detail',$book->id)}}">
+                                    <h3>{{$book->title}}</h3>
+                                </a>
+                                @foreach($book->authors as $bookAuthor)
+                                <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
-                            @endforeach
-                            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+                                @endforeach
+                                <p> 
+                                    <span class="book-star">
+                                        @for ($i = 0; $i < floor(DB::table('ratings')->where('rateable_id',$book->id)->avg('rating')) ; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                    </span>
+                                </p>
+                            </div>
                         </div>
-                </div>
-                @endif
-                @endforeach
+                        @endif
+                    @endforeach
             </div>
         </div>
     </div>
@@ -115,30 +126,10 @@
     </div>
 
 
-
-
-
-
-
-    <!-- <div class=" space__between">
-        @foreach ($books as $book)
-        <div class="book-item">
-            <img src="{{asset('images/nguon-coi-dan-brown.png')}}" alt="">
-            <h3>{{$loop->index}}</h3>
-            @foreach($book->authors as $bookAuthor)
-            <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
-
-            @endforeach
-            <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
-        </div>
-        @endforeach
-        </div> -->
-    {{-- </div> --}}
-
     <div class="book-list book__list--background">
         <div class="book-list__heading space__between">
-            <h2>Sách được đọc nhiều nhất</h2>
-            <a href="">Xem thêm</a>
+            <h2 style="color:#fff">Sách được đọc nhiều nhất</h2>
+            <a href=""  style="color:#fff">Xem thêm</a>
         </div>
         <div id="book__list--background" class="carousel slide" data-ride="carousel" data-pause="hover">
             <div class="carousel-inner ">
@@ -150,7 +141,7 @@
                                 <a href="{{route('book.detail',$book->id)}}">
                                     <img src="{{asset($book->image)}}" alt="">
                                 </a>
-                                <h3>{{$book->title}}</h3>
+                                <h3 class="text-white">{{$book->title}}</h3>
                                 @foreach($book->authors->take(1) as $bookAuthor)
                                 <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
 
@@ -172,7 +163,7 @@
                                 <img src="{{asset($book->image)}}" alt="">
                             </a>
                             <a href="{{route('book.detail',$book->id)}}">
-                                <h3>{{$book->title}}</h3>
+                                <h3 class="text-white">{{$book->title}}</h3>
                             </a>
                             @foreach($book->authors as $bookAuthor)
                             <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>

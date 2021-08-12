@@ -14,3 +14,9 @@ yarn-error.log
 /.idea
 /.vscode
 package-lock.json
+database/migrations/2021_07_17_160719_create_orders_table.php
+database/migrations/2021_07_19_085109_create_comments_table.php
+database/migrations/2021_07_19_085109_create_comments_table.php
+database/migrations/2021_07_19_085250_create_ratings_table.php
+database/migrations/2021_07_19_085250_create_ratings_table.php
+database/migrations/2021_07_19_085109_create_comments_table.php

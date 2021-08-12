@@ -1,0 +1,33 @@
+.profile-info{
+    width: 1142px;
+}
+.ho-so-ca-nhan h2{
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 49px;
+    font-size: 20pt;
+    display: flex;
+    align-items: center;
+    color: #425BA8;
+}
+.data-tabs ul li{
+    margin-top: 20px;
+    list-style: none;
+    
+}
+.data-tabs ul li a{
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+.tab-pane{
+    font-size: 16px;
+    color: #000;
+}
+.tab-content table{
+    margin-top: 10px;
+}
+.btn.btn-dark:hover{
+    color: #fff;
+}

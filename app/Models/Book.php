@@ -6,11 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use willvincent\Rateable\Rateable;
+use AgilePixels\Rateable\Traits\HasRating;
+use AgilePixels\Rateable\Traits\AddsRating;
+
 
 class Book extends Model
 {
-    use HasFactory;
-    use Sortable;
+    use HasFactory,Sortable,SoftDeletes,Rateable;
 
     protected $table='books';
     protected $fillable = ['title','status','description','publish_date_from','image','slug'];
@@ -34,11 +38,25 @@ class Book extends Model
         );
     }
 
+    
+    public function orders(){
+        return $this->belongsToMany(
+            Order::class, 
+            'name_book', 
+            'status'
+        );
+    }
+
     public function bookGalleries(){
         return $this->hasMany(BookGallery::class, 'book_id');
     }
 
-    public function bookAudio(){
+    public function bookAudios(){
         return $this->hasMany(BookAudio::class, 'book_id');
     }
+
+    public function comments(){
+        return $this->hasMany(Comment::class, 'book_id');
+    }
+
 }

@@ -1,107 +1,131 @@
 @extends('client.layouts.index')
 @section('css')
-<link rel="stylesheet" href="{{asset('css/client/pages/home.css')}}">
-<link rel="stylesheet" href="{{asset('css/client/pages/cate.css')}}">
+<link rel="stylesheet" href="{{ asset('css/client/pages/category.css') }}">
 @endsection
-@section('title','Danh mục')
+@section('title', 'PolyLib')
+
 @section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 book-category__aside">
+            <div class="book-search__aside ">
 
-<main>
-    <div class="search">
-        <div class="search-text">
-            <input type="text" placeholder="Tìm kiếm">
-            <div><a href="#">Tất cả</a></div>
-            <div><a href="#">Tác giả</a></div>
-            <div><a href="#">Tiêu đề sách</a></div>
+                <div class=" filter-group ">
+                    <ul class="filter-list ">
+                        <a href="{{route('book.categories')}}" class="filter-item__link">
+                            <li class="filter-item">
+                                {{__('Tất cả')}}
+                            </li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div class=" filter-group ">
+                    <h3 class="filter-heading">Danh mục</h3>
+                    <ul class="filter-list ">
+
+                        @foreach($categories as $category)
+                        <a href="{{route('book.category',$category->slug)}}" class="filter-item__link">
+                            <li class="filter-item">
+                                {{$category->name}}
+                                <span class="filter-item__quantity">{{count($category->books)}}</span>
+                            </li>
+                        </a>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="search-icon">
-            <i class="fas fa-search"></i>
-        </div>
+        <div class="col-md-9 book-category__content">
+            @if(isset($catee) )
+            @foreach($catee as $cate)
 
-    </div>
-    <div class="filter">
-        <div class="nav">
-            <div class="menu-link">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Tác giả</a>
-                    <div class="dropdown-menu">
-                        @foreach($aut as $author)
-
-                        <a class="dropdown-item" href="#">{{$author->name}}</a>
+            <div class="search-result">
+                <div class="search-text">
+                    Có <span class="search-text-detail">{{count($cate->books)}} </span>cuốn sách thuộc {{$cate->name}}
+                </div>
+            </div>
+            @endforeach
+            @endif
+            <div class="book-card-collection">
+                @if(isset($catee) )
+                @foreach($catee as $cate)
+                @foreach($cate->books as $book)
+                <div class="book-card ">
+                    <div class="book-card__img">
+                        <a href="{{route('book.detail',$book->id)}}">
+                            <img src="{{$book->image}}" alt="">
+                        </a>
+                    </div>
+                    <div class="book-card__title">
+                        <a href="{{route('book.detail',$book->id)}}">
+                            <h3> {{$book->title}} </h3>
+                        </a>
+                    </div>
+                    <div class="book-card__author">
+                        @foreach($book->authors as $author)
+                        @if($loop->last)
+                        {{$author->name}}
+                        @else
+                        {{$author->name}},
+                        @endif
                         @endforeach
                     </div>
-                </li>
-            </div>
-            <div class="menu-link">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Danh mục</a>
-                    <div class="dropdown-menu">
-                        @foreach($cate as $cates)
-
-                        <a class="dropdown-item" href="#">{{$cates->name}}</a>
-                        @endforeach
+                    <div class="book-card__star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
-                </li>
-            </div>
-            <div class="menu-link">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Ngôn ngữ</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Link 1</a>
-                        <a class="dropdown-item" href="#">Link 2</a>
-                        <a class="dropdown-item" href="#">Link 3</a>
+                    <div class="book-card__btn">
+                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
                     </div>
-                </li>
-            </div>
-            <div class="menu-link">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Sắp xếp</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Link 1</a>
-                        <a class="dropdown-item" href="#">Link 2</a>
-                        <a class="dropdown-item" href="#">Link 3</a>
-                    </div>
-                </li>
-            </div>
-        </div>
-    </div>
-    <div class="product-slider">
-        <div class="container">
-
-            <div class="row">
-                @foreach($book as $ct)
-                <div class="box">
-                    <a href="#">
-                        <div class="box-image">
-                            <img src="{{$ct['image']}}">
-
-                        </div>
-                    </a>
-                    <a href="{{route('book.detail',$ct->id)}}">
-                        <p class="box-title">{{$ct['title']}}</p>
-                    </a>
-                    <!-- @foreach($aut as $author)
-                    <h4 class="box-authors">{{$author->name}}</h4>
-                    @endforeach -->
-                    <p> <span class="book-star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
                 </div>
                 @endforeach
+                @endforeach
+                @else
+                @foreach($books as $book)
+                <div class="book-card ">
+                    <div class="book-card__img">
+                        <a href="{{route('book.detail',$book->id)}}">
+                            <img src="{{$book->image}}" alt="">
+                        </a>
+                    </div>
+                    <div class="book-card__title">
+                        <a href="{{route('book.detail',$book->id)}}">
+                            <h3> {{$book->title}} </h3>
+                        </a>
+                    </div>
+                    <div class="book-card__author">
+                        @foreach($book->authors as $author)
+                        @if($loop->last)
+                        {{$author->name}}
+                        @else
+                        {{$author->name}},
+                        @endif
+                        @endforeach
+                    </div>
+                    <div class="book-card__star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="book-card__btn">
+                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                    </div>
+                </div>
+                @endforeach
+
+
+
+                @endif
+
             </div>
-        </div>
 
-
-
-
-    </div>
-    <div class="center">
-        <div class="slider">
-            {!!$book->links('vendor.pagination.bootstrap-4')!!}
         </div>
     </div>
+</div>
 
 
-
-
-
-</main>
 @endsection

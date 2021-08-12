@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "agilepixels/laravel-rateable": "^1.0",
+        "bumbummen99/shoppingcart": "^4.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -15,9 +17,13 @@
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "twbs/bootstrap": "4.0.0"
+        "pusher/pusher-php-server": "^7.0",
+        "spatie/pdf-to-image": "^2.1",
+        "twbs/bootstrap": "4.0.0",
+        "willvincent/laravel-rateable": "^2.3"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",

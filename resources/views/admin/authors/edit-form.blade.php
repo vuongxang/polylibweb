@@ -23,7 +23,7 @@
                     <div class="show_image" class="mb-2">
                         <img src="{{ old('avatar',$model->avatar) }}" alt="" id="show_img" width="200">
                     </div>
-                    <input type="text" id="image" name="avatar" class="form-control">
+                    <input type="text" id="image" name="avatar" class="form-control" value="{{old('avatar',$model->avatar)}}">
                     @if ($errors->has('avatar'))
                         <span class="text-danger">{{$errors->first('avatar')}}</span>
                     @endif
@@ -36,8 +36,8 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputName">Thông tin chi tiết</label>
-                    <textarea type="text" class="form-control" id="exampleInputName" placeholder="Nhập thông tin chi tiết" name="description" value="{{ old('description',$model->description) }}"></textarea>
+                    <label for="exampleInputDesc">Thông tin chi tiết</label>
+                    <textarea type="text" class="form-control" id="exampleInputDesc" placeholder="Nhập thông tin chi tiết" name="description">{{old('description',$model->description)}}"</textarea>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif
