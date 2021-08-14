@@ -72,13 +72,22 @@
                         @endforeach
                     </div>
                     <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                            <i class="fas fa-star"></i>
+                            @else
+                            <i class="far fa-star"></i>
+                            @endif
+                            @endfor
                     </div>
                     <div class="book-card__btn">
-                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                        @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)
+                        ->where('status', 'Đang mượn')->first() )
+                        <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                        @else
+                        <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn
+                            sách</a><a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem
+                            trước</a>
+                        @endif
                     </div>
                 </div>
                 @endforeach
@@ -106,13 +115,24 @@
                         @endforeach
                     </div>
                     <div class="book-card__star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                            <i class="fas fa-star"></i>
+                            @else
+                            <i class="far fa-star"></i>
+                            @endif
+                            @endfor
+
+
                     </div>
                     <div class="book-card__btn">
-                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->id)}}" class="review-btn">Xem trước</a>
+                        @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)
+                        ->where('status', 'Đang mượn')->first() )
+                        <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                        @else
+                        <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn
+                            sách</a><a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem
+                            trước</a>
+                        @endif
                     </div>
                 </div>
                 @endforeach

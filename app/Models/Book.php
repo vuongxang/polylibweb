@@ -40,10 +40,10 @@ class Book extends Model
 
     
     public function orders(){
-        return $this->belongsToMany(
+        return $this->hasMany(
             Order::class, 
-            'name_book', 
-            'status'
+            'book_id', 
+            
         );
     }
 

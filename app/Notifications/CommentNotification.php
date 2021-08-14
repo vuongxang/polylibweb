@@ -4,13 +4,14 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InvoicePaid extends Notification
+class CommentNotification extends Notification
 {
     use Queueable;
-    protected $data;
+    public $data;
     /**
      * Create a new notification instance.
      *
@@ -28,23 +29,35 @@ class InvoicePaid extends Notification
      * @return array
      */
     public function via($notifiable)
-    {   
-        return ['database', 'broadcast'];
+    {
+        // return ['database', 'broadcast'];
+        return ['database'];
     }
 
+
     /**
-     * Get the mail representation of the notification.
+     * Get the database representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return array
      */
-    public function toMail($notifiable)
+    public function toDatabase($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return $this->data;
     }
+
+    // /**
+    //  * Get the broadcast representation of the notification.
+    //  *
+    //  * @param  mixed  $notifiable
+    //  * @return array
+    //  */
+    // public function toBroadcast($notifiable)
+    // {
+    //     return new BroadcastMessage([
+    //         'data' => $this->data,
+    //     ]);
+    // }
 
     /**
      * Get the array representation of the notification.
@@ -54,7 +67,6 @@ class InvoicePaid extends Notification
      */
     public function toArray($notifiable)
     {
-
         return $this->data;
     }
 }

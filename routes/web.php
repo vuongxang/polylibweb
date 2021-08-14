@@ -29,38 +29,39 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
+    Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
+    Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->name('author.detail');
+    Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
+    Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
+    Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    Route::get('/search/{id}', [SearchController::class, 'search'])->name('searchID');
+    Route::get('/filter', [SearchController::class, 'filter'])->name('filter');
+    Route::post('/searchapi', [SearchController::class, 'searchApi'])->name('searchapi');
 });
 
 
-Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
-Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->middleware('auth')->name('author.detail');
-Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
-Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
-Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
-Route::get('/search',[SearchController::class, 'search'])->name('search');
-Route::get('/search/{id}',[SearchController::class, 'search'])->name('searchID');
-Route::get('/filter',[SearchController::class, 'filter'])->name('filter');
-Route::post('/searchapi',[SearchController::class, 'searchApi'])->name('searchapi');
+
+Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
 
 Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
-Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
-Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
-                                                                    ->name('user.infomation');
-Route::get('setting',[HomeController::class, 'setting'])->middleware('auth')
-                                                        ->name('user.setting');
-Route::get('rate/{id}',[HomeController::class, 'rate'])->middleware('auth')
-                                                        ->name('user.rate');
-Route::get('help',[HomeController::class, 'help'])->middleware('auth')
-                                                    ->name('user.help');
+Route::get('setting', [HomeController::class, 'setting'])->middleware('auth')
+    ->name('user.setting');
+Route::get('rate/{id}', [HomeController::class, 'rate'])->middleware('auth')
+    ->name('user.rate');
+Route::get('help', [HomeController::class, 'help'])->middleware('auth')
+    ->name('user.help');
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
 Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
-Route::get('my-alerts', [UserController::class, 'showArlers'])->name('notification.alerts');
+Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('notifications.read');
+Route::get('notifications', [UserController::class, 'notifications'])->name('notifications');
 
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
@@ -112,8 +113,8 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user.index');
         Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
         // Route::post('add-author',[AuthorController::class,'store'])->name('author.store'); 
-        Route::get('add-user',[UserController::class,'create'])->name('user.create');
-        Route::post('add-user',[UserController::class,'store'])->name('user.store');
+        Route::get('add-user', [UserController::class, 'create'])->name('user.create');
+        Route::post('add-user', [UserController::class, 'store'])->name('user.store');
         Route::get('remove/{id}', [UserController::class, 'destroy'])->name('user.destroy');
         Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');
@@ -150,7 +151,7 @@ Auth::routes([
     'register' => true, // Registration Routes...
     'reset' => true, // Password Reset Routes...
     'verify' => false, // Email Verification Routes...
-  ]);
+]);
 
 Route::get('admin-login', [App\Http\Controllers\Auth\LoginController::class, 'loginForm'])->name('adminLoginForm');
 
