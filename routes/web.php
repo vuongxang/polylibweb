@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
 
@@ -141,6 +142,10 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('remove/{id}', [RatingController::class, 'destroy'])->name('rate.destroy');
         Route::get('restore/{id}', [RatingController::class, 'restore'])->name('rate.restore');
         Route::get('force-delete/{id}', [RatingController::class, 'forceDelete'])->name('rate.forcedelete');
+    });
+    Route::prefix('file')->group(function () {
+        Route::get('convert-file', [FileController::class, 'convertForm'])->name('file.convertForm');
+        Route::post('convert-file', [FileController::class, 'store'])->name('file.convertStore');
     });
 });
 

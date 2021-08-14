@@ -233,6 +233,7 @@ class BookController extends Controller
             CategoryBook::where('book_id', $id)->delete();
             AuthorBooks::where('book_id', $id)->delete();
             BookAudio::where('book_id', $id)->delete();
+            Comment::withTrashed()->where('book_id', $id)->forceDelete();
 
             return redirect(route('book.trashlist'))->with('message', 'Xóa sách thành công !')
                 ->with('alert-class', 'alert-success');
