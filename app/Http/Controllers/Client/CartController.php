@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\NewNotificationEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\User;
 use App\Models\Order;
+use App\Notifications\CommentNotification;
 use App\Notifications\InvoicePaid;
 use Cart;
 use Pusher\Pusher;
@@ -51,30 +53,31 @@ class CartController extends Controller
 
         $order->save();
 
+
+        $borrowBookNotify = [
+            'avatar'    => $order->user->avatar,
+            'title'     => 'Mượn sách thành công',
+            'content'   => $order->book->title." đã được thêm vào kho sách của bạn" ,
+            'book_id'   => $order->book_id
+        ];
+        Auth::user()->notify(new CommentNotification($borrowBookNotify));
+        
+        
         $users = User::where('role_id',1)->orWhere('role_id',2)->get();
         
         $data = [
+            'avatar'    => $order->user->avatar,
             'title'     => 'Mượn sách',
-            'content'   => $order->user->name." Đã mượn sách <a href=".route('book.detail',$order->book_id).">" .$order->book->title."</a>",
-            'icon-class'=> 'icon-circle',
+            'content'   => $order->user->name." đã mượn sách " . $order->book->title ,
             'book_id'   => $order->book_id
         ];
 
-        $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-        );
+        
 
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
-
-        $pusher->trigger('NotificationEvent', 'send-message', $data);
         foreach ($users as $key => $user) {
-            $user->notify(new InvoicePaid($data)); 
+            $user->notify(new CommentNotification($data)); 
+            $newNotify = $user->notifications->sortByDesc('created_at')->first();
+            event(new NewNotificationEvent($newNotify,$user));
         }
 
         Session::forget('cart');

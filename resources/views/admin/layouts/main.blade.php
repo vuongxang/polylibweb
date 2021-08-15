@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="{{asset('images/logo.png')}}">
+    <script src="{{ asset('js/app.js') }}" ></script>
     <title> @yield('title','Admin') </title>
     <!-- Custom fonts for this template-->
     @include('admin.layouts.style')
@@ -58,22 +59,22 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade " id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Đăng xuất</h5>
+                    <h6 class="modal-title  font-weight-bold  text-primary" id="exampleModalLabel">Đăng xuất</h6>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Bạn có muốn đăng xuất không?</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                    <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Hủy</button>
                     <form action="{{route('logout')}}" method="post">
                         @csrf
-                        <button class="btn btn-primary" type="submit">Đăng xuất</button>
+                        <button class="btn btn-primary btn-sm" type="submit">Đăng xuất</button>
                     </form>
                 </div>
             </div>

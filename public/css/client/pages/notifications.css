@@ -1,0 +1,46 @@
+.notification {}
+
+.notification-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--text-color2);
+}
+
+.notification-header__h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--base-color);
+}
+
+.notification-content {
+    padding: 1rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0 , 0.25);
+    border:1px solid var(--text-color2);
+    border-radius: 1rem;
+}
+
+#notification-table {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+#notification-table th {
+    padding:1rem 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+#notification-table td {
+    padding: 1.5rem;
+    font-size: 1.4rem;
+}
+.notification__link{
+    color:var(--black-secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+.notification__link:hover,.notification__link:active,.notification__link:focus{
+    text-decoration: none;
+    font-weight: 600;
+    color:var(--black-color);
+}
