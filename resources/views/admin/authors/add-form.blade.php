@@ -20,10 +20,10 @@
                     <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal" data-target="#exampleModal">
                         Chọn ảnh
                     </button>
-                    <div class="show_image" class="mb-2">
-                        <img src="" alt="" id="show_img" width="200">
+                    <div class="show_image" class="mb-2" style="width:200px; height:300px; border:1px solid #bdbdbd">
+                        <img src="" alt="Ảnh tác giả" id="show_img" width="200" height="300px" readonly>
                     </div>
-                    <input type="text" id="image" name="avatar" class="form-control">
+                    <input type="text" id="image" hidden name="avatar" class="form-control"readonly>
                     @if ($errors->has('avatar'))
                         <span class="text-danger">{{$errors->first('avatar')}}</span>
                     @endif

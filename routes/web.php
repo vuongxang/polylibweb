@@ -30,7 +30,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
 });
-
+Route::get('contact', [ContactController::class, 'contact'])->name('contact');
 
 Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
 Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->middleware('auth')->name('author.detail');
