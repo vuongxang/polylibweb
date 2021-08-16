@@ -18,6 +18,12 @@ class Order extends Model
             Book::class, 'book_id', 'id'
         );
     }
+
+    public function user(){
+        return $this->belongsTo(
+            User::class, 'id_user', 'id'
+        );
+    }
     
     public function rate(){
         return $this->belongsTo(

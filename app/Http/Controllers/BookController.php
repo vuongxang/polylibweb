@@ -6,9 +6,11 @@ use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\AuthorBooks;
 use App\Models\Book;
+use App\Models\BookAudio;
 use App\Models\BookGallery;
 use App\Models\Category;
 use App\Models\CategoryBook;
+use App\Models\Comment;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,11 +32,11 @@ class BookController extends Controller
 
         if ($request->page_size) $pagesize = $request->page_size;
 
-        $books = Book::sortable()->where('title', 'like', "%" . $keyword . "%")->paginate($pagesize);
+        $books = Book::sortable()->where('title', 'like', "%" . $keyword . "%")->orderBy('created_at', 'DESC')->paginate($pagesize);
         $books->load('categories');
         $books->load('authors');
         $books->load('bookGalleries');
-        $books->load('bookAudio');
+        $books->load('bookAudios');
 
         return view('admin.books.index', compact('books', 'pagesize'));
     }
@@ -51,6 +53,7 @@ class BookController extends Controller
         $model = new Book();
 
         $model->fill($request->all());
+
         $milliseconds = round(microtime(true) * 1000);
         $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
 
@@ -62,7 +65,7 @@ class BookController extends Controller
         // $pdf = new Pdf($pathToPdf);
         // $number_page = $pdf->getNumberOfPages();
         // for($i=1;$i<=$number_page;$i++){
-        //     $pdf->setPage($i)->saveImage($output_path);
+        //     $pdf->setPage($i)->setCompressionQuality(10)->saveImage($output_path);
         // }
         // die;
 
@@ -87,9 +90,21 @@ class BookController extends Controller
                 DB::table('author_books')->insert($item);
             }
         }
+        if ($request->list_audio) {
+            $list_audio = json_decode($request->list_audio);
+            if ($list_audio == null) $list_audio[] = $request->list_audio;
+            foreach ($list_audio as $url) {
+                $item = [
+                    'book_id' => $model->id,
+                    'url' => $url,
+                ];
+                DB::table('book_audio')->insert($item);
+            }
+        }
 
         if ($request->list_image) {
             $list_image = json_decode($request->list_image);
+            if ($list_image == null) $list_image[] = $request->list_image;
             foreach ($list_image as $url) {
                 $item = [
                     'book_id' => $model->id,
@@ -103,12 +118,14 @@ class BookController extends Controller
         // dd($duoiImage);
         // if($request->image )
 
-        return redirect(route('book.index'))->with('message', 'Thêm mới sách thành công !');
+        return redirect(route('book.index'))->with('message', 'Thêm mới sách thành công !')->with('alert-class', 'alert-success');
     }
 
     public function edit($id)
     {
         $model = Book::find($id);
+        $model->load('bookAudios');
+        $model->load('bookGalleries');
         $cates = Category::all();
         $authors = Author::all();
 
@@ -147,8 +164,25 @@ class BookController extends Controller
             }
         }
 
+        if ($request->list_audio) {
+            BookAudio::where('book_id', $model->id)->delete();
+
+            $list_audio = json_decode($request->list_audio);
+            if ($list_audio == null) $list_audio[] = $request->list_audio;
+            foreach ($list_audio as $url) {
+                $item = [
+                    'book_id' => $model->id,
+                    'url' => $url,
+                ];
+                DB::table('book_audio')->insert($item);
+            }
+        }
+
         if ($request->list_image) {
+            BookGallery::where('book_id', $model->id)->delete();
+
             $list_image = json_decode($request->list_image);
+            if ($list_image == null) $list_image[] = $request->list_image;
             foreach ($list_image as $url) {
                 $item = [
                     'book_id' => $model->id,
@@ -200,6 +234,11 @@ class BookController extends Controller
         if ($model) {
             $model = Book::withTrashed()->where('id', $id)->forceDelete();
             BookGallery::where('book_id', $id)->delete();
+            CategoryBook::where('book_id', $id)->delete();
+            AuthorBooks::where('book_id', $id)->delete();
+            BookAudio::where('book_id', $id)->delete();
+            Comment::withTrashed()->where('book_id', $id)->forceDelete();
+
             return redirect(route('book.trashlist'))->with('message', 'Xóa sách thành công !')
                 ->with('alert-class', 'alert-success');
         } else {
@@ -218,7 +257,7 @@ class BookController extends Controller
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
-
+        $book->load('orders');
         $sameBooks = [];
         foreach ($book->categories as $cate) {
             foreach ($cate->books as $books) {
@@ -229,14 +268,19 @@ class BookController extends Controller
             }
         }
         $sameBooksUnique = array_unique($sameBooks);
+        
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
-
+        $comments = Comment::where('book_id', $id)->where('parent_id', Null)->get();
         $rates = Rating::where('rateable_id', $id)->where('status', 1)->get();
         $rates->load('user');
 
+        $arr = [19, 15, 14];
+
+
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
-        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique]);
+
+        return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique, 'comments' => $comments]);
     }
 
 
@@ -323,7 +367,4 @@ class BookController extends Controller
         }
         return view('client.pages.category', compact('categories', 'catee'));
     }
-
-
-    
 }

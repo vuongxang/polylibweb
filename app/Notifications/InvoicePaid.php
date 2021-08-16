@@ -28,7 +28,7 @@ class InvoicePaid extends Notification
      * @return array
      */
     public function via($notifiable)
-    {
+    {   
         return ['database', 'broadcast'];
     }
 
@@ -54,6 +54,7 @@ class InvoicePaid extends Notification
      */
     public function toArray($notifiable)
     {
+
         return $this->data;
     }
 }

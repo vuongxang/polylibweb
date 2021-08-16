@@ -50,7 +50,11 @@
                                         <tr>
                                             <td>{{ $comment->id }}</td>
                                             <td>{{ $comment->user->email }}</td>
-                                            <td>{{ $comment->book->title }}</td>
+                                            <td>
+                                                @if ($comment->book)
+                                                    {{ $comment->book->title }}
+                                                @endif
+                                            </td>
                                             <td>{{ $comment->body }}</td>
                                             <td>
                                                 {{ date_format($comment->created_at, 'Y-m-d') }}
@@ -147,7 +151,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="d-flex justify-content-center">{!!$users->links('vendor.pagination.bootstrap-4')!!}</div> --}}
             </div>
         </div>
     </div>

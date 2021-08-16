@@ -35,9 +35,14 @@ class HomeController extends Controller
         
         return view('client.pages.home', compact('books'));
     }
-    public function infomation($id){
-        return view('client.pages.infomation');
+
+    
+    public function profile($id){
+        return view('client.pages.profile');
     }
+
+
+
     public function edit_infomation(Request $request,$id){
         $infomation = User::find($id);
         $infomation->phone = $request->phone;
@@ -46,6 +51,8 @@ class HomeController extends Controller
         $infomation->save();
         return back()->with('message','Cập nhật thông tin tài khoản thành công');
     }
+
+
     public function history($user_id){
         if(Auth::user()->id != $user_id)  return back(); //Check đúng tài khoản đang đăng nhập
         

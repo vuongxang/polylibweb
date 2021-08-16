@@ -1,66 +1,107 @@
 @extends('admin.layouts.main')
 @section('content')
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Hồ sơ cá nhân</h6>
-    </div>
-    <div class="card-body">
-        <div class="profile-info">
-            @if (Session::has('message'))
-                <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">
-                    {{ Session::get('message') }}</p>
-            @endif
-            <form action="" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="row infomation-form">
-                    <div class="col-md-6 infomation-form-profile">
-                        <table class="ws-table-all">
-                            <tr>
-                                <td><label for=""> Họ và tên:</label></td>
-                                <td><input type="text" name="email" value="{{Auth::user()->name}}" class="form-control" readonly></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">Email:</label></td>
-                                <td><input type="email" name="email" value="{{Auth::user()->email}}" class="form-control" readonly></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">Số điện thoại:</label></td>
-                                <td><input type="number" name="phone" value="{{Auth::user()->phone}}" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">Ngày sinh:</label></td>
-                                <td><input type="date" name="birth_date" value="{{Auth::user()->birth_date}}" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">Giới tính</label></td>
-                                <td>
-                                    <input type="radio" name="gender" value="1" @if (Auth::user()->gender == 1){{ "checked" }} @endif>
-                                    <label for=""> Nam</label>
-                                    <input type="radio" name="gender" value="2" @if (Auth::user()->gender == 2){{ "checked" }} @endif>
-                                    <label for=""> Nữ</label>
-                                    <input type="radio" name="gender" value="3" @if (Auth::user()->gender == 3){{ "checked" }} @endif>
-                                    <label for=""> Giới tính khác</label>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-6 infomation-form-avatar">
-                        <div>
-                            <label for="">Ảnh đại diện</label>
+<div class="row flex-lg-nowrap ">
+    <div class="col mb-3 ">
+        <div class="card rounded border-0 shadow">
+            <div class="card-body">
+                <div class="e-profile">
+                    <div class="row">
+                        <div class="col-12 col-sm-auto mb-3">
+                            <div class="mx-auto" style="width: 140px;height: 140px">
+                                <img src="{{Auth::user()->avatar}}" alt="" class=" d-flex justify-content-center align-items-center rounded" style="width:100%">
+                            </div>
                         </div>
-                        <div>
-                            {{--<input type="file" name="avatar">--}}
-                            <img src="{{Auth::user()->avatar}}" name="image_avatar" alt="avatar" style="width: 400px; height:auto; object-fit: cover">
+                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                            <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{Auth::user()->name}}</h4>
+                                <p class="mb-0">{{Auth::user()->email}}</p>
+                                <!-- <div class="text-muted"><small>Last seen 2 hours ago</small></div> -->
+                                <!-- <div class="mt-2">
+                                            <button class="btn btn-primary btn-sm" type="button">
+                                                <i class="fa fa-fw fa-camera"></i>
+                                                <span>Change Photo</span>
+                                            </button>
+                                        </div> -->
+                            </div>
+                            <div class="text-center text-sm-right">
+                                <span class="badge badge-secondary">{{Auth::user()->role->name}}</span>
+                                <div class="text-muted"><small>Ngày tạo: {{Carbon\Carbon::parse(Auth::user()->created_at)->format('d/m/Y')}}</small></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-12 infomation-form-save">
-                        <button type="submit" class="btn btn-primary">Lưu lại</button>
-                    </div>
+                    @if(Session::has('message'))
+                    <p class="alert alert-success text-center">{{ Session::get('message') }}</p>
+                    @endif
+                    <form action="{{route('user.profile',Auth::user()->id)}}" class="form" method="post" enctype="multipart/form-data">
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane active">
+                                @csrf
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>Họ và tên</label>
+                                            <input class="form-control" type="text" name="name" value="{{Auth::user()->name}}" placeholder="Vui lòng nhập tên của bạn">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>Số điện thoại</label>
+                                            <input class="form-control" type="text" name="phone" value="{{Auth::user()->phone}}" placeholder="Vui lòng nhập số điện thoại">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input class="form-control" type="text" name="email" value="{{Auth::user()->email}}" placeholder="Vui lòng nhập email" readonly disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col ">
+                                        <div class="form-group">
+                                            <label>Giới tính</label>
+                                            <div class="form-control ">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender" id="man" value="0" @if (Auth::user()->gender == 0){{ "checked" }} @endif>
+                                                    <label class="form-check-label" for="man">Nam</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender" id="woman" value="1" @if (Auth::user()->gender == 1){{ "checked" }} @endif>
+                                                    <label class="form-check-label" for="woman">Nữ</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col ">
+                                        <div class="form-group">
+                                            <label>Ngày sinh</label>
+                                            <input class="form-control" type="date" name="birth_date" value="{{Auth::user()->birth_date}}" placeholder="Vui lòng nhập ngày sinh">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-primary btn-sm" type="submit">Lưu lại</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
 
 
 @endsection

@@ -70,9 +70,16 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{route('filemanager')}}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven"
+            aria-expanded="true" aria-controls="collapseSeven">
             <i class="fas fa-fw fa-file"></i>
             <span>Quản lý file</span></a>
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('filemanager')}}">Quản lý file</a>
+                <a class="collapse-item" href="{{route('file.convertForm')}}">Convert pdf file</a>
+            </div>
+        </div>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">

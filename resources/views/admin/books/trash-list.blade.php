@@ -14,10 +14,10 @@
                   <a class="nav-link" href="{{route('book.index')}}">Danh sách</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active bg-light">Thùng rác</a>
+                    <a class="nav-link active">Thùng rác</a>
                   </li>
             </ul>
-            <table class="table table-bordered bg-light" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
@@ -60,8 +60,8 @@
                             </label>
                         </td>
                         <td class="text-center">
-                            <a href="{{route('book.restore',['id' => $book->id])}}" class="mr-2">Khôi phục</a> |
-                            <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.forcedelete',['id' => $book->id])}}" class="ml-2">Xóa</a>
+                            <a href="{{route('book.restore',['id' => $book->id])}}" class="mr-2 text-success">Khôi phục</a> |
+                            <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.forcedelete',['id' => $book->id])}}" class="ml-2 text-danger">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

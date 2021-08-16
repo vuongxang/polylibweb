@@ -1,5 +1,5 @@
 @foreach ($comments as $comment)
-    @if ($comment->parent_id == null && $comment->status == 1)
+    @if ($comment->parent_id == null )
         <div class="book-user-comment">
             <div class="comment-box__image">
                 <img src="{{ $comment->user->avatar }}" alt="">
