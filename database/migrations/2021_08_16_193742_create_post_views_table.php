@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreatePostViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('orders');
-
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('post_views', function (Blueprint $table) {
             $table->id();
-            $table->string('id_user');
-            $table->integer('book_id');
-            $table->string('status')->nullable();
-            $table->softDeletes();
+            $table->unsignedBigInteger('post_id');
+            $table->integer('views')->default(0);
             $table->timestamps();
+            $table->foreign('post_id')
+                    ->references('id')->on('post_shares');
         });
     }
 
@@ -32,7 +30,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
-        
+        Schema::dropIfExists('post_views');
     }
 }

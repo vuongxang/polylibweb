@@ -11,6 +11,7 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\PostShareController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
 
@@ -39,6 +40,11 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/search/{id}', [SearchController::class, 'search'])->name('searchID');
     Route::get('/filter', [SearchController::class, 'filter'])->name('filter');
     Route::post('/searchapi', [SearchController::class, 'searchApi'])->name('searchapi');
+    Route::get('/category-postshare', [PostShareController::class, 'all'])->name('post.categories');
+    Route::get('/add-post', [PostShareController::class, 'create'])->name('post.create');
+    Route::post('/add-post', [PostShareController::class, 'store'])->name('post.store');
+    Route::get('/post-detail/{slug}', [PostShareController::class, 'detail'])->name('post.detail');
+    Route::get('/delete-post/{slug}', [PostShareController::class, 'destroy'])->name('post.destroy');
 });
 
 
@@ -49,6 +55,7 @@ Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth
 Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
+Route::get('my-posts/{id}', [PostShareController::class, 'myPost'])->middleware('auth')->name('user.myPost');
 Route::get('setting', [HomeController::class, 'setting'])->middleware('auth')
     ->name('user.setting');
 Route::get('rate/{id}', [HomeController::class, 'rate'])->middleware('auth')
@@ -63,7 +70,7 @@ Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('boo
 Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
 Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('notifications.read');
 Route::get('notifications', [UserController::class, 'notifications'])->name('notifications');
-
+Route::post('post/api/tang-view', [PostShareController::class, 'updateView'])->name('post.updateView');
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
