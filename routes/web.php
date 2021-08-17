@@ -46,7 +46,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/post-detail/{slug}', [PostShareController::class, 'detail'])->name('post.detail');
     Route::get('/delete-post/{slug}', [PostShareController::class, 'destroy'])->name('post.destroy');
 });
-
+Route::get('contact', [ContactController::class, 'contact'])->name('contact');
 
 
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');

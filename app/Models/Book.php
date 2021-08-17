@@ -16,6 +16,11 @@ class Book extends Model
 {
     use HasFactory,Sortable,SoftDeletes,Rateable;
 
+    // public $rules = [
+    //     'title' => 'required|min:3',
+    //     ''
+    // ];
+
     protected $table='books';
     protected $fillable = ['title','status','description','publish_date_from','image','slug'];
     public $sortable = ['id', 'title', 'description','status','publish_date_from','created_at', 'updated_at'];

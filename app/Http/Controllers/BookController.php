@@ -48,7 +48,7 @@ class BookController extends Controller
         return view('admin.books.add-form', compact('cates', 'authors'));
     }
 
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
         $model = new Book();
 
@@ -113,6 +113,10 @@ class BookController extends Controller
                 DB::table('book_galleries')->insert($item);
             }
         }
+        // $duoiImage = $request->image;
+        // ->getClientOriginalExtension();
+        // dd($duoiImage);
+        // if($request->image )
 
         return redirect(route('book.index'))->with('message', 'Thêm mới sách thành công !')->with('alert-class', 'alert-success');
     }
