@@ -70,6 +70,19 @@
         </div>
     </li>
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePostCate"
+            aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-user-tie"></i>
+            <span>Danh mục bài viết</span>
+        </a>
+        <div id="collapsePostCate" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('postCate.index')}}">Danh sách</a>
+                <a class="collapse-item" href="{{route('postCate.create')}}">Thêm mới</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven"
             aria-expanded="true" aria-controls="collapseSeven">
             <i class="fas fa-fw fa-file"></i>
