@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookDetailController;
+use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,4 @@ Route::get('order-data-month', [AdminController::class, 'ordersDataMonth']);
 Route::Post('comment',[BookDetailController::class,'getComment'])->name('book.comment');
 Route::Post('rate',[BookDetailController::class,'getRate'])->name('book.rate');
 Route::Post('comment-child',[BookDetailController::class,'getCommentChild'])->name('book.comment.child');
+Route::post('convert-file', [FileController::class, 'store'])->name('file.convertStore');

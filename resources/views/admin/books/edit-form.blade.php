@@ -102,7 +102,7 @@
 
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputDesc">Thông tin chi tiết</label>
-                    <textarea type="text" class="form-control" id="exampleInputDesc" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description',$model->description) }}</textarea>
+                    <textarea type="text" rows="10" class="form-control" id="exampleInputDesc" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description',$model->description) }}</textarea>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif

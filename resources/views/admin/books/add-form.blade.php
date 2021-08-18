@@ -6,7 +6,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-8 offset-2">
-                <form action="{{ route('book.store') }}" method="post" class="mt-4 mb-4">
+                <form action="{{ route('book.store') }}" method="post" class="mt-4 mb-4" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputTitle">Tên sách</label>
@@ -22,7 +22,7 @@
                             Chọn ảnh
                         </button>
                         <div class="show_image" class="mb-2">
-                            <img src="" class="img-thumbnail" id="show_img" width="250">
+                            <img src="" id="show_img" style="width:200px; height:300px;" alt="Chưa chọn ảnh">
                         </div>
                         <input type="text" id="image" name="image" hidden class="form-control">
                         @if ($errors->has('image'))
@@ -40,6 +40,9 @@
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
                         <br>
+                        @if ($errors->has('author_id'))
+                            <div class="alert alert-danger text-danger">{{ $errors->first('author_id') }}</div>
+                        @endif
                         <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Chọn tối đa 10 danh mục" multiple>
                             @foreach ($cates as $cate)
                                 <option value="{{$cate->id}}">{{$cate->name}}</option>

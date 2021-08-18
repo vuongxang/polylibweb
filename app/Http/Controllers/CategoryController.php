@@ -16,7 +16,8 @@ class CategoryController extends Controller
         $keyword=$request->keyword;
         if($request->page_size) $pagesize = $request->page_size;
 
-        $cates  = Category::sortable()->where('name','like',"%".$keyword."%")->paginate($pagesize);
+        $cates  = Category::sortable()->where('name','like',"%".$keyword."%")
+                            ->orderBy('created_at','DESC')->paginate($pagesize);
         $cates->load('books');
 
         return view('admin.cates.index',compact('cates','pagesize'));

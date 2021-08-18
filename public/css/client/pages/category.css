@@ -214,3 +214,15 @@
     text-decoration: none;
     color:var(--text-color2);
 }
+
+
+.review-btn:focus,.review-btn:active{
+    text-decoration: none;
+    color:var(--base-color);
+  }
+  
+  .borrow-btn:focus,.borrow-btn:active{
+    text-decoration: none;
+    color:var(--text-color2);
+    
+  }

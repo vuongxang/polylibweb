@@ -102,7 +102,7 @@
                     <a class="book-tabs__link active" data-toggle="tab" href="#comment-tab">Bình luận</a>
                 </li>
                 <li class="book-tabs__item">
-                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá    </a>
+                    <a class="book-tabs__link" data-toggle="tab" href="#review-tab">Đánh giá </a>
                 </li>
             </ul>
         </div>
@@ -122,7 +122,7 @@
                                 <input type=hidden name=book_id value="{{ $book->id }}" />
                             </div>
                             <div class="comment__btn">
-                                <button type="submit" class="button button__background-lg button-comment" >Bình
+                                <button type="submit" class="button button__background-lg button-comment">Bình
                                     luận</button>
                             </div>
                         </form>
@@ -215,16 +215,25 @@
                                     @endforeach
                                 </div>
                                 <div class="book-card__star">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                        <i class="fas fa-star"></i>
+                                        @else
+                                        <i class="far fa-star"></i>
+                                        @endif
+                                        @endfor
                                 </div>
                                 <div class="book-card__btn">
+                                    @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)
+                                    ->where('status', 'Đang mượn')->first() )
+                                        <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                    @else
                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn
                                         sách</a><a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem
                                         trước</a>
+                                    @endif
+
                                 </div>
+
                         </div>
                         @endif
                         @endforeach
@@ -258,15 +267,22 @@
                                     @endforeach
                                 </div>
                                 <div class="book-card__star">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                        <i class="fas fa-star"></i>
+                                        @else
+                                        <i class="far fa-star"></i>
+                                        @endif
+                                        @endfor
                                 </div>
                                 <div class="book-card__btn">
+                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)
+                                    ->where('status', 'Đang mượn')->first() )
+                                        <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                    @else
                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn
                                         sách</a><a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem
                                         trước</a>
+                                    @endif
                                 </div>
                             </div>
                     </div>
@@ -292,7 +308,7 @@
                 Chưa sách cùng thể loại
             </div>
             @endif
-           
+
         </div>
 
         <!-- Button Carouse -->

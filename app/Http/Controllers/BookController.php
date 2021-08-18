@@ -32,7 +32,7 @@ class BookController extends Controller
 
         if ($request->page_size) $pagesize = $request->page_size;
 
-        $books = Book::sortable()->where('title', 'like', "%" . $keyword . "%")->orderBy('created_at','DESC')->paginate($pagesize);
+        $books = Book::sortable()->where('title', 'like', "%" . $keyword . "%")->orderBy('created_at', 'DESC')->paginate($pagesize);
         $books->load('categories');
         $books->load('authors');
         $books->load('bookGalleries');
@@ -48,12 +48,12 @@ class BookController extends Controller
         return view('admin.books.add-form', compact('cates', 'authors'));
     }
 
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
         $model = new Book();
 
         $model->fill($request->all());
- 
+
         $milliseconds = round(microtime(true) * 1000);
         $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
 
@@ -92,7 +92,7 @@ class BookController extends Controller
         }
         if ($request->list_audio) {
             $list_audio = json_decode($request->list_audio);
-            if($list_audio == null) $list_audio[] = $request->list_audio;
+            if ($list_audio == null) $list_audio[] = $request->list_audio;
             foreach ($list_audio as $url) {
                 $item = [
                     'book_id' => $model->id,
@@ -104,7 +104,7 @@ class BookController extends Controller
 
         if ($request->list_image) {
             $list_image = json_decode($request->list_image);
-            if($list_image == null) $list_image[] = $request->list_image;
+            if ($list_image == null) $list_image[] = $request->list_image;
             foreach ($list_image as $url) {
                 $item = [
                     'book_id' => $model->id,
@@ -113,6 +113,10 @@ class BookController extends Controller
                 DB::table('book_galleries')->insert($item);
             }
         }
+        // $duoiImage = $request->image;
+        // ->getClientOriginalExtension();
+        // dd($duoiImage);
+        // if($request->image )
 
         return redirect(route('book.index'))->with('message', 'Thêm mới sách thành công !')->with('alert-class', 'alert-success');
     }
@@ -162,9 +166,9 @@ class BookController extends Controller
 
         if ($request->list_audio) {
             BookAudio::where('book_id', $model->id)->delete();
-            
+
             $list_audio = json_decode($request->list_audio);
-            if($list_audio == null) $list_audio[] = $request->list_audio;
+            if ($list_audio == null) $list_audio[] = $request->list_audio;
             foreach ($list_audio as $url) {
                 $item = [
                     'book_id' => $model->id,
@@ -178,7 +182,7 @@ class BookController extends Controller
             BookGallery::where('book_id', $model->id)->delete();
 
             $list_image = json_decode($request->list_image);
-            if($list_image == null) $list_image[] = $request->list_image;
+            if ($list_image == null) $list_image[] = $request->list_image;
             foreach ($list_image as $url) {
                 $item = [
                     'book_id' => $model->id,
@@ -253,6 +257,7 @@ class BookController extends Controller
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
+        $book->load('orders');
         $sameBooks = [];
         foreach ($book->categories as $cate) {
             foreach ($cate->books as $books) {
@@ -263,6 +268,7 @@ class BookController extends Controller
             }
         }
         $sameBooksUnique = array_unique($sameBooks);
+        
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
         $comments = Comment::where('book_id', $id)->where('parent_id', Null)->get();
@@ -270,8 +276,10 @@ class BookController extends Controller
         $rates->load('user');
 
         $arr = [19, 15, 14];
-        
+
+
         $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
+
         return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique, 'comments' => $comments]);
     }
 

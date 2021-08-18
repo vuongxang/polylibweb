@@ -1,0 +1,163 @@
+.profile {}
+
+.profile-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--text-color2);
+}
+
+.profile-header__h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--base-color);
+}
+
+.profile-content {
+    margin-top: 2rem;
+}
+
+.profile-img__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.profile-img-item {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+}
+
+.profile-img-item img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-img-upload {
+    cursor: pointer;
+}
+
+.profile-img-upload:hover {
+    cursor: pointer;
+}
+
+.profile-infomation {
+    margin-top: 3rem;
+}
+
+.profile-infomation__label {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: var(--black-secondary-color);
+}
+
+.profile-infomation__button {
+    background-color: var(--base-color);
+    color: var(--white-color);
+}
+
+.profile-infomation__button:hover {
+    background-color: var(--base-color);
+    color: var(--white-color);
+}
+
+#actual-label {
+    background-color: var(--base-color);
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+  }
+  
+  #file-chosen{
+    font-size: 1.4rem;
+    margin-left: 0.3rem;
+  }
+  .alert-custom{
+      font-size: 1.4rem;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+.profile-info {
+    width: 1142px;
+}
+
+.ho-so-ca-nhan h2 {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 49px;
+    font-size: 20pt;
+    display: flex;
+    align-items: center;
+    color: #425BA8;
+}
+
+.infomation-form {
+    margin-top: 20px;
+}
+
+.infomation-form-profile tr td {
+    line-height: 50px;
+    font-size: 18px;
+}
+
+.infomation-form-profile label {
+    margin-right: 40px;
+    font-weight: 700;
+    color: #676767;
+}
+
+.infomation-form-profile input {
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.infomation-form-profile input[type=text], input[type=email], input[type=number], input[type=date] {
+    width: 400px;
+}
+
+.infomation-form-profile input[type=radio] label {
+    margin-right: 5px;
+    margin-left: 20px;
+}
+
+.infomation-form-avatar label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #676767;
+}
+
+.infomation-form-avatar img {
+    width: 150px;
+    height: 150px;
+}
+
+.infomation-form-save button {
+    width: 200px;
+    background: #425BA8;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-left: 200px;
+    margin-top: 30px;
+} */

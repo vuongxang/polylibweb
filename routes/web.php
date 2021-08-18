@@ -11,6 +11,8 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\PostShareCategoryController;
+use App\Http\Controllers\PostShareController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
 
@@ -30,39 +32,46 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
+    Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
+    Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->name('author.detail');
+    Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
+    Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
+    Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    Route::get('/search/{id}', [SearchController::class, 'search'])->name('searchID');
+    Route::get('/filter', [SearchController::class, 'filter'])->name('filter');
+    Route::post('/searchapi', [SearchController::class, 'searchApi'])->name('searchapi');
+    Route::get('/category-postshare', [PostShareController::class, 'all'])->name('post.categories');
+    Route::get('/add-post', [PostShareController::class, 'create'])->name('post.create');
+    Route::post('/add-post', [PostShareController::class, 'store'])->name('post.store');
+    Route::get('/post-detail/{slug}', [PostShareController::class, 'detail'])->name('post.detail');
+    Route::get('/delete-post/{slug}', [PostShareController::class, 'destroy'])->name('post.destroy');
 });
+Route::get('contact', [ContactController::class, 'contact'])->name('contact');
 
 
-Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->middleware('auth')->name('book.detail');
-Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->middleware('auth')->name('author.detail');
-Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
-Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
-Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
-Route::get('/search',[SearchController::class, 'search'])->name('search');
-Route::get('/search/{id}',[SearchController::class, 'search'])->name('searchID');
-Route::get('/filter',[SearchController::class, 'filter'])->name('filter');
-Route::post('/searchapi',[SearchController::class, 'searchApi'])->name('searchapi');
+Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
 
 Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
-Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
-Route::get('infomation/{id}',[HomeController::class, 'infomation'])->middleware('auth')
-                                                                    ->name('user.infomation');
-Route::get('setting',[HomeController::class, 'setting'])->middleware('auth')
-                                                        ->name('user.setting');
-Route::get('rate/{id}',[HomeController::class, 'rate'])->middleware('auth')
-                                                        ->name('user.rate');
-Route::get('help',[HomeController::class, 'help'])->middleware('auth')
-                                                    ->name('user.help');
+Route::get('my-posts/{id}', [PostShareController::class, 'myPost'])->middleware('auth')->name('user.myPost');
+Route::get('setting', [HomeController::class, 'setting'])->middleware('auth')
+    ->name('user.setting');
+Route::get('rate/{id}', [HomeController::class, 'rate'])->middleware('auth')
+    ->name('user.rate');
+Route::get('help', [HomeController::class, 'help'])->middleware('auth')
+    ->name('user.help');
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
 Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
 
 Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
-Route::get('my-alerts', [UserController::class, 'showArlers'])->name('notification.alerts');
-
+Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('notifications.read');
+Route::get('notifications', [UserController::class, 'notifications'])->name('notifications');
+Route::post('post/api/tang-view', [PostShareController::class, 'updateView'])->name('post.updateView');
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -81,6 +90,34 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('restore/{id}', [CategoryController::class, 'restore'])->name('cate.restore');
         Route::get('force-delete/{id}', [CategoryController::class, 'forceDelete'])->name('cate.forcedelete');
         Route::get('changePageSize', [CategoryController::class, 'changePageSize']);
+    });
+    Route::prefix('post-cate')->group(function () {
+        Route::get('/', [PostShareCategoryController::class, 'index'])->name('postCate.index');
+        Route::get('add-cate', [PostShareCategoryController::class, 'create'])->name('postCate.create');
+        Route::post('add-cate', [PostShareCategoryController::class, 'store'])->name('postCate.store');
+        Route::get('remove/{id}', [PostShareCategoryController::class, 'destroy'])->name('postCate.destroy');
+        Route::get('edit/{id}', [PostShareCategoryController::class, 'edit'])->name('postCate.edit');
+        Route::post('edit/{id}', [PostShareCategoryController::class, 'update'])->name('postCate.update');
+
+        Route::get('changeStatus', [PostShareCategoryController::class, 'changeStatus']);
+        Route::get('trash-list', [PostShareCategoryController::class, 'trashList'])->name('postCate.trashlist');
+        Route::get('restore/{id}', [PostShareCategoryController::class, 'restore'])->name('postCate.restore');
+        Route::get('force-delete/{id}', [PostShareCategoryController::class, 'forceDelete'])->name('postCate.forcedelete');
+        Route::get('changePageSize', [PostShareCategoryController::class, 'changePageSize']);
+    });
+    Route::prefix('post-share')->group(function () {
+        Route::get('/', [PostShareController::class, 'index'])->name('post.index');
+        // Route::get('add-cate', [PostShareCategoryController::class, 'create'])->name('postCate.create');
+        // Route::post('add-cate', [PostShareCategoryController::class, 'store'])->name('postCate.store');
+        // Route::get('remove/{id}', [PostShareCategoryController::class, 'destroy'])->name('postCate.destroy');
+        // Route::get('edit/{id}', [PostShareCategoryController::class, 'edit'])->name('postCate.edit');
+        // Route::post('edit/{id}', [PostShareCategoryController::class, 'update'])->name('postCate.update');
+
+        // Route::get('changeStatus', [PostShareCategoryController::class, 'changeStatus']);
+        // Route::get('trash-list', [PostShareCategoryController::class, 'trashList'])->name('postCate.trashlist');
+        // Route::get('restore/{id}', [PostShareCategoryController::class, 'restore'])->name('postCate.restore');
+        // Route::get('force-delete/{id}', [PostShareCategoryController::class, 'forceDelete'])->name('postCate.forcedelete');
+        // Route::get('changePageSize', [PostShareCategoryController::class, 'changePageSize']);
     });
     Route::prefix('book')->group(function () {
         Route::get('/', [BookController::class, 'index'])->name('book.index');
@@ -113,8 +150,8 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user.index');
         Route::get('client', [UserController::class, 'ListClient'])->name('user.client');
         // Route::post('add-author',[AuthorController::class,'store'])->name('author.store'); 
-        Route::get('add-user',[UserController::class,'create'])->name('user.create');
-        Route::post('add-user',[UserController::class,'store'])->name('user.store');
+        Route::get('add-user', [UserController::class, 'create'])->name('user.create');
+        Route::post('add-user', [UserController::class, 'store'])->name('user.store');
         Route::get('remove/{id}', [UserController::class, 'destroy'])->name('user.destroy');
         Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');
@@ -155,7 +192,7 @@ Auth::routes([
     'register' => true, // Registration Routes...
     'reset' => true, // Password Reset Routes...
     'verify' => false, // Email Verification Routes...
-  ]);
+]);
 
 Route::get('admin-login', [App\Http\Controllers\Auth\LoginController::class, 'loginForm'])->name('adminLoginForm');
 
