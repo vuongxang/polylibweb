@@ -105,6 +105,20 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('force-delete/{id}', [PostShareCategoryController::class, 'forceDelete'])->name('postCate.forcedelete');
         Route::get('changePageSize', [PostShareCategoryController::class, 'changePageSize']);
     });
+    Route::prefix('post-share')->group(function () {
+        Route::get('/', [PostShareController::class, 'index'])->name('post.index');
+        // Route::get('add-cate', [PostShareCategoryController::class, 'create'])->name('postCate.create');
+        // Route::post('add-cate', [PostShareCategoryController::class, 'store'])->name('postCate.store');
+        // Route::get('remove/{id}', [PostShareCategoryController::class, 'destroy'])->name('postCate.destroy');
+        // Route::get('edit/{id}', [PostShareCategoryController::class, 'edit'])->name('postCate.edit');
+        // Route::post('edit/{id}', [PostShareCategoryController::class, 'update'])->name('postCate.update');
+
+        // Route::get('changeStatus', [PostShareCategoryController::class, 'changeStatus']);
+        // Route::get('trash-list', [PostShareCategoryController::class, 'trashList'])->name('postCate.trashlist');
+        // Route::get('restore/{id}', [PostShareCategoryController::class, 'restore'])->name('postCate.restore');
+        // Route::get('force-delete/{id}', [PostShareCategoryController::class, 'forceDelete'])->name('postCate.forcedelete');
+        // Route::get('changePageSize', [PostShareCategoryController::class, 'changePageSize']);
+    });
     Route::prefix('book')->group(function () {
         Route::get('/', [BookController::class, 'index'])->name('book.index');
         Route::get('add-book', [BookController::class, 'create'])->name('book.create');

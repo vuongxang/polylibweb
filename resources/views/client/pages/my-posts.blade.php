@@ -32,7 +32,7 @@
                                 <td>Tên sách</td>
                                 <td>Trạng thái</td>
                                 <td class="text-center">
-                                    <a href="{{ route('post.create') }}" class="btn btn-success">add new</a>
+                                    <a href="{{ route('post.create') }}" class="btn btn-success shadow rounded-0"><i class="fas fa-plus-circle mr-2"></i>ADD NEW</a>
                                 </td>
                             </tr>
                         </thead>
