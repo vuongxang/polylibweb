@@ -29,7 +29,8 @@
                 <h2>{{$book->title}}</h2>
             </div>
             <div class="topbar__tool">
-                <div class="topbar-tool__item topbar-tool__display"><a href=""><i class="fas fa-list"></i></a></div>
+                <div class="topbar-tool__item topbar-tool__display"><a href=""><i class="fas fa-eye"></i></a></div>
+                <div class="topbar-tool__item topbar-tool__thumbnails"><a href=""><i class="fas fa-th-large"></i></a></div>
                 <div class="topbar-tool__item topbar-tool__search">
                     <a href=""><i class="fas fa-search"></i></a>
                     <div class="dropdown-search ">
@@ -43,7 +44,22 @@
             </div>
 
         </div>
+        <div class="topbar-aside hidden">
+            <div class="topbar-aside__header">Danh sách trang sách</div>
+            <div class="topbar-aside__list">
 
+                <div class="topbar-aside__item">
+                    @foreach($pages as $key => $p)
+                    <a href="" class="aside-item__link">
+                        <img class="aside-item__img" src="{{asset($p->url) }}" alt="" />
+                    </a>
+                    <div class="aside-item__footer">
+                        {{$key+1}}
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
     <div class="space__between grid-custom ">
         <button id="previous"><i class="fas fa-angle-left"></i></button>
@@ -119,7 +135,7 @@
 
         })
         $('#flipbook').turn();
-        
+
 
 
         // Thanh top bar hiển thị
@@ -139,6 +155,32 @@
                 return $('#flipbook').turn('display', 'double')
             }
         })
+        //Topbar thumbnails
+        let thumbnailEl = $('.topbar-tool__thumbnails');
+        let topbarAside = $('.topbar-aside');
+        let topbarLink = [...$('.aside-item__link')];
+        thumbnailEl.click((event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            topbarAside.toggleClass('hidden');
+        })
+        $('body').click((event) => {
+            if (!topbarAside.hasClass('hidden')) {
+
+                topbarAside.addClass('hidden');
+            }
+        })
+        topbarAside.click((event) => {
+            event.stopPropagation();
+        })
+        topbarLink.forEach((item, index) => {
+            item.addEventListener('click', (event) => {
+                event.preventDefault();
+                $('#flipbook').turn('page', index + 1);
+                changeRange(index + 1);
+                $('#myRange').val(index + 1);
+            })
+        })
 
         // $('#numb3').click((pageNumber) => {
         //     $('#flipbook').turn('page', pageNumber);
@@ -149,10 +191,7 @@
             $('#search-form').trigger("reset");
 
         })
-        $('.topbar-tool__zoom').click((e) => {
-            e.preventDefault();
-            // $('#flipbook').turn('zoom', 1.5);
-        })
+        
 
 
         $('.dropdown-search').click((e) => {
