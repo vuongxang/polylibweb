@@ -23,12 +23,12 @@
                 <div class="data-tabs">
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#home">Bình luận đã
-                                duyệt <span>({{count($comments_approved)}})</span> </a></li>
+                                duyệt <span class="badge badge-secondary rounded-circle">{{$comments_approved->total()}}</span> </a></li>
                         <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu1">Bình luận chờ duyệt
-                            <span>({{count($comments_pending)}})</span></a>
+                            <span class="badge badge-secondary rounded-circle">{{$comments_pending->total()}}</span></a>
                         </li>
                         <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu2">Bình luận bị xóa
-                            <span>({{count($comments_deleted)}})</span></a></li>
+                            <span class="badge badge-secondary rounded-circle">{{$comments_deleted->total()}}</span></a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="home" class="tab-pane in active">

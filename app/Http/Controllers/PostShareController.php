@@ -11,6 +11,33 @@ use Illuminate\Support\Facades\Auth;
 
 class PostShareController extends Controller
 {
+    //admin route method
+    public function index(Request $request){
+        $pagesize = 10;
+        $keyword=$request->keyword;
+        if($request->page_size) $pagesize = $request->page_size;
+
+        $posts = PostShare::sortable()->where('title','like',"%".$keyword."%")->where('status',1)
+                            ->orderBy('created_at','DESC')->paginate($pagesize);
+        $posts->load('user');
+        
+        $posts_pending = PostShare::sortable()->where('title','like',"%".$keyword."%")->where('status',0)
+                            ->orderBy('created_at','DESC')->paginate($pagesize);
+        $posts_pending->load('user');
+
+        $posts_rejected = PostShare::sortable()->where('title','like',"%".$keyword."%")->where('status',2)
+                            ->orderBy('created_at','DESC')->paginate($pagesize);
+        $posts_rejected->load('user');
+        
+        return view('admin.posts.index',[
+            'posts'             => $posts,
+            'pagesize'          => $pagesize,
+            'posts_pending'     => $posts_pending,
+            'posts_rejected'    => $posts_rejected
+        ]);
+    }
+
+    //client method
     public function all(){
         $cates = PostShareCategory::all();
         $cates->load('posts');

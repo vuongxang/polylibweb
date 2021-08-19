@@ -152,6 +152,26 @@
                 })
             })
 
+            $(function() {
+                $('.toggle-class-post-cate').change(function() {
+                    var status = $(this).prop('checked') == true ? 1 : 0;
+                    var id = $(this).data('id');
+
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: 'post-cate/changeStatus',
+                        data: {
+                            'status': status,
+                            'id': id
+                        },
+                        success: function(data) {
+                            console.log(data.success)
+                        }
+                    });
+                })
+            })
+
         });
 
         //     tinymce.init({
@@ -169,36 +189,51 @@
 
         tinymce.init({
             selector: 'textarea#exampleInputDesc',
-            plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap tinycomments mentions quickbars linkchecker emoticons advtable export',
-            // mobile: {
-            //     plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable'
-            // },
-            // menu: {
-            //     tc: {
-            //     title: 'Comments',
-            //     items: 'addcomment showcomments deleteallconversations'
-            //     }
-            // },
-            codesample_languages: [
-                {text: 'HTML/XML', value: 'markup'},
-                {text: 'JavaScript', value: 'javascript'},
-                {text: 'CSS', value: 'css'},
-                {text: 'PHP', value: 'php'},
-                {text: 'Ruby', value: 'ruby'},
-                {text: 'Python', value: 'python'},
-                {text: 'Java', value: 'java'},
-                {text: 'C', value: 'c'},
-                {text: 'C#', value: 'csharp'},
-                {text: 'C++', value: 'cpp'}
+            plugins: 'print preview tinydrive searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+
+            codesample_languages: [{
+                    text: 'HTML/XML',
+                    value: 'markup'
+                },
+                {
+                    text: 'JavaScript',
+                    value: 'javascript'
+                },
+                {
+                    text: 'CSS',
+                    value: 'css'
+                },
+                {
+                    text: 'PHP',
+                    value: 'php'
+                },
+                {
+                    text: 'Ruby',
+                    value: 'ruby'
+                },
+                {
+                    text: 'Python',
+                    value: 'python'
+                },
+                {
+                    text: 'Java',
+                    value: 'java'
+                },
+                {
+                    text: 'C',
+                    value: 'c'
+                },
+                {
+                    text: 'C#',
+                    value: 'csharp'
+                },
+                {
+                    text: 'C++',
+                    value: 'cpp'
+                }
             ],
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
-            // autosave_ask_before_unload: false,
-            // autosave_interval: '30s',
-            // autosave_prefix: '{path}{query}-{id}-',
-            // autosave_restore_when_empty: false,
-            // autosave_retention: '2m',
-            // image_advtab: true,
-            // importcss_append: true,
+
             tinycomments_author: 'Author name',
             external_filemanager_path: "/filemanager/",
             filemanager_title: "Responsive Filemanager",
