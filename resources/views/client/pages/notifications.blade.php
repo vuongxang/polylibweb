@@ -24,7 +24,7 @@
                     <th >#</th>
                     <th >Tiêu đề</th>
                     <th >Nội dung</th>
-                    <th >Trạng thái</th>
+                    <th class="text-center">Trạng thái</th>
                     <th >Thời gian</th>
                 </tr>
             </thead>
@@ -35,11 +35,11 @@
                     <td width="20px">{{ $key + 1 }}</td>
                     <td width="150px">{{ $notification->data['title'] }}</td>
                     <td width="320px"><a class ="notification__link"href="{{route('notification.read',$notification->id)}}">{!! $notification->data['content'] !!}</a></td>
-                    <td width="120px">
+                    <td width="120px" class="text-center">
                         @if ($notification->read_at)
-                        <span class="badge badge-info bg-success">Đã xem</span>
+                        <span class="badge badge-info bg-success ">Đã xem</span>
                         @else
-                        <span class="badge badge-info bg-danger">Chưa đọc</span>
+                        <span class="badge badge-info bg-secondary">Chưa đọc</span>
                         @endif
                     </td>
                     <td width="130px">{{ Carbon\Carbon::parse($notification->created_at)->locale('vi')->diffForHumans() }}</td>
