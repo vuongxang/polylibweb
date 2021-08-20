@@ -8,6 +8,7 @@ use App\Models\PostView;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostShareController extends Controller
 {
@@ -70,6 +71,12 @@ class PostShareController extends Controller
 
     public function store(Request $request){
         $model = new PostShare();
+        if($request->hasFile('thumbnail')){
+            $fileName = uniqid().'_'.$request->file('thumbnail')->getClientOriginalName();
+            $filePath = $request->file('thumbnail')->storeAs('uploads/post-thumbnail', $fileName, 'public');
+            $model->thumbnail = 'storage/'.$filePath;
+
+        }
         $model->title = $request->title;
         $milliseconds = round(microtime(true) * 1000);
         $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
@@ -77,8 +84,37 @@ class PostShareController extends Controller
         $model->user_id = Auth::user()->id;
         if($model->user_id == 1 || $model->user_id == 2 || $model->user_id == 3) $model->status = 1;
         else $model->status = 0;
+
         $model->save();
-        return back()->width('message','Tạo mới thành công');
+
+        if ($request->cate_id) {
+            foreach ($request->cate_id as $cate_id) {
+                $item = [
+                    'cate_id' => $cate_id,
+                    'post_id' => $model->id
+                ];
+                DB::table('post_share_category_details')->insert($item);
+            }
+        }
+
+        if($request->hasFile('file_upload')){
+            $file_uploads   = $request->file_upload;
+            $file_titles     = $request->file_title;
+            
+            foreach ($file_uploads as $key => $file) {
+                $fileName = uniqid().'_'.$file->getClientOriginalName();
+                $filePath = $file->storeAs('uploads/documents', $fileName, 'public');
+
+                $item = [
+                    'url'       => $fileName,
+                    'title'     => $file_titles[$key],
+                    'post_id'   => $model->id
+                ];
+                DB::table('post_file_data')->insert($item);
+            }
+        }
+        
+        return redirect(route('user.myPost',$model->user_id))->with('message','Tạo mới thành công');
     }
 
     public function detail($slug){

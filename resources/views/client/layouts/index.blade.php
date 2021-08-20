@@ -135,9 +135,9 @@
             function addfaqs() {
                 html = '<tr id="faqs-row' + faqs_row + '">';
                 html += '<td><input type="text" class="form-control" name="file_title[]" placeholder="tên file"></td>';
-                html += '<td><input type="file" name="file[]"></td>';
+                html += '<td><input type="file" name="file_upload[]"></td>';
                 // html += '<td class="text-danger mt-10"> 18.76% <i class="fa fa-arrow-down"></i></td>';
-                html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#faqs-row' + faqs_row +
+                html += '<td class="mt-10"><button class="badge badge-danger bg-danger" onclick="$(\'#faqs-row' + faqs_row +
                     '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
                 html += '</tr>';
