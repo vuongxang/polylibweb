@@ -9,10 +9,10 @@
             @if(Session::has('message'))
                 <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
-            <div class="d-flex justify-content-between ">
+            <div class="d-flex justify-content-between border-bottom">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                      <a class="nav-link active bg-light">Danh sách</a>
+                      <a class="nav-link active">Danh sách</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('postCate.trashlist')}}">Thùng rác</a>
@@ -29,7 +29,7 @@
                     </form>
                 </div>
             </div>
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
@@ -39,7 +39,7 @@
                         <th>@sortablelink('updated_at','Ngày cập nhật')</th>
                         <th>@sortablelink('status','Trạng thái')</th>
                         <th class="text-center">
-                            <a href="{{route('postCate.create')}}" class="btn btn-dark btn-sm shadow"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</a>
+                            <a href="{{route('postCate.create')}}" class="btn btn-dark btn-sm shadow rounded-0"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</a>
                         </th>
                     </tr>
                 </thead>

@@ -66,8 +66,8 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="" class="fas fa-eye text-warning p-1 btn-action"></a>
-                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy bài viết này?')"
-                                                        href="" class="fas fa-trash text-danger p-1 btn-action"></a>
+                                                    <a onclick="return confirm('Bạn chắc chắn muốn tắt bài viết này?')"
+                                                        href="{{route('post.refuse',$post->id)}}" class="fas fa-power-off text-danger p-1 btn-action"></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -114,9 +114,9 @@
                                                     {{ date_format($post->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="" class="font-weight-bold text-success">Duyệt</a> |
-                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
-                                                        href="" class="font-weight-bold text-danger">Hủy</a>
+                                                    <a href="{{route('post.approv',$post->id)}}" class="font-weight-bold text-success">Duyệt</a> |
+                                                    <a onclick="return confirm('Bạn chắc chắn từ chối duyệt bài viết này?')"
+                                                        href="{{route('post.refuse',$post->id)}}" class="font-weight-bold text-danger">Từ chối</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -163,9 +163,9 @@
                                                     {{ date_format($post->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="" class="font-weight-bold text-success">Duyệt</a> |
-                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
-                                                        href="" class="font-weight-bold text-danger">Hủy</a>
+                                                    <a href="{{route('post.approv',$post->id)}}" class="font-weight-bold text-success">Duyệt lại</a>
+                                                    {{-- <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
+                                                        href="" class="font-weight-bold text-danger">Hủy</a> --}}
                                                 </td>
                                             </tr>
                                         @endforeach

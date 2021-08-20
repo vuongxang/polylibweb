@@ -107,6 +107,9 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     });
     Route::prefix('post-share')->group(function () {
         Route::get('/', [PostShareController::class, 'index'])->name('post.index');
+        Route::get('post-share-approv/{id}', [PostShareController::class, 'postApprov'])->name('post.approv');
+        Route::get('post-share-refuse/{id}', [PostShareController::class, 'postRefuse'])->name('post.refuse');
+
         // Route::get('add-cate', [PostShareCategoryController::class, 'create'])->name('postCate.create');
         // Route::post('add-cate', [PostShareCategoryController::class, 'store'])->name('postCate.store');
         // Route::get('remove/{id}', [PostShareCategoryController::class, 'destroy'])->name('postCate.destroy');

@@ -37,6 +37,22 @@ class PostShareController extends Controller
         ]);
     }
 
+    public function postApprov($id){
+        $model = PostShare::find($id);
+        if(!$model) return redirect(route('post.index'))->with('message', 'Dữ liệu không tồn tại !')->with('alert-class', 'alert-dangeraprov');
+        $model->status = 1;
+        $model->save();
+        return redirect(route('post.index'))->with('message', 'Duyệt bài viết thành công !')->with('alert-class', 'alert-success');
+    }
+
+    public function postRefuse($id){
+        $model = PostShare::find($id);
+        if(!$model) return redirect(route('post.index'))->with('message', 'Dữ liệu không tồn tại !')->with('alert-class', 'alert-dangeraprov');
+        $model->status = 2;
+        $model->save();
+        return redirect(route('post.index'))->with('message', 'Bài viết đã bị từ chối duyệt !')->with('alert-class', 'alert-success');
+    }
+
     //client method
     public function all(){
         $cates = PostShareCategory::all();

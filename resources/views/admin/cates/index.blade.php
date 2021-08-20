@@ -39,7 +39,7 @@
                         <th>@sortablelink('updated_at','Ngày cập nhật')</th>
                         <th>@sortablelink('status','Trạng thái')</th>
                         <th class="text-center">
-                            <a href="{{route('cate.create')}}" class="btn btn-dark btn-sm">Thêm mới</a>
+                            <a href="{{route('cate.create')}}" class="btn btn-dark btn-sm shadow rounded-0"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</a>
                         </th>
                     </tr>
                 </thead>
