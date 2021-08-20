@@ -11,12 +11,10 @@
     <link rel="icon" href="{{ asset('images/logo.png') }}">
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
+    <link href="{{ asset('css\netdna.bootstrap.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
@@ -42,8 +40,7 @@
         <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
         @yield('script')
 
-        <script src="https://cdn.tiny.cloud/1/hmuw3s2zqh2hz2ctu3t8rxpvxh61d6ci6pkldvwxndprwi2a/tinymce/5/tinymce.min.js"
-                referrerpolicy="origin"></script>
+        <script src="https://cdn.tiny.cloud/1/hmuw3s2zqh2hz2ctu3t8rxpvxh61d6ci6pkldvwxndprwi2a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
             $(document).ready(function() {
                 $('#addStar').change('.star', function(e) {
@@ -53,21 +50,22 @@
                     $('.toast').toast('show');
                 });
                 var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                removeItemButton: true,
-                maxItemCount:5,
-                searchResultLimit:5,
-                renderChoiceLimit:5
+                    removeItemButton: true,
+                    maxItemCount: 5,
+                    searchResultLimit: 5,
+                    renderChoiceLimit: 5
                 });
 
             });
-            var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-                cluster: "ap1"
-            });
-            var channel = pusher.subscribe('NotificationEvent');
-            channel.bind('send-message', function(data) {
-                console.log(data)
+            // var pusher = new Pusher('{{ env('
+            //     PUSHER_APP_KEY ') }}', {
+            //         cluster: "ap1"
+            //     });
+            // var channel = pusher.subscribe('NotificationEvent');
+            // channel.bind('send-message', function(data) {
+            //     console.log(data)
 
-            });
+            // });
 
             function Deleted_at() {
                 var conf = confirm('Bạn chắc chắn muốn trả sách');
@@ -146,7 +144,6 @@
 
                 faqs_row++;
             }
-
         </script>
 </body>
 
