@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreatePostShareCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('orders');
-
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('post_share_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('id_user');
-            $table->integer('book_id');
-            $table->string('status')->nullable();
+            $table->string('name',255)->unique();
+            $table->string('slug',255)->unique();
+            $table->integer('status')->default(1);
+            $table->string('image', 191)->default('images/default.jpg');
+            $table->text('description');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,7 +32,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
-        
+        Schema::dropIfExists('post_share_categories');
     }
 }

@@ -53,4 +53,8 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class, 'book_id');
     }
+
+    public function posts(){
+        return $this->hasMany(PostShare::class, 'user_id');
+    }
 }

@@ -5,6 +5,7 @@
     <ul class="header__nav">
         <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
         <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}">Danh Mục</a></li>
+        <li class="header__nav-li"><a class="link" href="{{route('post.categories')}}">Bài viết</a></li>
         <li class="header__nav-li"><a class="link" href="{{route('contact')}}">Liên hệ</a></li>
     </ul>
     <div class="header__search">
@@ -159,7 +160,7 @@
                 <a class="dropdown-item dropdown-item-custom" href="{{ route('user.history', Auth::user()->id) }}">
                     <i class="fas fa-history"></i>Lịch sử mượn sách
                 </a>
-                <a class="dropdown-item dropdown-item-custom" href="">
+                <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
                     <i class="fas fa-history"></i>Tài liệu của tôi
                 </a>
                 <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
