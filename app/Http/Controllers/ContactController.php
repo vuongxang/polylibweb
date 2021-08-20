@@ -20,7 +20,7 @@ class ContactController extends Controller
             'content' => $request->content
         ];        
         Mail::send('email.contact', $data, function($message) use($request){
-                $message->to('khuongnvph07998@fpt.edu.vn', 'Polylib');
+                $message->to('vuonglqph12301@fpt.edu.vn', 'Polylib');
                 $message->from($request->email, $request->name);
                 $message->subject($request->topic);
         });

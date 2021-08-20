@@ -11,11 +11,19 @@
             @if(Session::has('message'))
                 <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <input id="my-input" class="form-control" type="text" name="title" placeholder="tiêu đề">
                 </div>
+
+                <div class="form-group">
+                    <label for="thumbnail">Chọn ảnh đại diện bài viết</label>
+                    <i class="fas fa-camera-retro "></i>
+                    <input id="thumbnail" class="btn btn-primary" type="file" name="thumbnail">
+                    <br>
+                </div>
+
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
                     <br>
@@ -41,7 +49,7 @@
                                 <tbody>
                                     <tr>
                                         <td><input type="text" class="form-control" name="file_title[]" placeholder="tên file"></td>
-                                        <td><input type="file" name="file[]"></td>
+                                        <td><input type="file" name="file_upload[]"></td>
                                         <td class="mt-10"><a href="javascript:;" class="badge bg-danger"><i class="fa fa-trash"></i> Delete</a></td>
                                     </tr>
                                 </tbody>
