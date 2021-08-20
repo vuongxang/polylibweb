@@ -1,0 +1,23 @@
+.profile-info{
+    width: 1142px;
+}
+.ho-so-ca-nhan h2{
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 49px;
+    font-size: 20pt;
+    display: flex;
+    align-items: center;
+    color: #425BA8;
+}
+form{
+    margin-top: 20px;
+}
+label{
+    margin-top: 5px;
+    font-size: 14px;
+}
+button{
+
+}

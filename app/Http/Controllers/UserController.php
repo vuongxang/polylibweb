@@ -95,6 +95,9 @@ class UserController extends Controller
 
         return redirect(route('user.create'))->with('message', 'Tạo tài khoản thành công');
     }
+    public function edit($id){
+        return view('admin.users.edit');
+    }
     public function readeNotification($id)
     {
         $notifications = Auth::user()->notifications;

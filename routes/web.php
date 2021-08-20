@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
@@ -41,6 +42,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::post('/searchapi', [SearchController::class, 'searchApi'])->name('searchapi');
 });
 Route::get('contact', [ContactController::class, 'contact'])->name('contact');
+Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
 
 
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
