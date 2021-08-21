@@ -21,18 +21,23 @@ $(function ($) {
     let index = 0;
     const indexArray = newTrack.map(function (){
         return 0
+
     })
-    
+    track.forEach((item,ind)=>{
+        let num = item.querySelectorAll('.book-card');
+        if(num.length < 3){
+            next[ind].classList.add('hide')
+        }
+    } )
     next.forEach((item, i) => {
         item.addEventListener('click', () => {
             indexArray[i]++;
             prev[i].classList.add('show');
             track[i].style.transform = `translateX(-${indexArray[i] * carouselWidth}px)`;
-
+            
             if (track[i].offsetWidth - (indexArray[i] * carouselWidth) < carouselWidth) {
                 item.classList.add('hide');
             }
-            console.log(indexArray)
         })
     })
 

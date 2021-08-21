@@ -26,6 +26,7 @@ class SearchController extends Controller
         $authors = Author::where('name', 'like', '%' . $request->keyword . '%')->get();
         $categories = Category::all();
         $authors->load('books');
+        // $books->star = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
         return view('client.pages.search', compact('categories', 'books', 'keyword', 'authors'))->with('keyword', $a);
 
     }
@@ -50,6 +51,7 @@ class SearchController extends Controller
             $books = Book::with('authors')
                 ->where('title', 'like', '%' . $a . '%')
                 ->get();
+                
         }
 
         return response()->json([$books,$a]);

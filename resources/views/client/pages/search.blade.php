@@ -188,6 +188,7 @@
                     <div class="col-md-9 search-author__container">
                         <div class="author-books ">
                             <div class="author-books__list ">
+
                                 @foreach($author->books as $book)
                                 <div class="book-card ">
                                     <div class="book-card__img">
@@ -210,10 +211,12 @@
                                         @endforeach
                                     </div>
                                     <div class="book-card__star">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
+                                        @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                            <i class="fas fa-star"></i>
+                                            @else
+                                            <i class="far fa-star"></i>
+                                            @endif
+                                            @endfor
                                     </div>
                                     <div class="book-card__btn">
                                         <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a>
@@ -225,13 +228,17 @@
 
                             </div>
                         </div>
+
                         <div class="slide-nav">
+
                             <button class="slide-nav__prev">
-                                <i class="fas fa-chevron-left"></i>
+
+                                <i class="fas fa-chevron-left"> </i>
                             </button>
                             <button class="slide-nav__next">
                                 <i class="fas fa-chevron-right"></i>
                             </button>
+
                         </div>
                     </div>
                 </div>
