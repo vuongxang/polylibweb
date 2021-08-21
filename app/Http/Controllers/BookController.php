@@ -268,7 +268,7 @@ class BookController extends Controller
             }
         }
         $sameBooksUnique = array_unique($sameBooks);
-        
+
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
         $comments = Comment::where('book_id', $id)->where('parent_id', Null)->get();

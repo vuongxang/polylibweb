@@ -90,9 +90,9 @@
                                 <div class="book-card__author">
                                     @foreach ($book->authors as $author)
                                     @if ($loop->last)
-                                    <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} </a></span>
+                                    <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} </a>
                                     @else
-                                    <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a></span>
+                                    <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a>
                                     @endif
                                     @endforeach
                                 </div>
@@ -139,9 +139,9 @@
                             <div class="book-card__author">
                                 @foreach ($book->authors as $author)
                                 @if ($loop->last)
-                                <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} </a></span>
+                                <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} </a>
                                 @else
-                                <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a></span>
+                                <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a>
                                 @endif
                                 @endforeach
                             </div>
@@ -222,9 +222,9 @@
                                 <div class="book-card__author">
                                     @foreach ($book->authors as $author)
                                     @if ($loop->last)
-                                    <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} </a></span>
+                                    <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} </a>
                                     @else
-                                    <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a></span>
+                                    <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a>
                                     @endif
                                     @endforeach
                                 </div>
@@ -271,9 +271,9 @@
                             <div class="book-card__author">
                                 @foreach ($book->authors as $author)
                                 @if ($loop->last)
-                                <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} </a></span>
+                                <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} </a>
                                 @else
-                                <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a></span>
+                                <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a>
                                 @endif
                                 @endforeach
                             </div>
