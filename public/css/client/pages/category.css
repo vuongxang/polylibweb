@@ -144,15 +144,12 @@
 
 }
 .book-card__title a h3{
-    height: 3.2rem;
-    
     /* color:#343734; */
     color:var(--black-secondary-color);
-
     font-size: 1.6rem;
     line-height: 1.6rem;
     font-weight: 700;
-
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
