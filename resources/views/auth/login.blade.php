@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="icon" href="{{asset('images/logo.png')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="{{asset('css/reset.css')}}">
     <link rel="stylesheet" href="{{asset('css/base.css')}}">
     <link rel="stylesheet" href="{{asset('css/login.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="login__button center">
                         <a class="button button--google" href="{{ route('login.google') }}">
-                            <img src="{{asset('images/google-icon.svg')}}" class="login__icon-google" alt=""><span> Google</span>
+                            <img src="{{asset('images/google-icon.svg')}}" class="login__icon-google" alt=""><span> Đăng nhập bằng Google</span>
                         </a>
                     </div>
                     @if (session('message'))
