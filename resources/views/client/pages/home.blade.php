@@ -104,8 +104,18 @@
                                         @endif
                                         @endfor
                                 </div>
-                                
+                                @if(Auth::user())
+                                <div class="book-card__btn">
+                                    @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                    @else
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                    @endif
 
+                                </div>
+
+                                @endif
                         </div>
                         @endif
                         @endforeach
@@ -145,7 +155,18 @@
                                     @endif
                                     @endfor
                             </div>
-                            
+                            @if(Auth::user())
+                            <div class="book-card__btn">
+                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                @else
+                                <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                @endif
+
+                            </div>
+
+                            @endif
                     </div>
                     @endif
                     @endforeach
@@ -157,7 +178,7 @@
 
         @if (count($books) > 4)
 
-        <a class="carousel-control-prev carousel-custom-prev "  href="#newestListBook" role="button" data-slide="prev">
+        <a class="carousel-control-prev carousel-custom-prev " href="#newestListBook" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
@@ -221,8 +242,18 @@
                                         @endif
                                         @endfor
                                 </div>
-                                
+                                @if(Auth::user())
+                                <div class="book-card__btn">
+                                    @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                    @else
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                    @endif
 
+                                </div>
+
+                                @endif
                         </div>
                         @endif
                         @endforeach
@@ -262,7 +293,18 @@
                                     @endif
                                     @endfor
                             </div>
-                            
+                            @if(Auth::user())
+                            <div class="book-card__btn">
+                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                @else
+                                <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                @endif
+
+                            </div>
+
+                            @endif
                     </div>
                     @endif
                     @endforeach
@@ -296,6 +338,6 @@
 
     </div>
 
-    
+
 </main>
 @endsection

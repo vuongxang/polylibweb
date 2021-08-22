@@ -439,14 +439,18 @@ i.fas.fa-check {
     height: 40px;
     font-size: 16px;
     color: var(--white-color);
+    font-weight: 600;
     text-decoration: none;
     cursor: pointer;
     padding: 10px 20px;
+    text-shadow: 1px 1px 4px rgb(0 0 0 / 25%);
+    box-shadow: 1px 1px 4px 0 rgb(0 0 0 / 25%);
 }
 
-.btn--login:hover {
+.btn--login:hover,.btn--login:focus,.btn--login:active {
     text-decoration: none;
     color: var(--white-color);
+    box-shadow: 0 0 4px 2px rgb(234, 203, 35);
 }
 
 .dropdown-custom {
