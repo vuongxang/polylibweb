@@ -28,26 +28,32 @@
     <script>
         $(document).ready(function() {
             $('#fileUploadForm').ajaxForm({
-                    beforeSend: function () {
-                        var percentage = '0';
-                    },
-                    uploadProgress: function (event, position, total, percentComplete) {
-                        var percentage = percentComplete;
-                        $('.progress .progress-bar').css("width", percentage+'%', function() {
-                          return $(this).attr("aria-valuenow", percentage) + "%";
-                        })
-                    },
-                    complete: function (xhr) {
-                        console.log('File has uploaded');
-                    }
-                });
+                beforeSend: function() {
+                    $("#progress").css("display", "block");
+                    var percentage = '0';
+                },
+                uploadProgress: function(event, position, total, percentComplete) {
+                    var percentage = percentComplete;
+                    $('.progress .progress-bar').css("width", percentage + '%', function() {
+                        return $(this).attr("aria-valuenow", percentage) + "%";
+                    })
+                },
+                error: function(response, status, e) {
+                    alert('Oops something went.');
+                },
+                complete: function(xhr) {
+                    $("#progress-arlert").css("display", "block");
 
-            var pusher = new Pusher('{{ env("PUSHER_APP_KEY")}}', {
+                    console.log('File has uploaded');
+                }
+            });
+
+            var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
                 cluster: "ap1"
             });
             var channel = pusher.subscribe('NotificationEvent');
             channel.bind('send-message', function(data) {
-                
+
                 console.log(data)
                 console.log($('#abcccc'))
 
@@ -70,7 +76,9 @@
             $('#image_gallery').on('hide.bs.modal', function() {
                 var image_list = $('input#list_image').val();
                 if (image_list.length > 0) {
-                    if (/^[\],:{}\s]*$/.test(image_list.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                    if (/^[\],:{}\s]*$/.test(image_list.replace(/\\["\\\/bfnrtu]/g, '@').replace(
+                                /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                            .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
                         var image_gallery = $.parseJSON(image_list);
                         console.log(image_gallery);
                         var html = '';
@@ -81,7 +89,8 @@
                         console.log(html);
                         $('.img-gallery').html(html);
                     } else {
-                        html = `<img src="${image_list}" id="show_list_image" width="50" class="img-thumbnail">`;
+                        html =
+                            `<img src="${image_list}" id="show_list_image" width="50" class="img-thumbnail">`;
                         $('.img-gallery').html(html);
                     }
                 }
@@ -91,7 +100,9 @@
             $('#audio_gallery').on('hide.bs.modal', function() {
                 var audio_list = $('input#list_audio').val();
                 if (audio_list.length) {
-                    if (/^[\],:{}\s]*$/.test(audio_list.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                    if (/^[\],:{}\s]*$/.test(audio_list.replace(/\\["\\\/bfnrtu]/g, '@').replace(
+                                /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                            .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
                         var audio_gallery = $.parseJSON(audio_list);
                         var html = '';
                         audio_gallery.forEach((item, index) => {
@@ -273,22 +284,22 @@
             //         console.log(data.authors.data);
             //         let result = data.authors.data.map(item =>{
             //             return `
-            //             <tr>
-            //                 <td>${item.id}</td>
-            //                 <td>${item.name}</td>
-            //                 <td>
-            //                     <img src="${item.avatar}" alt="" width="50">
-            //                 </td>
-            //                 <td>
-            //                     ${item.date_birth}
-            //                 </td>
-            //                 <td>
-            //                     <div class="text-center">
-            //                         
-            //                     </div>
-            //                 </td>
-            //             </tr>
-            //             `
+        //             <tr>
+        //                 <td>${item.id}</td>
+        //                 <td>${item.name}</td>
+        //                 <td>
+        //                     <img src="${item.avatar}" alt="" width="50">
+        //                 </td>
+        //                 <td>
+        //                     ${item.date_birth}
+        //                 </td>
+        //                 <td>
+        //                     <div class="text-center">
+        //                         
+        //                     </div>
+        //                 </td>
+        //             </tr>
+        //             `
             //         }).join("");
             //         $('#table-body').html(result);
             //     }
@@ -296,9 +307,6 @@
 
 
 
-            
+
         })
-
-
-        
     </script>

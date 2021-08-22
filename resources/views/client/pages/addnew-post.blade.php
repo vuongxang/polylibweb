@@ -12,7 +12,7 @@
             @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="" method="post" id="postForm" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <input id="my-input" class="form-control" type="text" name="title" placeholder="tiêu đề">
@@ -20,11 +20,9 @@
 
                 <div class="form-group">
                     <label for="thumbnail">Chọn ảnh đại diện bài viết</label>
-                    <i class="fas fa-camera-retro "></i>
-                    <input id="thumbnail" class="btn btn-primary" type="file" name="thumbnail">
+                    <input id="thumbnail" type="file" name="thumbnail">
                     <br>
                 </div>
-
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
                     <br>
@@ -68,6 +66,14 @@
                     <a href="{{route('cate.index')}}" class="btn btn-danger btn-sm shadow">Hủy</a>
                 </div>
             </form>
+            <div class="mt-4" id="progress" style="display: none">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0"
+                        aria-valuemax="100" style="">
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-success text-center" id="progress-arlert" style="display: none">Thêm sách thành công !</div>
         </div>
     </div>
 </div>
