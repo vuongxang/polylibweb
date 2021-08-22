@@ -1,173 +1,25 @@
 :root {
     --white-color: #fff;
-    
     --black-color: #000;
-    --black-secondary-color:#1d1d1d;
-    --black-primary-color:#322651;
-
+    --black-secondary-color: #1d1d1d;
+    --black-primary-color: #322651;
     --text-color: #333;
     --text-color2: #eee;
     --text-color3: #676767;
-
     --base-color: rgb(66, 91, 168);
     --base-color2: #EAAB23;
-}
-
-
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-
-
-/* HTML5 display-role reset for older browsers */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-    display: block;
-}
-
-body {
-    line-height: 1;
-}
-
-ol,
-ul {
-    list-style: none;
-}
-
-blockquote,
-q {
-    quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-    content: '';
-    content: none;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-* {
-    box-sizing: inherit;
-    margin: 0;
-        padding: 0;
-}
-
-html {
-    font-size: 62.5%;
-    line-height: 1.6rem;
-    font-family: 'Nunito', sans-serif;
-    box-sizing: border-box;
 }
 
 @font-face {
     font-family: Nunito;
     src: url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+    src: url('webfont.eot');
+    /* IE9 Compat Modes */
+    src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('webfont.svg#svgFontName') format('svg');
+}
+body{
+    font-family: Nunito;
 }
 
 .grid-custom {
@@ -226,7 +78,6 @@ html {
     height: 17px;
 }
 
-
 /* Danh sách sách không nền */
 
 .book-list {
@@ -258,7 +109,7 @@ html {
 }
 
 .book-item {
-    width:100%;
+    width: 100%;
     margin: 0px;
 }
 
@@ -344,11 +195,9 @@ html {
     color: var(--text-color);
 }
 
-.book-detail-content__header-star,
-.book-star {
+.book-detail-content__header-star, .book-star {
     color: var(--base-color2);
 }
-
 
 /* Nút */
 
@@ -360,30 +209,30 @@ html {
     border: none;
     text-decoration: none;
 }
-.button:hover{
+
+.button:hover {
     text-decoration: none;
-    
 }
 
-.button__outline-lg{
-  border-radius: 1rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  border:1px solid currentColor;
-  background-color: var(--text-color2);
-  color:var(--base-color);
-  box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.25);
+.button__outline-lg {
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border: 1px solid currentColor;
+    background-color: var(--text-color2);
+    color: var(--base-color);
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.25);
 }
-.button__background-lg{
+
+.button__background-lg {
     border-radius: 1rem;
     font-size: 1.4rem;
     font-weight: 600;
-    border:1px solid var(--base-color);
+    border: 1px solid var(--base-color);
     background-color: var(--base-color);
-    color:var(--text-color2);
+    color: var(--text-color2);
     box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.25);
 }
-
 
 .carousel-btn-custom {
     margin-top: -100px;
@@ -413,7 +262,7 @@ html {
         transform: translateY(-10%);
         opacity: 0;
     }
-    to{
+    to {
         transform: translateY(0);
         opacity: 1;
     }

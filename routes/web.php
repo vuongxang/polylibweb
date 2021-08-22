@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostShareCategoryController;
 use App\Http\Controllers\PostShareController;
@@ -28,13 +29,12 @@ use App\Http\Controllers\SearchController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-// Route::get('/home', [HomeController::class, 'index']);
 
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
     Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
     Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->name('author.detail');
-    Route::get('/read-online/{id}', [BookController::class, 'readingBook'])->name('book.read');
+    Route::get('/read/{id}', [BookController::class, 'readingBook'])->name('book.read');
     Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
     Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
     Route::get('/search', [SearchController::class, 'search'])->name('search');
@@ -48,6 +48,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/delete-post/{slug}', [PostShareController::class, 'destroy'])->name('post.destroy');
 });
 Route::get('contact', [ContactController::class, 'contact'])->name('contact');
+Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
 
 
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
@@ -107,6 +108,9 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     });
     Route::prefix('post-share')->group(function () {
         Route::get('/', [PostShareController::class, 'index'])->name('post.index');
+        Route::get('post-share-approv/{id}', [PostShareController::class, 'postApprov'])->name('post.approv');
+        Route::get('post-share-refuse/{id}', [PostShareController::class, 'postRefuse'])->name('post.refuse');
+
         // Route::get('add-cate', [PostShareCategoryController::class, 'create'])->name('postCate.create');
         // Route::post('add-cate', [PostShareCategoryController::class, 'store'])->name('postCate.store');
         // Route::get('remove/{id}', [PostShareCategoryController::class, 'destroy'])->name('postCate.destroy');

@@ -29,13 +29,15 @@
                         <a href="{{ route('filemanager') }}" class="btn btn-danger btn-sm shadow">Hủy</a>
                     </div>
                 </form>
-                <div class="form-group" id="process">
+                
+                <div class="form-group" id="progress" style="display: none">
                     <div class="progress">
                         <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0"
                             aria-valuemax="100" style="">
                         </div>
                     </div>
                 </div>
+                <div class="alert alert-success text-center" id="progress-arlert" style="display: none">Upload successfully !</div>
             </div>
         </div>
     </div>

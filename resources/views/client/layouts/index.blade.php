@@ -40,12 +40,34 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
         @yield('script')
 
         <script src="https://cdn.tiny.cloud/1/hmuw3s2zqh2hz2ctu3t8rxpvxh61d6ci6pkldvwxndprwi2a/tinymce/5/tinymce.min.js"
                 referrerpolicy="origin"></script>
         <script>
             $(document).ready(function() {
+                $('#postForm').ajaxForm({
+                    beforeSend: function() {
+                        $("#progress").css("display", "block");
+                        var percentage = '0';
+                    },
+                    uploadProgress: function(event, position, total, percentComplete) {
+                        var percentage = percentComplete;
+                        $('.progress .progress-bar').css("width", percentage + '%', function() {
+                            return $(this).attr("aria-valuenow", percentage) + "%";
+                        })
+                    },
+                    error: function(response, status, e) {
+                        alert('Oops something went.');
+                    },
+                    complete: function(xhr) {
+                        $("#progress").css("display", "block");
+                        // $("#progress-arlert").css("display", "block");
+                        console.log('File has uploaded');
+                    }
+                });
+
                 $('#addStar').change('.star', function(e) {
                     $(this).submit();
                 });
@@ -135,9 +157,9 @@
             function addfaqs() {
                 html = '<tr id="faqs-row' + faqs_row + '">';
                 html += '<td><input type="text" class="form-control" name="file_title[]" placeholder="tên file"></td>';
-                html += '<td><input type="file" name="file[]"></td>';
+                html += '<td><input type="file" name="file_upload[]"></td>';
                 // html += '<td class="text-danger mt-10"> 18.76% <i class="fa fa-arrow-down"></i></td>';
-                html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#faqs-row' + faqs_row +
+                html += '<td class="mt-10"><button class="badge badge-danger bg-danger" onclick="$(\'#faqs-row' + faqs_row +
                     '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
                 html += '</tr>';
@@ -149,5 +171,4 @@
 
         </script>
 </body>
-
 </html>
