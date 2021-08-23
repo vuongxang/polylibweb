@@ -41,12 +41,12 @@
                             <tr>
                                 <td scope="row">{{ $key + 1 }}</td>
                                 <td class="text-center">
-                                    <a href="{{route('book.detail',$order_book->book->id)}}">
+                                    <a href="{{route('book.detail',$order_book->book->slug)}}">
                                         <img src="{{ asset($order_book->book->image) }}" width="50" alt="Ảnh bìa">
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{route('book.detail',$order_book->book->id)}}" style="color:#000">
+                                    <a href="{{route('book.detail',$order_book->book->slug)}}" style="color:#000">
                                         {{ $order_book->book->title }}
                                     </a>
                                 </td>
@@ -54,7 +54,7 @@
                                 <td width="400">
                                     <a href="{{ route('deleted.book', ['id' => $order_book->id]) }}"
                                         onclick="return Deleted_at()" class="btn btn-danger">Trả sách</a>
-                                    <a href="{{route('book.read',$order_book->book_id)}}" class="btn btn-dark">Đọc
+                                    <a href="{{route('book.read',$order_book->book->slug)}}" class="btn btn-dark">Đọc
                                         sách</a>
                                     <a href="{{ route('book.review', $order_book->book_id) }}"
                                         class="btn btn-success">Phản hồi/Đánh giá</a>
@@ -88,18 +88,18 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td class="text-center">
-                                            <a href="{{route('book.detail',$deleted_order->book->id)}}">
+                                            <a href="{{route('book.detail',$deleted_order->book->slug)}}">
                                                 <img src="{{ asset($deleted_order->book->image) }}" width="50" alt="Ảnh bìa">
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{route('book.detail',$deleted_order->book->id)}}" style="color:#000">
+                                            <a href="{{route('book.detail',$deleted_order->book->slug)}}" style="color:#000">
                                                 {{ $deleted_order->book->title }}
                                             </a>
                                         <td>{{ $deleted_order->status }}</td>
                                         <td>{{ $deleted_order->deleted_at->toDateString() }}</td>
                                         <td>
-                                            <a href="{{ route('book.detail', ['id' => $deleted_order->book_id]) }}"
+                                            <a href="{{ route('book.detail', ['slug' => $deleted_order->book->slug]) }}"
                                                 class="btn btn-warning">Mượn lại</a>
                                             <a href="{{ route('book.review', $deleted_order->book_id) }}"
                                                 class="btn btn-success">Phản hồi/Đánh giá</a>

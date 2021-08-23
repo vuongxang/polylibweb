@@ -58,14 +58,14 @@
                 <div class="book-button-group">
                     @if ($ordered)
                     <div class="book-button-item">
-                        <a href="{{ route('book.read', $book->id) }}" class="button button__outline-lg button-custom">Đọc sách</a>
+                        <a href="{{ route('book.read', $book->slug) }}" class="button button__outline-lg button-custom">Đọc sách</a>
                     </div>
                     @else
                     <div class="book-button-item">
                         <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="button button__background-lg">Mượn sách</a>
                     </div>
                     <div class="book-button-item">
-                        <a href="{{ route('book.read', ['id' => $book->id]) }}" class="button button__outline-lg ">Xem
+                        <a href="{{ route('book.read', ['id' => $book->slug]) }}" class="button button__outline-lg ">Xem
                             trước</a>
                     </div>
                     @endif
@@ -108,7 +108,7 @@
                 <div class="js-book-user-comment" id="js-book-user-comment"></div>
                 <div class="comment-box__wrapper">
                     <div class="comment-box__image">
-                        <img src="{{ Auth::user()->avatar }}" alt="" id="js-user-avatar">
+                        <img src="{{ asset(Auth::user()->avatar) }}" alt="" id="js-user-avatar">
                     </div>
                     <div class="comment-box__content">
                         <form action="{{ route('comments.store') }}" method="post">
@@ -191,12 +191,12 @@
                                 @if ($loop->index < 4) 
                                 <div class="book-card ">
                                     <div class="book-card__img">
-                                        <a href="{{ route('book.detail', $book->id) }}">
-                                            <img src="{{ $book->image }}" alt=""/>
+                                        <a href="{{ route('book.detail', $book->slug) }}">
+                                            <img src="{{ asset($book->image) }}" alt=""/>
                                         </a>
                                     </div>
                                     <div class="book-card__title">
-                                        <a href="{{ route('book.detail', $book->id) }}">
+                                        <a href="{{ route('book.detail', $book->slug) }}">
                                             <h3> {{ $book->title }} </h3>
                                         </a>
                                     </div>
@@ -220,10 +220,10 @@
                                     </div>
                                     <div class="book-card__btn">
                                         @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                            <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                         @else
                                             <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                            <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
                                         @endif
 
                                     </div>
@@ -244,7 +244,7 @@
                                         <div class="book-card ">
                                             <div class="book-card__img">
                                                 <a href="{{ route('book.detail', $book->id) }}">
-                                                    <img src="{{ $book->image }}" alt="" />
+                                                    <img src="{{ asset($book->image) }}" alt="" />
                                                 </a>
                                             </div>
                                             <div class="book-card__title">
@@ -272,10 +272,10 @@
                                             </div>
                                             <div class="book-card__btn">
                                                 @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                                 @else
                                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
                                                 @endif
                                             </div>
                                         </div>

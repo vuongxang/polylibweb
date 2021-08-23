@@ -23,7 +23,7 @@
         <div class="topbar-item grid-custom">
 
             <div class="topbar__back">
-                <a href="{{route('book.detail', ['id' => $book->id])}}"><i class="fas fa-reply"></i></a>
+                <a href="{{route('book.detail', ['slug' => $book->slug])}}"><i class="fas fa-reply"></i></a>
             </div>
             <div class="topbar__title">
                 <h2>{{$book->title}}</h2>

@@ -2,7 +2,7 @@
     @if ($comment->parent_id == null )
         <div class="book-user-comment">
             <div class="comment-box__image">
-                <img src="{{ $comment->user->avatar }}" alt="">
+                <img src="{{ asset($comment->user->avatar) }}" alt="">
             </div>
             <div class="book-user-comment__body js-comment-body">
                 <div class="book-user-comment__heading">
@@ -20,7 +20,7 @@
 
                         <div class="book-user-comment">
                             <div class="comment-box__image">
-                                <img src="{{ $commentChild->user->avatar }}" alt="">
+                                <img src="{{ asset($commentChild->user->avatar) }}" alt="">
                             </div>
                             <div class="book-user-comment__body">
                                 <div class="book-user-comment__heading">
@@ -39,7 +39,7 @@
                 @endforeach
                 <div class="comment-box__wrapper comment-box__hidden">
                     <div class="comment-box__image">
-                        <img src="{{ Auth::user()->avatar }}" alt="">
+                        <img src="{{ asset(Auth::user()->avatar) }}" alt="">
                     </div>
                     <div class="comment-box__content">
                         <form action="{{ route('comments.store') }}" method="post">

@@ -31,10 +31,9 @@ use App\Http\Controllers\SearchController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('/')->middleware('auth')->group(function () {
-    Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
-    Route::get('/book-detail/{id}', [BookController::class, 'bookDetail'])->name('book.detail');
+    Route::get('/book-detail/{slug}', [BookController::class, 'bookDetail'])->name('book.detail');
     Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->name('author.detail');
-    Route::get('/read/{id}', [BookController::class, 'readingBook'])->name('book.read');
+    Route::get('/read/{slug}', [BookController::class, 'readingBook'])->name('book.read');
     Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
     Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
     Route::get('/search', [SearchController::class, 'search'])->name('search');

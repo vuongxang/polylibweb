@@ -60,12 +60,12 @@
                 @foreach($cate->books as $book)
                 <div class="book-card ">
                     <div class="book-card__img">
-                        <a href="{{route('book.detail',$book->id)}}">
+                        <a href="{{route('book.detail',$book->slug)}}">
                             <img src="{{$book->image}}" alt="">
                         </a>
                     </div>
                     <div class="book-card__title">
-                        <a href="{{route('book.detail',$book->id)}}">
+                        <a href="{{route('book.detail',$book->slug)}}">
                             <h3> {{$book->title}} </h3>
                         </a>
                     </div>
@@ -103,12 +103,12 @@
                 @foreach($books as $book)
                 <div class="book-card ">
                     <div class="book-card__img">
-                        <a href="{{route('book.detail',$book->id)}}">
+                        <a href="{{route('book.detail',$book->slug)}}">
                             <img src="{{$book->image}}" alt="">
                         </a>
                     </div>
                     <div class="book-card__title">
-                        <a href="{{route('book.detail',$book->id)}}">
+                        <a href="{{route('book.detail',$book->slug)}}">
                             <h3> {{$book->title}} </h3>
                         </a>
                     </div>

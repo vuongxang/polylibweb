@@ -247,12 +247,12 @@ class BookController extends Controller
         }
     }
 
-    public  function bookDetail($id)
+    public  function bookDetail($slug)
     {
 
         Carbon::setLocale('vi');
 
-        $book = Book::find($id);
+        $book = Book::where('slug',$slug)->first();
         if (!$book) return redirect(route('home'));
         $book->load('categories');
         $book->load('authors');
@@ -269,16 +269,16 @@ class BookController extends Controller
         }
         $sameBooksUnique = array_unique($sameBooks);
 
-        $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
+        $ordered = Order::where('book_id', $book->id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
-        $comments = Comment::where('book_id', $id)->where('parent_id', Null)->get();
-        $rates = Rating::where('rateable_id', $id)->where('status', 1)->get();
+        $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->get();
+        $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->get();
         $rates->load('user');
 
         $arr = [19, 15, 14];
 
 
-        $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
+        $avg_rating = DB::table('ratings')->where('rateable_id', $book->id)->avg('rating');
 
         return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique, 'comments' => $comments]);
     }
@@ -331,16 +331,19 @@ class BookController extends Controller
         return redirect(route('user.history', Auth::user()->id))->with('message', 'Gửi đánh giá thành công !');
     }
 
-    public function readingBook($id)
+    public function readingBook($slug)
     {
-        $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
+        $book = Book::where('slug','=',$slug)->first();
+
+        if(! $book) return back()->with('message', 'Dữ liệu không tồn tại !');
+        $ordered = Order::where('book_id', $book->id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
 
         if (!$ordered) return redirect()->back(); //Check xem đã mượn sách chưa nếu chưa thì không cho truy cập
 
-        $book = Book::find($id);
+
         if ($book) {
-            $pages = BookGallery::where('book_id', '=', $book->id)->orderBy('id', 'desc')->get();
+            $pages = BookGallery::where('book_id', '=', $book->id)->orderBy('url', 'ASC')->get();
             return view('client.pages.reading-book', ['pages' => $pages], ['book' => $book]);
         } else {
             return abort(404);
