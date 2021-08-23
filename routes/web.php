@@ -44,6 +44,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/category-postshare', [PostShareController::class, 'all'])->name('post.categories');
     Route::get('/add-post', [PostShareController::class, 'create'])->name('post.create');
     Route::post('/add-post', [PostShareController::class, 'store'])->name('post.store');
+    Route::get('/edit-post/{id}', [PostShareController::class, 'edit'])->name('post.edit');
     Route::get('/post-detail/{slug}', [PostShareController::class, 'detail'])->name('post.detail');
     Route::get('/delete-post/{slug}', [PostShareController::class, 'destroy'])->name('post.destroy');
 });
@@ -111,17 +112,6 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('post-share-approv/{id}', [PostShareController::class, 'postApprov'])->name('post.approv');
         Route::get('post-share-refuse/{id}', [PostShareController::class, 'postRefuse'])->name('post.refuse');
 
-        // Route::get('add-cate', [PostShareCategoryController::class, 'create'])->name('postCate.create');
-        // Route::post('add-cate', [PostShareCategoryController::class, 'store'])->name('postCate.store');
-        // Route::get('remove/{id}', [PostShareCategoryController::class, 'destroy'])->name('postCate.destroy');
-        // Route::get('edit/{id}', [PostShareCategoryController::class, 'edit'])->name('postCate.edit');
-        // Route::post('edit/{id}', [PostShareCategoryController::class, 'update'])->name('postCate.update');
-
-        // Route::get('changeStatus', [PostShareCategoryController::class, 'changeStatus']);
-        // Route::get('trash-list', [PostShareCategoryController::class, 'trashList'])->name('postCate.trashlist');
-        // Route::get('restore/{id}', [PostShareCategoryController::class, 'restore'])->name('postCate.restore');
-        // Route::get('force-delete/{id}', [PostShareCategoryController::class, 'forceDelete'])->name('postCate.forcedelete');
-        // Route::get('changePageSize', [PostShareCategoryController::class, 'changePageSize']);
     });
     Route::prefix('book')->group(function () {
         Route::get('/', [BookController::class, 'index'])->name('book.index');

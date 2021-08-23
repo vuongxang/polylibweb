@@ -58,7 +58,7 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="{{route('post.detail',$post->slug)}}" class="fa fa-eye text-warning p-1 btn-action"></a>
-                                    <a href="" class="fa fa-edit text-success p-1 btn-action"></a>
+                                    <a href="{{route('post.edit',$post->id)}}" class="fa fa-edit text-success p-1 btn-action"></a>
                                     <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('post.destroy',$post->id)}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
                                 </td>
                             </tr>

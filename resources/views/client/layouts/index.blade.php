@@ -39,7 +39,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
         @yield('script')
 
@@ -73,12 +72,6 @@
                 });
                 $("#myBtn").click(function() {
                     $('.toast').toast('show');
-                });
-                var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                removeItemButton: true,
-                maxItemCount:5,
-                searchResultLimit:5,
-                renderChoiceLimit:5
                 });
 
             });

@@ -52,9 +52,13 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     <a href="">
+                                                        @if ($post->user)
                                                         <img src="{{ asset($post->user->avatar) }}"
                                                             class="rounded-circle shadow" alt="" width="30">
                                                         {{ $post->user->name }}
+                                                        @else
+                                                        Tài khoản đã bị khóa
+                                                        @endif
                                                     </a>
                                                 </td>
                                                 <td>{{ $post->title }}</td>

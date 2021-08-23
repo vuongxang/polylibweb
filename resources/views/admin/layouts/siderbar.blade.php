@@ -142,11 +142,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
             aria-expanded="true" aria-controls="collapseFour">
             <i class="fas fa-fw fa-comments"></i>
-<<<<<<< Updated upstream
             <span>Bình luận - Đánh giá</span>
-=======
-            <span>Bình luận-Đánh giá</span>
->>>>>>> Stashed changes
         </a>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -156,7 +152,7 @@
         </div>
     </li>
     <hr class="sidebar-divider">
-    <div class="sidebar-heading">
+    <div class="sidebar-heading"> 
         Thống kê
     </div>
     <li class="nav-item">

@@ -117,6 +117,16 @@ class PostShareController extends Controller
         return redirect(route('user.myPost',$model->user_id))->with('message','Tạo mới thành công');
     }
 
+    public function edit($id){
+        $model = PostShare::find($id);
+        if(!$model) return redirect(route('user.myPost',Auth::user()->id));
+        if(Auth::user()->id != $model->user_id) return redirect(route('user.myPost',Auth::user()->id));
+
+        $model->load('user','cates','postFiles');
+
+        $cates = PostShareCategory::all();
+        return view('client.pages.edit-post',['post'=>$model,'cates'=>$cates]);
+    }
     public function detail($slug){
         $model = PostShare::where('slug',$slug)->first();
         $cates = PostShareCategory::all();
