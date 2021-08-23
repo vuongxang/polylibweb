@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -94,6 +94,30 @@ class LoginController extends Controller
 
     public function loginForm(){
         return view('auth.admin-login');
+    }
+
+    public function adminLogin(Request $request){
+        // thực hiện validate bằng $request
+        $request->validate(
+            [
+                'email' => 'required|email',
+                'password' => 'required'
+            ],
+            [
+                'email.required' => "Hãy nhập địa chỉ email.",
+                'email.email' => "Không đúng định dạng email.",
+                'password.required' => "Hãy nhập mật khẩu."
+            ]
+        );
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            if(Auth::user()->role_id == 4 || Auth::user()->role_id==3) {
+                Auth::logout();
+                return redirect(route('adminLoginForm'))->with('error', "Bạn không có quyền truy cập.");
+            };
+            return redirect(route('dashboard'));
+        }
+
+        return redirect()->back()->with('error', "Sai thông tin đăng nhập");
     }
 
 }

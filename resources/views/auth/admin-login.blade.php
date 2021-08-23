@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="login-form col-6 offset-3">
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="">
                     @csrf
                     <div class="text-center">
                         <a href="" aria-label="Space">

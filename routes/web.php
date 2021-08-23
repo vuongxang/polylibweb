@@ -187,6 +187,7 @@ Auth::routes([
 ]);
 
 Route::get('admin-login', [App\Http\Controllers\Auth\LoginController::class, 'loginForm'])->name('adminLoginForm');
+Route::post('admin-login', [App\Http\Controllers\Auth\LoginController::class, 'adminLogin'])->name('adminLogin');
 
 Route::get('login/google', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
