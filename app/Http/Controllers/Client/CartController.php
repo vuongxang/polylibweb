@@ -27,20 +27,29 @@ class CartController extends Controller
     }
     public function getAddCart($id){
         $book = Book::find($id);
-
+        if(!$book) return back()
+                            ->with('message','sách không tồn tại !')
+                            ->with('alert','alert-danger')->with('text-alert','text-danger');
+        if($book->status==0) return back()
+                            ->with('message','Hiện bạn không thể mượn cuốn sách này !')
+                            ->with('alert','alert-danger')->with('text-alert','text-danger');
         $book_order = Order::where('id_user',Auth::user()->id)->get();
+        $is_ordered = Order::where('id_user',Auth::user()->id)->where('book_id',$id)->first();
+        if($is_ordered) return back()
+                            ->with('message','Bạn đã mượn cuốn sách này trước đó !')
+                            ->with('alert','alert-danger')->with('text-alert','text-danger');
 
         if(Auth::user()->role_id==4){
-            if(count($book_order)>=5) return back()
-                                ->with('thongbao','Bạn chỉ được mượn tối đa 5 quyển sách')
+            if(count($book_order)>=10) return back()
+                                ->with('message','Bạn chỉ được mượn tối đa 10 quyển sách')
                                 ->with('alert','alert-danger')->with('text-alert','text-danger');
         }elseif(Auth::user()->role_id==3){
-            if(count($book_order)>=10) return back()
-                                ->with('thongbao','Bạn chỉ được mượn tối đa 10 quyển sách')
+            if(count($book_order)>=20) return back()
+                                ->with('message','Bạn chỉ được mượn tối đa 20 quyển sách')
                                 ->with('alert','alert-danger')->with('text-alert','text-danger');
         }else{
-            if(count($book_order)>=5) return back()
-                                ->with('thongbao','Bạn chỉ được mượn tối đa 5 quyển sách')
+            if(count($book_order)>=10) return back()
+                                ->with('message','Bạn chỉ được mượn tối đa 10 quyển sách')
                                 ->with('alert','alert-danger')->with('text-alert','text-danger');
         }
 
@@ -81,7 +90,7 @@ class CartController extends Controller
         }
 
         Session::forget('cart');
-        return back()->with('thongbao','Mượn sách thành công')->with('alert','alert-success')
+        return back()->with('message','Mượn sách thành công')->with('alert','alert-success')
                         ->with('text-alert','text-success');
     }
     public function deleted_book($id){

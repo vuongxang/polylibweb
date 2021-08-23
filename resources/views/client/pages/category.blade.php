@@ -37,6 +37,13 @@
             </div>
         </div>
         <div class="col-md-9 book-category__content">
+            @if (session('message'))
+                <div class="alert @if (session('alert')) {{ session('alert') }} @endif text-center">
+                    <h1 class="@if (session('text-alert')) {{ session('text-alert') }} @endif" style="font-size: 20pt; font-weight:700">
+                        {{ session('message') }}
+                    </h1>
+                </div>
+            @endif
             @if(isset($catee) )
             @foreach($catee as $cate)
 

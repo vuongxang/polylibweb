@@ -51,9 +51,8 @@ Route::prefix('/')->middleware('auth')->group(function () {
 Route::get('contact', [ContactController::class, 'contact'])->name('contact');
 Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
 
-
-Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
+Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
 
 Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
@@ -153,7 +152,7 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
     });
 
-    Route::prefix('profile')->group(function () {
+    Route::prefix('profile')->middleware('auth')->group(function () {
         Route::get('my-profile/{id}', [UserController::class, 'profile'])->name('user.profile');
         Route::post('my-profile/{id}', [UserController::class, 'updateProfile'])->name('user.profile');
     });

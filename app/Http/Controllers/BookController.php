@@ -325,7 +325,7 @@ class BookController extends Controller
         $rating->rating = $request->rate;
         $rating->user_id = auth()->user()->id;
         $rating->body = $body;
-        $rating->status = 1;
+        $rating->status = 0;
         $book->ratings()->save($rating);
 
         return redirect(route('user.history', Auth::user()->id))->with('message', 'Gửi đánh giá thành công !');

@@ -42,7 +42,7 @@
                                 <td scope="row">{{ $key + 1 }}</td>
                                 <td class="text-center">
                                     <a href="{{route('book.detail',$order_book->book->id)}}">
-                                        <img src="{{ $order_book->book->image }}" width="50" alt="Ảnh bìa">
+                                        <img src="{{ asset($order_book->book->image) }}" width="50" alt="Ảnh bìa">
                                     </a>
                                 </td>
                                 <td>
@@ -89,7 +89,7 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td class="text-center">
                                             <a href="{{route('book.detail',$deleted_order->book->id)}}">
-                                                <img src="{{ $deleted_order->book->image }}" width="50" alt="Ảnh bìa">
+                                                <img src="{{ asset($deleted_order->book->image) }}" width="50" alt="Ảnh bìa">
                                             </a>
                                         </td>
                                         <td>

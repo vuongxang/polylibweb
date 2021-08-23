@@ -6,24 +6,20 @@
 
 @section('content')
 
-@if (session('thongbao'))
-{{-- <script>
-    alert("{{ session('thongbao') }}")
-</script> --}}
-<div class="alert @if (session('alert')) {{ session('alert') }} @endif text-center">
-    <h1 class="@if (session('text-alert')) {{ session('text-alert') }} @endif" style="font-size: 20pt; font-weight:700">
-        {{ session('thongbao') }}
-    </h1>
-</div>
+@if (session('message'))
+    <div class="alert @if (session('alert')) {{ session('alert') }} @endif text-center">
+        <h1 class="@if (session('text-alert')) {{ session('text-alert') }} @endif" style="font-size: 20pt; font-weight:700">
+            {{ session('message') }}
+        </h1>
+    </div>
 @endif
-
 
 <div class="container">
     <div class="book-detail-content row">
 
         <div class="col-md-4 book-cover">
             <div class="book-cover__wrapper">
-                <img src="{{ $book->image }}" class="book-cover__image" alt="">
+                <img src="{{ asset($book->image )}}" class="book-cover__image" alt="">
             </div>
         </div>
 
