@@ -108,7 +108,7 @@
                 </div>
                 <div class="modal-body">
                     @foreach ($book->bookGalleries as $gallery)
-                    <img src="{{asset($gallery->url)}}" alt="" class="img-thumnail" width="100">
+                        <img src="{{asset($gallery->url)}}" alt="" class="img-thumnail" width="100">
                     @endforeach
                 </div>
                 <div class="modal-footer">

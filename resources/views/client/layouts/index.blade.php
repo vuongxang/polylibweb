@@ -46,26 +46,26 @@
                 referrerpolicy="origin"></script>
         <script>
             $(document).ready(function() {
-                $('#postForm').ajaxForm({
-                    beforeSend: function() {
-                        $("#progress").css("display", "block");
-                        var percentage = '0';
-                    },
-                    uploadProgress: function(event, position, total, percentComplete) {
-                        var percentage = percentComplete;
-                        $('.progress .progress-bar').css("width", percentage + '%', function() {
-                            return $(this).attr("aria-valuenow", percentage) + "%";
-                        })
-                    },
-                    error: function(response, status, e) {
-                        alert('Oops something went.');
-                    },
-                    complete: function(xhr) {
-                        $("#progress").css("display", "block");
-                        // $("#progress-arlert").css("display", "block");
-                        console.log('File has uploaded');
-                    }
-                });
+                // $('#postForm').ajaxForm({
+                //     beforeSend: function() {
+                //         $("#progress").css("display", "block");
+                //         var percentage = '0';
+                //     },
+                //     uploadProgress: function(event, position, total, percentComplete) {
+                //         var percentage = percentComplete;
+                //         $('.progress .progress-bar').css("width", percentage + '%', function() {
+                //             return $(this).attr("aria-valuenow", percentage) + "%";
+                //         })
+                //     },
+                //     error: function(response, status, e) {
+                //         alert('Oops something went.');
+                //     },
+                //     complete: function(xhr) {
+                //         $("#progress").css("display", "block");
+                //         // $("#progress-arlert").css("display", "block");
+                //         console.log('File has uploaded');
+                //     }
+                // });
 
                 $('#addStar').change('.star', function(e) {
                     $(this).submit();

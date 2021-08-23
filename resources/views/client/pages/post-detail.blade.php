@@ -11,6 +11,7 @@
         <div class="col-md-9 book-category__content">
             <span>Đăng lúc {{$post->created_at}}</span> <span id="viewNumber">Lượt xem: {{$totalViews}}</span>
             <h2>Tiêu đề: {{$post->title}}</h2>
+            <img src="{{asset($post->thumbnail)}}" alt="" width="100%">
             <div>
                 Nội dung: 
                 {!!$post->content!!}

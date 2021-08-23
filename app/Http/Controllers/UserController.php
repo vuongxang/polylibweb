@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Book;
+use App\Models\PostShare;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -120,7 +122,15 @@ class UserController extends Controller
             if ($value->id == $id)     $notification = $value;
         }
         $notification->markAsRead();
-        return redirect(route('book.detail', $notification->data['book_id']));
+        // dd($notification->data);
+        if(isset($notification->data['book_id'])){
+            $book = Book::find($notification->data['book_id']);
+            return redirect(route('book.detail', $book->slug));
+        }
+        if(isset($notification->data['post_id'])){
+            $post = PostShare::find($notification->data['post_id']);
+            return redirect(route('post.detail', $post->slug));
+        }
     }
 
     public function notifications()
