@@ -65,7 +65,7 @@
                         <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="button button__background-lg">Mượn sách</a>
                     </div>
                     <div class="book-button-item">
-                        <a href="{{ route('book.read', ['id' => $book->slug]) }}" class="button button__outline-lg ">Xem
+                        <a href="{{ route('book.read', ['slug' => $book->slug]) }}" class="button button__outline-lg ">Xem
                             trước</a>
                     </div>
                     @endif
