@@ -51,15 +51,13 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
-                                                    <a href="">
-                                                        @if ($post->user)
-                                                        <img src="{{ asset($post->user->avatar) }}"
-                                                            class="rounded-circle shadow" alt="" width="30">
-                                                        {{ $post->user->name }}
-                                                        @else
-                                                        Tài khoản đã bị khóa
-                                                        @endif
-                                                    </a>
+                                                    @if ($post->user)
+                                                    <img src="{{ asset($post->user->avatar) }}"
+                                                        class="rounded-circle shadow" alt="" width="30">
+                                                    {{ $post->user->name }}
+                                                    @else
+                                                    <span class="text-danger">Tài khoản đã bị khóa !</span>
+                                                    @endif
                                                 </td>
                                                 <td>{{ $post->title }}</td>
                                                 <td>
@@ -69,7 +67,9 @@
                                                     {{ date_format($post->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="" class="fas fa-eye text-warning p-1 btn-action"></a>
+                                                    <a class="fas fa-eye text-warning p-1 btn-action" data-toggle="modal" data-target="#detail-{{$post->id}}">
+                                                    </a>
+                                                    {{-- <a href="" class="fas fa-eye text-warning p-1 btn-action"></a> --}}
                                                     <a onclick="return confirm('Bạn chắc chắn muốn tắt bài viết này?')"
                                                         href="{{route('post.refuse',$post->id)}}" class="fas fa-power-off text-danger p-1 btn-action"></a>
                                                 </td>
@@ -188,5 +188,26 @@
         </div>
     </div>
 
-
+    {{-- Modal --}}
+    @foreach ($posts as $post)
+    <div class="modal fade" id="detail-{{$post->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">{{$post->title}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="http://localhost:8000/post-detail/{{$post->slug}}" frameborder="0" width="100%" height="500px"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-primary">Understood</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
 @endsection
