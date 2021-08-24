@@ -61,6 +61,13 @@
             <span class="sr-only ">Sau</span>
         </a>
     </div>
+    @if (session('message'))
+        <div class="alert @if (session('alert')) {{ session('alert') }} @endif text-center">
+            <h1 class="@if (session('text-alert')) {{ session('text-alert') }} @endif" style="font-size: 20pt; font-weight:700">
+                {{ session('message') }}
+            </h1>
+        </div>
+    @endif
     <div class="book-carouse">
         <div class="book-carouse__header">
             <div class="carouse-header__title">Sách mới nhất</div>
@@ -78,12 +85,12 @@
                             @foreach ($books as $book)
                             @if ($loop->index < 4) <div class="book-card ">
                                 <div class="book-card__img">
-                                    <a href="{{ route('book.detail', $book->id) }}">
-                                        <img src="{{ $book->image }}" alt="" />
+                                    <a href="{{ route('book.detail', $book->slug) }}">
+                                        <img src="{{ asset($book->image) }}" alt="" />
                                     </a>
                                 </div>
                                 <div class="book-card__title">
-                                    <a href="{{ route('book.detail', $book->id) }}">
+                                    <a href="{{ route('book.detail', $book->slug) }}">
                                         <h3> {{ $book->title }} </h3>
                                     </a>
                                 </div>
@@ -129,12 +136,12 @@
                         @foreach ($books as $book)
                         @if ($loop->index >= 4 && $loop->index < 8) <div class="book-card ">
                             <div class="book-card__img">
-                                <a href="{{ route('book.detail', $book->id) }}">
+                                <a href="{{ route('book.detail', $book->slug) }}">
                                     <img src="{{ $book->image }}" alt="" />
                                 </a>
                             </div>
                             <div class="book-card__title">
-                                <a href="{{ route('book.detail', $book->id) }}">
+                                <a href="{{ route('book.detail', $book->slug) }}">
                                     <h3> {{ $book->title }} </h3>
                                 </a>
                             </div>
@@ -158,10 +165,10 @@
                             @if(Auth::user())
                             <div class="book-card__btn">
                                 @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                 @else
                                 <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
                                 @endif
 
                             </div>
@@ -216,12 +223,12 @@
                             @foreach ($books as $book)
                             @if ($loop->index < 4) <div class="book-card ">
                                 <div class="book-card__img">
-                                    <a href="{{ route('book.detail', $book->id) }}">
+                                    <a href="{{ route('book.detail', $book->slug) }}">
                                         <img src="{{ $book->image }}" alt="" />
                                     </a>
                                 </div>
                                 <div class="book-card__title">
-                                    <a href="{{ route('book.detail', $book->id) }}">
+                                    <a href="{{ route('book.detail', $book->slug) }}">
                                         <h3> {{ $book->title }} </h3>
                                     </a>
                                 </div>
@@ -245,10 +252,10 @@
                                 @if(Auth::user())
                                 <div class="book-card__btn">
                                     @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                     @else
                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
                                     @endif
 
                                 </div>
@@ -267,12 +274,12 @@
                         @foreach ($books as $book)
                         @if ($loop->index >= 4 && $loop->index < 8) <div class="book-card ">
                             <div class="book-card__img">
-                                <a href="{{ route('book.detail', $book->id) }}">
+                                <a href="{{ route('book.detail', $book->slug) }}">
                                     <img src="{{ $book->image }}" alt="" />
                                 </a>
                             </div>
                             <div class="book-card__title">
-                                <a href="{{ route('book.detail', $book->id) }}">
+                                <a href="{{ route('book.detail', $book->slug) }}">
                                     <h3> {{ $book->title }} </h3>
                                 </a>
                             </div>

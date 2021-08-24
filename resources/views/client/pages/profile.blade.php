@@ -16,17 +16,14 @@
             {{ session('message') }}
         </div>
         @endif
-        <form action="{{route('user.profile',Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('infomation.edit',Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="profile-img__wrapper">
                 <div class="profile-img-item">
-                    <img src="{{Auth::user()->avatar}}" alt="">
+                    <img src="{{asset(Auth::user()->avatar)}}" alt="">
                 </div>
                 <div class="profile-img-upload">
-
-
                     <input type="file" id="actual-btn" hidden name="avatar" />
-
                     <label for="actual-btn" id="actual-label">
                         <i class="fa fa-fw fa-camera"></i>
                         <span>Thay ảnh đại diện</span>

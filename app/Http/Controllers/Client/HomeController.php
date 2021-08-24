@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\User;
@@ -50,6 +51,12 @@ class HomeController extends Controller
     public function edit_infomation(Request $request, $id)
     {
         $infomation = User::find($id);
+        if($request->hasFile('avatar')){
+            $fileName = uniqid().'_'.$request->file('avatar')->getClientOriginalName();
+            $filePath = $request->file('avatar')->storeAs('uploads', $fileName, 'public');
+            $infomation->avatar = 'storage/'.$filePath;
+        }
+
         $infomation->phone = $request->phone;
         $infomation->birth_date = $request->birth_date;
         $infomation->gender = $request->gender;

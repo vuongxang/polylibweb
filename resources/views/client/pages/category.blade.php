@@ -37,6 +37,13 @@
             </div>
         </div>
         <div class="col-md-9 book-category__content">
+            @if (session('message'))
+                <div class="alert @if (session('alert')) {{ session('alert') }} @endif text-center">
+                    <h1 class="@if (session('text-alert')) {{ session('text-alert') }} @endif" style="font-size: 20pt; font-weight:700">
+                        {{ session('message') }}
+                    </h1>
+                </div>
+            @endif
             @if(isset($catee) )
             @foreach($catee as $cate)
 
@@ -53,12 +60,12 @@
                 @foreach($cate->books as $book)
                 <div class="book-card ">
                     <div class="book-card__img">
-                        <a href="{{route('book.detail',$book->id)}}">
+                        <a href="{{route('book.detail',$book->slug)}}">
                             <img src="{{$book->image}}" alt="">
                         </a>
                     </div>
                     <div class="book-card__title">
-                        <a href="{{route('book.detail',$book->id)}}">
+                        <a href="{{route('book.detail',$book->slug)}}">
                             <h3> {{$book->title}} </h3>
                         </a>
                     </div>
@@ -96,12 +103,12 @@
                 @foreach($books as $book)
                 <div class="book-card ">
                     <div class="book-card__img">
-                        <a href="{{route('book.detail',$book->id)}}">
+                        <a href="{{route('book.detail',$book->slug)}}">
                             <img src="{{$book->image}}" alt="">
                         </a>
                     </div>
                     <div class="book-card__title">
-                        <a href="{{route('book.detail',$book->id)}}">
+                        <a href="{{route('book.detail',$book->slug)}}">
                             <h3> {{$book->title}} </h3>
                         </a>
                     </div>

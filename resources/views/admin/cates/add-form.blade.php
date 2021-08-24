@@ -10,7 +10,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="exampleInputName" class="text-dark font-weight-bold">Tên danh mục</label>
-                    <input type="text" class="form-control" id="exampleInputName" placeholder="Tên danh mục" name="name" value="{{ old('name') }}">
+                    <input type="text" class="form-control" id="exampleInputName" placeholder="Tên danh mục" name="name" value="{{ old('name') }}" required>
                     @if ($errors->has('name'))
                         <span class="text-danger">{{$errors->first('name')}}</span>
                     @endif

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewNotificationEvent;
 use App\Models\PostShare;
 use App\Models\PostShareCategory;
 use App\Models\PostView;
+use App\Models\User;
+use App\Notifications\InvoicePaid;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +44,21 @@ class PostShareController extends Controller
     public function postApprov($id){
         $model = PostShare::find($id);
         if(!$model) return redirect(route('post.index'))->with('message', 'Dữ liệu không tồn tại !')->with('alert-class', 'alert-dangeraprov');
+        
+        $user = $model->user;
+
+        if($user){
+            $data = [
+                'avatar'    => $user->avatar,
+                'title'     => 'Bài viết được phê duyệt',
+                'content'   => "Bài viết " . $model->title . "của bạn đã được duyệt",
+                'post_id'   => $model->id
+            ];
+    
+            $user->notify(new InvoicePaid($data));
+            $newNotify = $user->notifications->sortByDesc('created_at')->first();
+            event(new NewNotificationEvent($newNotify,$user));
+        }
         $model->status = 1;
         $model->save();
         return redirect(route('post.index'))->with('message', 'Duyệt bài viết thành công !')->with('alert-class', 'alert-success');
@@ -49,6 +67,21 @@ class PostShareController extends Controller
     public function postRefuse($id){
         $model = PostShare::find($id);
         if(!$model) return redirect(route('post.index'))->with('message', 'Dữ liệu không tồn tại !')->with('alert-class', 'alert-dangeraprov');
+        
+        $user = $model->user;
+
+        if($user){
+            $data = [
+                'avatar'    => $user->avatar,
+                'title'     => 'Bài viết được bị từ chối',
+                'content'   => "Bài viết " . $model->title . "của bạn đã bị từ chối.Cập nhập lại bài viết để được phê duyệt lại",
+                'post_id'   => $model->id
+            ];
+    
+            $user->notify(new InvoicePaid($data));
+            $newNotify = $user->notifications->sortByDesc('created_at')->first();
+            event(new NewNotificationEvent($newNotify,$user));
+        }
         $model->status = 2;
         $model->save();
         return redirect(route('post.index'))->with('message', 'Bài viết đã bị từ chối duyệt !')->with('alert-class', 'alert-success');
@@ -113,10 +146,38 @@ class PostShareController extends Controller
                 DB::table('post_file_data')->insert($item);
             }
         }
+
+        //Gửi notification cho admin
+        $model->load('user');
+        $users = User::where('role_id',1)->orWhere('role_id',2)->get();
         
+        foreach ($users as $key => $user) {
+            $data = [
+                'avatar'    => $model->user->avatar,
+                'title'     => 'Bài viết mới',
+                'content'   => $model->user->name." vừa đăng một bài viết mới",
+                'post_id'   => $model->id
+            ];
+    
+            $user->notify(new InvoicePaid($data));
+            $newNotify = $user->notifications->sortByDesc('created_at')->first();
+            event(new NewNotificationEvent($newNotify,$user));
+        }
+            
+
         return redirect(route('user.myPost',$model->user_id))->with('message','Tạo mới thành công');
     }
 
+    public function edit($id){
+        $model = PostShare::find($id);
+        if(!$model) return redirect(route('user.myPost',Auth::user()->id));
+        if(Auth::user()->id != $model->user_id) return redirect(route('user.myPost',Auth::user()->id));
+
+        $model->load('user','cates','postFiles');
+
+        $cates = PostShareCategory::all();
+        return view('client.pages.edit-post',['post'=>$model,'cates'=>$cates]);
+    }
     public function detail($slug){
         $model = PostShare::where('slug',$slug)->first();
         $cates = PostShareCategory::all();

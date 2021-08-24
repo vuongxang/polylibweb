@@ -66,7 +66,7 @@
                     @endif
                     <a class="dropdown-item d-flex align-items-center notification-dropdown__link" href="/admin/comment#menu1">
                         <div class="mr-1">
-                            <img class="img-profile rounded-circle w-75" src="{{ $notification->data['avatar'] }}" alt="">
+                            <img class="img-profile rounded-circle w-75" src="{{ asset($notification->data['avatar']) }}" alt="">
                         </div>
                         <div>
                             <div class="small text-gray-700">{{ $notification->data['title'] }}</div>
@@ -150,7 +150,7 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                     {{Auth::user()->name}}
                 </span>
-                <img class="img-profile rounded-circle" src="{{Auth::user()->avatar}}">
+                <img class="img-profile rounded-circle" src="{{asset(Auth::user()->avatar)}}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

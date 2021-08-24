@@ -11,7 +11,9 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">Thêm mới</div>
-            
+                            @if(Session::has('message'))
+                                <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
+                            @endif
                             <div class="card-body">
                                 <form method="POST" action="">
                                     @csrf

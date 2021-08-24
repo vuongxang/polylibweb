@@ -141,7 +141,7 @@
         </div>
         <div>
             <a id="navbarDropdown" class="nav-link  header__information-info" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                <img src="{{Auth::user()->avatar}}" alt="">
+                <img src="{{asset(Auth::user()->avatar)}}" alt="">
                 <i class="fas fa-caret-down"></i>
             </a>
             @if (Auth::check())
