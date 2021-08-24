@@ -15,6 +15,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostShareCategoryController;
 use App\Http\Controllers\PostShareController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SearchController;
 
 /*
@@ -175,6 +176,10 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::prefix('file')->group(function () {
         Route::get('convert-file', [FileController::class, 'convertForm'])->name('file.convertForm');
         Route::post('convert-file', [FileController::class, 'store'])->name('file.convertStore');
+    });
+
+    Route::prefix('report')->group(function () {
+        Route::get('top-borrow-book', [ReportController::class, 'TopBorrowBook'])->name('report.topBorrowBook');
     });
 });
 

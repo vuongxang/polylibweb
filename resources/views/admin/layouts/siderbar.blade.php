@@ -107,6 +107,20 @@
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+            aria-expanded="true" aria-controls="collapseFour">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Bình luận - Đánh giá</span>
+        </a>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('comment.index')}}">Bình luận</a>
+                <a class="collapse-item" href="{{route('rate.index')}}">Đánh giá</a>
+            </div>
+        </div>
+    </li>
+    
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -136,21 +150,7 @@
             <span>Tài khoản người dùng</span>
         </a>
     </li>
-    <hr class="sidebar-divider">
     @endif
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-            aria-expanded="true" aria-controls="collapseFour">
-            <i class="fas fa-fw fa-comments"></i>
-            <span>Bình luận - Đánh giá</span>
-        </a>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('comment.index')}}">Bình luận</a>
-                <a class="collapse-item" href="{{route('rate.index')}}">Đánh giá</a>
-            </div>
-        </div>
-    </li>
     <hr class="sidebar-divider">
     <div class="sidebar-heading"> 
         Thống kê
@@ -159,12 +159,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
             aria-expanded="true" aria-controls="collapseFive">
             <i class="fas fa-fw fa-comments"></i>
-            <span>Báo cáo</span>
+            <span>Báo cáo - Thống kê</span>
         </a>
         <div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('cate.index')}}">Danh sách</a>
-                <a class="collapse-item" href="{{route('cate.create')}}">Thêm mới</a>
+                <a class="collapse-item" href="{{route('report.topBorrowBook')}}">Top 10 mượn sách</a>
+                <a class="collapse-item" href="{{route('cate.create')}}">Bài viết</a>
+                <a class="collapse-item" href="{{route('cate.create')}}">Danh mục bài viết</a>
             </div>
         </div>
     </li>

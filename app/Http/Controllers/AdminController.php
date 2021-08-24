@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Order;
+use App\Models\PostShare;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +19,13 @@ class AdminController extends Controller
         $categories     = Category::all();
         $authors        = Author::all();
         $comments_pending       = Comment::where('status',0)->get();
+        $posts_pending           = PostShare::where('status',0)->get();
         return view('admin.dashboard',[
                 'books'         => $books,
                 'categories'    => $categories,
                 'authors'        => $authors,
-                'comments_pending'      => $comments_pending
+                'comments_pending'      => $comments_pending,
+                'posts_pending'         => $posts_pending,
         ]);
     }
 

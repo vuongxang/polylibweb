@@ -135,7 +135,8 @@ p {
 .table td,
 .jsgrid .jsgrid-table td {
   font-size: 0.875rem;
-  padding: .875rem 0.9375rem
+  padding: .65rem 0.9375rem;
+  vertical-align: middle;
 }
 
 .badge {

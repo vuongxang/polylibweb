@@ -107,7 +107,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <iframe src="/read/{{$book->slug}}" frameborder="0" width="100%" height="800"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -73,6 +73,14 @@
                 $('img#show_img').attr('src', image)
             })
 
+            $('#page_size').on('change', function() {
+                $('#form-page-size').submit();
+            })
+
+            $('#total_day').on('change', function() {
+                $('#form-total-day').submit();
+            })
+            
             $('#image_gallery').on('hide.bs.modal', function() {
                 var image_list = $('input#list_image').val();
                 if (image_list.length > 0) {
@@ -269,6 +277,6 @@
         // contextmenu: 'link image imagetools table configurepermanentpen',
         // a11y_advanced_options: true
         });
-        })
+
 
     </script>
