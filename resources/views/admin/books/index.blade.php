@@ -65,8 +65,8 @@
                         </td>
                         <td class="text-center">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-dark shadow-lg rounded-pill" data-toggle="modal" data-target="#gallery-{{$book->id}}">
-                                Ảnh
+                            <button type="button" class="btn btn-dark shadow-lg rounded-pill" data-toggle="modal" data-target="#read-{{$book->id}}">
+                                Đọc
                             </button>
                         </td>
                         <td class="text-center">
@@ -97,23 +97,21 @@
 
     <!-- Modal -->
     @foreach ($books as $book)
-    <div class="modal fade" id="gallery-{{$book->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="read-{{$book->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{$book->title}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Tiêu đề: {{$book->title}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    @foreach ($book->bookGalleries as $gallery)
-                        <img src="{{asset($gallery->url)}}" alt="" class="img-thumnail" width="100">
-                    @endforeach
+                    <iframe src="/read/{{$book->slug}}" frameborder="0" width="100%" height="800"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
+                    {{-- <button type="button" class="btn btn-primary">Understood</button> --}}
                 </div>
             </div>
         </div>
