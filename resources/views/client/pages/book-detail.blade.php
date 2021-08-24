@@ -179,7 +179,7 @@
         </div>
         <div class="book-carouse__body">
             @if (count($sameBooksUnique) > 0)
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleControls" class="carousel slide m-0 p-0" data-ride="carousel">
 
                 <!-- Carouse Content -->
                 <div class="carousel-inner">

@@ -11,23 +11,33 @@ class Order extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'orders';
+    protected $fillable = ['id_user', 'book_id', 'status'];
     protected $dates = ['deleted_at'];
 
-    public function book(){
+    public function book()
+    {
         return $this->belongsTo(
-            Book::class, 'book_id', 'id'
+            Book::class,
+            'book_id',
+            'id'
         );
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(
-            User::class, 'id_user', 'id'
+            User::class,
+            'id_user',
+            'id'
         );
     }
-    
-    public function rate(){
-        return $this->belongsTo(
-            Rating::class, 'book_id', 'rateable_id');
-    }
 
+    public function rate()
+    {
+        return $this->belongsTo(
+            Rating::class,
+            'book_id',
+            'rateable_id'
+        );
+    }
 }
