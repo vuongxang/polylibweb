@@ -34,6 +34,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/book-detail/{slug}', [BookController::class, 'bookDetail'])->name('book.detail');
     Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->name('author.detail');
     Route::get('/read/{slug}', [BookController::class, 'readingBook'])->name('book.read');
+    Route::get('/review-book/{slug}', [BookController::class, 'reviewBook'])->name('book.review');
     Route::get('/category', [BookController::class, 'getBooks'])->name('book.categories');
     Route::get('/category/{slug}', [BookController::class, 'getBooksByCategory'])->name('book.category');
     Route::get('/search', [SearchController::class, 'search'])->name('search');
@@ -53,7 +54,7 @@ Route::post('contact', [ContactController::class, 'postContact'])->name('contact
 Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
 
-Route::view('review', 'client.pages.review-book');
+// Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
 Route::get('my-posts/{id}', [PostShareController::class, 'myPost'])->middleware('auth')->name('user.myPost');
@@ -66,7 +67,7 @@ Route::get('help', [HomeController::class, 'help'])->middleware('auth')
 Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
 Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
 Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
-Route::get('book-review/{id}', [BookController::class, 'reviewPage'])->name('book.review');
+Route::get('book-rate/{id}', [BookController::class, 'rateBook'])->name('book.rate');
 
 Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
 Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('notifications.read');

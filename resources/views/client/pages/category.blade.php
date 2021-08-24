@@ -85,7 +85,7 @@
                         <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
                         @else
                         <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn
-                            sách</a><a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem
+                            sách</a><a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem
                             trước</a>
                         @endif
                     </div>

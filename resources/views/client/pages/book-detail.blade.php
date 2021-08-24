@@ -65,7 +65,7 @@
                         <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="button button__background-lg">Mượn sách</a>
                     </div>
                     <div class="book-button-item">
-                        <a href="{{ route('book.read', ['slug' => $book->slug]) }}" class="button button__outline-lg ">Xem
+                        <a href="{{ route('book.review', $book->slug) }}" class="button button__outline-lg ">Xem
                             trước</a>
                     </div>
                     @endif
@@ -223,7 +223,7 @@
                                             <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                         @else
                                             <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
+                                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                                         @endif
 
                                     </div>
@@ -275,7 +275,7 @@
                                                     <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                                 @else
                                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
+                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                                                 @endif
                                             </div>
                                         </div>

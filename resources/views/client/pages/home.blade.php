@@ -61,13 +61,13 @@
             <span class="sr-only ">Sau</span>
         </a>
     </div>
-    @if (session('message'))
+    <!-- @if (session('message'))
         <div class="alert @if (session('alert')) {{ session('alert') }} @endif text-center">
             <h1 class="@if (session('text-alert')) {{ session('text-alert') }} @endif" style="font-size: 20pt; font-weight:700">
                 {{ session('message') }}
             </h1>
         </div>
-    @endif
+    @endif -->
     <div class="book-carouse">
         <div class="book-carouse__header">
             <div class="carouse-header__title">Sách mới nhất</div>
@@ -117,7 +117,7 @@
                                     <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
                                     @else
                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                    <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                                     @endif
 
                                 </div>
@@ -168,7 +168,7 @@
                                 <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                 @else
                                 <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
+                                <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                                 @endif
 
                             </div>
@@ -255,7 +255,7 @@
                                     <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                     @else
                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                                     @endif
 
                                 </div>
@@ -306,7 +306,7 @@
                                 <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
                                 @else
                                 <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                <a href="{{ route('book.read', $book->id) }}" class="review-btn">Xem trước</a>
+                                <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                                 @endif
 
                             </div>

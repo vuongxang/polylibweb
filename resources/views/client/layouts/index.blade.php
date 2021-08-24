@@ -34,7 +34,7 @@
         @include('client.layouts.footer')
 
     </div>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
@@ -48,7 +48,7 @@
             $('#addStar').change('.star', function(e) {
                 $(this).submit();
             });
-            
+
 
 
         });
