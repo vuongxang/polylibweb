@@ -19,8 +19,8 @@
     
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    justify-items: center;
+    justify-content: space-around;
+    align-items: center;
     margin-left: 50px;
 }
 
@@ -33,7 +33,7 @@
     font-family: "Nunito", sans-serif;
     color: var(--white-color);
     text-transform: capitalize;
-    margin-bottom: 36px;
+    margin-bottom: 3rem;
     margin-top: 0px;
     font-weight: 800;
     text-shadow: 2px 2px 4px  rgba(0, 0, 0, .5);
@@ -41,7 +41,7 @@
 
 .login__logo {
     
-    margin-bottom: 36px;
+    margin-bottom:3rem;
 }
 
 .login__logo-img {
@@ -76,4 +76,27 @@
     width: 25px;
     height: 25px;
     margin-right: 1.8rem;
+}
+.alert-wrap{
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+    background-color: #fff;
+    width: 75%;
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    text-align: center;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+.alert-message{
+    font-size: 1.6rem;
+    text-align: center;
+    font-weight: 600;
+    /* color: #d00000; */
+    color: var(--black-secondary-color);
+    line-height: 1.4;
+    margin-bottom: .5rem;
+}
+.contact-link{
+    color: var(--base-color);
 }

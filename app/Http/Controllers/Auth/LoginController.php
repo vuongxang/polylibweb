@@ -57,7 +57,7 @@ class LoginController extends Controller
 
         // var_dump($check_locked); die;
 
-        if(!$check_locked) return redirect(route('login'))->with('message','Tài khoản của bạn đã bị khóa,vui lòng liên hệ quản trị viên để được hỗ trợ !');
+        if(!$check_locked) return redirect(route('login'))->with('message','Tài khoản đã bị khóa');
         // Return home after login
         else return redirect()->route('home');
     }

@@ -24,16 +24,21 @@
                     <div class="login__logo center">
                         <img class="login__logo-img" src="{{asset('images/logo.png')}}" alt="">
                     </div>
+                    @if (session('message'))
+                   
+                    <div class="alert-wrap">
+                        <div class="alert-message">{{ session('message') }} </div>
+                        Nếu bạn có bất kì thắc mắc hay quan tâm nào, bạn có thể <a href="{{route('contact')}}" class="contact-link">liên hệ ngay với chúng tôi</a>
+                        
+                    </div>
+                   
+                    @endif
                     <div class="login__button center">
                         <a class="button button--google" href="{{ route('login.google') }}">
                             <img src="{{asset('images/google-icon.svg')}}" class="login__icon-google" alt=""><span> Đăng nhập bằng Google</span>
                         </a>
                     </div>
-                    @if (session('message'))
-                        <div class="alert alert-success text-center">
-                            <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
-                        </div>
-                    @endif
+                    
                 </div>
             </div>
 
