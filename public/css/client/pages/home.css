@@ -140,8 +140,7 @@
 
 .book-carousel__wrapper {
     display: flex;
-    justify-content: space-around;
-    gap: 1.6rem;
+    gap: 2.6rem;
     padding: 1rem 0;
 }
 

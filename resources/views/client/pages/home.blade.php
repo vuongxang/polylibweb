@@ -211,16 +211,16 @@
             <div class="carouse-header__title">Sách có lượt mượn nhiều nhất</div>
         </div>
         <div class="book-carouse__body">
-            @if (count($books) > 0)
+            @if (count($mostBorrowBooks) > 0)
             <div id="carouselExampleControls" data-interval="9000" class="carousel slide" data-ride="carousel">
 
                 <!-- Carouse Content -->
                 <div class="carousel-inner">
                     <!-- Carouse Item -->
-                    @if (count($books) > 0)
+                    @if (count($mostBorrowBooks) > 0)
                     <div class="carousel-item active">
                         <div class="book-carousel__wrapper">
-                            @foreach ($books as $book)
+                            @foreach ($mostBorrowBooks as $book)
                             @if ($loop->index < 4) <div class="book-card ">
                                 <div class="book-card__img">
                                     <a href="{{ route('book.detail', $book->slug) }}">
@@ -267,15 +267,15 @@
                     </div>
                 </div>
                 @endif
-                @if (count($books) > 4)
+                @if (count($mostBorrowBooks) > 4)
                 <div class="carousel-item">
                     <div class="book-carousel__wrapper">
 
-                        @foreach ($books as $book)
+                        @foreach ($mostBorrowBooks as $book)
                         @if ($loop->index >= 4 && $loop->index < 8) <div class="book-card ">
                             <div class="book-card__img">
                                 <a href="{{ route('book.detail', $book->slug) }}">
-                                    <img src="{{ $book->image }}" alt="" />
+                                    <img src="{{ asset($book->image) }}" alt="" />
                                 </a>
                             </div>
                             <div class="book-card__title">

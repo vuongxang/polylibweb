@@ -20,6 +20,7 @@ use SebastianBergmann\Environment\Console;
 use willvincent\Rateable\Rating as RateableRating;
 use Spatie\PdfToImage\Pdf;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use PHPUnit\Framework\Constraint\Count;
 use Imagick;
 
@@ -252,8 +253,8 @@ class BookController extends Controller
 
         Carbon::setLocale('vi');
 
-        $book = Book::where('slug',$slug)->first();
-        if (!$book) return redirect(route('home'));
+        $book = Book::where('slug', $slug)->where('status',1)->first();
+        if (!$book) return abort(404);
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
@@ -333,9 +334,9 @@ class BookController extends Controller
 
     public function readingBook($slug)
     {
-        $book = Book::where('slug','=',$slug)->first();
+        $book = Book::where('slug', '=', $slug)->first();
 
-        if(! $book) return back()->with('message', 'Dữ liệu không tồn tại !');
+        if (!$book) return back()->with('message', 'Dữ liệu không tồn tại !');
         $ordered = Order::where('book_id', $book->id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
 
@@ -353,21 +354,30 @@ class BookController extends Controller
 
     public function getBooks()
     {
-        $books = Book::paginate(9);
+        $books = Book::where('status', 1)->paginate(9);
         $categories = Category::all();
+        $categories->loadCount(['books' => function ($query) {
+            $query->where('status', 1);
+        }]);
         return view('client.pages.category', compact('categories', 'books'));
     }
     public function getBooksByCategory($slug)
     {
-        $catee = Category::where('slug', '=', $slug)->get();
-        $catee->load('books');
+
+
+        $books = Book::whereHas('categories', function ($query) use ($slug) {
+            $query->where('slug', $slug);
+        })->where('status', 1)->paginate(9);
+        $cateName = Category::firstWhere('slug', $slug)->name;
+
         $categories = Category::all();
-        $array = [];
-        foreach ($catee as $a) {
-            foreach ($a->books as $b) {
-                array_push($array, $b);
-            }
+        $categories->loadCount(['books' => function ($query) {
+            $query->where('status', 1);
+        }]);
+        if (count($books) > 0) {
+            return view('client.pages.category')->with(['categories' => $categories, 'books' => $books, 'cateName' => $cateName])->with('message', 'Có ' .count($books) . ' cuốn sách thuộc '. $cateName );
+        } else {
+            return view('client.pages.category')->with(['categories' => $categories, 'books' => $books])->with('message', 'Danh mục chưa có cuốn sách nào');
         }
-        return view('client.pages.category', compact('categories', 'catee'));
     }
 }

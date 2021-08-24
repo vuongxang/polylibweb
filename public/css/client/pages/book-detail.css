@@ -140,6 +140,7 @@
 
 .book-info__tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -405,7 +406,6 @@
 
 .book-carousel__wrapper {
   display: flex;
-  justify-content: space-around;
   gap: 1.6rem;
   padding: 1rem 0;
 }
