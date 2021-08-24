@@ -69,14 +69,18 @@
                     <div class="audio-gallery" class="mb-2">
                         @if ($model->bookAudios)
                             @foreach ($model->bookAudios as $item)
-                                <audio src="{{$item->url}}" id="show_list_audio" controls>
-                                Trình duyệt không hỗ trợ phát âm thanh
-                                </audio>
-                                <br>
+                                <div class="d-flex align-items-center">
+                                    <audio src="{{$item->url}}" id="show_list_audio" controls>
+                                        Trình duyệt không hỗ trợ phát âm thanh
+                                    </audio> 
+                                    <button type="button" class="close ml-2" aria-label="Close" onclick="closeAudio({{$item->id}})">
+                                        <span aria-hidden="true" class="text-danger">&times;</span>
+                                    </button>
+                                </div>
                             @endforeach
                         @endif
                     </div>
-                    <input type="hidden" id="list_audio" name="list_audio" class="form-control" value="{{ old('list_audio') }}" readonly>
+                    <input type="text" id="list_audio" name="list_audio" class="form-control" value="{{ old('list_audio') }}">
                     @if ($errors->has('list_audio'))
                         <span class="text-danger">{{$errors->first('list_audio')}}</span>
                     @endif

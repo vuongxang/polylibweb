@@ -18,7 +18,8 @@
                     </div>
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh bìa sách</label>
-                        <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal"
+                            data-target="#exampleModal">
                             Chọn ảnh
                         </button>
                         <div class="show_image" class="mb-2">
@@ -36,37 +37,40 @@
                             <option value="0">Ẩn</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
                         <br>
                         @if ($errors->has('author_id'))
                             <div class="alert alert-danger text-danger">{{ $errors->first('author_id') }}</div>
                         @endif
-                        <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Chọn tối đa 10 danh mục" multiple>
+                        <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Chọn tối đa 10 danh mục"
+                            multiple>
                             @foreach ($cates as $cate)
-                                <option value="{{$cate->id}}">{{$cate->name}}</option>
+                                <option value="{{ $cate->id }}">{{ $cate->name }}</option>
                             @endforeach
-                        </select> 
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputFile">Tác giả</label>
                         <br>
-                        <select id="choices-multiple-remove-button" name="author_id[]" placeholder="Chọn tối đa 5 tác giả" multiple>
+                        <select id="choices-multiple-remove-button" name="author_id[]" placeholder="Chọn tối đa 5 tác giả"
+                            multiple>
                             @foreach ($authors as $author)
-                                <option value="{{$author->id}}">{{$author->name}}</option>
+                                <option value="{{ $author->id }}">{{ $author->name }}</option>
                             @endforeach
-                        </select> 
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label class="text-dark font-weight-bold">Audio file(Nếu có)</label>
-                        <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal" data-target="#audio_gallery">
+                        <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal"
+                            data-target="#audio_gallery">
                             Chọn file
                         </button>
                         <div class="audio-gallery" class="mb-2">
-                            
+
                         </div>
                         @if ($errors->has('list_audio'))
                             <span class="text-danger">{{ $errors->first('list_audio') }}</span>
@@ -76,7 +80,8 @@
 
                     <div class="form-group">
                         <label class="text-dark font-weight-bold">Nội dung sách</label>
-                        <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal" data-target="#image_gallery">
+                        <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal"
+                            data-target="#image_gallery">
                             Chọn ảnh
                         </button>
                         <div class="img-gallery" class="mb-2">
@@ -90,8 +95,7 @@
 
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputDesc">Thông tin chi tiết</label>
-                        <textarea  cols="30" rows="20" class="form-control" 
-                        {{-- id="exampleInputDesc" --}}
+                        <textarea cols="30" rows="20" class="form-control" id="exampleInputDesc"
                             placeholder="Nhập thông tin chi tiết" name="description"
                             value="{{ old('description') }}"></textarea>
                         @if ($errors->has('description'))
@@ -159,7 +163,7 @@
             </div>
         </div>
     </div>
-<!-- Modal audio -->
+    <!-- Modal audio -->
     <div class="modal fade" id="audio_gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
