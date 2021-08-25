@@ -179,6 +179,9 @@
 .book-carouse-background .book-card{
     background-color: var(--white-color);
 }
+.book-carouse-background .book-user-comment__message{
+    color: var(--text-color2);
+}
 
 .book-card__img {
     height: 28rem;
