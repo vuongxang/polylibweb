@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -49,12 +50,12 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/post-detail/{slug}', [PostShareController::class, 'detail'])->name('post.detail');
     Route::get('/delete-post/{slug}', [PostShareController::class, 'destroy'])->name('post.destroy');
 });
+Route::Post('/api/comment-store', [BookDetailController::class, 'storeComment'])->name('book.comment-store');
 Route::get('contact', [ContactController::class, 'contact'])->name('contact');
 Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
 
 Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
-
 // Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
@@ -112,7 +113,6 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('/', [PostShareController::class, 'index'])->name('post.index');
         Route::get('post-share-approv/{id}', [PostShareController::class, 'postApprov'])->name('post.approv');
         Route::get('post-share-refuse/{id}', [PostShareController::class, 'postRefuse'])->name('post.refuse');
-
     });
     Route::prefix('book')->group(function () {
         Route::get('/', [BookController::class, 'index'])->name('book.index');

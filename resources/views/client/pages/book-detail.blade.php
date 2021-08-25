@@ -104,7 +104,7 @@
         </div>
         <div class="tab-content">
             <div class="book-tabs__comment tab-pane in active" id="comment-tab">
-                {{-- @include('client.blocks.commentsDisplay', ['comments' => $comments, 'book_id' => $book->id]) --}}
+                 <!-- @include('client.blocks.commentsDisplay', ['comments' => $comments, 'book_id' => $book->id]) -->
                 <div class="js-book-user-comment" id="js-book-user-comment"></div>
                 <div class="comment-box__wrapper">
                     <div class="comment-box__image">

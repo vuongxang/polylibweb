@@ -23,11 +23,11 @@
                                     <th>@sortablelink('id','ID')</th>
                                     <th>@sortablelink('name','Tên')</th>
                                     <th>@sortablelink('email','Email')</th>
-                                    <th>Avatar</th>
+                                    <th  class="text-center">Ảnh</th>
                                     <th>@sortablelink('role_id','Vai trò')</th>
                                     <th>@sortablelink('created_at','Ngày tạo')</th>
                                     <th>@sortablelink('updated_at','Ngày cập nhật')</th>
-                                    <th>
+                                    <th  class="text-center">
                                         Hành động
                                     </th>
                                 </tr>
@@ -38,8 +38,8 @@
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
-                                        <td>
-                                            <img src="{{asset($user->avatar)}}" alt="" width="50" class="img-thumbnail rounded-circle">
+                                        <td class="text-center">
+                                            <img src="{{asset($user->avatar)}}" alt="" width="50" height="50" class="img-thumbnail rounded-circle">
                                         </td>
                                         <td>
                                         {{$user->role->name}}

@@ -272,7 +272,7 @@ class BookController extends Controller
 
         $ordered = Order::where('book_id', $book->id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
-        $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->get();
+        $comments = Comment::where('book_id', $book->id)->where('status', 1)->get();
         $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->get();
         $rates->load('user');
 

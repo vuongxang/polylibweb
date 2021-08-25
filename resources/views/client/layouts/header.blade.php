@@ -111,7 +111,7 @@
                                 <div class="notification-dropdown-wrapper">
 
                                     <div class="notification-avatar">
-                                        <img src="{{$notification->data['avatar']}}" alt="">
+                                        <img src="{{asset($notification->data['avatar'])}}" alt="">
 
                                     </div>
                                     <div class=" notification-body">
@@ -199,12 +199,11 @@
                 .listen('NewNotificationEvent', (e) => {
                     notification = e.notification;
                     notificationData = e.notification['data'];
-
                     const result = `<a class="notification-dropdown__link" href="/notification-read/${notification.id}">
                                     <div class="notification-dropdown-wrapper">
 
                                         <div class="notification-avatar">
-                                            <img src="${notificationData.avatar}" alt="">
+                                            <img src="/${notificationData.avatar}" alt="">
 
                                         </div>
                                         <div class=" notification-body">
