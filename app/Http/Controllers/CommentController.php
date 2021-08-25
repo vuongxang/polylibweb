@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewNotificationEvent;
+use App\Models\Book;
 use App\Models\Comment;
 use App\Models\User;
 use App\Notifications\CommentNotification;
@@ -44,7 +45,7 @@ class CommentController extends Controller
         $request->validate([
             'body' => 'required',
         ]);
-
+        
         $model = new Comment();
         $model->fill($request->all());
         $model->status = 0;

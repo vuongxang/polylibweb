@@ -62,6 +62,7 @@ class HomeController extends Controller
     {
         $infomation = User::find($id);
         if($request->hasFile('avatar')){
+            
             $fileName = uniqid().'_'.$request->file('avatar')->getClientOriginalName();
             $filePath = $request->file('avatar')->storeAs('uploads', $fileName, 'public');
             $infomation->avatar = 'storage/'.$filePath;

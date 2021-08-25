@@ -272,7 +272,7 @@ class BookController extends Controller
 
         $ordered = Order::where('book_id', $book->id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
-        $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->get();
+        $comments = Comment::where('book_id', $book->id)->where('status', 1)->get();
         $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->get();
         $rates->load('user');
 
@@ -285,7 +285,7 @@ class BookController extends Controller
     }
 
 
-    public function reviewPage($id)
+    public function rateBook($id)
     {
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
@@ -334,9 +334,9 @@ class BookController extends Controller
 
     public function readingBook($slug)
     {
-        $book = Book::where('slug', '=', $slug)->first();
+        $book = Book::where('slug', '=', $slug)->where('status',1)->first();
 
-        if (!$book) return back()->with('message', 'Dữ liệu không tồn tại !');
+        if (!$book) return abort(404);
         $ordered = Order::where('book_id', $book->id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
 
@@ -345,6 +345,18 @@ class BookController extends Controller
 
         if ($book) {
             $pages = BookGallery::where('book_id', '=', $book->id)->orderBy('url', 'ASC')->get();
+            return view('client.pages.reading-book', ['pages' => $pages], ['book' => $book]);
+        } else {
+            return abort(404);
+        }
+    }
+
+    public function reviewBook($slug)
+    {
+        $book = Book::where('slug', '=', $slug)->where('status',1)->first();
+
+        if ($book) {
+            $pages = BookGallery::where('book_id', '=', $book->id)->take(10)->orderBy('url', 'ASC')->get();
             return view('client.pages.reading-book', ['pages' => $pages], ['book' => $book]);
         } else {
             return abort(404);

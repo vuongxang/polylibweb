@@ -65,7 +65,7 @@
                         <a href="{{ route('Book.Order', ['id' => $book->id]) }}" class="button button__background-lg">Mượn sách</a>
                     </div>
                     <div class="book-button-item">
-                        <a href="{{ route('book.read', ['slug' => $book->slug]) }}" class="button button__outline-lg ">Xem
+                        <a href="{{ route('book.review', $book->slug) }}" class="button button__outline-lg ">Xem
                             trước</a>
                     </div>
                     @endif
@@ -104,7 +104,7 @@
         </div>
         <div class="tab-content">
             <div class="book-tabs__comment tab-pane in active" id="comment-tab">
-                {{-- @include('client.blocks.commentsDisplay', ['comments' => $comments, 'book_id' => $book->id]) --}}
+                 <!-- @include('client.blocks.commentsDisplay', ['comments' => $comments, 'book_id' => $book->id]) -->
                 <div class="js-book-user-comment" id="js-book-user-comment"></div>
                 <div class="comment-box__wrapper">
                     <div class="comment-box__image">
@@ -223,7 +223,7 @@
                                             <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                         @else
                                             <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
+                                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                                         @endif
 
                                     </div>
@@ -275,7 +275,7 @@
                                                     <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                                                 @else
                                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Xem trước</a>
+                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                                                 @endif
                                             </div>
                                         </div>

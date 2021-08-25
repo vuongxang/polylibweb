@@ -1,6 +1,7 @@
 @extends('client.layouts.index')
 
 @section('css')
+
 <link rel="stylesheet" href="{{ asset('css/client/pages/history.css') }}">
 @endsection
 
@@ -65,7 +66,7 @@
                                                 onclick="return Deleted_at()" class="btn btn-danger">Trả sách</a>
                                             <a href="{{route('book.read',$order_book->book->slug)}}" class="btn btn-dark">Đọc
                                                 sách</a>
-                                            <a href="{{ route('book.review', $order_book->book_id) }}"
+                                            <a href="{{ route('book.rate', $order_book->book_id) }}"
                                                 class="btn btn-success">Đánh giá</a>
                                         </td>
                                     </tr>
@@ -112,7 +113,7 @@
                                             <td>
                                                 <a href="{{ route('book.detail', ['slug' => $deleted_order->book->slug]) }}"
                                                     class="btn btn-warning">Mượn lại</a>
-                                                <a href="{{ route('book.review', $deleted_order->book_id) }}"
+                                                <a href="{{ route('book.rate', $deleted_order->book_id) }}"
                                                     class="btn btn-success">Đánh giá</a>
                                             </td>
                                         </tr>
