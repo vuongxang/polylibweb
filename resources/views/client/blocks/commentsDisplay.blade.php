@@ -16,7 +16,7 @@
                         {{ Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</div>
                 </div>
                 @foreach ($comments as $commentChild)
-                    @if ($commentChild->parent_id != null && $commentChild->parent_id == $comment->id && $comment->status==1)
+                    @if ($commentChild->parent_id != null && $commentChild->parent_id == $comment->id )
 
                         <div class="book-user-comment">
                             <div class="comment-box__image">

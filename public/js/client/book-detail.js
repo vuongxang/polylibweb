@@ -66,6 +66,7 @@ const cancelReply = (btnCancelElement) => {
         })
     })
 }
+let abc = window.location.origin;
 // Xem thêm bình luận cha
 function loadMoreParentComment(bookId = "") {
     $.ajax({
@@ -85,14 +86,14 @@ function loadMoreParentComment(bookId = "") {
                 let arrId = [];
                 const comments = [...data[0]];
                 const commentsChild = [...data[1]];
-
+                
                 // Hiển thị dữ liệu
                 const result = comments.map(comment => {
                     lastId = comment.id;
-
+                    console.log(comment.user.avatar)
                     return `<div class="book-user-comment">
                                 <div class="comment-box__image">
-                                    <img src="${comment.user.avatar}" alt="">
+                                    <img src="${abc}/${comment.user.avatar}" alt="">
                                 </div>
                                 <div class="book-user-comment__body js-comment-body" data-parent_id = "${comment.id}">
                                     <div class="book-user-comment__heading">
@@ -113,7 +114,7 @@ function loadMoreParentComment(bookId = "") {
 
                             return `<div class="book-user-comment js-comment-child " data-comment_id ="${commentChild.id}">
                                                         <div class="comment-box__image">
-                                                            <img src="${commentChild.user.avatar}" alt="">
+                                                            <img src="${abc}/${commentChild.user.avatar}" alt="">
                                                         </div>
                                                         <div class="book-user-comment__body">
                                                             <div class="book-user-comment__heading">
@@ -215,6 +216,7 @@ function loadMoreParentComment(bookId = "") {
                 let body = document.querySelectorAll('input[name="body"]');
                 let bookId = document.querySelectorAll('input[name="book_id"]');
                 let parentId = document.querySelectorAll('input[name="parent_id"]');
+                let _token   = $('meta[name="csrf-token"]').attr('content');
                 button.forEach((btn, index) => {
                     btn.addEventListener('click', () => {
                         if (body[index].value.length < 1) { return }
@@ -229,7 +231,7 @@ function loadMoreParentComment(bookId = "") {
                                 location.reload();
                             });
                         $.ajax({
-                            url: "/comment-store",
+                            url: "/api/comment-store",
                             method: "Post",
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -238,16 +240,14 @@ function loadMoreParentComment(bookId = "") {
                                 body: body[index].value,
                                 book_id: bookId[index].value,
                                 parent_id: parentId[index].value,
+                               
                             },
                             success: function (data) {
-                                if (data.error) return;
+                                console.log(data)
                                 //fire off other ajax calls
 
                             },
-                            complete: function (response, status) {
-                                console.log(response.statusCode);
-                                // do something
-                            }
+                            
                         })
                     })
                 })
@@ -275,7 +275,7 @@ function loadMoreChild(commentId, parrentId, item) {
             const result = commentsChild.map(commentChild => {
                 return `<div class="book-user-comment js-comment-child " data-comment_id ="${commentChild.id}">
                             <div class="comment-box__image">
-                                <img src="${commentChild.user.avatar}" alt="">
+                                <img src="${abc}/${commentChild.user.avatar}" alt="">
                             </div>
                             <div class="book-user-comment__body">
                                 <div class="book-user-comment__heading">
@@ -357,68 +357,67 @@ function loadMoreRate(lastRateId = "") {
             last_rate_id: lastRateId
         },
         success: function (data) {
-            console.log(data)
 
             const rateList = [...data[0]];
-            
+
             let lastRateId;
 
-            const result = rateList.map(rateItem => {
-                lastRateId = rateItem.id;
-                return `<div class="book-user-comment" id="js-rate-wrapper">
-                            <div class="comment-box__image">
-                                <img src="${rateItem.user.avatar}" alt="">
-                            </div>
-                            <div class="book-user-comment__body">
-                                <div class="book-user-comment__heading">
-                                    <div class="book-user-comment__name">${rateItem.user.name}</div>
-                                    <div class="book-user-comment__footer">
-                                        <div class="book-user-comment__link">
-                                            <span class="book-star">
+    //         const result = rateList.map(rateItem => {
+    //             lastRateId = rateItem.id;
+    //             return `<div class="book-user-comment" id="js-rate-wrapper">
+    //                         <div class="comment-box__image">
+    //                             <img src="${rateItem.user.avatar}" alt="">
+    //                         </div>
+    //                         <div class="book-user-comment__body">
+    //                             <div class="book-user-comment__heading">
+    //                                 <div class="book-user-comment__name">${rateItem.user.name}</div>
+    //                                 <div class="book-user-comment__footer">
+    //                                     <div class="book-user-comment__link">
+    //                                         <span class="book-star">
                                                 
-                                                ${(function fun() {
-                        let rateStar = "";
-                        for ($i = 1; $i <= 5; $i++) {
-                            if ($i <= rateItem.rating) {
-                                rateStar += '<i class="fas fa-star "></i>'
+    //                                             ${(function fun() {
+    //                     let rateStar = "";
+    //                     for ($i = 1; $i <= 5; $i++) {
+    //                         if ($i <= rateItem.rating) {
+    //                             rateStar += '<i class="fas fa-star "></i>'
 
-                            } else {
-                                rateStar += `<i class="far fa-star " ></i>`
-                            }
+    //                         } else {
+    //                             rateStar += `<i class="far fa-star " ></i>`
+    //                         }
 
-                        }
-                        return rateStar;
-                    }
-                    )()}
-                                            <span>
+    //                     }
+    //                     return rateStar;
+    //                 }
+    //                 )()}
+    //                                         <span>
                                                         
-                                        </div>
-                                        <div class="book-user-comment__date">
-                                            ${moment(rateItem.created_at).format('l')}
-                                        </div>
-                                    </div >
-                                    <div class="book-user-comment__content">
-                                        ${rateItem.body}
+    //                                     </div>
+    //                                     <div class="book-user-comment__date">
+    //                                         ${moment(rateItem.created_at).format('l')}
+    //                                     </div>
+    //                                 </div >
+    //                                 <div class="book-user-comment__content">
+    //                                     ${rateItem.body}
 
-                                    </div>
-                                </div >
+    //                                 </div>
+    //                             </div >
 
-                            </div >
+    //                         </div >
 
-                        </div >
+    //                     </div >
 
-    `
-            }).join('');
-            const reviewTab = document.querySelector('#review-tab');
-            if(data[1]){
-                $(reviewTab).append(`<div class="book-user-comment__message">
-                ${data[1]}
-            </div>`);
-            }
-            $('#js_load_more_review').remove();
+    // `
+    //         }).join('');
+    //         const reviewTab = document.querySelector('#review-tab');
+    //         if (data[1]) {
+    //             $(reviewTab).append(`<div class="book-user-comment__message">
+    //             ${data[1]}
+    //         </div>`);
+    //         }
+    //         $('#js_load_more_review').remove();
 
 
-            $(reviewTab).append(result);
+    //         $(reviewTab).append(result);
 
 
             if (rateList.length == 3) {

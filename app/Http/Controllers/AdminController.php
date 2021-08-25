@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
-{
+{   
     public function dashboard(){
         $books          = Book::all();
         $categories     = Category::all();
@@ -27,6 +27,10 @@ class AdminController extends Controller
                 'comments_pending'      => $comments_pending,
                 'posts_pending'         => $posts_pending,
         ]);
+    }
+
+    public function notifications(){
+        return view('admin.users.notification');
     }
 
     // public function dayData(){

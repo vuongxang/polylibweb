@@ -32,7 +32,7 @@
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
-                        <th>@sortablelink('name','Tiêu đề')</th>
+                        <th width="300px">@sortablelink('name','Tiêu đề')</th>
                         <th>Ảnh</th>
                         <th>Tác giả</th>
                         <th>Danh mục</th>
@@ -65,7 +65,7 @@
                         </td>
                         <td class="text-center">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-dark shadow-lg rounded-pill" data-toggle="modal" data-target="#read-{{$book->id}}">
+                            <button type="button" class="btn btn-sm btn-secondary shadow-lg " data-toggle="modal" data-target="#read-{{$book->id}}">
                                 Đọc
                             </button>
                         </td>

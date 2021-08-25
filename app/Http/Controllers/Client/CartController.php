@@ -83,11 +83,11 @@ class CartController extends Controller
 
         
 
-        foreach ($users as $key => $user) {
-            $user->notify(new CommentNotification($data)); 
-            $newNotify = $user->notifications->sortByDesc('created_at')->first();
-            event(new NewNotificationEvent($newNotify,$user));
-        }
+        // foreach ($users as $key => $user) {
+        //     $user->notify(new CommentNotification($data)); 
+        //     $newNotify = $user->notifications->sortByDesc('created_at')->first();
+        //     event(new NewNotificationEvent($newNotify,$user));
+        // }
 
         Session::forget('cart');
         return back()->with('message','Mượn sách thành công')->with('alert','alert-success')

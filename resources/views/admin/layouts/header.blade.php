@@ -65,8 +65,8 @@
                     @if($key==3) @break
                     @endif
                     <a class="dropdown-item d-flex align-items-center notification-dropdown__link" href="/admin/comment#menu1">
-                        <div class="mr-1">
-                            <img class="img-profile rounded-circle w-75" src="{{ asset($notification->data['avatar']) }}" alt="">
+                        <div class="mr-2">
+                            <img class="img-profile rounded-circle " style="width:3.5rem;height:3.5rem" src="{{ asset($notification->data['avatar']) }}" alt="">
                         </div>
                         <div>
                             <div class="small text-gray-700">{{ $notification->data['title'] }}</div>
@@ -78,7 +78,7 @@
                     @endif
 
                 </div>
-                <a class="dropdown-item text-center small font-weight-bold text-gray-800" href="{{route('notifications')}}">Xem tất cả</a>
+                <a class="dropdown-item text-center small font-weight-bold text-gray-800" href="{{route('admin.notifications')}}">Xem tất cả</a>
             </div>
         </li>
 
@@ -106,6 +106,11 @@
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                     Activity Log
                 </a> -->
+                
+                <a class="dropdown-item" href="{{route('admin.notifications')}}">
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Thông báo
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
