@@ -179,6 +179,9 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
     Route::prefix('report')->group(function () {
         Route::get('top-borrow-book', [ReportController::class, 'TopBorrowBook'])->name('report.topBorrowBook');
+        Route::get('top-view-post', [ReportController::class, 'TopViewPost'])->name('report.topViewPost');
+        Route::get('top-user-post', [ReportController::class, 'TopUserPost'])->name('report.topUserPost');
+        Route::get('top-cate-post', [ReportController::class, 'TopCatePost'])->name('report.topCatePost');
     });
 });
 

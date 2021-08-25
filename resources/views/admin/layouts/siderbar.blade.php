@@ -163,9 +163,10 @@
         </a>
         <div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('report.topBorrowBook')}}">Top 10 mượn sách</a>
-                <a class="collapse-item" href="{{route('cate.create')}}">Bài viết</a>
-                <a class="collapse-item" href="{{route('cate.create')}}">Danh mục bài viết</a>
+                <a class="collapse-item" href="{{route('report.topBorrowBook')}}">Top sách mượn nhiều</a>
+                <a class="collapse-item" href="{{route('report.topViewPost')}}">Top bài viết view cao</a>
+                <a class="collapse-item" href="{{route('report.topUserPost')}}">Top SV chia sẻ nhiều</a>
+                <a class="collapse-item" href="{{route('report.topCatePost')}}">Top Danh mục nhiều bài viết</a>
             </div>
         </div>
     </li>
