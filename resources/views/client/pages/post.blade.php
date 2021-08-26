@@ -1,6 +1,5 @@
 @extends('client.layouts.index')
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/client/pages/category.css') }}">
 <link rel="stylesheet" href="{{ asset('css/client/pages/post.css') }}">
 @endsection
 @section('title', 'PolyLib')
@@ -10,6 +9,7 @@
     <div class="row">
 
         <div class="col-md-9 post-wrap">
+            
             <div class="post-header">
                 <div class="post-header-text">Danh sách bài viết</div>
                 <div class="post-header-button">
@@ -17,6 +17,13 @@
                 </div>
 
             </div>
+            @if(!empty($message))
+            <div class="search-result">
+                <div class="search-text">
+                    {{ $message }}
+                </div>
+            </div>
+            @endif
             <div class="post-list">
                 @foreach ($posts as $post)
                 <div class="post-item">
@@ -90,8 +97,8 @@
                 <div class="post-aside__list ">
                     @foreach ($cates as $cate)
                     <div class="post-aside__item">
-                        <a href="{{ route('book.category', $cate->slug) }}" class="post-aside__link">
-                            {{ $cate->name }} 
+                        <a href="{{ route('post.category', $cate->slug) }}" class="post-aside__link">
+                            {{ $cate->name }}
                         </a>
                     </div>
                     @endforeach
@@ -118,12 +125,7 @@
                     </div>
 
 
-                    <a href="{{ route('book.category', $cate->slug) }}" class="filter-item__link">
-                        <li class="filter-item">
-                            {{ $cate->name }}
-                            <span class="filter-item__quantity"></span>
-                        </li>
-                    </a> -->
+                     -->
                 </div>
             </div>
         </div>

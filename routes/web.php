@@ -18,6 +18,7 @@ use App\Http\Controllers\PostShareController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SearchController;
+use App\Models\PostShare;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,10 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::post('/searchapi', [SearchController::class, 'searchApi'])->name('searchapi');
 
     Route::get('/post', [PostShareController::class, 'all'])->name('post');
+    Route::get('/user/{id}', [PostShareController::class, 'postUser'])->name('post.user');
+    Route::get('/post/{slug}',[PostShareController::class,'getPostsByCategory'])->name('post.category');
+
+    
     Route::get('/add-post', [PostShareController::class, 'create'])->name('post.create');
     Route::post('/add-post', [PostShareController::class, 'store'])->name('post.store');
     Route::get('/edit-post/{id}', [PostShareController::class, 'edit'])->name('post.edit');
