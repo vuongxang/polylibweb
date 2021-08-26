@@ -21,9 +21,9 @@
                         Chọn ảnh
                     </button>
                     <div class="show_image" class="mb-2">
-                        <img src="{{asset($model->image)}}" class="img-thumbnail" id="show_img" width="250">
+                        <img src="{{ old('image',$model->image) }}" class="img-thumbnail" id="show_img" width="200">
                     </div>
-                    <input type="hidden" id="image" name="image" class="form-control" value="{{ old('image',$model->image) }}">
+                    <input type="text" id="image" name="image" hidden class="form-control" value="{{ old('image',$model->image) }}">
                     @if ($errors->has('image'))
                         <span class="text-danger">{{$errors->first('image')}}</span>
                     @endif
@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
                     <br>
-                    <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Select upto 10 tags" multiple>
+                    <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Select upto 10 tags" multiple class="form-control">
                         @foreach ($cates as $cate)
                             <option value="{{$cate->id}}" 
                                 @foreach ($model->categories as $category)
@@ -43,12 +43,15 @@
                             >{{$cate->name}}</option>
                         @endforeach
                     </select> 
+                    @if ($errors->has('cate_id'))
+                        <span class="text-danger">{{$errors->first('cate_id')}}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Tác giả</label>
                     <br>
-                    <select id="choices-multiple-remove-button" name="author_id[]" placeholder="Select upto 10 tags" multiple>
+                    <select id="choices-multiple-remove-button" name="author_id[]" placeholder="Select upto 10 tags" multiple class="form-control">
                         @foreach ($authors as $author)
                             <option value="{{$author->id}}" 
                                 @foreach ($model->authors as $au)
@@ -98,7 +101,7 @@
                             @endforeach
                         @endif
                     </div>
-                    <input type="hidden" id="list_image" name="list_image" class="form-control" value="{{ old('list_image') }}" readonly>
+                    <input type="text" id="list_image"  name="list_image" class="form-control" value="{{ old('list_image') }}" readonly>
                     @if ($errors->has('list_image'))
                         <span class="text-danger">{{$errors->first('list_image')}}</span>
                     @endif

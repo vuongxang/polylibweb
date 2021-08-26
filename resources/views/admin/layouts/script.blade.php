@@ -62,9 +62,9 @@
 
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
                 removeItemButton: true,
-                maxItemCount: 10,
-                searchResultLimit: 10,
-                renderChoiceLimit: 10
+                maxItemCount: 5,
+                searchResultLimit: 5,
+                renderChoiceLimit: 5
             });
 
 
@@ -130,7 +130,7 @@
                     }
                 }
             })
-
+            
             $(function() {
                 $('.toggle-class').change(function() {
                     var status = $(this).prop('checked') == true ? 1 : 0;
