@@ -152,6 +152,9 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::post('edit/{id}', [UserController::class, 'update'])->name('user.update');
         Route::get('restore/{id}', [UserController::class, 'restore'])->name('user.restore');
         Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
+        Route::get('mass-lock-user', [UserController::class, 'lockForm'])->name('user.massLockForm');
+        Route::post('mass-lock-user', [UserController::class, 'massLockUser'])->name('user.massLock');
+        
     });
 
     Route::prefix('profile')->middleware('auth')->group(function () {
@@ -180,10 +183,11 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
     });
 
     Route::prefix('report')->group(function () {
-        Route::get('top-borrow-book', [ReportController::class, 'TopBorrowBook'])->name('report.topBorrowBook');
-        Route::get('top-view-post', [ReportController::class, 'TopViewPost'])->name('report.topViewPost');
-        Route::get('top-user-post', [ReportController::class, 'TopUserPost'])->name('report.topUserPost');
-        Route::get('top-cate-post', [ReportController::class, 'TopCatePost'])->name('report.topCatePost');
+        Route::get('top-borrow-book', [ReportController::class, 'topBorrowBook'])->name('report.topBorrowBook');
+        Route::get('export', [ReportController::class, 'exportTopBorrowBook'])->name('report.exportTopBorrowBook');
+        Route::get('top-view-post', [ReportController::class, 'topViewPost'])->name('report.topViewPost');
+        Route::get('top-user-post', [ReportController::class, 'topUserPost'])->name('report.topUserPost');
+        Route::get('top-cate-post', [ReportController::class, 'topCatePost'])->name('report.topCatePost');
     });
 });
 

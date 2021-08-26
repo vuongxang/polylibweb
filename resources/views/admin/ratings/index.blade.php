@@ -53,16 +53,16 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     @if ($rating->user)
-                                                        {{ $rating->user->email }}
+                                                        {{ $rating->user()->withTrashed()->first()->email }}
                                                     @else
-                                                        <span class="text-danger">Tài khoản đã bị khóa!</span>
+                                                        {{ $rating->user()->withTrashed()->first()->email }}&nbsp;(<span class="text-danger"> Tài khoản đang bị khóa! </span>)
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if ($rating->book)
-                                                        {{ $rating->book->title }}
+                                                        {{ $rating->book()->withTrashed()->first()->title }}
                                                     @else
-                                                        <span class="text-danger">Sách đã bị xóa!</span>
+                                                        {{ $rating->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đang bị cho vào thùng rác ! </span>)
                                                     @endif
                                                 </td>
                                                 <td>
@@ -114,16 +114,16 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     @if ($rating->user)
-                                                        {{ $rating->user->email }}
+                                                        {{ $rating->user()->withTrashed()->first()->email }}
                                                     @else
-                                                        <span class="text-danger">Tài khoản đã bị khóa!</span>
+                                                        {{ $rating->user()->withTrashed()->first()->email }}&nbsp;(<span class="text-danger"> Tài khoản đang bị khóa! </span>)
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if ($rating->book)
-                                                        {{ $rating->book->title }}
+                                                        {{ $rating->book()->withTrashed()->first()->title }}
                                                     @else
-                                                        <span class="text-danger">Sách đã bị xóa!</span>
+                                                        {{ $rating->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đang bị cho vào thùng rác ! </span>)
                                                     @endif
                                                 </td>
                                                 <td>
@@ -175,16 +175,16 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     @if ($rating->user)
-                                                        {{ $rating->user->email }}
+                                                        {{ $rating->user()->withTrashed()->first()->email }}
                                                     @else
-                                                        <span class="text-danger">Tài khoản đã bị khóa!</span>
+                                                        {{ $rating->user()->withTrashed()->first()->email }}&nbsp;(<span class="text-danger"> Tài khoản đang bị khóa! </span>)
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if ($rating->book)
-                                                        {{ $rating->book->title }}
+                                                        {{ $rating->book()->withTrashed()->first()->title }}
                                                     @else
-                                                        <span class="text-danger">Sách đã bị xóa!</span>
+                                                        {{ $rating->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đang bị cho vào thùng rác ! </span>)
                                                     @endif
                                                 </td>
                                                 <td>

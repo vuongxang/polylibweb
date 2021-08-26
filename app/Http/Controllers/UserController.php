@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Imports\UsersImport;
 use App\Models\Book;
 use App\Models\PostShare;
 use App\Models\Role;
@@ -10,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -133,6 +135,15 @@ class UserController extends Controller
         }
     }
 
+    public function lockForm(){
+        return view('admin.users.lock-form');
+    }
+
+    public function massLockUser(Request $request){
+        Excel::import(new UsersImport,$request->file('file_upload'));
+             
+        return back();
+    }
     public function notifications()
     {
         return view('client.pages.notifications');

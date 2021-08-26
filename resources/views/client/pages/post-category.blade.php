@@ -17,13 +17,13 @@
                             <div class="card mb-3 border-0">
                                 <div class="row g-0">
                                     <div class="col-md-1">
-                                        <img src="{{ asset($post->user->avatar) }}"
+                                        <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
                                             class="img-fluid rounded-start rounded-circle" width="50" alt="...">
                                     </div>
                                     <div class="col-md-11">
                                         <div class="card-body">
                                             <p class="card-text">
-                                                <a href="">{{ $post->user->name }}</a>
+                                                <a href="">{{ $post->user()->withTrashed()->first()->name }}</a>
                                             </p>
                                             <h5 class="card-title">
                                                 <a href="{{ route('post.detail', $post->slug) }}">{{ $post->title }}</a>

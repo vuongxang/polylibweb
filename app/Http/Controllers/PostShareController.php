@@ -23,15 +23,15 @@ class PostShareController extends Controller
 
         $posts = PostShare::sortable()->where('title','like',"%".$keyword."%")->where('status',1)
                             ->orderBy('created_at','DESC')->paginate($pagesize);
-        $posts->load('user');
+        $posts->load('user','cates');
         
         $posts_pending = PostShare::sortable()->where('title','like',"%".$keyword."%")->where('status',0)
                             ->orderBy('created_at','DESC')->paginate($pagesize);
-        $posts_pending->load('user');
+        $posts_pending->load('user','cates');
 
         $posts_rejected = PostShare::sortable()->where('title','like',"%".$keyword."%")->where('status',2)
                             ->orderBy('created_at','DESC')->paginate($pagesize);
-        $posts_rejected->load('user');
+        $posts_rejected->load('user','cates');
         
         return view('admin.posts.index',[
             'posts'             => $posts,
@@ -94,6 +94,9 @@ class PostShareController extends Controller
         $posts = PostShare::where('status',1)->orderBy('created_at','DESC')->get();
         $posts->load('user');
         $posts->load('cates');
+        // foreach ($posts as $key => $post) {
+        //     if(!$post->user) dd($post->user()->withTrashed()->first()->avatar);
+        // }
         return view('client.pages.post-category',['cates'=>$cates,'posts'=>$posts]);
     }
 
