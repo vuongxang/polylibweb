@@ -24,15 +24,15 @@ class PostShareController extends Controller
 
         $posts = PostShare::sortable()->where('title', 'like', "%" . $keyword . "%")->where('status', 1)
             ->orderBy('created_at', 'DESC')->paginate($pagesize);
-        $posts->load('user');
+        $posts->load('user', 'cates');
 
         $posts_pending = PostShare::sortable()->where('title', 'like', "%" . $keyword . "%")->where('status', 0)
             ->orderBy('created_at', 'DESC')->paginate($pagesize);
-        $posts_pending->load('user');
+        $posts_pending->load('user', 'cates');
 
         $posts_rejected = PostShare::sortable()->where('title', 'like', "%" . $keyword . "%")->where('status', 2)
             ->orderBy('created_at', 'DESC')->paginate($pagesize);
-        $posts_rejected->load('user');
+        $posts_rejected->load('user', 'cates');
 
         return view('admin.posts.index', [
             'posts'             => $posts,
@@ -98,7 +98,12 @@ class PostShareController extends Controller
         $cates->load('posts');
         $posts = PostShare::where('status', 1)->orderBy('created_at', 'DESC')->paginate(5);
         $posts->load('user', 'cates');
+        // foreach ($posts as $key => $post) {
+        //     if(!$post->user) dd($post->user()->withTrashed()->first()->avatar);
+        // }
         return view('client.pages.post', ['cates' => $cates, 'posts' => $posts]);
+        
+        
     }
 
     public function create()
@@ -192,7 +197,7 @@ class PostShareController extends Controller
         $cates = PostShareCategory::all();
 
         $model->load('cates', 'user', 'postFiles');
-        
+
         $postsOfUser = PostShare::where('user_id', $model->user->id)->where('id', '!=', $model->id)->where('status', 1)->get();
         $postsOfUser->load('cates', 'user', 'postFiles');
         $totalViews = PostView::where('post_id', $model->id)->sum('views');
@@ -260,7 +265,8 @@ class PostShareController extends Controller
             return view('client.pages.post')->with(['cates' => $cates, 'posts' => $posts])->with('message', 'Danh mục ' . $checkSlug->name . ' chưa có bài viết nào');
         }
     }
-    public function postUser($id){
+    public function postUser($id)
+    {
         return view('client.pages.post-user');
     }
 }

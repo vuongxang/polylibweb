@@ -52,11 +52,14 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     @if ($post->user)
-                                                    <img src="{{ asset($post->user->avatar) }}"
+                                                    <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
                                                         class="rounded-circle shadow" alt="" width="30">
-                                                    {{ $post->user->name }}
+                                                    {{ $post->user()->withTrashed()->first()->name }}
                                                     @else
-                                                    <span class="text-danger">Tài khoản đã bị khóa !</span>
+                                                    <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
+                                                        class="rounded-circle shadow" alt="" width="30">
+                                                    {{ $post->user()->withTrashed()->first()->name }}&nbsp;
+                                                    (<span class="text-danger"> Tài khoản đã bị khóa ! </span>)
                                                     @endif
                                                 </td>
                                                 <td>{{ $post->title }}</td>
@@ -104,11 +107,16 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
-                                                    <a href="">
-                                                        <img src="{{ asset($post->user->avatar) }}"
-                                                            class="rounded-circle shadow" alt="" width="30">
-                                                        {{ $post->user->name }}
-                                                    </a>
+                                                    @if ($post->user)
+                                                    <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
+                                                        class="rounded-circle shadow" alt="" width="30">
+                                                    {{ $post->user()->withTrashed()->first()->name }}
+                                                    @else
+                                                    <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
+                                                        class="rounded-circle shadow" alt="" width="30">
+                                                    {{ $post->user()->withTrashed()->first()->name }}&nbsp;
+                                                    (<span class="text-danger"> Tài khoản đã bị khóa ! </span>)
+                                                    @endif
                                                 </td>
                                                 <td>{{ $post->title }}</td>
                                                 <td>
@@ -153,11 +161,16 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
-                                                    <a href="">
-                                                        <img src="{{ asset($post->user->avatar) }}"
-                                                            class="rounded-circle shadow" alt="" width="30">
-                                                        {{ $post->user->name }}
-                                                    </a>
+                                                    @if ($post->user)
+                                                    <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
+                                                        class="rounded-circle shadow" alt="" width="30">
+                                                    {{ $post->user()->withTrashed()->first()->name }}
+                                                    @else
+                                                    <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
+                                                        class="rounded-circle shadow" alt="" width="30">
+                                                    {{ $post->user()->withTrashed()->first()->name }}&nbsp;
+                                                    (<span class="text-danger"> Tài khoản đã bị khóa ! </span>)
+                                                    @endif
                                                 </td>
                                                 <td>{{ $post->title }}</td>
                                                 <td>

@@ -51,16 +51,16 @@
                                             <td>{{ $comment->id }}</td>
                                             <td>
                                                 @if ($comment->user)
-                                                    {{ $comment->user->email }}
+                                                    {{ $comment->user()->withTrashed()->first()->email }}
                                                 @else
-                                                    <span class="text-danger">Tài khoản đã bị khóa!</span>
+                                                {{ $comment->user()->withTrashed()->first()->email }}&nbsp;(<span class="text-danger"> Tài khoản đang bị khóa! </span>)
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($comment->book)
-                                                    {{ $comment->book->title }}
+                                                    {{ $comment->book()->withTrashed()->first()->title }}
                                                 @else
-                                                    <span class="text-danger">Sách đã bị xóa!</span>
+                                                    {{ $comment->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đã bị bỏ vào thùng rác! </span>)
                                                 @endif
                                             </td>
                                             <td>{{ $comment->body }}</td>

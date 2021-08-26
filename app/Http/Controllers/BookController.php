@@ -275,7 +275,7 @@ class BookController extends Controller
         $comments = Comment::where('book_id', $book->id)->where('status', 1)->get();
         $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->get();
         $rates->load('user');
-
+        $comments->load('user');
         $arr = [19, 15, 14];
 
 

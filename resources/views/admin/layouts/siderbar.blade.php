@@ -150,6 +150,12 @@
             <span>Tài khoản người dùng</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('user.massLockForm')}}">
+            <i class="fas fa-fw fa-lock"></i>
+            <span>Nhập file khóa tài khoản</span>
+        </a>
+    </li>
     @endif
     <hr class="sidebar-divider">
     <div class="sidebar-heading"> 

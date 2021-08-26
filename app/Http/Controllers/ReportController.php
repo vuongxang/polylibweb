@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TopBorrowBookExport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -34,6 +38,10 @@ class ReportController extends Controller
                                                        'pagesize'           => $pagesize,
                                                        'total_day'          => $total_day
                                                     ]);
+    }
+
+    public function exportTopBorrowBook(){
+        return Excel::download(new TopBorrowBookExport, 'book-borrow.xlsx');
     }
 
     public function TopViewPost(Request $request){
