@@ -43,7 +43,8 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/search/{id}', [SearchController::class, 'search'])->name('searchID');
     Route::get('/filter', [SearchController::class, 'filter'])->name('filter');
     Route::post('/searchapi', [SearchController::class, 'searchApi'])->name('searchapi');
-    Route::get('/category-postshare', [PostShareController::class, 'all'])->name('post.categories');
+
+    Route::get('/post', [PostShareController::class, 'all'])->name('post');
     Route::get('/add-post', [PostShareController::class, 'create'])->name('post.create');
     Route::post('/add-post', [PostShareController::class, 'store'])->name('post.store');
     Route::get('/edit-post/{id}', [PostShareController::class, 'edit'])->name('post.edit');

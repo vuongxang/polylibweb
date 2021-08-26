@@ -89,12 +89,12 @@ class PostShareController extends Controller
 
     //client method
     public function all(){
-        $cates = PostShareCategory::all();
+        Carbon::setLocale('vi');
+        $cates = PostShareCategory::where('status',1)->get();
         $cates->load('posts');
-        $posts = PostShare::where('status',1)->orderBy('created_at','DESC')->get();
-        $posts->load('user');
-        $posts->load('cates');
-        return view('client.pages.post-category',['cates'=>$cates,'posts'=>$posts]);
+        $posts = PostShare::where('status',1)->orderBy('created_at','DESC')->paginate(5);
+        $posts->load('user','cates');
+        return view('client.pages.post',['cates'=>$cates,'posts'=>$posts]);
     }
 
     public function create(){
