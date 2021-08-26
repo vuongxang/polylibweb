@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Requests\PostShareRequest;
 use App\Models\PostShare;
 use App\Models\PostShareCategory;
 use App\Models\PostView;
@@ -69,7 +71,7 @@ class PostShareController extends Controller
         return view('client.pages.addnew-post',['cates'=>$cates]);
     }
 
-    public function store(Request $request){
+    public function store(PostShareRequest $request){
         $model = new PostShare();
         if($request->hasFile('thumbnail')){
             $fileName = uniqid().'_'.$request->file('thumbnail')->getClientOriginalName();
@@ -93,7 +95,7 @@ class PostShareController extends Controller
                     'cate_id' => $cate_id,
                     'post_id' => $model->id
                 ];
-                DB::table('post_share_category_details')->insert($item);
+                DB::table('post_share_categories')->insert($item);
             }
         }
 

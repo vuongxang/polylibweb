@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategoryEditRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -26,6 +28,7 @@ class CategoryController extends Controller
     }
 
     public function store(CategoryRequest $request){
+        // dd($request->image);
         $model = new Category();
         $model->fill($request->all());
         $model->slug =str_slug($request->name, '-');
@@ -40,9 +43,10 @@ class CategoryController extends Controller
         return view('admin.cates.edit-form', ['model' => $model]);
     }
 
-    public function update($id,Request $request){
+    public function update($id,CategoryEditRequest $request){
         $model = Category::find($id);
         $model->fill($request->all());
+        // dd($request->image->getSize());
         $model->slug =str_slug($request->name, '-');
         $model->save();
         return redirect(route('cate.index'))->with('message','Cập nhật thành công !')

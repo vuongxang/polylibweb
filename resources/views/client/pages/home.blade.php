@@ -95,13 +95,13 @@
                                     <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a>
                                     @endif
                                     @endforeach
-                                </div>
-                                <div class="book-card__star">
-                                    @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                        <i class="fas fa-star"></i>
-                                        @else
-                                        <i class="far fa-star"></i>
-                                        @endif
+                                    <p> <span class="book-star">
+                                        @for ($i=1; $i <= 5; $i++) 
+                                            @if (round(DB::table('ratings')->where('rateable_id',$book->id)->avg('rating'),1)>= round($i,1) )
+                                            <i class="fas fa-star"></i>
+                                            @else
+                                            <i class="far fa-star"></i>
+                                            @endif
                                         @endfor
                                 </div>
                                 @if(Auth::user())
@@ -284,6 +284,17 @@
                                 <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a>
                                 @endif
                                 @endforeach
+                                <p> 
+                                    <span class="book-star">
+                                        @for ($i=1; $i <= 5; $i++) 
+                                            @if (round(DB::table('ratings')->where('rateable_id',$book->id)->avg('rating'),1)>= round($i,1) )
+                                            <i class="fas fa-star"></i>
+                                            @else
+                                            <i class="far fa-star"></i>
+                                            @endif
+                                        @endfor
+                                    </span>
+                                </p>
                             </div>
                             <div class="book-card__star">
                                 @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
@@ -309,6 +320,36 @@
                     @endif
                     @endforeach
                 </div>
+            </div>
+            <div class="carousel-item ">
+                <div class="row  justify-content-center">
+                    @foreach ($books as $book)
+
+                    @if($loop->index >= 4 && $loop->index <= 8) <div class="col-3  ">
+                        <div class="book-item">
+                            <a href="{{route('book.detail',$book->id)}}">
+                                <img src="{{asset($book->image)}}" alt="">
+                            </a>
+                            <a href="{{route('book.detail',$book->id)}}">
+                                <h3 class="text-white">{{$book->title}}</h3>
+                            </a>
+                            @foreach($book->authors as $bookAuthor)
+                            <p> <span class="book-author"> {{$bookAuthor->name}}</span></p>
+
+                            @endforeach
+                            <p> <span class="book-star">
+                                    @for ($i=1; $i <= 5; $i++) 
+                                        @if (round(DB::table('ratings')->where('rateable_id',$book->id)->avg('rating'),1)>= round($i,1) )
+                                        <i class="fas fa-star"></i>
+                                        @else
+                                        <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                            </span></p>
+                        </div>
+                </div>
+                @endif
+                @endforeach
             </div>
             @endif
         </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PostShareCategoryDetail extends Model
 {
     use HasFactory;
-    protected $table='post_share_category_details';
+    protected $table='post_share_categories';
     protected $fillable = ['post_id','cate_id'];
 
     public $timestamps = false;

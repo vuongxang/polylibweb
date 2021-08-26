@@ -41,10 +41,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
-        @yield('script')
-
         <script src="https://cdn.tiny.cloud/1/hmuw3s2zqh2hz2ctu3t8rxpvxh61d6ci6pkldvwxndprwi2a/tinymce/5/tinymce.min.js"
-                referrerpolicy="origin"></script>
+        referrerpolicy="origin"></script>
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+        @yield('script')
         <script>
             $(document).ready(function() {
                 $('#postForm').ajaxForm({
@@ -82,9 +82,9 @@
                 });
 
             });
-            var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-                cluster: "ap1"
-            });
+            // var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            //     cluster: "ap1"
+            // });
             var channel = pusher.subscribe('NotificationEvent');
             channel.bind('send-message', function(data) {
                 console.log(data)

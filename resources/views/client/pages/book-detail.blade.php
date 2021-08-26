@@ -52,7 +52,7 @@
                                 @else
                                 <i class="far fa-star"></i>
                                 @endif
-                                @endfor
+                            @endfor
 
                         </div>
                         <span class="review-count ">( {{ round($avg_rating,1) }} / 5 )</span>
@@ -206,11 +206,11 @@
                                     </div>
                                     <div class="book-card__author">
                                         @foreach ($book->authors as $author)
-                                        @if ($loop->last)
-                                        {{ $author->name }}
-                                        @else
-                                        {{ $author->name }},
-                                        @endif
+                                            @if ($loop->last)
+                                            {{ $author->name }}
+                                            @else
+                                            {{ $author->name }},
+                                            @endif
                                         @endforeach
                                     </div>
                                     <div class="book-card__star">

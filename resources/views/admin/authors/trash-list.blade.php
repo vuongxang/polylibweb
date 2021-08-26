@@ -39,7 +39,7 @@
                                 <img src="{{asset($author->avatar)}}" alt="" width="50">
                             </td>
                             <td>
-                                {{$author->date_birth}}
+                                {{$author->date_birth->format('d/m/Y')}}
                             </td>
                             <td>
                                 <div class="btn-group">
