@@ -44,7 +44,7 @@
                 </div>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <label class="card-title">Đính kèm tệp (Nếu có)</label>
+                        <label> Đính kèm tệp (Nếu có)</label>
                         <hr>
                         <div class="table-responsive">
                             <table id="faqs" class="table table-hover">
