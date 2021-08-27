@@ -5,7 +5,7 @@
     <ul class="header__nav">
         <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
         <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}">Danh Mục</a></li>
-        <li class="header__nav-li"><a class="link" href="{{route('post.categories')}}">Bài Viết</a></li>
+        <li class="header__nav-li"><a class="link" href="{{route('post')}}">Bài Viết</a></li>
         <li class="header__nav-li"><a class="link" href="{{route('contact')}}">Liên Hệ</a></li>
     </ul>
     <div class="header__search">
