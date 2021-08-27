@@ -2,7 +2,7 @@
     @if ($comment->parent_id == null )
         <div class="book-user-comment">
             <div class="comment-box__image">
-                <img src="{{ asset($comment->user->avatar) }}" alt="">
+                <img src="{{ asset($comment->user()->withTrashed()->first()->avatar) }}" alt="">
             </div>
             <div class="book-user-comment__body js-comment-body">
                 <div class="book-user-comment__heading">

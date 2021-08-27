@@ -197,7 +197,7 @@ class PostShareController extends Controller
 
         $model->load('cates', 'user', 'postFiles');
 
-        $postsOfUser = PostShare::where('user_id', $model->user->id)->where('id', '!=', $model->id)->where('status', 1)->get();
+        $postsOfUser = PostShare::where('user_id', $model->user()->withTrashed()->first()->id)->where('id', '!=', $model->id)->where('status', 1)->get();
         $postsOfUser->load('cates', 'user', 'postFiles');
         $totalViews = PostView::where('post_id', $model->id)->sum('views');
         if (!$model) return back();

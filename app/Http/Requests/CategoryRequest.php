@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
         return [
             "name" => 'required|unique:categories|min:5|max:30',
             "image" => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
-            "description" => 'required|max:255',
+            "description" => 'required',
         ];
     }
 
@@ -40,7 +40,7 @@ class CategoryRequest extends FormRequest
             'image.required' => 'Chọn ảnh danh mục sách',
             'image.regex' => 'Không đúng định dạng ảnh',
             'image.size' => 'Anhrrrrr',
-            'description.max' => 'Không được vượt quá 255 ký tự',
+            // 'description.max' => 'Không được vượt quá 255 ký tự',
             'description.required' => 'Nhập thông tin giới thiệu danh mục sách',
         ];
     }

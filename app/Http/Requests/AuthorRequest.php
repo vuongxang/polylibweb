@@ -26,7 +26,7 @@ class AuthorRequest extends FormRequest
         return [
             'name' => 'required|unique:authors|min:5|max:30',
             'avatar' => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)', 'max:100'],
-            'description' => 'required|max:255',
+            'description' => 'required',
             'date_birth' => 'required',
         ];
     }
@@ -40,7 +40,7 @@ class AuthorRequest extends FormRequest
             'name.max' => 'Không được vượt quá 30 ký tự',
             'avatar.required' => 'Chọn ảnh tác giả',
             'avatar.regex' => 'Không đúng định dạng ảnh',
-            'description.max' => 'Không được vượt quá 255 ký tự',
+            // 'description.max' => 'Không được vượt quá 255 ký tự',
             'description.required' => 'Nhập thông tin giới thiệu tác giả',
             'date_birth.required' => 'Nhập ngày sinh tác giả',
         ];

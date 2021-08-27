@@ -18,7 +18,7 @@ class PostShareCategory extends Model
     public function posts(){
         return $this->belongsToMany(
             PostShare::class, 
-            'post_share_categories', 
+            'post_share_category_details', 
             'post_id', 
             'cate_id'
         );
