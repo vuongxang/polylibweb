@@ -26,7 +26,7 @@ class BookEditRequest extends FormRequest
         return [
             'title' => 'required|min:5|max:50',
             'image' => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
-            'description' => 'required|max:255',
+            'description' => 'required',
             'publish_date_from' => 'required',
             'cate_id' => 'required',
             'author_id' => 'required'
@@ -41,7 +41,7 @@ class BookEditRequest extends FormRequest
             'title.max' => 'Không được vượt quá 50 ký tự',
             'image.required' => 'Chọn ảnh bìa sách',            
             'image.regex' => 'Không đúng định dạng ảnh',
-            'description.max' => 'Không được vượt quá 255 ký tự',
+            // 'description.max' => 'Không được vượt quá 255 ký tự',
             'description.required' => 'Nhập thông tin giới thiệu sách',
             'publish_date_from.required' => 'Nhập ngày đăng',
             'cate_id.required' => 'Chọn danh mục',

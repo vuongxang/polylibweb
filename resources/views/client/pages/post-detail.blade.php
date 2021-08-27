@@ -45,11 +45,11 @@
                     @endif
                     <div class="post-body__user">
                         <div class="post-body-user__avatar">
-                            <img src="{{asset($post->user->avatar)}}" alt="">
+                            <img src="{{asset($post->user()->withTrashed()->first()->avatar)}}" alt="">
                         </div>
                         <div class="post-body-user__name">
-                            <a href="{{route('post.user',$post->user->id)}}" class="post-body-user__link">
-                                {{$post->user->name}}
+                            <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}" class="post-body-user__link">
+                                {{$post->user()->withTrashed()->first()->name}}
                             </a>
                             <div class="post-body-created">
                                 {{ $post->created_at->diffForHumans()}}
@@ -93,15 +93,15 @@
         <div class="col-md-4 post-detail__aside">
             <div class="post-aside__user">
                 <div class="post-user__avatar">
-                    <a href="{{route('post.user',$post->user->id)}}">
-                        <img class="post-user__img" src="{{asset($post->user->avatar)}}" alt="">
+                    <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}">
+                        <img class="post-user__img" src="{{asset($post->user()->withTrashed()->first()->avatar)}}" alt="">
                     </a>
                 </div>
 
                 <div class="posts-of-user">
                     <div class="posts-of-user__header">
-                        Bài viết khác của <a href="{{route('post.user',$post->user->id)}}" class="post-user__link">
-                            {{$post->user->name}}
+                        Bài viết khác của <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}" class="post-user__link">
+                            {{$post->user()->withTrashed()->first()->name}}
                         </a>
                     </div>
                     <div class="posts-of-user__list">

@@ -2,7 +2,7 @@
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách danh mục bài viết</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách danh mục</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -11,7 +11,7 @@
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('postCate.index')}}">Danh sách</a>
+                  <a class="nav-link" href="{{route('cate.index')}}">Danh sách</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active bg-light">Thùng rác</a>

@@ -2,7 +2,7 @@
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách danh mục</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách sách</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
