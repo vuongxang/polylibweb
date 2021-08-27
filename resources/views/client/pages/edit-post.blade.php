@@ -45,6 +45,11 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <label> Đính kèm tệp (Nếu có)</label>
+                        @if ($post->postFiles)
+                            @foreach ($post->postFiles as $key => $postFile)
+                                <a href="{{asset($postFile->url)}}">Link {{$key+1}}</a>
+                            @endforeach
+                        @endif
                         <hr>
                         <div class="table-responsive">
                             <table id="faqs" class="table table-hover">

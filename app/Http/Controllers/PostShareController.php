@@ -148,7 +148,7 @@ class PostShareController extends Controller
                 $filePath = $file->storeAs('uploads/documents', $fileName, 'public');
 
                 $item = [
-                    'url'       => $fileName,
+                    'url'       => 'storage/'.$filePath,
                     'title'     => $file_titles[$key],
                     'post_id'   => $model->id
                 ];
