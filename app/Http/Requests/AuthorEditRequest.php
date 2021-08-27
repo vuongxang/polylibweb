@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class AuthorEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,24 +24,24 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => 'required|unique:categories|min:5|max:30',
-            "image" => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
-            "description" => 'required|max:255',
+            'name' => 'required|min:5|max:30',
+            'avatar' => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)', 'max:100'],
+            'description' => 'required|max:255',
+            'date_birth' => 'required',
         ];
     }
-
+    
     public function messages()
     {
         return [
-            'name.required' => 'Nhập tên danh mục sách',
-            'name.unique' => 'Tên danh mục đã tồn tại',
+            'name.required' => 'Nhập tên tác giả',
             'name.min' => 'Tối thiểu 5 ký tự',
             'name.max' => 'Không được vượt quá 30 ký tự',
-            'image.required' => 'Chọn ảnh danh mục sách',
-            'image.regex' => 'Không đúng định dạng ảnh',
-            'image.size' => 'Anhrrrrr',
+            'avatar.required' => 'Chọn ảnh tác giả',
+            'avatar.regex' => 'Không đúng định dạng ảnh',
             'description.max' => 'Không được vượt quá 255 ký tự',
-            'description.required' => 'Nhập thông tin giới thiệu danh mục sách',
+            'description.required' => 'Nhập thông tin giới thiệu tác giả',
+            'date_birth.required' => 'Nhập ngày sinh tác giả',
         ];
     }
 }

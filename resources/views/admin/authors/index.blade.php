@@ -25,7 +25,8 @@
                         <th>@sortablelink('id','ID')</th>
                         <th>@sortablelink('name','Tên')</th>
                         <th>Ảnh đại diện</th>
-                        <th>@sortablelink('date_birt','Ngày sinh')</th>
+                        <th>@sortablelink('date_birth','Ngày sinh')</th>
+                        <th>@sortablelink('book_number','Số lượng sách')</th>
                         <th class="text-center">
                             <a href="{{route('author.create')}}" class="btn btn-dark btn-sm shadow rounded-0"><i class="fas fa-plus-circle mr-1"></i>Thêm mới </a>
                         </th>
@@ -42,6 +43,9 @@
                         </td>
                         <td>
                             {{$author->date_birth}}
+                        </td>
+                        <td>
+                            {{$author->books->count()}}
                         </td>
                         <td>
                             <div class="text-center">

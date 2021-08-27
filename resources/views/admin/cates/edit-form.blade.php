@@ -19,15 +19,15 @@
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh</label>
                     <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal" data-target="#exampleModal">
                         Chọn ảnh
-                    </button>
-                    <div class="show_image" class="mb-2">
-                        <img src="{{ asset(old('image', $model->image)) }}" id="show_img" alt="" width="100">
-                    </div>
-                    <input type="text" id="image" name="image" hidden class="form-control">
-                   
+                    </button><br>
                     @if ($errors->has('image'))
                         <span class="text-danger">{{$errors->first('image')}}</span>
                     @endif
+                    <div class="show_image" class="mb-2">
+                        <img src="{{ asset(old('image', $model->image)) }}" id="show_img" alt="" width="200">
+                    </div>
+                    <input type="text" id="image" name="image" hidden class="form-control" value="{{ old('image',$model->image) }}">
+                   
                 </div>
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Trạng thái</label>
@@ -37,11 +37,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="text-dark font-weight-bold" for="exampleInputName">Thông tin chi tiết</label>
-                    <textarea type="text" class="form-control" id="exampleInputName" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description',$model->description) }}</textarea>
+                    <label class="text-dark font-weight-bold" for="exampleInputName">Thông tin chi tiết</label><br>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif
+                    <textarea type="text" class="form-control" id="exampleInputDesc" rows="15" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description',$model->description) }}</textarea>
+                   
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark btn-sm shadow-lg">Cập nhật</button>

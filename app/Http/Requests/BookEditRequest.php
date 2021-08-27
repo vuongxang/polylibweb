@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BookRequest extends FormRequest
+class BookEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -45,7 +45,7 @@ class BookRequest extends FormRequest
             'description.required' => 'Nhập thông tin giới thiệu sách',
             'publish_date_from.required' => 'Nhập ngày đăng',
             'cate_id.required' => 'Chọn danh mục',
-            'author_id.required' => 'Chọn tác giả',
+            'author_id.required' => 'Chọn danh mục',
         ];
     }
 }

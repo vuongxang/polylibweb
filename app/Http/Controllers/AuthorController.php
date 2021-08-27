@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthorRequest;
+use App\Http\Requests\AuthorEditRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -47,9 +48,12 @@ class AuthorController extends Controller
     }
 
     public function store(AuthorRequest $request){
+        // $this->validate($request, ['avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
         $model = new Author();
         $model->fill($request->all());
+        // dd($request->avatar);
         $model->save();
+        
         return redirect(route('author.index'));
     }
 
@@ -59,9 +63,10 @@ class AuthorController extends Controller
         return view('admin.authors.edit-form', ['model' => $model]);
     }
 
-    public function update($id,Request $request){
+    public function update($id,AuthorEditRequest $request){
+        
         $model = Author::find($id);
-        dd($request->all());
+        // dd($model->name);
         $model->fill($request->all());
         $model->save();
         return redirect(route('author.index'));

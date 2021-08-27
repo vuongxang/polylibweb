@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
+use App\Http\Requests\BookEditRequest;
 use App\Models\Author;
 use App\Models\AuthorBooks;
 use App\Models\Book;
@@ -131,10 +132,10 @@ class BookController extends Controller
         $authors = Author::all();
 
         if (!$model) return redirect(route('book.index'));
-        return view('admin.books.edit-form', ['model' => $model, 'cates' => $cates, 'authors' => $authors,]);
+        return view('admin.books.edit-form', ['model' => $model, 'cates' => $cates, 'authors' => $authors]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, BookEditRequest $request)
     {
         $model = Book::find($id);
         $model->fill($request->all());

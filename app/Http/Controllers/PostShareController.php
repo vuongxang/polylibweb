@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\NewNotificationEvent;
 use App\Models\PostShare;
+use App\Http\Requests\PostShareRequest;
 use App\Models\PostShareCategory;
 use App\Models\PostView;
 use App\Models\User;
@@ -102,8 +103,6 @@ class PostShareController extends Controller
         //     if(!$post->user) dd($post->user()->withTrashed()->first()->avatar);
         // }
         return view('client.pages.post', ['cates' => $cates, 'posts' => $posts]);
-        
-        
     }
 
     public function create()

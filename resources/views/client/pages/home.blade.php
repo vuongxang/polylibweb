@@ -108,13 +108,13 @@
                                     <a href="{{route('author.detail',$author->id)}}"> {{ $author->name }} ,</a>
                                     @endif
                                     @endforeach
-                                </div>
-                                <div class="book-card__star">
-                                    @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                        <i class="fas fa-star"></i>
-                                        @else
-                                        <i class="far fa-star"></i>
-                                        @endif
+                                    <p> <span class="book-star">
+                                        @for ($i=1; $i <= 5; $i++) 
+                                            @if (round(DB::table('ratings')->where('rateable_id',$book->id)->avg('rating'),1)>= round($i,1) )
+                                            <i class="fas fa-star"></i>
+                                            @else
+                                            <i class="far fa-star"></i>
+                                            @endif
                                         @endfor
                                 </div>
                                 @if(Auth::user())

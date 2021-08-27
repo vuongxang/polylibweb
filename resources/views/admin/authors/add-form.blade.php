@@ -9,38 +9,42 @@
             <form action="{{route('author.store')}}" method="post" class="mt-4 mb-4">
                 @csrf
                 <div class="form-group">
-                    <label class="text-dark font-weight-bold" for="exampleInputName">Tên tác giả</label>
-                    <input type="text" class="form-control" id="exampleInputName" placeholder="Tên tác giả" name="name" value="{{ old('name') }}">
+                    <label class="text-dark font-weight-bold" for="exampleInputName">Tên tác giả</label><br>
                     @if ($errors->has('name'))
                         <span class="text-danger">{{$errors->first('name')}}</span>
                     @endif
+                    <input type="text" class="form-control" id="exampleInputName" placeholder="Tên tác giả" name="name" value="{{ old('name') }}">
+                    
                 </div>
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh đại diện</label>
                     <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal" data-target="#exampleModal">
                         Chọn ảnh
-                    </button>
-                    <div class="show_image" class="mb-2" style="width:200px; height:300px; border:1px solid #bdbdbd">
-                        <img src="" alt="Ảnh tác giả" id="show_img" width="200" height="300px" readonly>
-                    </div>
-                    <input type="text" id="image" hidden name="avatar" class="form-control"readonly>
+                    </button><br>
                     @if ($errors->has('avatar'))
                         <span class="text-danger">{{$errors->first('avatar')}}</span>
                     @endif
+                    <div class="show_image" class="mb-2">
+                        <img src="" name="show_img" alt="" id="show_img" width="200" readonly value="{{ old('avatar') }}">
+                    </div>
+                    <input type="text" id="image" hidden name="avatar" class="form-control" value="{{ old('avatar') }}" readonly>
+                    
                 </div>
                 <div class="form-group">
-                    <label class="text-dark font-weight-bold" for="exampleInputDate">Ngày sinh</label>
-                    <input type="date" class="form-control" id="exampleInputDate" placeholder="tên tác giả" name="date_birth" value="{{ old('date_birth') }}">
+                    <label class="text-dark font-weight-bold" for="exampleInputDate">Ngày sinh</label><br>
                     @if ($errors->has('date_birth'))
                         <span class="text-danger">{{$errors->first('date_birth')}}</span>
                     @endif
+                    <input type="date" class="form-control" id="exampleInputDate" placeholder="" name="date_birth" value="{{ old('date_birth') }}">
+                    
                 </div>
                 <div class="form-group">
-                    <label class="text-dark font-weight-bold" for="exampleInputName">Thông tin chi tiết</label>
-                    <textarea type="text" class="form-control" id="exampleInputName" placeholder="Nhập thông tin chi tiết" name="description" value="{{ old('description') }}"></textarea>
+                    <label class="text-dark font-weight-bold" for="exampleInputName">Thông tin chi tiết</label><br>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif
+                    <textarea type="text" class="form-control tinymce-editor" id="exampleInputDesc" rows="15" placeholder="Nhập thông tin chi tiết" name="description">{{ old('description') }}</textarea>
+                    
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark btn-sm shadow-lg">Thêm mới</button>
