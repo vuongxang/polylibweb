@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Events\NewNotificationEvent;
 use App\Models\PostShare;
 use App\Http\Requests\PostShareRequest;
+use App\Models\PostFileData;
 use App\Models\PostShareCategory;
+use App\Models\PostShareCategoryDetail;
 use App\Models\PostView;
 use App\Models\User;
 use App\Notifications\InvoicePaid;
@@ -188,6 +190,64 @@ class PostShareController extends Controller
         $cates = PostShareCategory::all();
         return view('client.pages.edit-post', ['post' => $model, 'cates' => $cates]);
     }
+
+    public function update(Request $request,$id){
+
+        $model = PostShare::find($id);
+        if(!$model) return redirect(route('user.myPost', Auth::user()->id))->with('message', 'Dữ liệu không tồn tại');
+
+        if ($request->hasFile('thumbnail')) {
+            $fileName = uniqid() . '_' . $request->file('thumbnail')->getClientOriginalName();
+            $filePath = $request->file('thumbnail')->storeAs('uploads/post-thumbnail', $fileName, 'public');
+            $model->thumbnail = 'storage/' . $filePath;
+        }
+
+        if($request->file_close){
+            $file_closes = json_decode($request->file_close);
+            foreach ($file_closes as $key => $id) {
+                PostFileData::find($id)->delete();
+            }
+        }
+        $model->title = $request->title;
+        $milliseconds = round(microtime(true) * 1000);
+        $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
+        $model->content = $request->content;
+        $model->user_id = Auth::user()->id;
+        if ($model->user_id == 1 || $model->user_id == 2 || $model->user_id == 3) $model->status = 1;
+        else $model->status = 0;
+
+        $model->save();
+
+        if ($request->cate_id) {
+            PostShareCategoryDetail::where('post_id',$model->id)->delete();
+            foreach ($request->cate_id as $cate_id) {
+                $item = [
+                    'cate_id' => $cate_id,
+                    'post_id' => $model->id
+                ];
+                DB::table('post_share_category_details')->insert($item);
+            }
+        }
+
+        if ($request->hasFile('file_upload')) {
+            $file_uploads   = $request->file_upload;
+            $file_titles     = $request->file_title;
+
+            foreach ($file_uploads as $key => $file) {
+                $fileName = uniqid() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('uploads/documents', $fileName, 'public');
+
+                $item = [
+                    'url'       => 'storage/'.$filePath,
+                    'title'     => $file_titles[$key],
+                    'post_id'   => $model->id
+                ];
+                DB::table('post_file_data')->insert($item);
+            }
+        }
+        return redirect(route('user.myPost', Auth::user()->id))->with('message', 'Cập nhật thành công');
+    }
+
     public function detail($slug)
     {
         Carbon::setLocale('vi');
@@ -240,8 +300,6 @@ class PostShareController extends Controller
         $postView->save();
         return response()->json($postView);
     }
-
-
 
     public function getPostsByCategory($slug)
     {

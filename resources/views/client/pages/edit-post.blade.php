@@ -12,7 +12,7 @@
             @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
-            <form action="" method="post" id="postForm" enctype="multipart/form-data">
+            <form action="{{route('post.update',$post->id)}}" method="post" id="postForm" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <input id="my-input" class="form-control" type="text" name="title" placeholder="tiêu đề" value="{{old('title',$post->title)}}">
@@ -46,10 +46,17 @@
                     <div class="card-body">
                         <label> Đính kèm tệp (Nếu có)</label>
                         @if ($post->postFiles)
+                        <ul>
                             @foreach ($post->postFiles as $key => $postFile)
-                                <a href="{{asset($postFile->url)}}">Link {{$key+1}}</a>
+                                <li>
+                                    <a href="{{asset($postFile->url)}}">{{$postFile->title}}</a>
+                                    <span class="btn btn-outline-danger js-span" id="{{$postFile->id}}">&#10006</span>
+                                    {{-- onclick="closeFile({{$postFile->id}} --}}
+                                </li>
                             @endforeach
+                        </ul>
                         @endif
+                        <input type="hidden" name="file_close" id="file_close">
                         <hr>
                         <div class="table-responsive">
                             <table id="faqs" class="table table-hover">
@@ -101,6 +108,7 @@
 <script src="https://cdn.tiny.cloud/1/hmuw3s2zqh2hz2ctu3t8rxpvxh61d6ci6pkldvwxndprwi2a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
+
     $(document).ready(function() {
 
         var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
@@ -185,5 +193,19 @@
 
         faqs_row++;
     }
+
+    //click remove file when edit post 
+    var arr_id = [];
+
+    let x = [...$('.js-span')];
+    x.forEach(item =>{
+        item.addEventListener("click", function() {
+            let input_querry = document.querySelector('#file_close');
+            let id = item.id;
+            arr_id.push(id);
+            input_querry.value = JSON.stringify(arr_id);
+            item.parentNode.remove();
+        });
+    })
 </script>
 @endsection
