@@ -102,6 +102,7 @@ class PostShareController extends Controller
         // foreach ($posts as $key => $post) {
         //     if(!$post->user) dd($post->user()->withTrashed()->first()->avatar);
         // }
+        // return view('client.pages.post');
         return view('client.pages.post', ['cates' => $cates, 'posts' => $posts]);
     }
 
@@ -265,7 +266,13 @@ class PostShareController extends Controller
         }
     }
     public function postUser($id)
-    {
-        return view('client.pages.post-user');
+    {   
+        $user = User::where('id',$id)->withTrashed()->first();
+        if(!$user){return abort(404);}
+        $posts = PostShare::where('user_id',$user->id)->paginate(5);
+
+
+
+        return view('client.pages.post-user')->with(['posts' => $posts,'user' => $user]);
     }
 }

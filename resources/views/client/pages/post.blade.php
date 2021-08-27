@@ -29,7 +29,7 @@
                 <div class="post-item">
                     <div class="post-item__aside">
                         <div class="post-user-avatar">
-                            <a href="" class="post-user-avatar__link">
+                            <a href="{{route('post.user',$post->user->id)}}" class="post-user-avatar__link">
 
                                 <img class="post-user-avatar__img" class="post-user-avatar__img " src="{{ asset($post->user->avatar) }}" alt="">
                             </a>
@@ -38,7 +38,7 @@
                     <div class="post-item__content">
 
                         <div class="post-user-name">
-                            <a href="" class="post-user-name__link">
+                            <a href="{{route('post.user',$post->user->id)}}" class="post-user-name__link">
                                 {{ $post->user->name }}
                             </a>
                         </div>
@@ -50,7 +50,7 @@
 
 
 
-                        <div class="post-content__desc">{!! $post->content !!}</div>
+                        <!-- <div class="post-content__desc">{!! $post->content !!}</div> -->
 
                         <div class="post-content__tag">
                             @foreach($post->cates as $cate)
