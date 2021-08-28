@@ -267,3 +267,9 @@ body{
         opacity: 1;
     }
 }
+
+@media screen and (max-width:991px){
+    .search-form{
+        width: 90%;
+    }
+} 

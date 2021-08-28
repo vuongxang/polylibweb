@@ -411,3 +411,18 @@
     background-color: var(--base-color);
     color: var(--white-color);
 }
+.slide-mobile,.slide-table{
+    display: none;
+}
+/* responsive */
+@media screen and (max-width:768px){
+    .banner-first{
+        margin-top: 50px;
+    }
+}
+@media screen and (max-width:375px){
+    .banner-first{
+       display: none;
+    }
+
+}

@@ -66,3 +66,9 @@
     background: var(--text-color2);
 }
 
+@media screen and (max-width:991px)and (min-width: 768px){
+    .col-md-3{
+        margin-top: 50px;
+    }
+}
+

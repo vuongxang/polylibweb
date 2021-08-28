@@ -65,6 +65,11 @@
         <div class="book-carouse__header">
             <div class="carouse-header__title">Sách mới nhất</div>
         </div>
+        <!-- mobile -->
+     
+        <!-- table -->
+    
+        <!-- desktop -->
         <div class="book-carouse__body">
             @if (count($books) > 0)
             <div id="newestListBook" class="carousel slide" data-interval="6000" data-ride="carousel">
