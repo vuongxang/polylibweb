@@ -51,8 +51,20 @@
                                         @foreach ($ratings_approved as $key => $rating)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $rating->user->name }}</td>
-                                                <td>{{ $rating->book->title }}</td>
+                                                <td>
+                                                    @if ($rating->user)
+                                                        {{ $rating->user()->withTrashed()->first()->email }}
+                                                    @else
+                                                        {{ $rating->user()->withTrashed()->first()->email }}&nbsp;(<span class="text-danger"> Tài khoản đang bị khóa! </span>)
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($rating->book)
+                                                        {{ $rating->book()->withTrashed()->first()->title }}
+                                                    @else
+                                                        {{ $rating->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đang bị cho vào thùng rác ! </span>)
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="book-info-rating">
                                                         <div class="rate-stars">
@@ -100,8 +112,20 @@
                                         @foreach ($ratings_pending as $key => $rating)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $rating->user->name }}</td>
-                                                <td>{{ $rating->book->title }}</td>
+                                                <td>
+                                                    @if ($rating->user)
+                                                        {{ $rating->user()->withTrashed()->first()->email }}
+                                                    @else
+                                                        {{ $rating->user()->withTrashed()->first()->email }}&nbsp;(<span class="text-danger"> Tài khoản đang bị khóa! </span>)
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($rating->book)
+                                                        {{ $rating->book()->withTrashed()->first()->title }}
+                                                    @else
+                                                        {{ $rating->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đang bị cho vào thùng rác ! </span>)
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="book-info-rating">
                                                         <div class="rate-stars">
@@ -149,8 +173,20 @@
                                         @foreach ($ratings_deleted as $key => $rating)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $rating->user->name }}</td>
-                                                <td>{{ $rating->book->title }}</td>
+                                                <td>
+                                                    @if ($rating->user)
+                                                        {{ $rating->user()->withTrashed()->first()->email }}
+                                                    @else
+                                                        {{ $rating->user()->withTrashed()->first()->email }}&nbsp;(<span class="text-danger"> Tài khoản đang bị khóa! </span>)
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($rating->book)
+                                                        {{ $rating->book()->withTrashed()->first()->title }}
+                                                    @else
+                                                        {{ $rating->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đang bị cho vào thùng rác ! </span>)
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="book-info-rating">
                                                         <div class="rate-stars">

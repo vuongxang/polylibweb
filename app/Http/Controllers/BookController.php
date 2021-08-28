@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
+use App\Http\Requests\BookEditRequest;
 use App\Models\Author;
 use App\Models\AuthorBooks;
 use App\Models\Book;
@@ -20,6 +21,7 @@ use SebastianBergmann\Environment\Console;
 use willvincent\Rateable\Rating as RateableRating;
 use Spatie\PdfToImage\Pdf;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use PHPUnit\Framework\Constraint\Count;
 use Imagick;
 
@@ -130,10 +132,10 @@ class BookController extends Controller
         $authors = Author::all();
 
         if (!$model) return redirect(route('book.index'));
-        return view('admin.books.edit-form', ['model' => $model, 'cates' => $cates, 'authors' => $authors,]);
+        return view('admin.books.edit-form', ['model' => $model, 'cates' => $cates, 'authors' => $authors]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, BookEditRequest $request)
     {
         $model = Book::find($id);
         $model->fill($request->all());
@@ -232,12 +234,12 @@ class BookController extends Controller
         $model = Book::withTrashed()->find($id);
 
         if ($model) {
-            $model = Book::withTrashed()->where('id', $id)->forceDelete();
             BookGallery::where('book_id', $id)->delete();
             CategoryBook::where('book_id', $id)->delete();
             AuthorBooks::where('book_id', $id)->delete();
             BookAudio::where('book_id', $id)->delete();
             Comment::withTrashed()->where('book_id', $id)->forceDelete();
+            $model = Book::withTrashed()->where('id', $id)->forceDelete();
 
             return redirect(route('book.trashlist'))->with('message', 'Xóa sách thành công !')
                 ->with('alert-class', 'alert-success');
@@ -247,13 +249,13 @@ class BookController extends Controller
         }
     }
 
-    public  function bookDetail($id)
+    public  function bookDetail($slug)
     {
 
         Carbon::setLocale('vi');
 
-        $book = Book::find($id);
-        if (!$book) return redirect(route('home'));
+        $book = Book::where('slug', $slug)->where('status',1)->first();
+        if (!$book) return abort(404);
         $book->load('categories');
         $book->load('authors');
         $book->load('bookGalleries');
@@ -269,22 +271,22 @@ class BookController extends Controller
         }
         $sameBooksUnique = array_unique($sameBooks);
 
-        $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
+        $ordered = Order::where('book_id', $book->id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
-        $comments = Comment::where('book_id', $id)->where('parent_id', Null)->get();
-        $rates = Rating::where('rateable_id', $id)->where('status', 1)->get();
+        $comments = Comment::where('book_id', $book->id)->where('status', 1)->get();
+        $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->get();
         $rates->load('user');
-
+        $comments->load('user');
         $arr = [19, 15, 14];
 
 
-        $avg_rating = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
+        $avg_rating = DB::table('ratings')->where('rateable_id', $book->id)->avg('rating');
 
         return view('client.pages.book-detail', ['book' => $book, 'ordered' => $ordered, 'rates' => $rates, 'avg_rating' => $avg_rating, 'sameBooksUnique' => $sameBooksUnique, 'comments' => $comments]);
     }
 
 
-    public function reviewPage($id)
+    public function rateBook($id)
     {
         $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
@@ -325,22 +327,37 @@ class BookController extends Controller
         $rating->rating = $request->rate;
         $rating->user_id = auth()->user()->id;
         $rating->body = $body;
-        $rating->status = 1;
+        $rating->status = 0;
         $book->ratings()->save($rating);
 
         return redirect(route('user.history', Auth::user()->id))->with('message', 'Gửi đánh giá thành công !');
     }
 
-    public function readingBook($id)
+    public function readingBook($slug)
     {
-        $ordered = Order::where('book_id', $id)->where('id_user', Auth::user()->id)
+        $book = Book::where('slug', '=', $slug)->where('status',1)->first();
+
+        if (!$book) return abort(404);
+        $ordered = Order::where('book_id', $book->id)->where('id_user', Auth::user()->id)
             ->where('status', 'Đang mượn')->first();
 
         if (!$ordered) return redirect()->back(); //Check xem đã mượn sách chưa nếu chưa thì không cho truy cập
 
-        $book = Book::find($id);
+
         if ($book) {
-            $pages = BookGallery::where('book_id', '=', $book->id)->orderBy('id', 'desc')->get();
+            $pages = BookGallery::where('book_id', '=', $book->id)->orderBy('url', 'ASC')->get();
+            return view('client.pages.reading-book', ['pages' => $pages], ['book' => $book]);
+        } else {
+            return abort(404);
+        }
+    }
+
+    public function reviewBook($slug)
+    {
+        $book = Book::where('slug', '=', $slug)->where('status',1)->first();
+
+        if ($book) {
+            $pages = BookGallery::where('book_id', '=', $book->id)->take(10)->orderBy('url', 'ASC')->get();
             return view('client.pages.reading-book', ['pages' => $pages], ['book' => $book]);
         } else {
             return abort(404);
@@ -350,21 +367,30 @@ class BookController extends Controller
 
     public function getBooks()
     {
-        $books = Book::paginate(9);
+        $books = Book::where('status', 1)->paginate(9);
         $categories = Category::all();
+        $categories->loadCount(['books' => function ($query) {
+            $query->where('status', 1);
+        }]);
         return view('client.pages.category', compact('categories', 'books'));
     }
     public function getBooksByCategory($slug)
     {
-        $catee = Category::where('slug', '=', $slug)->get();
-        $catee->load('books');
+
+
+        $books = Book::whereHas('categories', function ($query) use ($slug) {
+            $query->where('slug', $slug);
+        })->where('status', 1)->paginate(9);
+        $cateName = Category::firstWhere('slug', $slug)->name;
+
         $categories = Category::all();
-        $array = [];
-        foreach ($catee as $a) {
-            foreach ($a->books as $b) {
-                array_push($array, $b);
-            }
+        $categories->loadCount(['books' => function ($query) {
+            $query->where('status', 1);
+        }]);
+        if (count($books) > 0) {
+            return view('client.pages.category')->with(['categories' => $categories, 'books' => $books, 'cateName' => $cateName])->with('message', 'Có ' .count($books) . ' cuốn sách thuộc '. $cateName );
+        } else {
+            return view('client.pages.category')->with(['categories' => $categories, 'books' => $books])->with('message', 'Danh mục chưa có cuốn sách nào');
         }
-        return view('client.pages.category', compact('categories', 'catee'));
     }
 }

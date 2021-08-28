@@ -65,8 +65,8 @@
                     @if($key==3) @break
                     @endif
                     <a class="dropdown-item d-flex align-items-center notification-dropdown__link" href="/admin/comment#menu1">
-                        <div class="mr-1">
-                            <img class="img-profile rounded-circle w-75" src="{{ $notification->data['avatar'] }}" alt="">
+                        <div class="mr-2">
+                            <img class="img-profile rounded-circle " style="width:3.5rem;height:3.5rem" src="{{ asset($notification->data['avatar']) }}" alt="">
                         </div>
                         <div>
                             <div class="small text-gray-700">{{ $notification->data['title'] }}</div>
@@ -78,67 +78,7 @@
                     @endif
 
                 </div>
-                <a class="dropdown-item text-center small font-weight-bold text-gray-800" href="{{route('notifications')}}">Xem tất cả</a>
-            </div>
-        </li>
-
-        <!-- Nav Item - Messages -->
-        <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-            </a>
-            <!-- Dropdown - Messages -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                    Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="{{asset('adminthame/img/undraw_profile_1.svg')}}" alt="...">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div class="font-weight-bold">
-                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                            problem I've been having.</div>
-                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="{{asset('adminthame/img/undraw_profile_2.svg')}}" alt="...">
-                        <div class="status-indicator"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">I have the photos that you ordered last month, how
-                            would you like them sent to you?</div>
-                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="{{asset('adminthame/img/undraw_profile_3.svg')}}" alt="...">
-                        <div class="status-indicator bg-warning"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                            the progress so far, keep up the good work!</div>
-                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="...">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                            told me that people say this to all dogs, even if they aren't good...</div>
-                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                    </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                <a class="dropdown-item text-center small font-weight-bold text-gray-800" href="{{route('admin.notifications')}}">Xem tất cả</a>
             </div>
         </li>
 
@@ -150,7 +90,7 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                     {{Auth::user()->name}}
                 </span>
-                <img class="img-profile rounded-circle" src="{{Auth::user()->avatar}}">
+                <img class="img-profile rounded-circle" src="{{asset(Auth::user()->avatar)}}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -166,6 +106,11 @@
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                     Activity Log
                 </a> -->
+                
+                <a class="dropdown-item" href="{{route('admin.notifications')}}">
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Thông báo
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

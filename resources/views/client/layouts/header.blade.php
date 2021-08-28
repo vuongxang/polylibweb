@@ -216,7 +216,6 @@
                                         <div class="book-search-info__dob">1/8/2021</div>
                                         <div class="book-search-info__description">
                                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum doloremque, similique explicabo nemo tempora non vero aliquam repudiandae inventore ipsa incidunt impedit qui quod culpa officia quis dicta eaque tempore?
-                                        </div>
                                     </div>
                                 </div>
                             </a>
@@ -224,10 +223,8 @@
                         <li class="search-dropdown__li">
                             <a href="/book-detail/${item.id}" class="search-dropdown__link">
                                 <div class="book-card-horizontal">
-                                    <div class="book-card-author-avatar ">
                                         <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
                                     </div>
-                                    <div class="book-search-info">
                                         <div class="book-search-info__name">The Chew</div>
                                         <div class="book-search-info__dob">1/8/2021</div>
                                         <div class="book-search-info__description">
@@ -383,12 +380,11 @@
                 .listen('NewNotificationEvent', (e) => {
                     notification = e.notification;
                     notificationData = e.notification['data'];
-
                     const result = `<a class="notification-dropdown__link" href="/notification-read/${notification.id}">
                                     <div class="notification-dropdown-wrapper">
 
                                         <div class="notification-avatar">
-                                            <img src="${notificationData.avatar}" alt="">
+                                            <img src="/${notificationData.avatar}" alt="">
 
                                         </div>
                                         <div class=" notification-body">

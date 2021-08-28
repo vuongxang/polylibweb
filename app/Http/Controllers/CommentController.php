@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewNotificationEvent;
+use App\Models\Book;
 use App\Models\Comment;
 use App\Models\User;
 use App\Notifications\CommentNotification;
@@ -19,7 +20,7 @@ class CommentController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        $pagesize = 5;
+        $pagesize = 10;
         if ($request->page_size) $pagesize = $request->page_size;
 
         $comments_approved = Comment::sortable()->where('status', 1)
@@ -44,7 +45,7 @@ class CommentController extends Controller
         $request->validate([
             'body' => 'required',
         ]);
-
+        
         $model = new Comment();
         $model->fill($request->all());
         $model->status = 0;
@@ -96,6 +97,9 @@ class CommentController extends Controller
         $comment = Comment::find($id);
 
         $user = User::where('id', $comment->user_id)->first();
+        $comment->load('book');
+        if(! $comment->book) return back()->with('message', 'Bạn không thể duyệt bình luận này !')
+                                            ->with('alert-class', 'alert-danger');
         $data = [
             'avatar'    => $user->avatar,
             'title'     => 'Bình luận đã được duyệt',
@@ -120,17 +124,20 @@ class CommentController extends Controller
         $model = Comment::find($id);
         if ($model) {
             $user = User::where('id', $model->user_id)->first();
-            $data = [
-                'avatar'    => $user->avatar,
-                'title'     => 'Hủy bình luận',
-                'content'   => "Bình luận của bạn về sách " . $model->book->title . " đã bị xóa",
-                'book_id'   => $model->book->id
-            ];
-
-           
-            $user->notify(new InvoicePaid($data));
-            $newNotify = $user->notifications->sortByDesc('created_at')->first();
-            event(new NewNotificationEvent($newNotify,$user));
+            if($model->book && $model->user){
+                $data = [
+                    'avatar'    => $user->avatar,
+                    'title'     => 'Hủy bình luận',
+                    'content'   => "Bình luận của bạn về sách " . $model->book->title . " đã bị xóa",
+                    'book_id'   => $model->book->id
+                ];
+    
+               
+                $user->notify(new InvoicePaid($data));
+                $newNotify = $user->notifications->sortByDesc('created_at')->first();
+                event(new NewNotificationEvent($newNotify,$user));
+            }
+            
             Comment::destroy($id);
 
             return redirect(route('comment.index'))->with('message', 'Chuyển vào thùng rác thành công !')
@@ -154,27 +161,30 @@ class CommentController extends Controller
         $model = Comment::withTrashed()->find($id);
         if ($model) {
             $user = User::where('id', $model->user_id)->first();
-            $data = [
-                'title'     => 'Xóa bình luận',
-                'content'   => "Bình luận của bạn về sách <a href=" . route('book.detail', $model->book->id) . ">" . $model->book->title . "</a> Đã bị xóa !",
-                'icon-class' => 'icon-circle',
-                'book_id'   => $model->book->id
-            ];
-
-            $options = array(
-                'cluster' => 'ap1',
-                'encrypted' => true
-            );
-
-            $pusher = new Pusher(
-                env('PUSHER_APP_KEY'),
-                env('PUSHER_APP_SECRET'),
-                env('PUSHER_APP_ID'),
-                $options
-            );
-
-            $pusher->trigger('NotificationEvent', 'send-message', $data);
-            $user->notify(new InvoicePaid($data));
+            if($model->book && $model->user){
+                $data = [
+                    'title'     => 'Xóa bình luận',
+                    'content'   => "Bình luận của bạn về sách <a href=" . route('book.detail', $model->book->id) . ">" . $model->book->title . "</a> Đã bị xóa !",
+                    'icon-class' => 'icon-circle',
+                    'book_id'   => $model->book->id
+                ];
+    
+                $options = array(
+                    'cluster' => 'ap1',
+                    'encrypted' => true
+                );
+    
+                $pusher = new Pusher(
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    $options
+                );
+    
+                $pusher->trigger('NotificationEvent', 'send-message', $data);
+                $user->notify(new InvoicePaid($data));
+            }
+            
             $model = Comment::withTrashed()->where('id', $id)->forceDelete();
             return redirect(route('comment.index'))->with('message', 'Xóa bình luận thành công !')
                 ->with('alert-class', 'alert-success');

@@ -107,6 +107,20 @@
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+            aria-expanded="true" aria-controls="collapseFour">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Bình luận - Đánh giá</span>
+        </a>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('comment.index')}}">Bình luận</a>
+                <a class="collapse-item" href="{{route('rate.index')}}">Đánh giá</a>
+            </div>
+        </div>
+    </li>
+    
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -136,39 +150,29 @@
             <span>Tài khoản người dùng</span>
         </a>
     </li>
-    <hr class="sidebar-divider">
-    @endif
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-            aria-expanded="true" aria-controls="collapseFour">
-            <i class="fas fa-fw fa-comments"></i>
-<<<<<<< Updated upstream
-            <span>Bình luận - Đánh giá</span>
-=======
-            <span>Bình luận-Đánh giá</span>
->>>>>>> Stashed changes
+        <a class="nav-link collapsed" href="{{route('user.massLockForm')}}">
+            <i class="fas fa-fw fa-lock"></i>
+            <span>Nhập file khóa tài khoản</span>
         </a>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('comment.index')}}">Bình luận</a>
-                <a class="collapse-item" href="{{route('rate.index')}}">Đánh giá</a>
-            </div>
-        </div>
     </li>
+    @endif
     <hr class="sidebar-divider">
-    <div class="sidebar-heading">
+    <div class="sidebar-heading"> 
         Thống kê
     </div>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
             aria-expanded="true" aria-controls="collapseFive">
             <i class="fas fa-fw fa-comments"></i>
-            <span>Báo cáo</span>
+            <span>Báo cáo - Thống kê</span>
         </a>
         <div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('cate.index')}}">Danh sách</a>
-                <a class="collapse-item" href="{{route('cate.create')}}">Thêm mới</a>
+                <a class="collapse-item" href="{{route('report.topBorrowBook')}}">Top sách mượn nhiều</a>
+                <a class="collapse-item" href="{{route('report.topViewPost')}}">Top bài viết view cao</a>
+                <a class="collapse-item" href="{{route('report.topUserPost')}}">Top SV chia sẻ nhiều</a>
+                <a class="collapse-item" href="{{route('report.topCatePost')}}">Top Danh mục nhiều bài viết</a>
             </div>
         </div>
     </li>

@@ -12,15 +12,24 @@
             @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
-            <form action="" method="post" id="postForm" enctype="multipart/form-data">
+            <!-- <form action="{{ route('post.store') }}" method="post" id="postForm" enctype="multipart/form-data"> -->
+            <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <input id="my-input" class="form-control" type="text" name="title" placeholder="tiêu đề">
+                    <label for="thumbnail">Tiêu đề bài viết</label><br>
+                    @if ($errors->has('title'))
+                        <span class="text-danger">{{ $errors->first('title') }}</span>
+                    @endif
+                    <input id="my-input" class="form-control" type="text" name="title" placeholder="Nhập tiêu đề">
                 </div>
 
                 <div class="form-group">
                     <label for="thumbnail">Chọn ảnh đại diện bài viết</label>
-                    <input id="thumbnail" type="file" name="thumbnail">
+                    <br>
+                    @if ($errors->has('thumbnail'))
+                        <span class="text-danger">{{ $errors->first('thumbnail') }}</span>
+                    @endif
+                    <input type="file" id="thumbnail" name="thumbnail">
                     <br>
                 </div>
                 <div class="form-group">
@@ -58,7 +67,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <textarea name="content" id="exampleInputDesc" rows="30" class="tinymce-editor" placeholder="Nội dung">
+                    <label class="text-dark font-weight-bold" for="exampleInputName">Nội dung</label><br>
+                    @if ($errors->has('content'))
+                        <span class="text-danger">{{ $errors->first('content') }}</span>
+                    @endif
+                    <textarea name="content" id="exampleInputDesc" rows="15" class="form-control" placeholder="Nội dung">
                     </textarea>
                 </div>
                 <div class="text-center">
@@ -69,7 +82,7 @@
             <div class="mt-4" id="progress" style="display: none">
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0"
-                        aria-valuemax="100" style="">
+                        aria-valuemax="100">
                     </div>
                 </div>
             </div>
@@ -82,7 +95,7 @@
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-<script src="https://cdn.tiny.cloud/1/hmuw3s2zqh2hz2ctu3t8rxpvxh61d6ci6pkldvwxndprwi2a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/z61mklx0qjtdxp2smr8tj2bcs3dkzef4894ven0bm30q2dv9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
     $(document).ready(function() {
@@ -99,7 +112,7 @@
 
     tinymce.init({
         selector: 'textarea#exampleInputDesc',
-        plugins: 'print preview tinydrive searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+        plugins: 'print preview searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 
         codesample_languages: [{
                 text: 'HTML/XML',

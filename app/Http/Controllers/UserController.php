@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Imports\UsersImport;
+use App\Models\Book;
+use App\Models\PostShare;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -93,11 +98,25 @@ class UserController extends Controller
         $model->password = Hash::make($request->password);
         $model->save();
 
-        return redirect(route('user.create'))->with('message', 'Tạo tài khoản thành công');
+        return redirect(route('user.create'))->with('message', 'Tạo tài khoản thành công')->with('alert-class', 'alert-success');
     }
+
     public function edit($id){
-        return view('admin.users.edit');
+        $user = User::find($id);
+        if(!$user) return redirect(route('user.index'))->with('message', 'Dữ liệu không tồn tại !')->with('alert-class', 'alert-danger');
+        $roles = Role::all();
+        return view('admin.users.edit',['user'=>$user,'roles'=>$roles]);
     }
+
+    public function update(UserRequest $request,$id){
+        $model = User::find($id);
+        if(!$model) return redirect(route('user.index'))->with('message', 'Dữ liệu không tồn tại !')->with('alert-class', 'alert-danger');
+        $model->fill($request->all());
+        $model->role_id = $request->role_id;
+        $model->save();
+        return back()->with('message', 'Cập nhật thành công !')->with('alert-class', 'alert-success');
+    }
+
     public function readeNotification($id)
     {
         $notifications = Auth::user()->notifications;
@@ -105,9 +124,26 @@ class UserController extends Controller
             if ($value->id == $id)     $notification = $value;
         }
         $notification->markAsRead();
-        return redirect(route('book.detail', $notification->data['book_id']));
+        // dd($notification->data);
+        if(isset($notification->data['book_id'])){
+            $book = Book::find($notification->data['book_id']);
+            return redirect(route('book.detail', $book->slug));
+        }
+        if(isset($notification->data['post_id'])){
+            $post = PostShare::find($notification->data['post_id']);
+            return redirect(route('post.detail', $post->slug));
+        }
     }
 
+    public function lockForm(){
+        return view('admin.users.lock-form');
+    }
+
+    public function massLockUser(Request $request){
+        Excel::import(new UsersImport,$request->file('file_upload'));
+             
+        return back();
+    }
     public function notifications()
     {
         return view('client.pages.notifications');

@@ -25,10 +25,10 @@ class BookRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:50',
-            'image' => 'required',
-            'list_image' => 'required',
-            'description' => 'required|max:255',
+            'image' => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
+            'description' => 'required',
             'publish_date_from' => 'required',
+            'cate_id' => 'required',
             'author_id' => 'required'
         ];
     }
@@ -39,12 +39,13 @@ class BookRequest extends FormRequest
             'title.required' => 'Nhập tên sách',
             'title.min' => 'Tối thiểu 5 ký tự',
             'title.max' => 'Không được vượt quá 50 ký tự',
-            'image.required' => 'Chọn ảnh bìa',
-            'list_image.required' => 'Thêm nội dung sách',
-            'description.max' => 'Không được vượt quá 255 ký tự',
-            'description.required' => 'Nhập thông tin chi tiết',
+            'image.required' => 'Chọn ảnh bìa sách',            
+            'image.regex' => 'Không đúng định dạng ảnh',
+            // 'description.max' => 'Không được vượt quá 255 ký tự',
+            'description.required' => 'Nhập thông tin giới thiệu sách',
             'publish_date_from.required' => 'Nhập ngày đăng',
-            'author_id.required' => 'Danh mục không được trống',
+            'cate_id.required' => 'Chọn danh mục',
+            'author_id.required' => 'Chọn tác giả',
         ];
     }
 }

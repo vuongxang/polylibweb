@@ -10,7 +10,7 @@
         <div class="col-md-3 author-info">
             <div class="author-info-wrapper">
                 <div class="author-avatar">
-                    <img src="{{$author->avatar}}" alt="">
+                    <img src="{{asset($author->avatar)}}" alt="">
                 </div>
                 <div class="author-info__name">
                     {{$author->name}}
@@ -19,7 +19,7 @@
                     {{date('d-m-Y', strtotime($author->date_birth)) }}
                 </div>
                 <div class="author-info__description">
-                    {{$author->description}}
+                    {!! $author->description !!}
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <div class="book-card ">
                     <div class="book-card__img">
                         <a href="{{route('book.detail',$book->id)}}">
-                            <img src="{{$book->image}}" alt="">
+                            <img src="{{asset($book->image)}}" alt="">
                         </a>
                     </div>
                     <div class="book-card__title">

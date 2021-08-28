@@ -2,11 +2,11 @@
     @if ($comment->parent_id == null )
         <div class="book-user-comment">
             <div class="comment-box__image">
-                <img src="{{ $comment->user->avatar }}" alt="">
+                <img src="{{ asset($comment->user()->withTrashed()->first()->avatar) }}" alt="">
             </div>
             <div class="book-user-comment__body js-comment-body">
                 <div class="book-user-comment__heading">
-                    <div class="book-user-comment__name">{{ $comment->user->name }}</div>
+                    <div class="book-user-comment__name">{{ $comment->user()->withTrashed()->first()->name}}</div>
                     <div class="book-user-comment__content">{{ $comment->body }}</div>
                 </div>
                 <div class="book-user-comment__footer">
@@ -16,15 +16,15 @@
                         {{ Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</div>
                 </div>
                 @foreach ($comments as $commentChild)
-                    @if ($commentChild->parent_id != null && $commentChild->parent_id == $comment->id && $comment->status==1)
+                    @if ($commentChild->parent_id != null && $commentChild->parent_id == $comment->id )
 
                         <div class="book-user-comment">
                             <div class="comment-box__image">
-                                <img src="{{ $commentChild->user->avatar }}" alt="">
+                                <img src="{{ asset($commentChild->user()->withTrashed()->first()->avatar) }}" alt="">
                             </div>
                             <div class="book-user-comment__body">
                                 <div class="book-user-comment__heading">
-                                    <div class="book-user-comment__name">{{ $commentChild->user->name }}</div>
+                                    <div class="book-user-comment__name">{{ $commentChild->user()->withTrashed()->first()->name }}</div>
                                     <div class="book-user-comment__content">{{ $commentChild->body }}</div>
                                 </div>
                                 <div class="book-user-comment__footer">
@@ -39,7 +39,7 @@
                 @endforeach
                 <div class="comment-box__wrapper comment-box__hidden">
                     <div class="comment-box__image">
-                        <img src="{{ Auth::user()->avatar }}" alt="">
+                        <img src="{{ asset(Auth::user()->avatar) }}" alt="">
                     </div>
                     <div class="comment-box__content">
                         <form action="{{ route('comments.store') }}" method="post">

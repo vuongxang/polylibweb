@@ -42,13 +42,11 @@ class Book extends Model
             'author_id'
         );
     }
-
     
     public function orders(){
         return $this->hasMany(
             Order::class, 
-            'book_id', 
-            
+            'book_id',  
         );
     }
 

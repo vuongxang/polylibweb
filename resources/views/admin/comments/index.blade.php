@@ -14,9 +14,9 @@
                     <form action="" method="get" id="form-page-size">
                         <label for="">Chọn số bản ghi</label>
                         <select name="page_size" id="page_size">
-                            <option value="5" @if ($pagesize==5) selected @endif>5</option>
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
-                            <option value="15" @if ($pagesize==15) selected @endif>15</option>
+                            <option value="20" @if ($pagesize==20) selected @endif>20</option>
+                            <option value="50" @if ($pagesize==50) selected @endif>50</option>
                         </select>
                     </form>
                 </div>
@@ -49,10 +49,18 @@
                                     @foreach ($comments_approved as $key => $comment)
                                         <tr>
                                             <td>{{ $comment->id }}</td>
-                                            <td>{{ $comment->user->email }}</td>
+                                            <td>
+                                                @if ($comment->user)
+                                                    {{ $comment->user()->withTrashed()->first()->email }}
+                                                @else
+                                                {{ $comment->user()->withTrashed()->first()->email }}&nbsp;(<span class="text-danger"> Tài khoản đang bị khóa! </span>)
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($comment->book)
-                                                    {{ $comment->book->title }}
+                                                    {{ $comment->book()->withTrashed()->first()->title }}
+                                                @else
+                                                    {{ $comment->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đã bị bỏ vào thùng rác! </span>)
                                                 @endif
                                             </td>
                                             <td>{{ $comment->body }}</td>
@@ -60,7 +68,9 @@
                                                 {{ date_format($comment->created_at, 'Y-m-d') }}
                                             </td>
                                             <td class="text-center">
-                                                <a href="" class="fas fa-eye text-warning p-1 btn-action"></a>
+                                                @if ($comment->book)
+                                                    <a href="{{route('book.detail',$comment->book->slug)}}" class="fas fa-eye text-warning p-1 btn-action"></a>
+                                                @endif
                                                 <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')" href="{{route('comment.destroy',$comment->id)}}"
                                                     class="fas fa-trash text-danger p-1 btn-action"></a>
                                             </td>
@@ -89,14 +99,28 @@
                                         @foreach ($comments_pending as $key => $comment)
                                             <tr>
                                                 <td>{{ $comment->id }}</td>
-                                                <td>{{ $comment->user->email }}</td>
-                                                <td>{{ $comment->book->title }}</td>
+                                                <td>
+                                                    @if ($comment->user)
+                                                        {{ $comment->user->email }}
+                                                    @else
+                                                        <span class="text-danger">Tài khoản đã bị khóa!</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($comment->book)
+                                                        {{ $comment->book->title }}
+                                                    @else
+                                                        <span class="text-danger">Sách tạm thời bị xóa !</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $comment->body }}</td>
                                                 <td>
                                                     {{ date_format($comment->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('comment.approv',$comment->id)}}" class="">Duyệt</a>
+                                                    @if ($comment->user)
+                                                        <a href="{{route('comment.approv',$comment->id)}}" class="">Duyệt</a>
+                                                    @endif
                                                     <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
                                                         href="{{route('comment.destroy',$comment->id)}}" class="text-danger p-1 btn-action">Hủy</a>
                                                 </td>
@@ -129,8 +153,20 @@
                                         @foreach ($comments_deleted as $key => $comment)
                                             <tr>
                                                 <td>{{ $comment->id }}</td>
-                                                <td>{{ $comment->user->email }}</td>
-                                                <td>{{ $comment->book->title }}</td>
+                                                <td>
+                                                    @if ($comment->user)
+                                                        {{ $comment->user->email }}
+                                                    @else
+                                                        <span class="text-danger">Tài khoản đã bị khóa!</span>
+                                                    @endif    
+                                                </td>
+                                                <td>
+                                                    @if ($comment->book)
+                                                        {{ $comment->book->title }}
+                                                    @else
+                                                        <span class="text-danger">Sách đã bị xóa!</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $comment->body }}</td>
                                                 <td>
                                                     {{ date_format($comment->created_at, 'Y-m-d') }}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PostShareCategory;
+use App\Http\Requests\PostShareCategoryRequest;
 use Illuminate\Http\Request;
 
 class PostShareCategoryController extends Controller
@@ -24,7 +25,7 @@ class PostShareCategoryController extends Controller
         return view('admin.post-cates.add-form');
     }
 
-    public function store(Request $request){
+    public function store(PostShareCategoryRequest $request){
         $model = new PostShareCategory();
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
@@ -41,13 +42,25 @@ class PostShareCategoryController extends Controller
     }
 
     public function update($id,Request $request){
+        
+        $this->validate($request,[
+            'name'=>'required|min:5',
+            'image'=>['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
+            'description'=>'required',
+        ],[
+            'name.required'=>'Nhập tên danh mục bài viết',
+            'name.min' => 'Tối thiểu 5 ký tự',
+            'image.required'=>'Chọn ảnh danh mục bài viết',
+            'image.regex'=>'Không đúng định dạng ảnh',
+            'description.required'=>'Nhập mô tả danh mục bài viết',
+        ]);
         $model = PostShareCategory::find($id);
         if(!$model) return back();
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
         $model->slug = $milliseconds . "-" . str_slug($request->name, '-');
         $model->save();
-        return redirect(route('cate.index'))->with('message','Cập nhật thành công !')
+        return redirect(route('postCate.index'))->with('message','Cập nhật thành công !')
                                             ->with('alert-class','alert-success');;
     }
 

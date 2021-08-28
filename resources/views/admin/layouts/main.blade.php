@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <base href="{{asset('')}}">
     <link rel="icon" href="{{asset('images/logo.png')}}">
     <script src="{{ asset('js/app.js') }}" ></script>
     <title> @yield('title','Admin') </title>
