@@ -10,8 +10,10 @@ use App\Models\PostShareCategory;
 use App\Models\PostShareCategoryDetail;
 use App\Models\PostView;
 use App\Models\User;
+use App\Models\Wishlist;
 use App\Notifications\InvoicePaid;
 use Carbon\Carbon;
+use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -101,6 +103,7 @@ class PostShareController extends Controller
         $cates->load('posts');
         $posts = PostShare::where('status', 1)->orderBy('created_at', 'DESC')->paginate(5);
         $posts->load('user', 'cates');
+        // dd($wishlist);
         // foreach ($posts as $key => $post) {
         //     if(!$post->user) dd($post->user()->withTrashed()->first()->avatar);
         // }
@@ -260,16 +263,19 @@ class PostShareController extends Controller
 
         $postsOfUser = PostShare::where('user_id', $model->user()->withTrashed()->first()->id)->where('id', '!=', $model->id)->where('status', 1)->get();
         $postsOfUser->load('cates', 'user', 'postFiles');
+        $wishlist = Wishlist::where('post_id', $model->id)->where('user_id', Auth::user()->id)
+            ->where('status', 'Đã thêm')->first();
         $totalViews = PostView::where('post_id', $model->id)->sum('views');
         if (!$model) return back();
-        return view('client.pages.post-detail', ['post' => $model, 'cates' => $cates, 'totalViews' => $totalViews, 'postsOfUser' => $postsOfUser]);
+        return view('client.pages.post-detail', ['post' => $model, 'cates' => $cates, 'totalViews' => $totalViews, 'postsOfUser' => $postsOfUser, 'wishlist' => $wishlist]);
     }
 
     public function myPost($id)
     {
         $user = Auth::user();
+        $wishlists = Wishlist::all();
         $posts = PostShare::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(10);
-        return view('client.pages.my-posts', ['user' => $user, 'posts' => $posts]);
+        return view('client.pages.my-posts', ['user' => $user, 'posts' => $posts, 'wishlists' => $wishlists]);
     }
 
     public function destroy($id)

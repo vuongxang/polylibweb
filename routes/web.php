@@ -62,7 +62,8 @@ Route::Post('/api/comment-store', [BookDetailController::class, 'storeComment'])
 Route::get('contact', [ContactController::class, 'contact'])->name('contact');
 Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
 
-Route::get('wishlist', [WishlistController::class, 'wishlist'])->name('wishlist');
+Route::get('wishlist/{id}', [WishlistController::class, 'wishlist'])->name('post.wishlist');
+Route::get('destroy-wishlist/{id}', [WishlistController::class, 'destroy'])->name('post.wishlist.destroy');
 
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
