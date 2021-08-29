@@ -92,17 +92,26 @@
                         var html = '';
                         image_gallery.forEach((item, index) => {
                             html +=
-                                `<img src="${item}" id="show_list_image" width="50" class="img-thumbnail">`;
+                                `
+                                <div class="col-2">
+                                    <div class="card">
+                                        <img src="${item}" alt="" id="show_list_img" width="100%">
+                                    </div>
+                                </div>
+                                `;
                         });
                         console.log(html);
                         $('.img-gallery').html(html);
                     } else {
                         html =
-                            `<img src="${image_list}" id="show_list_image" width="50" class="img-thumbnail">`;
+                            `<div class="col-2">
+                                <div class="card">
+                                    <img src="${item}" alt="" id="show_list_img" width="100%">
+                                </div>
+                            </div>`;
                         $('.img-gallery').html(html);
                     }
                 }
-
             })
 
             $('#audio_gallery').on('hide.bs.modal', function() {
@@ -116,9 +125,12 @@
                         audio_gallery.forEach((item, index) => {
                             console.log(item);
                             html +=
-                                `<audio src="${item}" id="show_list_audio" controls>
-                                Trình duyệt không hỗ trợ phát âm thanh
-                                </audio><span aria-hidden="true" value="${item}" class="btn btn-outline-danger cancle-audio">&times;</span><br>`;
+                                `<div class="d-flex align-items-center">
+                                    <audio src="${item}" id="show_list_audio" controls>
+                                        Trình duyệt không hỗ trợ phát âm thanh
+                                    </audio>
+                                    <span aria-hidden="true" value="${item}" class="btn btn-outline-danger cancle-audio">&times;</span>
+                                </div>`;
                         });
                         $('.audio-gallery').html(html);
                     } else {
@@ -129,6 +141,26 @@
                         $('.audio-gallery').html(html);
                     }
                 }
+                let x = [...$('.cancle-audio')];
+                let list_audio = document.querySelector('#list_audio');
+
+                x.forEach(item =>{
+                    item.addEventListener("click", function() {
+                        let url = item.getAttribute('value');
+                        let audio_array = $.parseJSON(list_audio.value);
+
+                        console.log(audio_array);
+                        let filtered = audio_array.filter(function(item, index, arr){
+                            return item == url;
+                        });
+                        if(audio_array.length ==1){
+                            filtered =[];
+                        }
+                        console.log(filtered);
+                        list_audio.value = JSON.stringify(filtered)
+                        item.parentNode.remove();
+                    });
+                })
             })
             
             $(function() {

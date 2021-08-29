@@ -1,4 +1,7 @@
 @extends('admin.layouts.main')
+@section('css')
+    <link href="{{asset('adminthame/css/book-form.css')}}" rel="stylesheet">
+@endsection
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -92,10 +95,15 @@
                     <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal" data-target="#image_gallery">
                         Chọn ảnh
                     </button>
-                    <div class="img-gallery" class="mb-2">
+                    {{-- horizonal scroll css --}}
+                    <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2 img-gallery">
                         @if ($model->bookGalleries)
                             @foreach ($model->bookGalleries as $item)
-                                <img src="{{$item->url}}" alt="" id="show_list_img" width="50" readonly>
+                                <div class="col-2">
+                                    <div class="card">
+                                        <img src="{{$item->url}}" alt="" id="show_list_img" width="100%">
+                                    </div>
+                                </div>
                             @endforeach
                         @endif
                     </div>
@@ -170,7 +178,6 @@
       </div>
     </div>
   </div>
-
   <!-- Modal audio -->
   <div class="modal fade" id="audio_gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
