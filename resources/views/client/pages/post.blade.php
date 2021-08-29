@@ -70,7 +70,7 @@
                                 <div class="post-wishlist">
                                     <span class="post-wishlist__span">
 
-                                        <a href="{{route('post.wishlist',['id'=>$post->id])}}"><i class="fas fa-heart"></i></a>
+                                        <i class="fas fa-heart"></i>
                                         {{DB::table('wishlists')->where('post_id', $post->id)->count()}} Yêu thích
                                     </span>
                                 </div>
