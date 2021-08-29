@@ -24,12 +24,12 @@
             </ul>
             <div class="tab-content">
                 <div id="home" class="tab-pane in active">
-                    <table id="example" class="table table-hover">
+                    <table id="example" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <td>STT</td>
-                                <td>Thumbnail</td>
-                                <td>Tên sách</td>
+                                <td class="text-center">Ảnh bài viết</td>
+                                <td>Tên bài viết</td>
                                 <td>Trạng thái</td>
                                 <td class="text-center">
                                     <a href="{{ route('post.create') }}" class="btn btn-success shadow rounded-0"><i class="fas fa-plus-circle mr-2"></i>ADD NEW</a>
@@ -42,7 +42,7 @@
                             <tr>
                                 <td scope="row">{{ $key + 1 }}</td>
                                 <td class="text-center">
-                                    <img src="{{ asset($post->thumbnail) }}" width="40">
+                                    <img src="{{ asset($post->thumbnail) }}" width="70">
                                 </td>
                                 <td>
                                     {{$post->title}}
@@ -72,52 +72,55 @@
                     </table>
                     <div class="d-flex justify-content-center">{!!$posts->links('vendor.pagination.bootstrap-4')!!}</div>
                 </div>
-                {{-- <div id="menu1" class="tab-pane">
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <div id="menu1" class="tab-pane">
+                    <table id="example" class="table table-bordered table-hover" style="width:100%">
                         <thead>
                             <tr>
                                 <td>STT</td>
-                                <td>Ảnh bìa</td>
-                                <td>Tên sách</td>
-                                <td>Trạng thái</td>
-                                <td>Ngày trả</td>
+                                <td>Ảnh bài viết</td>
+                                <td>Tên bài viết</td>
+                                <td>Người đăng</td>
                                 <td>Hành động</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($deleted_book_order)>0)
-                                @foreach ($deleted_book_order as $key => $deleted_order)
-                                    @if ($deleted_order->id == true)
+
+                            
+                            @if (count($wishlists)>0)
+                                @foreach ($wishlists as $key => $wishlist)
+                                    @if ($wishlist->id == true)
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td class="text-center">
-                                            <a href="{{route('book.detail',$deleted_order->book->id)}}">
-                                                <img src="{{ $deleted_order->book->image }}" width="50" alt="Ảnh bìa">
+                                        <td>{{ $key +1 }}</td>
+                                        <td class="">
+                                            <a href="{{ route('post.detail', $wishlist->post->slug) }}">
+                                                <img src="{{ $wishlist->post->thumbnail }}" width="100" alt="Ảnh bài viết">
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{route('book.detail',$deleted_order->book->id)}}" style="color:#000">
-                                                {{ $deleted_order->book->title }}
+                                            <a href="{{ route('post.detail', $wishlist->post->slug) }}" style="color:#000">
+                                                {{ $wishlist->post->title }}
                                             </a>
-                                        <td>{{ $deleted_order->status }}</td>
-                                        <td>{{ $deleted_order->deleted_at->toDateString() }}</td>
+                                        </td>
                                         <td>
-                                            <a href="{{ route('book.detail', ['id' => $deleted_order->book_id]) }}"
-                                                class="btn btn-warning">Mượn lại</a>
-                                            <a href="{{ route('book.review', $deleted_order->book_id) }}"
-                                                class="btn btn-success">Phản hồi/Đánh giá</a>
+                                            <a href="{{ route('post.detail', $wishlist->post->slug) }}" style="color:#000">
+                                                {{ $wishlist->post->user->name }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{route('post.wishlist.destroy',['id'=>$wishlist->id])}}"
+                                                class="btn btn-danger">Xóa khỏi yêu thích</a>
                                         </td>
                                     </tr>
                                     @endif
                                 @endforeach
                             @else
                             <tr>
-                                <td colspan="8" class="text-center">Bạn chưa trả cuốn sách nào!</td>
+                                <td colspan="8" class="text-center">Bạn chưa có bài viết yêu thích nào!</td>
                             </tr>
                             @endif
                         </tbody>
                     </table>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
