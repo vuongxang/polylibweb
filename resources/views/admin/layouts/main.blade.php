@@ -83,6 +83,7 @@
         </div>
     </div>
     @include('admin.layouts.script')
+    @yield('script')
 </body>
 
 </html>

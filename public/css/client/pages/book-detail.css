@@ -55,8 +55,7 @@
 
 .info-authors__name a:hover {
   text-decoration: none;
-  color: var(--text-color3);
-  font-size: 1.8rem;
+  color: var(--text-color);
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -103,8 +102,11 @@
   border: 1px solid var(--base-color);
   background-color: var(--base-color);
   color: var(--text-color2);
+  padding: .8rem 1.6rem;
 }
-
+.button__outline-lg {
+  padding: .8rem 1.6rem;
+}
 .button__background-lg:hover {
   color: var(--text-color2);
 }
@@ -153,6 +155,7 @@
 }
 
 .button__outline-sm {
+  
   padding: .5rem 1.5rem;
   border-radius: 1rem;
   font-size: 1.2rem;
