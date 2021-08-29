@@ -19,7 +19,28 @@
     font-weight: 800;
     color: var(--base-color);
 }
-
+.post-wishlist{
+    float: right;
+    /* font-size: 16pt; */
+}
+.post-wishlist img{
+    float: right;
+    font-size: 16pt;
+}
+.post-wishlist p{
+    float: right;
+    /* font-size: 16pt; */ 
+}
+.post-wishlist .far{
+    color: #cbcbcb;
+}
+.post-wishlist a .no-fill-heart:hover{
+    color: red;
+    /* background-image: url('images/heart-icon-fa.svg'); */
+}
+.post-wishlist .fa{
+    color: #337ab7;
+}
 .post-header-button {
     display: flex;
     align-items: center;
@@ -188,7 +209,12 @@
 
 .post-view {}
 
-.post-view__span, .post-comment__span {
+.post-view__span, .post-comment__span, .post-wishlist__span {
+    color: var(--text-color3);
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+.post-wishlist__span a{
     color: var(--text-color3);
     font-size: 1.4rem;
     font-weight: 300;
