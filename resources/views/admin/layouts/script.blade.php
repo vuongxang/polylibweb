@@ -118,7 +118,7 @@
                             html +=
                                 `<audio src="${item}" id="show_list_audio" controls>
                                 Trình duyệt không hỗ trợ phát âm thanh
-                                </audio></br>`;
+                                </audio><span aria-hidden="true" value="${item}" class="btn btn-outline-danger cancle-audio">&times;</span><br>`;
                         });
                         $('.audio-gallery').html(html);
                     } else {
@@ -191,6 +191,27 @@
                 })
             })
 
+
+            let x = [...$('.cancle-audio')];
+            let list_audio = document.querySelector('#list_audio');
+
+            x.forEach(item =>{
+                item.addEventListener("click", function() {
+                    let url = item.getAttribute('value');
+                    let audio_array = $.parseJSON(list_audio.value);
+
+                    console.log(audio_array);
+                    let filtered = audio_array.filter(function(item, index, arr){
+                        return item == url;
+                    });
+                    if(audio_array.length ==1){
+                        filtered =[];
+                    }
+                    console.log(filtered);
+                    list_audio.value = JSON.stringify(filtered)
+                    item.parentNode.remove();
+                });
+            })
         });
 
         //     tinymce.init({
@@ -277,6 +298,5 @@
         // contextmenu: 'link image imagetools table configurepermanentpen',
         // a11y_advanced_options: true
         });
-
-
+        
     </script>

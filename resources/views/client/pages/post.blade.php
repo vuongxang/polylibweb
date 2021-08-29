@@ -30,7 +30,7 @@
                 <div class="post-item">
                     <div class="post-item__aside">
                         <div class="post-user-avatar">
-                            <a href="{{route('post.user',$post->user->id)}}" class="post-user-avatar__link">
+                            <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}" class="post-user-avatar__link">
 
                                 <img class="post-user-avatar__img" class="post-user-avatar__img " src="{{ asset($post->user()->withTrashed()->first()->avatar) }}" alt="">
                             </a>
