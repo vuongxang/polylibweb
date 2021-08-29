@@ -40,7 +40,7 @@
             <ul class="header-mobile__nav">
                 <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
                 <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}">Danh Mục</a></li>
-                <li class="header__nav-li"><a class="link" href="{{route('post.categories')}}">Bài Viết</a></li>
+                <li class="header__nav-li"><a class="link" href="{{route('post')}}">Bài Viết</a></li>
                 <li class="header__nav-li"><a class="link" href="{{route('contact')}}">Liên Hệ</a></li>
             </ul>
         </div>
@@ -176,7 +176,7 @@
         <ul class="header__nav">
             <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
             <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}">Danh Mục</a></li>
-            <li class="header__nav-li"><a class="link" href="{{route('post.categories')}}">Bài Viết</a></li>
+            <li class="header__nav-li"><a class="link" href="{{route('post')}}">Bài Viết</a></li>
             <li class="header__nav-li"><a class="link" href="{{route('contact')}}">Liên Hệ</a></li>
         </ul>
         <div class="header__search">
@@ -216,6 +216,7 @@
                                         <div class="book-search-info__dob">1/8/2021</div>
                                         <div class="book-search-info__description">
                                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum doloremque, similique explicabo nemo tempora non vero aliquam repudiandae inventore ipsa incidunt impedit qui quod culpa officia quis dicta eaque tempore?
+                                        </div>
                                     </div>
                                 </div>
                             </a>
@@ -223,8 +224,10 @@
                         <li class="search-dropdown__li">
                             <a href="/book-detail/${item.id}" class="search-dropdown__link">
                                 <div class="book-card-horizontal">
+                                    <div class="book-card-author-avatar ">
                                         <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
                                     </div>
+                                    <div class="book-search-info">
                                         <div class="book-search-info__name">The Chew</div>
                                         <div class="book-search-info__dob">1/8/2021</div>
                                         <div class="book-search-info__description">

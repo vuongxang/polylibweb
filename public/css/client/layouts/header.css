@@ -588,7 +588,6 @@ i.fas.fa-check {
     .header-desktop{
         display: none;
     }
-
     .header-mobile{
         display: block;
         width: 100%;
@@ -597,6 +596,7 @@ i.fas.fa-check {
         color: #1d7eb6;
         height: 50px;
         position: fixed;
+        top: 0;
         /* position: relative; */
     }
     .toggle-cate{

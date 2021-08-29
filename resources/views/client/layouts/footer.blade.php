@@ -18,7 +18,7 @@
             <ul >
                 <li ><a  href="{{route('home')}}">Trang Chủ</a></li>
                 <li ><a  href="{{route('book.categories')}}">Danh Mục</a></li>
-                <li ><a  href="{{route('post.categories')}}">Bài Viết</a></li>
+                <li ><a  href="{{route('post')}}">Bài Viết</a></li>
                 <li ><a  href="{{route('contact')}}">Liên Hệ</a></li>
             </ul>
         </div>

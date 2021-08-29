@@ -293,3 +293,14 @@
     color: var(--text-color3);
     text-decoration: none;
 }
+
+@media screen and (max-width:991px)and (min-width: 768px){
+    .row{
+        margin-top: 70px;
+    }
+   }
+   @media screen and (max-width:767px)and (min-width: 375px){
+     .row{
+         margin-top: 70px;
+     }
+   }

@@ -33,3 +33,9 @@
     color: #000;
     font-size: 16px;
 }
+
+@media screen and (max-width:991px)and (min-width: 375px){
+    .book-rating__wrapper{
+        margin-top: 70px;
+    }
+}
