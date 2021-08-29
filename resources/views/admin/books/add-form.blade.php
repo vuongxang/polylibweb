@@ -90,7 +90,7 @@
                         @if ($errors->has('list_image'))
                             <span class="text-danger">{{ $errors->first('list_image') }}</span>
                         @endif
-                        <div class="img-gallery" class="mb-2">
+                        <div class="img-gallery" class="mb-2" data-spy="scroll">
                             <img src="" alt="" id="show_list_img" width="50" readonly>
                         </div>
                         <input type="hidden" id="list_image" name="list_image" class="form-control">

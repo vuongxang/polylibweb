@@ -130,9 +130,18 @@ class BookController extends Controller
         $model->load('bookGalleries');
         $cates = Category::all();
         $authors = Author::all();
-
+        $book_audios = [];
+        if($model->bookAudios){
+            foreach ($model->bookAudios as $value) {
+                $book_audios[] = $value->url;
+            }
+        }
         if (!$model) return redirect(route('book.index'));
-        return view('admin.books.edit-form', ['model' => $model, 'cates' => $cates, 'authors' => $authors]);
+        return view('admin.books.edit-form', [  'model'     => $model, 
+                                                'cates'     => $cates, 
+                                                'authors'   => $authors,
+                                                'book_audios'=> json_encode($book_audios)
+                                            ]);
     }
 
     public function update($id, BookEditRequest $request)
@@ -165,18 +174,18 @@ class BookController extends Controller
                 DB::table('author_books')->insert($item1);
             }
         }
-
         if ($request->list_audio) {
             BookAudio::where('book_id', $model->id)->delete();
-
-            $list_audio = json_decode($request->list_audio);
-            if ($list_audio == null) $list_audio[] = $request->list_audio;
-            foreach ($list_audio as $url) {
-                $item = [
-                    'book_id' => $model->id,
-                    'url' => $url,
-                ];
-                DB::table('book_audio')->insert($item);
+            if($request->list_audio != "[]"){
+                $list_audio = json_decode($request->list_audio);
+                if ($list_audio == null) $list_audio[] = $request->list_audio;
+                foreach ($list_audio as $url) {
+                    $item = [
+                        'book_id' => $model->id,
+                        'url' => $url,
+                    ];
+                    DB::table('book_audio')->insert($item);
+                }
             }
         }
 
