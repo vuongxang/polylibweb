@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OfferMail;
@@ -11,7 +12,7 @@ class ContactController extends Controller
     public function contact(){
         return view('client.pages.contact');
     }
-    public function postContact(Request $request){
+    public function postContact(ContactRequest $request){
         $data = [
             'topic' => $request->topic,
             'name' => $request->name,
