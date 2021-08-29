@@ -21,23 +21,26 @@
 .book-info__header {}
 
 .book-info__title {
-  margin-bottom: 2rem;
+  
 }
 
 .book-info__title h2 {
+  margin-bottom: 1.5rem;
+  margin-top: 0;
   color: var(--black-secondary-color);
-  font-size: 3rem;
+  font-size: 2.4rem;
   font-weight: 600;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
   text-transform: capitalize;
 }
 
 .book-info__authors {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .info-authors__name {
   color: var(--text-color3);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 500;
   text-transform: capitalize;
 }
@@ -45,7 +48,7 @@
 .info-authors__name a {
   text-decoration: none;
   color: var(--text-color3);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 500;
   text-transform: capitalize;
 }
@@ -111,6 +114,7 @@
 }
 
 .button-custom {
+  padding: .8rem 1.6rem;
   color: var(--base-color);
 }
 
@@ -125,6 +129,10 @@
   height: 24rem;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.book-description__text {
+  font-size: 1.3rem;
+  
 }
 
 .show-more {

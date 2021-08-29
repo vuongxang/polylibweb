@@ -327,13 +327,13 @@
                                 if (res.length > 0) {
                                     searchBookResult = [...res[0]];
                                     searchAuthorResult = [...res[1]];
-                                    console.log(searchAuthorResult)
+                                    console.log(searchAuthorResult,searchBookResult)
                                     if (searchBookResult.length > 0) {
                                         console.log(searchBookResult);
                                         const booksResult = searchBookResult.map((item, index) => {
-                                            if (index < 3) {
+                                            if (index < 3 && item.status == 1) {
                                                 return `<li class="search-dropdown__li">
-                                            <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                                            <a href="/book-detail/${item.slug}" class="search-dropdown__link">
                                                 <div class="book-card-horizontal">
                                                     <div class="book-card-cover-image">
                                                         <img src="${item.image}" alt="">
@@ -357,7 +357,7 @@
                                         const authorsResult = searchAuthorResult.map((item, index) => {
                                             if (index < 3) {
                                                 return `<li class="search-dropdown__li">
-                                                <a href="/author/${item.id}" class="search-dropdown__link">
+                                                <a href="/author/${item.slug}" class="search-dropdown__link">
                                                     <div class="book-card-horizontal">
                                                         <div class="book-card-author-avatar ">
                                                             <img src="${item.avatar}" alt="">
