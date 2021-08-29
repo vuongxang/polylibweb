@@ -24,8 +24,7 @@
                     {{ $message }}
                 </div>
             </div>
-            @endif
-            <div class="post-list">
+            @endif<div class="post-list">
                 @foreach ($posts as $post)
                 <div class="post-item">
                     <div class="post-item__aside">
@@ -48,55 +47,48 @@
                                 {{ $post->title }}
                             </a>
                         </div>
-                        <div class="post-item__content">
-                            <div class="post-user-name">
-                                <a href="" class="post-user-name__link" id="post_wishlist_user">
-                                    {{ $post->user()->withTrashed()->first()->name }}
+
+
+
+                        <!-- <div class="post-content__desc">{!! $post->content !!}</div> -->
+
+                        <div class="post-content__tag">
+                            @foreach($post->cates as $cate)
+                            <div class="post-tag__item">
+                                <a href="" class="post-tag__link">
+                                    #{{$cate->name}}
                                 </a>
                             </div>
-                            <div class="post-content__title">
-                                <a href="{{ route('post.detail', $post->slug) }}" class="post-title__link" id="post_wishlist_title">
-                                    {{ $post->title }}
-                                </a>
-                            </div>
-                            <div class="post-content__desc">{!! $post->content !!}</div>
-                            <div class="post-content__tag">
-                                @foreach($post->cates as $cate)
-                                <div class="post-tag__item">
-                                    <a href="" class="post-tag__link">
-                                        #{{$cate->name}}
-                                    </a>
+                            @endforeach
+
+
+                        </div>
+                        <div class="post-content__footer">
+                            <div class="post-footer__details">
+                                <div class="post-content__date">{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</div>
+                                
+                                <div class="post-wishlist">
+                                    <span class="post-wishlist__span">
+
+                                        <a href="{{route('post.wishlist',['id'=>$post->id])}}"><i class="fas fa-heart"></i></a>
+                                        {{DB::table('wishlists')->where('post_id', $post->id)->count()}} Yêu thích
+                                    </span>
                                 </div>
-                                @endforeach
-
-
-                            </div>
-                            <div class="post-content__footer">
-                                <div class="post-footer__details">
-                                    <div class="post-content__date">{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</div>
-                                    
-                                    <div class="post-wishlist">
-                                        <span class="post-wishlist__span">
-
-                                            <a href="{{route('post.wishlist',['id'=>$post->id])}}"><i class="fas fa-heart"></i></a>
-                                            {{DB::table('wishlists')->where('post_id', $post->id)->count()}} Yêu thích
-                                        </span>
-                                    </div>
-                                    <div class="post-view">
-                                        <span class="post-view__span"><i class=" fa fa-eye"></i>
-                                            9 lượt xem
-                                        </span>
-                                    </div>
-                                    <div class="post-comment">
-                                        <span class="post-comment__span"><i class=" fa fa-comments"></i>
-                                            9 bình luận
-                                        </span>
-                                    </div>
+                                <div class="post-view">
+                                    <span class="post-view__span"><i class=" fa fa-eye"></i>
+                                        9 lượt xem
+                                    </span>
+                                </div>
+                                <div class="post-comment">
+                                    <span class="post-comment__span"><i class=" fa fa-comments"></i>
+                                        9 bình luận
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                </div>
+                @endforeach
 
 
             </div>
