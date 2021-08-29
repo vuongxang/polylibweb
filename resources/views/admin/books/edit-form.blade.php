@@ -76,14 +76,12 @@
                                     <audio src="{{$item->url}}" id="show_list_audio" controls>
                                         Trình duyệt không hỗ trợ phát âm thanh
                                     </audio> 
-                                    <button type="button" class="close ml-2" aria-label="Close" onclick="closeAudio({{$item->id}})">
-                                        <span aria-hidden="true" class="text-danger">&times;</span>
-                                    </button>
+                                    <span aria-hidden="true" value="{{$item->url}}" class="btn btn-outline-danger cancle-audio">&times;</span>
                                 </div>
                             @endforeach
                         @endif
                     </div>
-                    <input type="text" id="list_audio" name="list_audio" class="form-control" value="{{ old('list_audio') }}">
+                    <input type="text" id="list_audio" name="list_audio" class="form-control" value="{{ old('list_audio',$book_audios) }}">
                     @if ($errors->has('list_audio'))
                         <span class="text-danger">{{$errors->first('list_audio')}}</span>
                     @endif

@@ -36,9 +36,9 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>User</th>
-                                        <th>Tên Sách</th>
-                                        <th>@sortablelink('rating','Số điểm')</th>
+                                        <th style="width: 1rem">Email</th>
+                                        <th style="width: 200px">Tên Sách</th>
+                                        <th style="width: 150px">@sortablelink('rating','Số điểm')</th>
                                         <th>@sortablelink('body','Nội dung')</th>
                                         <th>@sortablelink('created_at','Ngày gửi')</th>
                                         <th>

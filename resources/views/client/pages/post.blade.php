@@ -5,6 +5,7 @@
 @section('title', 'PolyLib')
 
 @section('content')
+
 <div class="container">
     <div class="row">
 
@@ -23,13 +24,12 @@
                     {{ $message }}
                 </div>
             </div>
-            @endif
-            <div class="post-list">
+            @endif<div class="post-list">
                 @foreach ($posts as $post)
                 <div class="post-item">
                     <div class="post-item__aside">
                         <div class="post-user-avatar">
-                            <a href="{{route('post.user',$post->user->id)}}" class="post-user-avatar__link">
+                            <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}" class="post-user-avatar__link">
 
                                 <img class="post-user-avatar__img" class="post-user-avatar__img " src="{{ asset($post->user()->withTrashed()->first()->avatar) }}" alt="">
                             </a>
@@ -66,6 +66,14 @@
                         <div class="post-content__footer">
                             <div class="post-footer__details">
                                 <div class="post-content__date">{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</div>
+                                
+                                <div class="post-wishlist">
+                                    <span class="post-wishlist__span">
+
+                                        <a href="{{route('post.wishlist',['id'=>$post->id])}}"><i class="fas fa-heart"></i></a>
+                                        {{DB::table('wishlists')->where('post_id', $post->id)->count()}} Yêu thích
+                                    </span>
+                                </div>
                                 <div class="post-view">
                                     <span class="post-view__span"><i class=" fa fa-eye"></i>
                                         9 lượt xem
@@ -90,6 +98,7 @@
         </div>
         <div class="col-md-3 post-aside">
             <div class="post-aside-wrap">
+                <div id="row_wishlist"></div>
                 <div class="post-aside-header">
                     <div class="post-aside-header__text">Danh mục bài viết</div>
 
