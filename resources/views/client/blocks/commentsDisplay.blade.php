@@ -42,7 +42,7 @@
                         <img src="{{ asset(Auth::user()->avatar) }}" alt="">
                     </div>
                     <div class="comment-box__content">
-                        <form action="{{ route('postComments.store') }}" method="post">
+                        <form action="{{ route('comments.store') }}" method="post">
                             @csrf
                             <div class="comment__input">
                                 <input type="text" name="body" placeholder="Viết bình luận..."

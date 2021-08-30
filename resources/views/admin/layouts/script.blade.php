@@ -23,10 +23,10 @@
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
     <!-- Ckeditor -->
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <!-- <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
         CKEDITOR.replace('editor1');
-    </script>
+    </script> -->
     <script>
         $(document).ready(function() {
             $('#fileUploadForm').ajaxForm({

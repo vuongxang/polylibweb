@@ -75,7 +75,7 @@
                     </div>
 
                 </div>
-                <div class="post-detail__comment">
+            <div class="post-detail__comment">
                     <div class="post-comment__header">
                         <div class="post-comment__text">
                             Bình luận
@@ -275,29 +275,33 @@
         </div>
     </div>
 </div> -->
-<script>
-    //Tang view sau 2s
-    let increaseViewUrl = "{{ route('post.updateView') }}";
-    const data = {
-        id: {
-            {
-                $post - > id
-            }
-        },
-        _token: "{{ csrf_token() }}"
-    };
-    setTimeout(() => {
-        // document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
-        // fetch(increaseViewUrl, {
-        //         method: "POST",
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(data)
-        //     })
-        //     .then(responseData => responseData.json())
-        //     .then(postObj => {
-        //         console.log(postObj);
-        //     })
-    }, 2000);
-</script>
+@section('script')
+<script src="{{asset('js/client/post-detail.js')}}"></script>
+@endsection
+
+<!-- <script>
+    // //Tang view sau 2s
+    // let increaseViewUrl = "{{ route('post.updateView') }}";
+    // const data = {
+    //     id: {
+    //         {
+    //             $post - > id
+    //         }
+    //     },
+    //     _token: "{{ csrf_token() }}"
+    // };
+    // setTimeout(() => {
+    //     // document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
+    //     // fetch(increaseViewUrl, {
+    //     //         method: "POST",
+    //     //         headers: {
+    //     //             'Content-Type': 'application/json'
+    //     //         },
+    //     //         body: JSON.stringify(data)
+    //     //     })
+    //     //     .then(responseData => responseData.json())
+    //     //     .then(postObj => {
+    //     //         console.log(postObj);
+    //     //     })
+    // }, 2000);
+</script> -->

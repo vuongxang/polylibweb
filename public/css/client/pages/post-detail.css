@@ -303,3 +303,75 @@
     color: var(--text-color3);
     text-decoration: none;
 }
+
+/* Comment */
+
+.book-user-comment {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: .5rem;
+  }
+  
+  .book-user-comment:last-child {
+    margin-bottom: 0;
+    border: none;
+  }
+  
+  .book-user-comment__body {
+    max-width: 80%;
+  }
+  
+  .book-user-comment__heading {}
+  
+  .book-user-comment__name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--black-secondary-color);
+    margin-bottom: 1rem;
+  }
+  
+  .book-user-comment__date {}
+  
+  .book-user-comment__content {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.6rem;
+    font-weight: 600;
+    color: var(--text-color)
+  }
+  
+  .book-user-comment__message {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+    font-weight: 600;
+    color: var(--text-color)
+  }
+  
+  .book-user-comment__footer {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .book-user-comment__link {
+    position: relative;
+  }
+  
+  .book-user-comment__link a {
+    font-size: 1.4rem;
+  }
+  
+  .book-user-comment__link::before {
+    position: absolute;
+    content: "";
+    background-color: #ccc;
+    width: 1px;
+    left: calc(100% + 0.8rem);
+    top: 0;
+    bottom: 0;
+  }
+  
+  .book-user-comment__date {
+    font-size: 1.4rem;
+  }
