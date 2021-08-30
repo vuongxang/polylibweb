@@ -17,8 +17,8 @@
                 </div>
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh</label>
-                    <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal" data-target="#exampleModal">
-                        Chọn ảnh
+                    <button type="button" class="btn-outline-primary mb-2 btn-sm ml-2 shadow" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fas fa-camera"></i> Chọn ảnh
                     </button><br>
                     @if ($errors->has('image'))
                         <span class="text-danger">{{$errors->first('image')}}</span>

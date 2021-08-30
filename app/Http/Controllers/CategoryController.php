@@ -12,15 +12,15 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $pagesize = 5;
+        $pagesize = 10;
         $keyword=$request->keyword;
         if($request->page_size) $pagesize = $request->page_size;
 
         $cates  = Category::sortable()->where('name','like',"%".$keyword."%")
                             ->orderBy('created_at','DESC')->paginate($pagesize);
         $cates->load('books');
-
-        return view('admin.cates.index',compact('cates','pagesize'));
+        $cates_trashed = Category::onlyTrashed()->paginate(10);
+        return view('admin.cates.index',compact('cates','pagesize','cates_trashed'));
     }
 
     public function create(){
@@ -74,8 +74,9 @@ class CategoryController extends Controller
     }
 
     public function trashList(){
-        $cates = Category::onlyTrashed()->paginate(5);
-        return view('admin.cates.trash-list',compact('cates'));
+        $cates = Category::onlyTrashed()->paginate(10);
+        $cate_alls = Category::all();
+        return view('admin.cates.trash-list',compact('cates','cate_alls'));
     }
 
     public function restore($id){

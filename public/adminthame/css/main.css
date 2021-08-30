@@ -146,5 +146,19 @@ p {
   padding: .375rem .5625rem;
   font-weight: normal
 }
+.form-select:focus {
+  border-color: dimgrey;
+  outline: 0;
+  box-shadow: none
+}
+.form-select {
+  margin-left: 10px;
+  width: 100px;
+  height: 30px;
+  border-color: slategrey;
+}
 
+.btn-acction {
+  width: 80px;
+}
 /* loading */

@@ -92,7 +92,7 @@ class BookController extends Controller
                 DB::table('author_books')->insert($item);
             }
         }
-        if ($request->list_audio) {
+        if ($request->list_audio && $request->list_audio != "[]") {
             $list_audio = json_decode($request->list_audio);
             if ($list_audio == null) $list_audio[] = $request->list_audio;
             foreach ($list_audio as $url) {
@@ -136,11 +136,19 @@ class BookController extends Controller
                 $book_audios[] = $value->url;
             }
         }
+        $book_galleries = [];
+        if($model->bookGalleries){
+            foreach ($model->bookGalleries as $value) {
+                $book_galleries[] = $value->url;
+            }
+        }
+
         if (!$model) return redirect(route('book.index'));
         return view('admin.books.edit-form', [  'model'     => $model, 
                                                 'cates'     => $cates, 
                                                 'authors'   => $authors,
-                                                'book_audios'=> json_encode($book_audios)
+                                                'book_audios'=> json_encode($book_audios),
+                                                'book_galleries' => json_encode($book_galleries)
                                             ]);
     }
 
@@ -191,15 +199,16 @@ class BookController extends Controller
 
         if ($request->list_image) {
             BookGallery::where('book_id', $model->id)->delete();
-
-            $list_image = json_decode($request->list_image);
-            if ($list_image == null) $list_image[] = $request->list_image;
-            foreach ($list_image as $url) {
-                $item = [
-                    'book_id' => $model->id,
-                    'url' => $url,
-                ];
-                DB::table('book_galleries')->insert($item);
+            if($request->list_image != "[]"){
+                $list_image = json_decode($request->list_image);
+                if ($list_image == null) $list_image[] = $request->list_image;
+                foreach ($list_image as $url) {
+                    $item = [
+                        'book_id' => $model->id,
+                        'url' => $url,
+                    ];
+                    DB::table('book_galleries')->insert($item);
+                }
             }
         }
 
