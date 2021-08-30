@@ -9,19 +9,21 @@
     <script src="{{ asset('adminthame/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ asset('adminthame/vendor/chart.js/Chart.min.js') }}"></script>
+
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('adminthame/js/chart/chart-area.js') }}"></script>
-    <script src="{{ asset('adminthame/js/demo/chart-pie-demo.js') }}"></script>
+
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/z61mklx0qjtdxp2smr8tj2bcs3dkzef4894ven0bm30q2dv9/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <!-- Pusher -->
+    <script src="https://cdn.tiny.cloud/1/z61mklx0qjtdxp2smr8tj2bcs3dkzef4894ven0bm30q2dv9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- Pusher header-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+    <!-- Ckeditor -->
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
         CKEDITOR.replace('editor1');
     </script>
@@ -48,16 +50,17 @@
                 }
             });
 
-            var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-                cluster: "ap1"
-            });
-            var channel = pusher.subscribe('NotificationEvent');
-            channel.bind('send-message', function(data) {
+            // var pusher = new Pusher('{{ env('
+            //     PUSHER_APP_KEY ') }}', {
+            //         cluster: "ap1"
+            //     });
+            // var channel = pusher.subscribe('NotificationEvent');
+            // channel.bind('send-message', function(data) {
 
-                console.log(data)
-                console.log($('#abcccc'))
+            //     console.log(data)
+            //     console.log($('#abcccc'))
 
-            });
+            // });
 
 
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
@@ -80,98 +83,15 @@
             $('#total_day').on('change', function() {
                 $('#form-total-day').submit();
             })
-            
-            $('#image_gallery').on('hide.bs.modal', function() {
-                var image_list = $('input#list_image').val();
-                if (image_list.length > 0) {
-                    if (/^[\],:{}\s]*$/.test(image_list.replace(/\\["\\\/bfnrtu]/g, '@').replace(
-                                /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
-                            .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
-                        var image_gallery = $.parseJSON(image_list);
-                        console.log(image_gallery);
-                        var html = '';
-                        image_gallery.forEach((item, index) => {
-                            html +=
-                                `
-                                <div class="col-2">
-                                    <div class="card">
-                                        <img src="${item}" alt="" id="show_list_img" width="100%">
-                                    </div>
-                                </div>
-                                `;
-                        });
-                        console.log(html);
-                        $('.img-gallery').html(html);
-                    } else {
-                        html =
-                            `<div class="col-2">
-                                <div class="card">
-                                    <img src="${item}" alt="" id="show_list_img" width="100%">
-                                </div>
-                            </div>`;
-                        $('.img-gallery').html(html);
-                    }
-                }
-            })
-
-            $('#audio_gallery').on('hide.bs.modal', function() {
-                var audio_list = $('input#list_audio').val();
-                if (audio_list.length) {
-                    if (/^[\],:{}\s]*$/.test(audio_list.replace(/\\["\\\/bfnrtu]/g, '@').replace(
-                                /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
-                            .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
-                        var audio_gallery = $.parseJSON(audio_list);
-                        var html = '';
-                        audio_gallery.forEach((item, index) => {
-                            console.log(item);
-                            html +=
-                                `<div class="d-flex align-items-center">
-                                    <audio src="${item}" id="show_list_audio" controls>
-                                        Trình duyệt không hỗ trợ phát âm thanh
-                                    </audio>
-                                    <span aria-hidden="true" value="${item}" class="btn btn-outline-danger cancle-audio">&times;</span>
-                                </div>`;
-                        });
-                        $('.audio-gallery').html(html);
-                    } else {
-                        console.log(audio_list);
-                        html = `<audio src="${audio_list}" id="show_list_audio" controls>
-                        Trình duyệt không hỗ trợ phát âm thanh
-                        </audio>`;
-                        $('.audio-gallery').html(html);
-                    }
-                }
-                let x = [...$('.cancle-audio')];
-                let list_audio = document.querySelector('#list_audio');
-
-                x.forEach(item =>{
-                    item.addEventListener("click", function() {
-                        let url = item.getAttribute('value');
-                        let audio_array = $.parseJSON(list_audio.value);
-
-                        console.log(audio_array);
-                        let filtered = audio_array.filter(function(item, index, arr){
-                            return item == url;
-                        });
-                        if(audio_array.length ==1){
-                            filtered =[];
-                        }
-                        console.log(filtered);
-                        list_audio.value = JSON.stringify(filtered)
-                        item.parentNode.remove();
-                    });
-                })
-            })
-            
             $(function() {
                 $('.toggle-class').change(function() {
                     var status = $(this).prop('checked') == true ? 1 : 0;
                     var id = $(this).data('id');
-
+                    console.log(status, id)
                     $.ajax({
                         type: "GET",
                         dataType: "json",
-                        url: 'cate/changeStatus',
+                        url: 'admin/cate/changeStatus',
                         data: {
                             'status': status,
                             'id': id
@@ -191,7 +111,7 @@
                     $.ajax({
                         type: "GET",
                         dataType: "json",
-                        url: 'book/changeStatus',
+                        url: 'admin/book/changeStatus',
                         data: {
                             'status': status,
                             'id': id
@@ -211,7 +131,7 @@
                     $.ajax({
                         type: "GET",
                         dataType: "json",
-                        url: 'post-cate/changeStatus',
+                        url: 'admin/post-cate/changeStatus',
                         data: {
                             'status': status,
                             'id': id
@@ -224,20 +144,73 @@
             })
 
 
+            $('#image_gallery').on('hide.bs.modal', function() {
+                var image_list = $('input#list_image').val();
+                if (image_list.length > 0) {
+                    if (/^[\],:{}\s]*$/.test(image_list.replace(/\\["\\\/bfnrtu]/g, '@').replace(
+                                /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                            .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                        var image_gallery = $.parseJSON(image_list);
+                        console.log(image_gallery);
+                        var html = '';
+                        image_gallery.forEach((item, index) => {
+                            html +=
+                                `<img src="${item}" id="show_list_image" width="50" class="img-thumbnail">`;
+                        });
+                        console.log(html);
+                        $('.img-gallery').html(html);
+                    } else {
+                        html =
+                            `<img src="${image_list}" id="show_list_image" width="50" class="img-thumbnail">`;
+                        $('.img-gallery').html(html);
+                    }
+                }
+
+            })
+
+            $('#audio_gallery').on('hide.bs.modal', function() {
+                var audio_list = $('input#list_audio').val();
+                if (audio_list.length) {
+                    if (/^[\],:{}\s]*$/.test(audio_list.replace(/\\["\\\/bfnrtu]/g, '@').replace(
+                                /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                            .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                        var audio_gallery = $.parseJSON(audio_list);
+                        var html = '';
+                        audio_gallery.forEach((item, index) => {
+                            console.log(item);
+                            html +=
+                                `<audio src="${item}" id="show_list_audio" controls>
+                                Trình duyệt không hỗ trợ phát âm thanh
+                                </audio><span aria-hidden="true" value="${item}" class="btn btn-outline-danger cancle-audio">&times;</span><br>`;
+                        });
+                        $('.audio-gallery').html(html);
+                    } else {
+                        console.log(audio_list);
+                        html = `<audio src="${audio_list}" id="show_list_audio" controls>
+                        Trình duyệt không hỗ trợ phát âm thanh
+                        </audio>`;
+                        $('.audio-gallery').html(html);
+                    }
+                }
+            })
+
+
+
+
             let x = [...$('.cancle-audio')];
             let list_audio = document.querySelector('#list_audio');
 
-            x.forEach(item =>{
+            x.forEach(item => {
                 item.addEventListener("click", function() {
                     let url = item.getAttribute('value');
                     let audio_array = $.parseJSON(list_audio.value);
 
                     console.log(audio_array);
-                    let filtered = audio_array.filter(function(item, index, arr){
+                    let filtered = audio_array.filter(function(item, index, arr) {
                         return item == url;
                     });
-                    if(audio_array.length ==1){
-                        filtered =[];
+                    if (audio_array.length == 1) {
+                        filtered = [];
                     }
                     console.log(filtered);
                     list_audio.value = JSON.stringify(filtered)
@@ -260,75 +233,74 @@
 
 
         tinymce.init({
-        selector: 'textarea#exampleInputDesc',
-        plugins: 'print preview searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+            selector: 'textarea#exampleInputDesc',
+            plugins: 'print preview searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 
-        codesample_languages: [{
-                text: 'HTML/XML',
-                value: 'markup'
-            },
-            {
-                text: 'JavaScript',
-                value: 'javascript'
-            },
-            {
-                text: 'CSS',
-                value: 'css'
-            },
-            {
-                text: 'PHP',
-                value: 'php'
-            },
-            {
-                text: 'Ruby',
-                value: 'ruby'
-            },
-            {
-                text: 'Python',
-                value: 'python'
-            },
-            {
-                text: 'Java',
-                value: 'java'
-            },
-            {
-                text: 'C',
-                value: 'c'
-            },
-            {
-                text: 'C#',
-                value: 'csharp'
-            },
-            {
-                text: 'C++',
-                value: 'cpp'
-            }
-        ],
-        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
+            codesample_languages: [{
+                    text: 'HTML/XML',
+                    value: 'markup'
+                },
+                {
+                    text: 'JavaScript',
+                    value: 'javascript'
+                },
+                {
+                    text: 'CSS',
+                    value: 'css'
+                },
+                {
+                    text: 'PHP',
+                    value: 'php'
+                },
+                {
+                    text: 'Ruby',
+                    value: 'ruby'
+                },
+                {
+                    text: 'Python',
+                    value: 'python'
+                },
+                {
+                    text: 'Java',
+                    value: 'java'
+                },
+                {
+                    text: 'C',
+                    value: 'c'
+                },
+                {
+                    text: 'C#',
+                    value: 'csharp'
+                },
+                {
+                    text: 'C++',
+                    value: 'cpp'
+                }
+            ],
+            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
 
-        tinycomments_author: 'Author name',
-        external_filemanager_path: "/filemanager/",
-        filemanager_title: "Responsive Filemanager",
-        external_plugins: {
-            "filemanager": "/filemanager/plugin.min.js"
-        },
-        // templates: [
-        //         { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
-        //     { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
-        //     { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
-        // ],
-        // template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
-        // template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
-        // height: 600,
-        // image_caption: true,
-        // quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-        // noneditable_noneditable_class: 'mceNonEditable',
-        // toolbar_mode: 'sliding',
-        // spellchecker_ignore_list: ['Ephox', 'Moxiecode'],
-        tinycomments_mode: 'embedded',
-        // content_style: '.mymention{ color: gray; }',
-        // contextmenu: 'link image imagetools table configurepermanentpen',
-        // a11y_advanced_options: true
+            tinycomments_author: 'Author name',
+            external_filemanager_path: "/filemanager/",
+            filemanager_title: "Responsive Filemanager",
+            external_plugins: {
+                "filemanager": "/filemanager/plugin.min.js"
+            },
+            // templates: [
+            //         { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+            //     { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+            //     { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+            // ],
+            // template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+            // template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+            // height: 600,
+            // image_caption: true,
+            // quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+            // noneditable_noneditable_class: 'mceNonEditable',
+            // toolbar_mode: 'sliding',
+            // spellchecker_ignore_list: ['Ephox', 'Moxiecode'],
+            tinycomments_mode: 'embedded',
+            // content_style: '.mymention{ color: gray; }',
+            // contextmenu: 'link image imagetools table configurepermanentpen',
+            // a11y_advanced_options: true
         });
-        
     </script>

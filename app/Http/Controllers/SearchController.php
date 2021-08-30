@@ -9,26 +9,35 @@ use App\Models\Book;
 use App\Models\BookGallery;
 use App\Models\Category;
 use App\Models\CategoryBook;
+use App\Models\PostShare;
 use App\Models\Rating;
 use Illuminate\Support\Facades\DB;
+
 class SearchController extends Controller
 {
     public function search(Request $request)
     {
         $keyword = $request->keyword;
-        $a = urldecode($request->keyword);
-        $shares = Book::join('author_books', 'books.id', '=', 'author_books.book_id')
-            ->join('authors', 'authors.id', '=', 'author_books.author_id')
-            ->where('books.title', 'like', '%' . $keyword . '%')
-            ->orWhere('authors.name', 'like', '%' . $keyword . '%')
-            ->get();
-        $books = Book::where('title', 'like', '%' . $request->keyword . '%')->get();
-        $authors = Author::where('name', 'like', '%' . $request->keyword . '%')->get();
-        $categories = Category::all();
-        $authors->load('books');
-        // $books->star = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
-        return view('client.pages.search', compact('categories', 'books', 'keyword', 'authors'))->with('keyword', $a);
 
+        $a = urldecode($keyword);
+        // $shares = Book::join('author_books', 'books.id', '=', 'author_books.book_id')
+        //     ->join('authors', 'authors.id', '=', 'author_books.author_id')
+        //     ->where('books.title', 'like', '%' . $keyword . '%')
+        //     ->orWhere('authors.name', 'like', '%' . $keyword . '%')
+        //     ->get();
+        $books = Book::where('title', 'like', '%' . $keyword . '%')->where('status', 1)->get();
+        // $authors = Author::where('name', 'like', '%' . $request->keyword . '%')->get();
+        $categories = Category::where('status', 1)->get();
+
+        $authors = Author::where('name', 'like', '%' . $keyword . '%')->with(['books' => function ($query) {
+            $query->where('status', 1);
+        }])->get();
+
+        $post = PostShare::where('title', 'like', '%' . $keyword . '%')->where('status', 1)->get();
+        dd($post);
+        // $books->star = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
+        session()->flashInput($request->input());
+        return view('client.pages.search', compact('categories', 'books', 'keyword', 'authors'));
     }
     public function filter(Request $request)
     {
@@ -36,7 +45,10 @@ class SearchController extends Controller
         $a = urldecode($request->keyword);
         if (!empty($cateFilter)) {
             $numArray = array_map('intval', $request->cates);
-            $books = Book::with('authors')
+            $authors = Author::where('name', 'like', '%' . $request->keyword . '%')->with(['books' => function ($query) {
+                $query->where('status', 1);
+            }])->get();
+            $books = Book::with('authors', 'rates')
                 ->distinct()
 
                 ->join('category_books', 'books.id', 'category_books.book_id')
@@ -45,26 +57,29 @@ class SearchController extends Controller
                 ->whereIn('categories.id', $numArray)
                 // ->where('title', 'like', '%' . $request->keyword . '%')
                 ->where('title', 'like', '%' . $a . '%')
-                // ->where('title', 'LIKE', "%\"{$$request->keyword}\"%")
+                ->where('books.status', 1)
+
                 ->get();
+            // ->where('title', 'LIKE', "%\"{$$request->keyword}\"%")
         } else {
-            $books = Book::with('authors')
+            $books = Book::with('authors', 'rates')
                 ->where('title', 'like', '%' . $a . '%')
+                ->where('status', 1)
                 ->get();
-                
         }
 
-        return response()->json([$books,$a]);
+        return response()->json([$books, $a]);
     }
     public function searchApi(Request $request)
     {
         $keyword = $request->keyword;
         if ($keyword) {
-            $bookSearch = Book::with('authors')->where('title', 'like', '%' . $keyword . '%')
+            $bookSearch = Book::with('authors')->where('title', 'like', '%' . $keyword . '%')->where('status', 1)
                 ->get();
             $authorSearch = Author::with('books')->where('name', 'like', '%' . $keyword . '%')
                 ->get();
+            $post = PostShare::where('title', 'like', '%' . $keyword . '%')->where('status', 1)->get();
         }
-        return response()->json([$bookSearch,$authorSearch]);
+        return response()->json([$bookSearch, $authorSearch,$post]);
     }
 }

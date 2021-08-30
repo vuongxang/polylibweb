@@ -272,7 +272,7 @@ class BookController extends Controller
         $sameBooks = [];
         foreach ($book->categories as $cate) {
             foreach ($cate->books as $books) {
-                if ($books->id !== $book->id) {
+                if ($books->id !== $book->id && $books->status == 1) {
 
                     array_push($sameBooks, $books);
                 }

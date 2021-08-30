@@ -362,62 +362,62 @@ function loadMoreRate(lastRateId = "") {
 
             let lastRateId;
 
-    //         const result = rateList.map(rateItem => {
-    //             lastRateId = rateItem.id;
-    //             return `<div class="book-user-comment" id="js-rate-wrapper">
-    //                         <div class="comment-box__image">
-    //                             <img src="${rateItem.user.avatar}" alt="">
-    //                         </div>
-    //                         <div class="book-user-comment__body">
-    //                             <div class="book-user-comment__heading">
-    //                                 <div class="book-user-comment__name">${rateItem.user.name}</div>
-    //                                 <div class="book-user-comment__footer">
-    //                                     <div class="book-user-comment__link">
-    //                                         <span class="book-star">
+            const result = rateList.map(rateItem => {
+                lastRateId = rateItem.id;
+                return `<div class="book-user-comment" id="js-rate-wrapper">
+                            <div class="comment-box__image">
+                                <img src="${rateItem.user.avatar}" alt="">
+                            </div>
+                            <div class="book-user-comment__body">
+                                <div class="book-user-comment__heading">
+                                    <div class="book-user-comment__name">${rateItem.user.name}</div>
+                                    <div class="book-user-comment__footer">
+                                        <div class="book-user-comment__link">
+                                            <span class="book-star">
                                                 
-    //                                             ${(function fun() {
-    //                     let rateStar = "";
-    //                     for ($i = 1; $i <= 5; $i++) {
-    //                         if ($i <= rateItem.rating) {
-    //                             rateStar += '<i class="fas fa-star "></i>'
+                                                ${(function fun() {
+                        let rateStar = "";
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= rateItem.rating) {
+                                rateStar += '<i class="fas fa-star "></i>'
 
-    //                         } else {
-    //                             rateStar += `<i class="far fa-star " ></i>`
-    //                         }
+                            } else {
+                                rateStar += `<i class="far fa-star " ></i>`
+                            }
 
-    //                     }
-    //                     return rateStar;
-    //                 }
-    //                 )()}
-    //                                         <span>
+                        }
+                        return rateStar;
+                    }
+                    )()}
+                                            <span>
                                                         
-    //                                     </div>
-    //                                     <div class="book-user-comment__date">
-    //                                         ${moment(rateItem.created_at).format('l')}
-    //                                     </div>
-    //                                 </div >
-    //                                 <div class="book-user-comment__content">
-    //                                     ${rateItem.body}
+                                        </div>
+                                        <div class="book-user-comment__date">
+                                            ${moment(rateItem.created_at).format('l')}
+                                        </div>
+                                    </div >
+                                    <div class="book-user-comment__content">
+                                        ${rateItem.body}
 
-    //                                 </div>
-    //                             </div >
+                                    </div>
+                                </div >
 
-    //                         </div >
+                            </div >
 
-    //                     </div >
+                        </div >
 
-    // `
-    //         }).join('');
-    //         const reviewTab = document.querySelector('#review-tab');
-    //         if (data[1]) {
-    //             $(reviewTab).append(`<div class="book-user-comment__message">
-    //             ${data[1]}
-    //         </div>`);
-    //         }
-    //         $('#js_load_more_review').remove();
+    `
+            }).join('');
+            const reviewTab = document.querySelector('#review-tab');
+            if (data[1]) {
+                $(reviewTab).append(`<div class="book-user-comment__message">
+                ${data[1]}
+            </div>`);
+            }
+            $('#js_load_more_review').remove();
 
 
-    //         $(reviewTab).append(result);
+            $(reviewTab).append(result);
 
 
             if (rateList.length == 3) {

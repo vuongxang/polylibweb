@@ -61,5 +61,8 @@ class Book extends Model
     public function comments(){
         return $this->hasMany(Comment::class, 'book_id');
     }
+    public function rates(){
+        return $this->hasMany(Rating::class, 'rateable_id');
+    }
 
 }

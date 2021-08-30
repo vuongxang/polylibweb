@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuthorRequest;
 use App\Http\Requests\AuthorEditRequest;
 use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -98,8 +99,10 @@ class AuthorController extends Controller
         if (!$author) return  abort(404);;
         $author->load('books');
         
-        
-        return view('client.pages.author-detail', compact('author'));
+        $books = Book::whereHas('authors', function ($query) use ($id) {
+            $query->where('id', $id);
+        })->where('status', 1)->paginate(9);
+        return view('client.pages.author-detail', compact('author','books'));
     }
 
 }
