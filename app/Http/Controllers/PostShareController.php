@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NewNotificationEvent;
 use App\Models\PostShare;
 use App\Http\Requests\PostShareRequest;
+use App\Models\PostComment;
 use App\Models\PostFileData;
 use App\Models\PostShareCategory;
 use App\Models\PostShareCategoryDetail;
@@ -266,8 +267,16 @@ class PostShareController extends Controller
         $wishlist = Wishlist::where('post_id', $model->id)->where('user_id', Auth::user()->id)
             ->where('status', 'Đã thêm')->first();
         $totalViews = PostView::where('post_id', $model->id)->sum('views');
+        $comments = PostComment::where('post_id', $model->id)->orderBy('id', 'DESC')->paginate(10);
         if (!$model) return back();
-        return view('client.pages.post-detail', ['post' => $model, 'cates' => $cates, 'totalViews' => $totalViews, 'postsOfUser' => $postsOfUser, 'wishlist' => $wishlist]);
+        return view('client.pages.post-detail', [
+                                                    'post'          => $model, 
+                                                    'cates'         => $cates, 
+                                                    'totalViews'    => $totalViews, 
+                                                    'postsOfUser'   => $postsOfUser, 
+                                                    'wishlist'      => $wishlist,
+                                                    'comments'      => $comments
+                                                ]);
     }
 
     public function myPost($id)

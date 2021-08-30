@@ -83,7 +83,6 @@
             $('#total_day').on('change', function() {
                 $('#form-total-day').submit();
             })
-
             $(function() {
                 $('.toggle-class').change(function() {
                     var status = $(this).prop('checked') == true ? 1 : 0;

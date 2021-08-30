@@ -115,7 +115,8 @@
         </a>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('comment.index')}}">Bình luận</a>
+                <a class="collapse-item" href="{{route('comment.index')}}">Bình luận sách</a>
+                <a class="collapse-item" href="{{route('postComment.index')}}">Bình luận bài viết</a>
                 <a class="collapse-item" href="{{route('rate.index')}}">Đánh giá</a>
             </div>
         </div>

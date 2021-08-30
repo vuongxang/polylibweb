@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Xxx;
 use Maatwebsite\Excel\Concerns\ToModel;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -15,15 +15,24 @@ class UsersImport implements ToModel,WithValidation
     /**
      * @param array $row
      *
-     * @return Xxx|null
      */
     public function model(array $row)
     {
-        $post = User::create([
-           'email'      => $row[0],
-           'name'       => $row[1],
-           'password'   => Hash::make('123456')
-        ]);
+        $user = User::withTrashed()->where('email',$row[0])->first();
+        
+        if(!$user) $user = new User();
+        $user->email = $row[0];
+        $user->name = $row[1];
+        $user->password = Hash::make($row[2]);
+        $user->save();
+
+        $user->delete();
+        // $user = User::create([
+        //    'email' => $row[0],
+        //    'name' => $row[1],
+        //    'password' => $row[2],
+        // ]);
+
     }
     public function rules(): array
     {

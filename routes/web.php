@@ -14,6 +14,7 @@ use App\Http\Controllers\Client\WishlistController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostShareCategoryController;
 use App\Http\Controllers\PostShareController;
 use App\Http\Controllers\RatingController;
@@ -70,6 +71,8 @@ Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
 // Route::view('review', 'client.pages.review-book');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
+Route::post('/post-comment-store', [PostCommentController::class, 'store'])->middleware('auth')->name('postComments.store');
+
 Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
 Route::get('my-posts/{id}', [PostShareController::class, 'myPost'])->middleware('auth')->name('user.myPost');
 Route::get('setting', [HomeController::class, 'setting'])->middleware('auth')
@@ -180,6 +183,13 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('remove/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
         Route::get('restore/{id}', [CommentController::class, 'restore'])->name('comment.restore');
         Route::get('force-delete/{id}', [CommentController::class, 'forceDelete'])->name('comment.forcedelete');
+    });
+    Route::prefix('post-comment')->group(function () {
+        Route::get('/', [PostCommentController::class, 'index'])->name('postComment.index');
+        Route::get('comment-approv/{id}', [PostCommentController::class, 'commentApprov'])->name('postComment.approv');
+        Route::get('remove/{id}', [PostCommentController::class, 'destroy'])->name('postComment.destroy');
+        Route::get('restore/{id}', [PostCommentController::class, 'restore'])->name('postComment.restore');
+        Route::get('force-delete/{id}', [PostCommentController::class, 'forceDelete'])->name('postComment.forcedelete');
     });
 
     Route::prefix('review')->group(function () {

@@ -142,7 +142,8 @@ class UserController extends Controller
     public function massLockUser(Request $request){
         Excel::import(new UsersImport,$request->file('file_upload'));
              
-        return back();
+        return back()->with('message', 'Khóa tài khoản thành công !')
+                    ->with('alert-class', 'alert-success');;
     }
     public function notifications()
     {

@@ -15,6 +15,7 @@
     <title> @yield('title','Admin') </title>
     <!-- Custom fonts for this template-->
     @include('admin.layouts.style')
+    @yield('css')
 
 </head>
 
