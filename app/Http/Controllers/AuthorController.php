@@ -11,18 +11,20 @@ use Illuminate\Http\Request;
 class AuthorController extends Controller
 {
     public function index(Request $request){
-        $pagesize = 5;
+        $pagesize = 10;
         $keyword=$request->keyword;
         
         if($request->page_size) $pagesize = $request->page_size;
 
-        $authors  = Author::sortable()->where('name','like',"%".$keyword."%")->paginate($pagesize);
-        return view('admin.authors.index',compact('authors','keyword','pagesize'));
+        $authors  = Author::sortable()->where('name','like',"%".$keyword."%")->orderBy('created_at','DESC')->paginate($pagesize);
+        $authors_trashed = Author::onlyTrashed()->paginate(10);
+        return view('admin.authors.index',compact('authors','keyword','pagesize','authors_trashed'));
     }
 
     public function trashList(){
-        $authors = Author::onlyTrashed()->paginate(5);
-        return view('admin.authors.trash-list',compact('authors'));
+        $authors = Author::paginate(10);
+        $authors_trashed = Author::onlyTrashed()->paginate(10);
+        return view('admin.authors.trash-list',compact('authors','authors_trashed'));
     }
 
     public function restore($id){

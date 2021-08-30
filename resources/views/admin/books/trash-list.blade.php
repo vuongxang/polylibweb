@@ -27,7 +27,7 @@
                         <th>Danh mục</th>
                         {{-- <th>@sortablelink('publish_date_from','Ngày đăng')</th> --}}
                         <th>@sortablelink('status','Trạng thái')</th>
-                        <th class="text-center">
+                        <th class="text-center" style="width: 200px;">
                             Hành động
                         </th>
                     </tr>
@@ -52,7 +52,7 @@
                                 <br>
                             @endforeach
                         </td>
-                        <td class="text-center">
+                        <td>
                             {{-- <input data-id="{{$book->id}}" class="toggle-class-book" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Show" data-off="Hide" {{ $book->status ? 'checked' : '' }}> --}}
                             <label class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input toggle-class-book" data-id="{{$book->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $book->status ? 'checked' : '' }}>
@@ -60,8 +60,10 @@
                             </label>
                         </td>
                         <td class="text-center">
-                            <a href="{{route('book.restore',['id' => $book->id])}}" class="mr-2 text-success">Khôi phục</a> |
-                            <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.forcedelete',['id' => $book->id])}}" class="ml-2 text-danger">Xóa</a>
+                            <div class="btn-group">
+                                <a href="{{route('book.restore',['id' => $book->id])}}" class="btn btn-sm btn-outline-success btn-acction">Khôi phục</a>
+                                <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('book.forcedelete',['id' => $book->id])}}" class="ml-2 btn btn-sm btn-outline-danger btn-acction">Xóa</a>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

@@ -31,7 +31,7 @@ class CommentController extends Controller
             ->where('body', 'like', '%' . $keyword . '%')->paginate($pagesize);
         $comments_deleted = Comment::onlyTrashed()
             ->where('body', 'like', '%' . $keyword . '%')->paginate($pagesize);
-        return view('admin.post-comments.index', [
+        return view('admin.comments.index', [
             'comments_approved' => $comments_approved,
             'comments_pending'  => $comments_pending,
             'comments_deleted'  => $comments_deleted,

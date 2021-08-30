@@ -84,7 +84,7 @@
                             @endforeach
                         @endif
                     </div>
-                    <input type="text" id="list_audio" name="list_audio" class="form-control" value="{{ old('list_audio',$book_audios) }}">
+                    <input type="text" id="list_audio" name="list_audio" class="form-control" value="{{ old('list_audio',$book_audios) }}" readonly>
                     @if ($errors->has('list_audio'))
                         <span class="text-danger">{{$errors->first('list_audio')}}</span>
                     @endif
@@ -99,15 +99,16 @@
                     <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2 img-gallery">
                         @if ($model->bookGalleries)
                             @foreach ($model->bookGalleries as $item)
-                                <div class="col-2">
-                                    <div class="card">
+                                <div class="col-2 text-center">
+                                    <div class="card ml-2">
                                         <img src="{{$item->url}}" alt="" id="show_list_img" width="100%">
                                     </div>
+                                    <span aria-hidden="true" value="{{$item->url}}" class="btn btn-outline-danger btn-sm rounded-circle cancle-image">&#10006</span>
                                 </div>
                             @endforeach
                         @endif
                     </div>
-                    <input type="text" id="list_image"  name="list_image" class="form-control" value="{{ old('list_image') }}" readonly>
+                    <input type="text" id="list_image"  name="list_image" class="form-control" value="{{ old('list_image',$book_galleries) }}" readonly>
                     @if ($errors->has('list_image'))
                         <span class="text-danger">{{$errors->first('list_image')}}</span>
                     @endif
@@ -200,4 +201,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script src="{{ asset('adminthame/js/book-form.js') }}"></script>
 @endsection

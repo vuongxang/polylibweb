@@ -305,3 +305,29 @@
     //     //     })
     // }, 2000);
 </script> -->
+<!-- <script>
+    //Tang view sau 2s
+    let increaseViewUrl = "{{ route('post.updateView') }}";
+    const data = {
+        id: {
+            {
+                $post - > id
+            }
+        },
+        _token: "{{ csrf_token() }}"
+    };
+    setTimeout(() => {
+        document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
+        fetch(increaseViewUrl, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(responseData => responseData.json())
+            .then(postObj => {
+                console.log(postObj);
+            })
+    }, 2000);
+</script> -->
