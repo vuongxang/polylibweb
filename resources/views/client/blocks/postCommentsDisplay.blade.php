@@ -47,7 +47,7 @@
                             <div class="comment__input">
                                 <input type="text" name="body" placeholder="Viết bình luận..."
                                     id="js-reply-input-{{ $comment->id }}">
-                                <input type=hidden name="book_id" value="{{ $book_id }}" />
+                                <input type=hidden name="post_id" value="{{ $comment->post_id }}" />
                                 <input type=hidden name="parent_id" value="{{ $comment->id }}" />
                             </div>
                             <div class="comment__btn">

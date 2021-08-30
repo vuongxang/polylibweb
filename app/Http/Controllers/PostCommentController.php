@@ -3,19 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewNotificationEvent;
-use App\Models\Book;
-use App\Models\Comment;
+use App\Models\PostComment;
 use App\Models\User;
 use App\Notifications\CommentNotification;
-use App\Notifications\Demo;
-use Illuminate\Http\Request;
 use App\Notifications\InvoicePaid;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
 use Pusher\Pusher;
 
-class CommentController extends Controller
+class PostCommentController extends Controller
 {
     public function index(Request $request)
     {
@@ -23,13 +19,13 @@ class CommentController extends Controller
         $pagesize = 10;
         if ($request->page_size) $pagesize = $request->page_size;
 
-        $comments_approved = Comment::sortable()->where('status', 1)
+        $comments_approved = PostComment::sortable()->where('status', 1)
             ->orderBy('created_at', 'DESC')
             ->where('body', 'like', '%' . $keyword . '%')->paginate($pagesize);
-        $comments_pending = Comment::sortable()->where('status', 0)
+        $comments_pending = PostComment::sortable()->where('status', 0)
             ->orderBy('created_at', 'DESC')
             ->where('body', 'like', '%' . $keyword . '%')->paginate($pagesize);
-        $comments_deleted = Comment::onlyTrashed()
+        $comments_deleted = PostComment::onlyTrashed()
             ->where('body', 'like', '%' . $keyword . '%')->paginate($pagesize);
         return view('admin.post-comments.index', [
             'comments_approved' => $comments_approved,
@@ -46,23 +42,23 @@ class CommentController extends Controller
             'body' => 'required',
         ]);
         
-        $model = new Comment();
+        $model = new PostComment();
         $model->fill($request->all());
         $model->status = 0;
         $model->user_id = auth()->user()->id;
 
         $model->save();
-        $model->load(['book', 'user']);
+        $model->load(['post', 'user']);
 
 
-        // Lấy ra danh sách để gửi thông báo
+        // Lấy ra danh sách admin-user để gửi thông báo
         $users = User::where('role_id', 1)->orWhere('role_id', 2)->get();
         // Nội dung của thông báo
         $data = [
             'avatar'    => $model->user->avatar,
             'title'     => 'Bình luận mới',
-            'content'   => $model->user->name . " đã bình luận về sách " . $model->book->title,
-            'book_id'   => $model->book->id,
+            'content'   => $model->user->name . " đã bình luận về  bài viết " . $model->post->title,
+            'post_id'   => $model->post->id,
         ];
         
         foreach ($users as $key => $user) {
@@ -79,32 +75,31 @@ class CommentController extends Controller
             $data1 = [
                 'avatar'    => $authUser->avatar,
                 'title'     => 'Bình luận của bạn đang được chờ duyệt',
-                'content'   =>  "Bình luận của bạn về sách " . $model->book->title . " đang được chờ duyệt.",
-                'book_id'   => $model->book->id
+                'content'   =>  "Bình luận của bạn về bài viết " . $model->post->title . " đang được chờ duyệt.",
+                'post_id'   => $model->post->id
             ];
             $authUser->notify(new CommentNotification($data1));
             $newNotify = $authUser->notifications->sortByDesc('created_at')->first();
             event(new NewNotificationEvent($newNotify,$authUser));
         }
 
-        // Gửi thông báo cho từng user sau khi comment một cuốn sách
         return back();
     }
 
     public function commentApprov($id)
     {
 
-        $comment = Comment::find($id);
+        $comment = PostComment::find($id);
 
         $user = User::where('id', $comment->user_id)->first();
-        $comment->load('book');
-        if(! $comment->book) return back()->with('message', 'Bạn không thể duyệt bình luận này !')
+        $comment->load('post');
+        if(! $comment->post) return back()->with('message', 'Bạn không thể duyệt bình luận này !')
                                             ->with('alert-class', 'alert-danger');
         $data = [
             'avatar'    => $user->avatar,
             'title'     => 'Bình luận đã được duyệt',
-            'content'   => "Bình luận của bạn về sách " . $comment->book->title . " đã được duyệt",
-            'book_id'   => $comment->book->id
+            'content'   => "Bình luận của bạn về bài viết " . $comment->post->title . " đã được duyệt",
+            'post_id'   => $comment->post->id
         ];
 
         
@@ -115,21 +110,21 @@ class CommentController extends Controller
         $user->notify(new InvoicePaid($data));
         $newNotify = $user->notifications->sortByDesc('created_at')->first();
         event(new NewNotificationEvent($newNotify,$user));
-        return redirect(route('comment.index'))->with('message', 'Xét duyệt bình luận thành công')
+        return redirect(route('postComment.index'))->with('message', 'Xét duyệt bình luận thành công')
             ->with('alert-class', 'alert-success');
     }
 
     public function destroy($id)
     {
-        $model = Comment::find($id);
+        $model = PostComment::find($id);
         if ($model) {
             $user = User::where('id', $model->user_id)->first();
-            if($model->book && $model->user){
+            if($model->post && $model->user){
                 $data = [
                     'avatar'    => $user->avatar,
                     'title'     => 'Hủy bình luận',
-                    'content'   => "Bình luận của bạn về sách " . $model->book->title . " đã bị xóa",
-                    'book_id'   => $model->book->id
+                    'content'   => "Bình luận của bạn về bài viết " . $model->post->title . " đã bị xóa",
+                    'post_id'   => $model->post->id
                 ];
     
                
@@ -138,35 +133,35 @@ class CommentController extends Controller
                 event(new NewNotificationEvent($newNotify,$user));
             }
             
-            Comment::destroy($id);
+            PostComment::destroy($id);
 
-            return redirect(route('comment.index'))->with('message', 'Chuyển vào thùng rác thành công !')
+            return redirect(route('postComment.index'))->with('message', 'Chuyển vào thùng rác thành công !')
                 ->with('alert-class', 'alert-success');
         } else {
-            return redirect(route('comment.index'))->with('message', 'Dữ liệu không tồn tại !')
+            return redirect(route('postComment.index'))->with('message', 'Dữ liệu không tồn tại !')
                 ->with('alert-class', 'alert-danger');
         }
     }
 
     public function restore($id)
     {
-        Comment::withTrashed()->where('id', $id)->restore();
-        return redirect(route('comment.index'))->with('message', 'Khôi phục thành công')
+        PostComment::withTrashed()->where('id', $id)->restore();
+        return redirect(route('postComment.index'))->with('message', 'Khôi phục thành công')
             ->with('alert-class', 'alert-success');
     }
 
     public function forceDelete($id)
     {
 
-        $model = Comment::withTrashed()->find($id);
+        $model = PostComment::withTrashed()->find($id);
         if ($model) {
             $user = User::where('id', $model->user_id)->first();
-            if($model->book && $model->user){
+            if($model->post && $model->user){
                 $data = [
-                    'title'     => 'Xóa bình luận',
-                    'content'   => "Bình luận của bạn về sách <a href=" . route('book.detail', $model->book->id) . ">" . $model->book->title . "</a> Đã bị xóa !",
-                    'icon-class' => 'icon-circle',
-                    'book_id'   => $model->book->id
+                    'avatar'    => $user->avatar,
+                    'title'     => 'Xoá bình luận',
+                    'content'   => "Bình luận của bạn về bài viết " . $model->post->title . " đã bị xóa",
+                    'post_id'   => $model->post->id
                 ];
     
                 $options = array(
@@ -185,11 +180,11 @@ class CommentController extends Controller
                 $user->notify(new InvoicePaid($data));
             }
             
-            $model = Comment::withTrashed()->where('id', $id)->forceDelete();
-            return redirect(route('comment.index'))->with('message', 'Xóa bình luận thành công !')
+            $model = PostComment::withTrashed()->where('id', $id)->forceDelete();
+            return redirect(route('postComment.index'))->with('message', 'Xóa bình luận thành công !')
                 ->with('alert-class', 'alert-success');
         } else {
-            return redirect(route('comment.index'))->with('message', 'Dữ liệu không tồn tại !')
+            return redirect(route('postComment.index'))->with('message', 'Dữ liệu không tồn tại !')
                 ->with('alert-class', 'alert-danger');
         }
     }
