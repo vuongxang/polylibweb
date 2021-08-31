@@ -135,7 +135,7 @@
 
 .book-card-cover-image {
     width: 4rem;
-    height: 5.5rem;
+    height: 6rem;
     border-radius: .5rem;
     box-shadow: 1px 3px 4px 0 rgb(0 0 0 / 25%);
 }
@@ -151,19 +151,18 @@
 }
 
 .book-search-info__title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--text-color);
-    margin-bottom: 1rem;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
-    line-height: 2.4rem;
-    height: 2.4rem;
+    line-height: 1.8rem;
+    height: 3.6rem;
+    margin-bottom: .5rem;
 }
 
 .book-search-info__author {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-color3);
     overflow: hidden;
