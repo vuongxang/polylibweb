@@ -1,63 +1,39 @@
 <header class="header">
     <div class="header-mobile">
         <div class="toggle-cate">
+
             <i class="fas fa-bars"></i>
+
         </div>
+        <!-- search -->
+        <div class="search-box">
+            <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
+                <input class="search-txt" name="keyword" type="text" placeholder="Tìm kiếm" value="@isset($_GET['keyword']) {{$_GET['keyword']  }}@endisset">
+                <a class="search-btn" href="#">
+                    <i class="fas fa-search search-icon"></i>
+                </a>
+            </form>
+        </div>
+        <!-- end search -->
         <div class="header-menu__cate">
-            <div class="header-mobile__search">
-                <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
-                    <input class="search-input" name="keyword" type="text" placeholder="Tìm kiếm theo tên sách, tác giả" value="@isset($_GET['keyword']) {{$_GET['keyword']  }}@endisset">
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-                <div class="search__dropdown hidden" id="js-search__dropdown">
-                    <div class="search-dropdown__categories">
-
-                        <div class="search-dropdown__heading">
-                            Sách
-                        </div>
-
-                        <ul class="search-dropdown__ul " id="js-search-dropdown__ul--cate">
-
-
-                        </ul>
-                    </div>
-                    <div class="search-dropdown__authors">
-
-                        <div class="search-dropdown__heading">
-                            Tác giả
-                        </div>
-
-                        <ul class="search-dropdown__ul " id="js-search-dropdown__ul--author">
-
-                        </ul>
-                    </div>
-
-
-                </div>
-            </div>
+          
             <ul class="header-mobile__nav">
-                <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
-                <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}">Danh Mục</a></li>
-                <li class="header__nav-li"><a class="link" href="{{route('post')}}">Bài Viết</a></li>
-                <li class="header__nav-li"><a class="link" href="{{route('contact')}}">Liên Hệ</a></li>
+                <li class="header__nav-li"><a class="link" href="{{route('home')}}"><i class="fas fa-home"></i>Trang Chủ</a></li>
+                <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}"><i class="fas fa-bars"></i>Danh Mục</a></li>
+                <li class="header__nav-li"><a class="link" href="{{route('post')}}"><i class="fas fa-file-signature"></i>Bài Viết</a></li>
+                <li class="header__nav-li"><a class="link" href="{{route('contact')}}"><i class="fas fa-id-badge"></i>Liên Hệ</a></li>
             </ul>
         </div>
         <div class="header-mobile__logo">
             <a href="{{route('home')}}"><img src="{{ asset('images/logo.png') }}" alt="" class="header__logo-img"></a>
         </div>
         <div class="toggle-user">
-            <i class="fas fa-user"></i>
-        </div>
-        <div class="header-menu__user">
-            <div class="header-mobile__information">
-
-                @guest
-                @if (Route::has('login'))
-                <a class=" btn--login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
-                @endif
-                @else
+            @guest
+            @if (Route::has('login'))
+            <a class="" href="{{ route('login') }}"> <i class="fa fa-sign-in-alt"></i></a>
+            @endif
+            @else
+            <div class="header-menu__users">
                 <div class="header__information-notification ">
 
                     <!-- Nav Item - Alerts -->
@@ -118,23 +94,39 @@
                         </div>
                     </div>
                 </div>
+                <div class="inf-user">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            @endguest
+
+
+        </div>
+        <div class="header-menu__user  ">
+            <div class="header-mobile__information">
+
+                @guest
+                @if (Route::has('login'))
+                <a class="btn--login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
+                @endif
+                @else
                 <div>
-                    <a class="nav-link  header__information-info" href="#" >
+                    <a class="nav-link  header__information-info" href="#">
                         <img src="{{Auth::user()->avatar}}" alt="">
                         <!-- <i class="fas fa-caret-down"></i> -->
                         <p>{{Auth::user()->name}}</p>
                         <!-- <p>{{Auth::user()->email}}</p> -->
                     </a>
-                    
+
                     @if (Auth::check())
-                    <div >
+                    <div>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                         <a class="dropdown-item dropdown-item-custom" href="{{ route('dashboard') }}">
                             <i class="fas fa-users-cog"></i>Quản trị
                         </a>
                         @endif
-                        
-       
+
+
                         <a class="dropdown-item dropdown-item-custom" href="{{ route('client.profile', Auth::user()->id) }}">
                             <i class="fas fa-user"></i>Hồ sơ cá nhân
                         </a>
@@ -147,8 +139,8 @@
                         <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
                             <i class="fas fa-star"></i>Đánh giá
                         </a>
-                       
-      
+
+
                         <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
@@ -163,8 +155,6 @@
                 @endguest
             </div>
         </div>
-
-
 
     </div>
     <div class="header-desktop">
@@ -359,13 +349,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-      
+
         $('.toggle-cate').click(function() {
-           $('.header-menu__cate').toggleClass('show-cate');
+            $('.header-menu__cate').toggleClass('show-cate');
         })
-        $('.toggle-user').click(function() {
+        $('.inf-user').click(function() {
             $('.header-menu__user').toggleClass('show-user')
-           
+
+        })
+        $('.search-btn').click(function() {
+
+            $('.search-txt').toggleClass('test');
+
         })
     })
 </script>

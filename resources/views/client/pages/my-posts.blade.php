@@ -44,7 +44,7 @@
                                 <td  data-label="Ảnh"  class="img-center">
                                     <img src="{{ asset($post->thumbnail) }}" width="40">
                                 </td>
-                                <td  data-label="Tên sách" >
+                                <td  data-label="Tên bài viết" >
                                     {{$post->title}}
                                 </td>
                                 <td  data-label="Trạng thái" >
