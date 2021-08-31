@@ -1,9 +1,7 @@
 <header class="header">
     <div class="header-mobile">
         <div class="toggle-cate">
-
             <i class="fas fa-bars"></i>
-
         </div>
         <!-- search -->
         <div class="search-box">
@@ -34,11 +32,10 @@
             @endif
             @else
             <div class="header-menu__users">
-                <div class="header__information-notification ">
-
+               <div class="header__information-notification ">
                     <!-- Nav Item - Alerts -->
-                    <div class="header-notification" id="header-notification">
-                        <button class=" header-notification__bell" id="alertsDropdown">
+                    <div class="header-notification" id="header-notification__mobile">
+                        <button class=" header-notification__bell" id="alertsDropdown__mobile">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
                             {{-- && Auth::user()->role->id != 1 && Auth::user()->role->id != 2 --}}
@@ -47,7 +44,7 @@
                         </button>
 
                         <!-- Dropdown - Alerts -->
-                        <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown">
+                        <div class="hidden " id="menu_notification__mobile" aria-labelledby="alertsDropdown">
                             <div class="notification-dropdown-header">
                                 <div class="notification-header__title">Thông báo</div>
                                 <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
@@ -93,7 +90,7 @@
                             <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
                         </div>
                     </div>
-                </div>
+                </div> 
                 <div class="inf-user">
                     <i class="fas fa-user"></i>
                 </div>
@@ -102,7 +99,7 @@
 
 
         </div>
-        <div class="header-menu__user  ">
+        <div class="header-menu__user">
             <div class="header-mobile__information">
 
                 @guest
@@ -241,7 +238,6 @@
             @endif
             @else
             <div class="header__information-notification ">
-
                 <!-- Nav Item - Alerts -->
                 <div class="header-notification" id="header-notification">
                     <button class=" header-notification__bell" id="alertsDropdown">
@@ -355,12 +351,9 @@
         })
         $('.inf-user').click(function() {
             $('.header-menu__user').toggleClass('show-user')
-
         })
         $('.search-btn').click(function() {
-
             $('.search-txt').toggleClass('test');
-
         })
     })
 </script>
