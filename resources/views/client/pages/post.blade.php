@@ -38,7 +38,7 @@
                     <div class="post-item__content">
 
                         <div class="post-user-name">
-                            <a href="" class="post-user-name__link">
+                            <a href="{{ route('post.user', $post->user()->withTrashed()->first()->id )}}" class="post-user-name__link">
                                 {{ $post->user()->withTrashed()->first()->name }}
                             </a>
                         </div>
@@ -53,7 +53,7 @@
                         <div class="post-content__tag">
                             @foreach($post->cates as $cate)
                             <div class="post-tag__item">
-                                <a href="" class="post-tag__link">
+                                <a href="{{ route('post.category', $cate->slug) }}" class="post-tag__link">
                                     #{{$cate->name}}
                                 </a>
                             </div>

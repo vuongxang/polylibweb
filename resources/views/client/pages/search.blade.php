@@ -18,9 +18,9 @@
             <li class="nav-item search-tab__item">
                 <a class="search-tab__link " data-toggle="tab" href="#authors">Tác giả</a>
             </li>
-            <!-- <li class="nav-item search-tab__item">
-                <a class="nav-link search-tab__link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
-            </li> -->
+            <li class="nav-item search-tab__item">
+                <a class=" search-tab__link" data-toggle="tab" href="#posts">Bài viết</a>
+            </li>
         </ul>
 
     </div>
@@ -105,7 +105,12 @@
                                         @endfor
                                 </div>
                                 <div class="book-card__btn">
-                                    <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->slug)}}" class="review-btn">Xem trước</a>
+                                    @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                                    @else
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
@@ -141,7 +146,12 @@
                                         @endfor
                                 </div>
                                 <div class="book-card__btn">
-                                    <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a><a href="{{route('book.read',$book->slug)}}" class="review-btn">Xem trước</a>
+                                    @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                                    @else
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
@@ -223,8 +233,12 @@
                                             @endfor
                                     </div>
                                     <div class="book-card__btn">
-                                        <a href="{{route('Book.Order',$book->id)}}" class="borrow-btn">Mượn sách</a>
-                                        <a href="{{route('book.read',$book->slug)}}" class="review-btn">Xem trước</a>
+                                        @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                        <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                                        @else
+                                        <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                        <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                                        @endif
                                     </div>
                                 </div>
                                 @endforeach
@@ -247,6 +261,94 @@
                     </div>
                 </div>
                 @endforeach
+
+            </div>
+
+        </div>
+        <div class="tab-pane   " id="posts">
+            <div class="search-container">
+                <div class="search-result">
+                    <div class="search-text" id="js-search-text">
+                        Tìm thấy <span id="book-qty">{{count($posts)}}</span> kết quả cho <span class="search-text-detail">"{{$keyword}}"</span>
+                    </div>
+                </div>
+                <div class="post-list">
+                    @foreach($posts as $post)
+                    <div class="post-item">
+                        <div class="post-card ">
+                            <a class="post-card-link" href="">
+                                <img src="{{asset($post->thumbnail)}}" class="post-card-img-top" alt="">
+                            </a>
+                            <div class="post-card-body">
+                                <div class="post-item__content">
+
+                                    <div class="post-card-title">
+                                        <a class="post-card-link" href="{{ route('post.detail', $post->slug) }}">
+                                            {{ $post->title }}
+                                        </a>
+                                    </div>
+                                    <div class="post-body__user">
+                                        <div class="post-body-user__avatar">
+                                            <a href="{{ route('post.user', $post->user()->withTrashed()->first()->id )}}">
+
+                                                <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}" alt="">
+                                            </a>
+                                        </div>
+
+                                        <div class="post-body-user__name">
+                                            <a href="{{ route('post.user', $post->user()->withTrashed()->first()->id )}}" class="post-body-user__link">
+                                                {{ $post->user()->withTrashed()->first()->name }}
+                                            </a>
+                                            <div class="post-body-created">
+                                                29 thg 8
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="post-content__tag">
+                                        @foreach($post->cates as $cate)
+                                        <div class="post-tag__item">
+                                            <a href="{{ route('post.category', $cate->slug) }}" class="post-tag__link">
+                                                #{{$cate->name}}
+                                            </a>
+                                        </div>
+                                        @endforeach
+
+                                    </div>
+                                    <div class="post-content__footer">
+                                        <div class="post-footer__details">
+
+
+                                            <div class="post-wishlist">
+                                                <span class="post-wishlist__span">
+
+                                                    <i class="fas fa-heart"></i>
+                                                    Yêu thích
+                                                </span>
+                                            </div>
+
+                                            <div class="post-comment">
+                                                <span class="post-comment__span"><i class=" fa fa-comments"></i>
+                                                    9 bình luận
+                                                </span>
+                                            </div>
+                                            <div class="post-view">
+                                                <span class="post-view__span"><i class=" fa fa-eye"></i>
+                                                    9 lượt xem
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    @endforeach
+                </div>
 
             </div>
 

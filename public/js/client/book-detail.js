@@ -12,7 +12,6 @@ readMore.addEventListener('click', () => {
 })
 
 
-
 /**
  * Làm phân trang comment
  * 

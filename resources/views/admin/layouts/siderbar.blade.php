@@ -72,7 +72,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePostCate"
             aria-expanded="true" aria-controls="collapsePostCate">
-            <i class="fas fa-fw fa-user-tie"></i>
+            <i class="fas fa-fw fa-th"></i>
             <span>Danh mục bài viết</span>
         </a>
         <div id="collapsePostCate" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
@@ -85,7 +85,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost"
             aria-expanded="true" aria-controls="collapsePost">
-            <i class="fas fa-fw fa-user-tie"></i>
+            <i class="fas fa-scroll"></i>
             <span>Bài viết</span>
         </a>
         <div id="collapsePost" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
@@ -165,7 +165,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
             aria-expanded="true" aria-controls="collapseFive">
-            <i class="fas fa-fw fa-comments"></i>
+            <i class="fas fa-chart-area"></i>
             <span>Báo cáo - Thống kê</span>
         </a>
         <div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">

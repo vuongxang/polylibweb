@@ -57,8 +57,8 @@ $(function ($) {
 
     function GetURLParameter(sParam) {
         var sPageURL = window.location.search.substring(1);
-        
-        
+
+
         var sURLVariables = sPageURL.split('&');
         for (var i = 0; i < sURLVariables.length; i++) {
             var sParameterName = sURLVariables[i].split('=');
@@ -70,7 +70,7 @@ $(function ($) {
 
 
     let keyword = $('input[name= "keyword"]').val();
-    
+
     console.log(keyword)
     // const keyword = decodeURI(GetURLParameter('keyword'))
     for (const item of jsFilterItem) {
@@ -109,15 +109,14 @@ $(function ($) {
                     const books = [...res[0]];
 
                     const key = [res[1]];
-
+                    const auth = res[2];
                     if (Array.isArray(books) && books.length > 0) {
                         const result = books.map((book) => {
                             let avg = 0
-                            if (book.rates.length > 0) { 
+                            if (book.rates.length > 0) {
                                 const sum = book.rates?.reduce((a, b) => a.rating + b.rating);
                                 avg = (sum / book.rates?.length) || 0;
                             }
-                            console.log(avg)
                             return `<div class="book-card ">
                                     <div class="book-card__img">
                                         <a href="/book-detail/${book.id}">
@@ -146,8 +145,32 @@ $(function ($) {
                                 })()}
                                     </div>
                                     <div class="book-card__btn">
-                                        <a href="/book-order/${book.id}" class="borrow-btn">Mượn sách</a>
-                                        <a href="/read-online/${book.id}" class="review-btn">Xem trước</a>
+                                    
+                                    
+                                    ${(function rates() {
+                                    let link = ``;
+                                    if (book.orders?.length == 0) {
+                                        link = `<a href="/book-order/${book.id}" class="borrow-btn">Mượn sách</a>
+                                                <a href="/review/${book.slug}" class="review-btn">Xem trước</a>`
+                                    }
+                                    book.orders?.map(order => {
+                                        console.log(parseInt(order.id_user), auth.id)
+                                        if (parseInt(order.id_user) == auth.id) {
+                                            if (order.status == 'Đang mượn') {
+                                                link = `<a href="/read/${book.slug}" class="review-btn">Đọc sách</a>`
+
+                                            }
+                                            else {
+                                                link = `<a href="/book-order/${book.id}" class="borrow-btn">Mượn sách</a>
+                                                    <a href="/review/${book.slug}" class="review-btn">Xem trước</a>`
+                                            }
+                                        }
+
+
+                                    }).join('')
+                                    return link;
+                                })()}
+                                
                                     </div>
                                 </div>
                                 `

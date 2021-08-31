@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\CategoryBook;
 use App\Models\PostShare;
 use App\Models\Rating;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
@@ -33,11 +34,10 @@ class SearchController extends Controller
             $query->where('status', 1);
         }])->get();
 
-        $post = PostShare::where('title', 'like', '%' . $keyword . '%')->where('status', 1)->get();
-        dd($post);
+        $posts = PostShare::where('title', 'like', '%' . $keyword . '%')->where('status', 1)->get();
         // $books->star = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
         session()->flashInput($request->input());
-        return view('client.pages.search', compact('categories', 'books', 'keyword', 'authors'));
+        return view('client.pages.search', compact('categories', 'books', 'keyword', 'authors','posts'));
     }
     public function filter(Request $request)
     {
@@ -45,10 +45,11 @@ class SearchController extends Controller
         $a = urldecode($request->keyword);
         if (!empty($cateFilter)) {
             $numArray = array_map('intval', $request->cates);
-            $authors = Author::where('name', 'like', '%' . $request->keyword . '%')->with(['books' => function ($query) {
-                $query->where('status', 1);
-            }])->get();
-            $books = Book::with('authors', 'rates')
+            // $authors = Author::where('name', 'like', '%' . $request->keyword . '%')->with(['books' => function ($query) {
+            //     $query->where('status', 1);
+            // }])->get();
+            $auth = Auth::user();
+            $books = Book::with('authors', 'rates','orders')
                 ->distinct()
 
                 ->join('category_books', 'books.id', 'category_books.book_id')
@@ -62,13 +63,14 @@ class SearchController extends Controller
                 ->get();
             // ->where('title', 'LIKE', "%\"{$$request->keyword}\"%")
         } else {
-            $books = Book::with('authors', 'rates')
+            $auth = Auth::user();
+            $books = Book::with('authors', 'rates','orders')
                 ->where('title', 'like', '%' . $a . '%')
                 ->where('status', 1)
                 ->get();
         }
 
-        return response()->json([$books, $a]);
+        return response()->json([$books, $a,$auth]);
     }
     public function searchApi(Request $request)
     {
