@@ -10,7 +10,7 @@
     </ul>
     <div class="header__search">
         <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
-            <input class="search-input" name="keyword" type="text" placeholder="Tìm kiếm theo tên sách, tác giả" value="@isset($_GET['keyword']) {{$_GET['keyword']  }}@endisset">
+            <input class="search-input" name="keyword" type="text" value="{{old('keyword')}}" placeholder="Tìm kiếm theo tên sách, tác giả">
             <button class="search-btn">
                 <i class="fas fa-search"></i>
             </button>
@@ -68,8 +68,32 @@
                     </li> -->
                 </ul>
             </div>
+            <div class="search-dropdown__posts">
 
+                <div class="search-dropdown__heading">
+                    Bài viết
+                </div>
 
+                <ul class="search-dropdown__ul " id="js-search-dropdown__ul--post">
+
+                    <!-- <li class="search-dropdown__li">
+                        <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                            <div class="book-card-horizontal">
+                                <div class="book-card-post-cover ">
+                                    <img class="book-card-post-image" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+                                </div>
+                                <div class="book-search-info">
+                                    <div class="post-title">Nhân Viên QC Và Những Kỹ Năng Không Thể Thiếu Trong Công Việc</div>
+                                    <div class="created-at">August 30, 2021</div>
+
+                                </div>
+                            </div>
+                        </a>
+                    </li> -->
+
+                </ul>
+            </div>
+            <a class="load-more__notification js-search-all"  href="javascript:void(0)">Xem tất cả </a>
         </div>
     </div>
     <div class="header__information">
@@ -191,6 +215,7 @@
         moment.locale('vi');
         let timer;
         let keyword = $('input[name= "keyword"]');
+
         let AuthUser = "{{{ (Auth::user()) ? Auth::user()->id : null }}}";
         if (AuthUser) {
 
@@ -234,6 +259,12 @@
                 })
 
         }
+
+
+        $('.js-search-all').click(() => {
+            
+            window.location = `/search?keyword=${keyword.val()}`;
+        })
         /**
          * Bắt sự kiện click vào layout tắt dropdown
          * Và bắt nổi bọt khi bấm vào dropdown
@@ -244,6 +275,7 @@
             $('#menu_notification').addClass('hidden');
 
         })
+        
 
         $('#js-search__dropdown').click((e) => {
             e.stopPropagation();
@@ -265,7 +297,6 @@
          */
         $(document).on({
             ajaxStart: function() {
-                console.log('Loading...')
                 $('#js-search-dropdown__ul--cate').append(
                     ` <div class="lds-ellipsis">
                     <div></div>
@@ -274,7 +305,6 @@
                     <div></div>
                 </div>`
                 )
-                console.log('Loading...')
                 $('#js-search-dropdown__ul--author').append(
                     ` <div class="lds-ellipsis">
                     <div></div>
@@ -282,6 +312,16 @@
                     <div></div>
                     <div></div>
                 </div>`
+
+                )
+                $('#js-search-dropdown__ul--post').append(
+                    ` <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>`
+
                 )
             },
             ajaxStop: function() {
@@ -295,7 +335,6 @@
          */
         keyword.on('input', function(e) {
 
-            console.log(keyword.val().length);
 
             // if (e.which <= 90 && e.which >= 48) {
             //     console.log('hello');
@@ -308,7 +347,6 @@
                 if (AuthUser) {
 
                     if (keyword.val() && keyword.val().trim().length > 1 && keyword.val().length > 1) {
-                        console.log(keyword.val().trim().length);
                         $('#js-search__dropdown').removeClass('hidden');
                         $('#js-search-dropdown__ul--cate').empty();
                         $('#js-search-dropdown__ul--author').empty();
@@ -323,17 +361,17 @@
                             },
                             dataType: 'json',
                             success: function(res) {
-                                console.log(res.status)
+                                console.log(res);
                                 if (res.length > 0) {
                                     searchBookResult = [...res[0]];
                                     searchAuthorResult = [...res[1]];
-                                    console.log(searchAuthorResult)
+                                    searchPostResult = [...res[2]];
+                                    console.log(searchAuthorResult, searchBookResult, searchPostResult)
                                     if (searchBookResult.length > 0) {
-                                        console.log(searchBookResult);
                                         const booksResult = searchBookResult.map((item, index) => {
-                                            if (index < 3) {
+                                            if (index < 3 && item.status == 1) {
                                                 return `<li class="search-dropdown__li">
-                                            <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                                            <a href="/book-detail/${item.slug}" class="search-dropdown__link">
                                                 <div class="book-card-horizontal">
                                                     <div class="book-card-cover-image">
                                                         <img src="${item.image}" alt="">
@@ -364,7 +402,7 @@
                                                         </div>
                                                         <div class="book-search-info">
                                                             <div class="book-search-info__name">${item.name}</div>
-                                                            <div class="book-search-info__dob">${item.date_birth}</div>
+                                                            <div class="book-search-info__dob">${moment(item.date_birth).format("L")}</div>
                                                             <div class="book-search-info__description">
                                                                 ${item.description}
                                                             </div>
@@ -380,6 +418,33 @@
                                     } else {
                                         $('#js-search-dropdown__ul--author').empty();
                                         $('#js-search-dropdown__ul--author').html(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>`);
+                                    }
+                                    if (searchPostResult.length > 0) {
+                                        const postsResult = searchPostResult.map((item, index) => {
+                                            if (index < 3) {
+                                                return `<li class="search-dropdown__li">
+                                                            <a href="/post-detail/${item.slug}" class="search-dropdown__link">
+                                                                <div class="book-card-horizontal">
+                                                                    <div class="book-card-post-cover ">
+                                                                        <img class = "book-card-post-image"src="/${item.thumbnail}" alt="">
+                                                                    </div>
+                                                                    <div class="book-search-info">
+                                                                        <div class="post-title">${item.title}</div>
+                                                                        <div class="created-at">${moment(item.created_at).format("LL")}
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </li>`
+                                            }
+                                        }).join("");
+
+                                        $('#js-search-dropdown__ul--post').empty();
+                                        $('#js-search-dropdown__ul--post').html(postsResult);
+                                    } else {
+                                        $('#js-search-dropdown__ul--post').empty();
+                                        $('#js-search-dropdown__ul--post').html(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>`);
                                     }
                                 } else {
                                     $('#js-search-dropdown__ul--cate').append(`<div class="search-dropdown__status">Không tìm thấy kết quả nào cho từ khóa ${keyword.val()}</div>

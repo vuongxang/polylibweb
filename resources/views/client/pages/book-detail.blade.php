@@ -2,7 +2,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/client/pages/book-detail.css') }}">
 @endsection
-@section('title', 'Trang Chi tiết')
+@section('title', $book->title )
 
 @section('content')
 

@@ -1,4 +1,7 @@
 @extends('admin.layouts.main')
+@section('css')
+    <link href="{{ asset('adminthame/css/book-form.css') }}" rel="stylesheet">
+@endsection
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -6,7 +9,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-8 offset-2">
-                <form action="{{ route('book.store') }}" method="post" class="mt-4 mb-4" enctype="multipart/form-data">
+                <form action="{{ route('book.store') }}" method="post" class="mt-4 mb-4"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputTitle">Tên sách</label><br>
@@ -14,8 +18,7 @@
                             <span class="text-danger">{{ $errors->first('title') }}</span>
                         @endif
                         <input type="text" class="form-control" id="exampleInputTitle" placeholder="Tên sách" name="title"
-                            value="{{ old('title') }}">
-                        
+                            value="{{ old('title') }}"> 
                     </div>
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh bìa sách</label>
@@ -30,7 +33,7 @@
                             <img src="" id="show_img" width="200" alt="" value="{{ old('image') }}">
                         </div>
                         <input type="text" id="image" name="image" hidden class="form-control">
-                        
+
                     </div>
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputFile">Trạng thái</label>
@@ -46,7 +49,8 @@
                         @if ($errors->has('cate_id'))
                             <div class="text-danger">{{ $errors->first('cate_id') }}</div>
                         @endif
-                        <select id="choices-multiple-remove-button" name="cate_id[]" class="form-control" placeholder="Chọn tối đa 5 danh mục" multiple>
+                        <select id="choices-multiple-remove-button" name="cate_id[]" class="form-control"
+                            placeholder="Chọn tối đa 5 danh mục" multiple>
                             @foreach ($cates as $cate)
                                 <option value="{{ $cate->id }}">{{ $cate->name }}</option>
                             @endforeach
@@ -59,7 +63,8 @@
                         @if ($errors->has('author_id'))
                             <div class="text-danger">{{ $errors->first('author_id') }}</div>
                         @endif
-                        <select id="choices-multiple-remove-button" name="author_id[]" class="form-control" placeholder="Chọn tối đa 5 tác giả" multiple>
+                        <select id="choices-multiple-remove-button" name="author_id[]" class="form-control"
+                            placeholder="Chọn tối đa 5 tác giả" multiple>
                             @foreach ($authors as $author)
                                 <option value="{{ $author->id }}">{{ $author->name }}</option>
                             @endforeach
@@ -90,8 +95,7 @@
                         @if ($errors->has('list_image'))
                             <span class="text-danger">{{ $errors->first('list_image') }}</span>
                         @endif
-                        <div class="img-gallery" class="mb-2" data-spy="scroll">
-                            <img src="" alt="" id="show_list_img" width="50" readonly>
+                        <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2 img-gallery"> 
                         </div>
                         <input type="hidden" id="list_image" name="list_image" class="form-control">
                     </div>
@@ -101,7 +105,8 @@
                         @if ($errors->has('description'))
                             <span class="text-danger">{{ $errors->first('description') }}</span>
                         @endif
-                        <textarea type="text" class="form-control tinymce-editor" id="exampleInputDesc" rows="15" placeholder="Nhập thông tin chi tiết" name="description"></textarea>
+                        <textarea type="text" class="form-control tinymce-editor" id="exampleInputDesc" rows="15"
+                            placeholder="Nhập thông tin chi tiết" name="description"></textarea>
                     </div>
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputDate">Ngày đăng</label><br>
@@ -110,7 +115,7 @@
                         @endif
                         <input type="date" class="form-control" id="exampleInputDate" name="publish_date_from"
                             value="{{ old('publish_date_from') }}">
-                        
+
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary  btn-sm shadow-lg">Thêm mới</button>
@@ -187,4 +192,7 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script src="{{ asset('adminthame/js/book-form.js') }}"></script>
 @endsection

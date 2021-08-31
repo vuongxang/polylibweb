@@ -31,13 +31,13 @@
                                 <div class="user-info__aside__icon">
                                     <i class="fas fa-heart"></i>
                                 </div>
-                                <div class="user-info__aside__text">7 tags followed</div>
+                                <div class="user-info__aside__text">7 bài viết yêu thích</div>
                             </div>
                             <div class="user-info__aside__item">
                                 <div class="user-info__aside__icon">
                                     <i class="fas fa-comment"></i>
                                 </div>
-                                <div class="user-info__aside__text">552 comments written</div>
+                                <div class="user-info__aside__text">9 bài viết đã bình luận</div>
                             </div>
                         </div>
                     </div>

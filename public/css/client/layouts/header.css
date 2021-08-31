@@ -68,17 +68,17 @@
     width: 100%;
     background-color: var(--white-color);
     z-index: 1;
-    border-radius: 1rem;
+    border-radius: .5rem;
     padding: 1.5rem;
     box-shadow: 1px 3px 4px 0 rgb(0 0 0 / 25%), -1px 0 4px 0 rgb(0 0 0 / 25%);
 }
 
-.search-dropdown__categories {
-    margin-bottom: 2rem;
+.search-dropdown__categories,.search-dropdown__authors,.search-dropdown__posts {
+    margin-bottom: 1.5rem;
 }
 
 .search-dropdown__heading {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--text-color);
     margin-bottom: 1rem;
@@ -98,7 +98,7 @@
 .search-dropdown__li {
     padding: 1rem 1.5rem;
     margin-bottom: 1rem;
-    border-radius: 1rem;
+    border-radius: .5rem;
     cursor: pointer;
     background-color: var(--text-color2);
 }
@@ -225,6 +225,60 @@
     height: 2rem;
 }
 
+/* Search Post */
+
+.search-dropdown__posts .search-dropdown__li{
+    background-color: #fff;
+    padding: 0;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--text-color2);
+    border-radius: 0;
+}
+.search-dropdown__posts .search-dropdown__li:last-child{
+    border-bottom: none;
+
+}
+.search-dropdown__posts .search-dropdown__li:hover {
+    box-shadow: none;
+}
+.book-card-post-cover{
+    width: 8rem;
+    height: 8rem;
+}
+.book-card-post-image{
+    border-radius: .5rem;
+    width: 100%;
+    height: 100%;
+
+}
+.post-title{
+    color: var(--text-color);
+    font-weight: 700;
+    line-height: 1.8rem;
+    margin: 0 0 5px 0;
+    font-size: 1.3rem;
+    max-height: 5.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-title:hover{
+    color: var(--base-color);
+    font-weight: 700;
+    line-height: 1.8rem;
+    margin: 0 0 5px 0;
+    font-size: 1.3rem;
+    max-height: 5.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.created-at{
+    color: #aaa;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
 /* Heading Information */
 
 .header__information {
@@ -329,7 +383,7 @@
     text-decoration: none;
 }
 .notification-dropdown-body{
-    height: 490;
+    max-height: 490;
     overflow: hidden;
 }
 #notification-message{

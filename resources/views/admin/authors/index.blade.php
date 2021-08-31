@@ -11,15 +11,28 @@
             @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
             @endif
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active">Danh sách<span>({{count($authors)}})</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('author.trashlist')}}">Thùng rác</a>
-                </li>
-            </ul>
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            
+            <div class="d-flex justify-content-between mb-2">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item bg-light">
+                        <a class="nav-link active">Danh sách<span>( {{$authors->total()}} )</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('author.trashlist')}}">Thùng rác<span>( {{$authors_trashed->total()}} )</span></a>
+                    </li>
+                </ul>
+                <div>
+                    <form action="" method="get" id="form-page-size">
+                        <label for="">Chọn số bản ghi</label>
+                        <select name="page_size" id="page_size" class="form-select form-select-sm mt-2" aria-label=".form-select-sm" >
+                            <option value="10" @if ($pagesize==10) selected @endif>10</option>
+                            <option value="25" @if ($pagesize==25) selected @endif>25</option>
+                            <option value="50" @if ($pagesize==50) selected @endif>50</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-bordered bg-light" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
@@ -63,16 +76,7 @@
 
                 </tbody>
             </table>
-            <div class="d-flex justify-content-between">
-                <form action="" method="get" id="form-page-size">
-                    <select name="page_size" id="page_size" class="form-control">
-                        <option value="5" @if ($pagesize==5) selected @endif>5</option>
-                        <option value="10" @if ($pagesize==10) selected @endif>10</option>
-                        <option value="15" @if ($pagesize==15) selected @endif>15</option>
-                    </select>
-                </form>
                 {!!$authors->links('vendor.pagination.bootstrap-4')!!}
-            </div>
         </div>
     </div>
 </div>

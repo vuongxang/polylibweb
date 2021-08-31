@@ -11,10 +11,10 @@
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('author.index')}}">Danh sách</a>
+                  <a class="nav-link" href="{{route('author.index')}}">Danh sách<span>( {{$authors->total()}} )</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active bg-light">Thùng rác</a>
+                    <a class="nav-link active bg-light">Thùng rác<span>( {{$authors_trashed->total()}} )</span></a>
                   </li>
             </ul>
             <table class="table table-bordered bg-light" id="dataTable" width="100%" cellspacing="0">
@@ -24,14 +24,14 @@
                         <th>@sortablelink('name','Tên')</th>
                         <th>Avatar</th>
                         <th>@sortablelink('date_birt','Ngày sinh')</th>
-                        <th>
+                        <th class="text-center" style="width: 200px;">
                             Hành động
                         </th>
                     </tr>
                 </thead>
-                @if (count($authors)>0)
+                @if (count($authors_trashed)>0)
                 <tbody>
-                    @foreach ($authors as $key=>$author)
+                    @foreach ($authors_trashed as $key=>$author)
                         <tr>
                             <td>{{$author->id}}</td>
                             <td>{{$author->name}}</td>
@@ -39,12 +39,12 @@
                                 <img src="{{asset($author->avatar)}}" alt="" width="50">
                             </td>
                             <td>
-                                {{$author->date_birth->format('d/m/Y')}}
+                                {{$author->date_birth}}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="{{route('author.restore',['id' => $author->id])}}" class="mr-2">Khôi phục</a> |
-                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('author.forcedelete',['id' => $author->id])}}" class="ml-2">Xóa</a>
+                                    <a href="{{route('author.restore',['id' => $author->id])}}" class="btn btn-sm btn-outline-success btn-acction">Khôi phục</a>
+                                    <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('author.forcedelete',['id' => $author->id])}}" class="btn btn-sm btn-outline-danger btn-acction">Xóa</a>
                                 </div>
                             </td>
                         </tr>

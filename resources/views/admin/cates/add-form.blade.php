@@ -18,8 +18,8 @@
                 </div>
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh danh mục</label>
-                    <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#exampleModal">
-                        Chọn ảnh
+                    <button type="button" class="btn-outline-primary mb-2 btn-sm ml-2 shadow" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fas fa-camera"></i> Chọn ảnh
                     </button><br>
                     @if ($errors->has('image'))
                         <span class="text-danger">{{$errors->first('image')}}</span>
@@ -27,7 +27,7 @@
                     <div class="show_image" class="mb-2">
                         <img src="" alt="" id="show_img" width="200">
                     </div>
-                    <input type="text" id="image" name="image"  class="form-control">
+                    <input type="hidden" id="image" name="image"  class="form-control">
                     
                 </div>
                 <div class="form-group">
