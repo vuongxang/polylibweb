@@ -1,23 +1,94 @@
-.profile-info{
-    width: 1142px;
+
+.contact-form{
+    margin-top: 40px;
+    background-color: #fff;
+    /* padding: 1.5rem; */
+    border-radius: .5rem;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    display: flex;
+    /* gap: 2rem; */
 }
-.ho-so-ca-nhan h2{
+hr.vertical{
+    height: 300px;
+}
+.hr{
+    border-left: 1px solid #cbcbcb;
+}
+.contact-form__profile{
+    padding-top: 20px;
+    /* background:#425BA8; */
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #425BA8, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+@keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+.contact-form__profile__header{
     font-family: Nunito;
     font-style: normal;
     font-weight: bold;
-    line-height: 49px;
+    /* line-height: 49px; */
     font-size: 20pt;
     display: flex;
     align-items: center;
-    color: #425BA8;
+    color: #fff;
 }
-form{
+.form-contact__profile__content{
     margin-top: 20px;
 }
-label{
-    margin-top: 5px;
-    font-size: 14px;
+.contact-address i,.contact-email i,.contact-phone i{
+    font-size: 16px;
+    color: #fff;
+    padding-right: 10px;
 }
-button{
-
+.contact-address p,.contact-email p,.contact-phone p{
+    font-size: 16px;
+    color: #fff;
+}
+.contact-email p,.contact-phone p{
+    line-height: 30px;
+}
+/* form{
+    margin-top: 20px;
+} */
+label{
+    /* margin-top: 5px;
+    font-size: 14px; */
+}
+.contact-form__main{
+    padding: 2em;
+    /* gap: 2rem; */
+}
+.contact-form__main input{
+    height: 40px;
+}
+.contact-form__topic,.contact-form__name{
+    float: left;
+    width: 335px;
+    margin-right: 20px;
+}
+.contact-form__email,.contact-form__phone{
+    float: left;
+    margin-top: 20px;
+    width: 335px;
+    margin-right: 20px;
+}
+.contact-form__content textarea{
+    margin-top: 20px;
+    width: 690px;
+}
+.contact-form__button button{
+    margin-top: 20px;
+    width: 60px;
+    font-size: 16px;
 }
