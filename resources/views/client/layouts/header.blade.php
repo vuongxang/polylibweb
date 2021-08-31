@@ -1,9 +1,7 @@
 <header class="header">
     <div class="header-mobile">
         <div class="toggle-cate">
-
             <i class="fas fa-bars"></i>
-
         </div>
         <!-- search -->
         <div class="search-box">
@@ -34,14 +32,14 @@
             @endif
             @else
             <div class="header-menu__users">
-                <div class="header__information-notification ">
+                {{--<div class="header__information-notification ">
 
                     <!-- Nav Item - Alerts -->
                     <div class="header-notification" id="header-notification">
                         <button class=" header-notification__bell" id="alertsDropdown">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
-                            {{-- && Auth::user()->role->id != 1 && Auth::user()->role->id != 2 --}}
+                            && Auth::user()->role->id != 1 && Auth::user()->role->id != 2
                             <span class="badge badge-danger badge-counter" id="unread-notify">
                                 {{auth()->user()->unreadNotifications->count()}}</span>
                         </button>
@@ -93,14 +91,12 @@
                             <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="inf-user">
                     <i class="fas fa-user"></i>
                 </div>
             </div>
             @endguest
-
-
         </div>
         <div class="header-menu__user  ">
             <div class="header-mobile__information">
