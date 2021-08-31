@@ -6,7 +6,7 @@
         <!-- search -->
         <div class="search-box">
             <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
-                <input class="search-txt" name="keyword" type="text" placeholder="Tìm kiếm" value="@isset($_GET['keyword']) {{$_GET['keyword']  }}@endisset">
+                <input class="search-txt" name="keywordMobi" type="text" placeholder="Tìm kiếm" value="@isset($_GET['keyword']) {{$_GET['keyword']  }}@endisset">
                 <a class="search-btn" href="#">
                     <i class="fas fa-search search-icon"></i>
                 </a>
@@ -32,8 +32,7 @@
             @endif
             @else
             <div class="header-menu__users">
-                {{--<div class="header__information-notification ">
-
+                <div class="header__information-notification ">
                     <!-- Nav Item - Alerts -->
                     <div class="header-notification" id="header-notification__mobile">
                         <button class=" header-notification__bell" id="alertsDropdown__mobile">
@@ -91,7 +90,8 @@
                             <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
                         </div>
                     </div>
-                </div> --}}
+                </div> 
+               
                 <div class="inf-user">
                     <i class="fas fa-user"></i>
                 </div>
@@ -100,7 +100,6 @@
         </div>
         <div class="header-menu__user">
             <div class="header-mobile__information">
-
                 @guest
                 @if (Route::has('login'))
                 <a class="btn--login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
@@ -490,7 +489,8 @@
                             url: '{{route("searchapi")}}',
                             method: "post",
                             data: {
-                                keyword: keyword.val()
+                                keyword: keyword.val(),
+                              
                             },
                             dataType: 'json',
                             success: function(res) {

@@ -777,10 +777,15 @@ i.fas.fa-check {
         color: #858585; 
         position: relative;
     }
-    .header__nav-li{
+    .header__nav-li a{
         margin: 10px 45px;
        
     }
+    .header__nav-li:first-child{
+        margin: 10px 45px;
+       
+    }
+    
     .header__nav-li i{
       margin-right: 10px;       
     }
@@ -830,7 +835,7 @@ i.fas.fa-check {
     .header-menu__users{
         display: flex;
     }
-    #menu_notification{
+    #menu_notification__mobile{
         top: 100%;
         right: 0;
     }
