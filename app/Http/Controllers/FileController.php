@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PdfFileRequest;
 use Illuminate\Http\Request;
 use Spatie\PdfToImage\Pdf;
 use Imagick;
@@ -12,7 +13,7 @@ class FileController extends Controller
         return view('admin.files.convert-form');
     }
 
-    public function store(Request $request){
+    public function store(PdfFileRequest $request){
 
         $fileName = uniqid().'_'.$request->pdf_file->getClientOriginalName();
         $filePath = $request->file('pdf_file')->storeAs('uploads', $fileName, 'public');

@@ -11,10 +11,10 @@
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('cate.index')}}">Danh sách</a>
+                  <a class="nav-link" href="{{route('postCate.index')}}">Danh sách <span>( {{count($cates)}} )</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active bg-light">Thùng rác</a>
+                    <a class="nav-link active bg-light">Thùng rác <span>( {{$cates_trashed->total()}} )</span></a>
                   </li>
             </ul>
             <table class="table table-bordered bg-light" id="dataTable" width="100%" cellspacing="0">
@@ -25,14 +25,15 @@
                         <th>Ảnh</th>
                         <th>@sortablelink('created_at','Ngày tạo')</th>
                         <th>@sortablelink('updated_at','Ngày cập nhật')</th>
-                        <th class="text-center">
+                        <th>@sortablelink('status','Trạng thái')</th>
+                        <th class="text-center" style="width: 200px;">
                             Hành động
                         </th>
                     </tr>
                 </thead>
-                @if (count($cates)>0)
+                @if ($cates_trashed->total()>0)
                 <tbody>
-                    @foreach ($cates as $key=>$cate)
+                    @foreach ($cates_trashed as $key=>$cate)
                     <tr>
                         <td>{{$cate->id}}</td>
                         <td>{{$cate->name}}</td>
@@ -50,8 +51,8 @@
                         </td>
                         <td class="text-center">
                             <div class="btn-group">
-                                <a href="{{route('postCate.restore',['id' => $cate->id])}}" class="mr-2">Khôi phục</a> |
-                                <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('postCate.forcedelete',['id' => $cate->id])}}" class="ml-2">Xóa</a>
+                                <a href="{{route('postCate.restore',['id' => $cate->id])}}" class="btn btn-sm btn-outline-success btn-acction">Khôi phục</a>
+                                <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('postCate.forcedelete',['id' => $cate->id])}}" class="ml-2 btn btn-sm btn-outline-danger btn-acction">Xóa</a>
                             </div>
                         </td>
                     </tr>
@@ -65,7 +66,7 @@
                     </tbody>
                 @endif
             </table>
-            <div class="d-flex justify-content-center">{!!$cates->links('vendor.pagination.bootstrap-4')!!}</div>
+            <div class="d-flex justify-content-center">{!!$cates_trashed->links('vendor.pagination.bootstrap-4')!!}</div>
         </div>
     </div>
 </div>

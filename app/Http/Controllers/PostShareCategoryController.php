@@ -45,7 +45,7 @@ class PostShareCategoryController extends Controller
         
         $this->validate($request,[
             'name'=>'required|min:5',
-            'image'=>['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
+            'image'=>['regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
             'description'=>'required',
         ],[
             'name.required'=>'Nhập tên danh mục bài viết',
@@ -85,8 +85,9 @@ class PostShareCategoryController extends Controller
     }
 
     public function trashList(){
-        $cates = PostShareCategory::onlyTrashed()->paginate(5);
-        return view('admin.cates.trash-list',compact('cates'));
+        $cates_trashed  = PostShareCategory::onlyTrashed()->paginate(5);
+        $cates          = PostShareCategory::all();
+        return view('admin.post-cates.trash-list',compact('cates_trashed','cates'));
     }
 
     public function restore($id){

@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 class RatingController extends Controller
 {
     public function index(Request $request){
-        $pagesize = 5;
+        $pagesize = 10;
         $keyword = $request->keyword;
+        if ($request->page_size) $pagesize = $request->page_size;
+        
         $ratings_approved = Rating::sortable()->where('body','like','%'.$keyword.'%')
                             ->where('status',1)->orderBy('created_at','DESC')->paginate($pagesize);
         $ratings_pending = Rating::sortable()->where('body','like','%'.$keyword.'%')

@@ -53,11 +53,11 @@
                                                 <td>
                                                     @if ($post->user)
                                                     <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
-                                                        class="rounded-circle shadow" alt="" width="30">
+                                                        class="rounded-circle shadow" alt="" width="30" height="30">
                                                     {{ $post->user()->withTrashed()->first()->name }}
                                                     @else
                                                     <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
-                                                        class="rounded-circle shadow" alt="" width="30">
+                                                        class="rounded-circle shadow" alt="" width="30" height="30">
                                                     {{ $post->user()->withTrashed()->first()->name }}&nbsp;
                                                     (<span class="text-danger"> Tài khoản đã bị khóa ! </span>)
                                                     @endif
@@ -96,7 +96,7 @@
                                         <th>@sortablelink('title','Tiêu đề')</th>
                                         <th>Ảnh</th>
                                         <th>@sortablelink('created_at','Ngày đăng')</th>
-                                        <th>
+                                        <th style="width: 200px;">
                                             Hành động
                                         </th>
                                     </tr>
@@ -109,11 +109,11 @@
                                                 <td>
                                                     @if ($post->user)
                                                     <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
-                                                        class="rounded-circle shadow" alt="" width="30">
+                                                        class="rounded-circle shadow" alt="" width="30" height="30">
                                                     {{ $post->user()->withTrashed()->first()->name }}
                                                     @else
                                                     <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
-                                                        class="rounded-circle shadow" alt="" width="30">
+                                                        class="rounded-circle shadow" alt="" width="30" height="30">
                                                     {{ $post->user()->withTrashed()->first()->name }}&nbsp;
                                                     (<span class="text-danger"> Tài khoản đã bị khóa ! </span>)
                                                     @endif
@@ -126,9 +126,11 @@
                                                     {{ date_format($post->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('post.approv',$post->id)}}" class="font-weight-bold text-success">Duyệt</a> |
-                                                    <a onclick="return confirm('Bạn chắc chắn từ chối duyệt bài viết này?')"
-                                                        href="{{route('post.refuse',$post->id)}}" class="font-weight-bold text-danger">Từ chối</a>
+                                                    <div class="btn-group">
+                                                        <a href="{{route('post.approv',$post->id)}}"  class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Duyệt</a>
+                                                        <a onclick="return confirm('Bạn chắc chắn từ chối duyệt bài viết này?')"
+                                                            href="{{route('post.refuse',$post->id)}}" class="font-weight-bold ml-2 btn btn-sm btn-outline-danger btn-acction">Từ chối</a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -163,11 +165,11 @@
                                                 <td>
                                                     @if ($post->user)
                                                     <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
-                                                        class="rounded-circle shadow" alt="" width="30">
+                                                        class="rounded-circle shadow" alt="" width="30" height="30">
                                                     {{ $post->user()->withTrashed()->first()->name }}
                                                     @else
                                                     <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}"
-                                                        class="rounded-circle shadow" alt="" width="30">
+                                                        class="rounded-circle shadow" alt="" width="30" height="30" height="30">
                                                     {{ $post->user()->withTrashed()->first()->name }}&nbsp;
                                                     (<span class="text-danger"> Tài khoản đã bị khóa ! </span>)
                                                     @endif
@@ -180,7 +182,7 @@
                                                     {{ date_format($post->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('post.approv',$post->id)}}" class="font-weight-bold text-success">Duyệt lại</a>
+                                                    <a href="{{route('post.approv',$post->id)}}" class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Duyệt lại</a>
                                                     {{-- <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
                                                         href="" class="font-weight-bold text-danger">Hủy</a> --}}
                                                 </td>

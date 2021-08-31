@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImportExcelRequest;
 use App\Http\Requests\UserRequest;
 use App\Imports\UsersImport;
 use App\Models\Book;
@@ -139,7 +140,7 @@ class UserController extends Controller
         return view('admin.users.lock-form');
     }
 
-    public function massLockUser(Request $request){
+    public function massLockUser(ImportExcelRequest $request){
         Excel::import(new UsersImport,$request->file('file_upload'));
              
         return back()->with('message', 'Khóa tài khoản thành công !')
