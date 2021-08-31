@@ -292,4 +292,21 @@
     border-radius: .5rem;
     color:var(--base-color); */
     text-decoration: none;
+    color:var(--text-color2);
+    
+  }
+
+  @media screen and (max-width:991px)and (min-width: 768px){
+   .book-card{
+       max-width: 23rem;
+   }
+   .row{
+       margin-top: 70px;
+   }
+   .book-search__aside{
+       overflow-y: auto;
+   }
+   .filter-item{
+       width: 200px;
+   }
 }

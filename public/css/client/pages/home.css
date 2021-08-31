@@ -413,3 +413,38 @@
     background-color: var(--base-color);
     color: var(--white-color);
 }
+.book-carouse-table,.book-carouse-mobile{
+    display: none;
+}
+
+/* responsive */
+@media screen and (max-width:991px)and (min-width: 768px){
+    .book-carouse-table{
+        display: block;
+    }
+    .book-carouse-desktop,.book-carouse-mobile{
+        display: none;
+    }
+    .carousel-inner{
+       padding-top: 50px;
+    }
+    .book-carousel__wrapper{
+        justify-content: center;
+    }
+    
+}
+@media screen and (max-width:767px)and (min-width: 375px){
+    .book-carouse-mobile{
+        display: block;
+    }
+    .slide-hiden{
+        display: none;
+    }
+    .book-carouse-table,.book-carouse-desktop{
+        display: none;
+    }
+    .book-carousel__wrapper{
+        justify-content: center;
+    }
+
+}

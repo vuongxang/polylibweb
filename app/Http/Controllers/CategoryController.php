@@ -6,7 +6,8 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\CategoryEditRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Book;
+use App\Models\Author;
 
 class CategoryController extends Controller
 {

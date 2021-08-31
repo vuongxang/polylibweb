@@ -575,3 +575,47 @@
   font-weight: 700;
   color: var(--text-color3)
 }
+.book-carouse-table,.book-carouse-mobile{
+  display: none;
+}
+@media screen and (max-width:991px)and (min-width: 768px){
+  .book-carouse-table{
+    display: block;
+  }
+  .book-carouse-desktop,.book-carouse-mobile{
+    display: none;
+  }
+  .book-cover__wrapper{
+    height: 36rem;
+  }
+  .book-detail-content{
+    margin-top: 70px;
+  }
+  .book-carousel__wrapper{
+    justify-content: center;
+  }
+  .alert{
+   padding-top: 50px;
+  }
+}
+@media screen and (max-width:767px)and (min-width: 375px){
+  .book-carouse-mobile{
+    display: block;
+  }
+  .book-carouse-desktop,.book-carouse-table{
+    display: none;
+  }
+  .book-carousel__wrapper{
+    justify-content: center;
+  }
+  .comment__input textarea{
+    width: 100%;
+  }
+  .book-detail-content{
+    margin-top: 70px;
+  }
+  .alert{
+    padding-top: 50px;
+   }
+ 
+}
