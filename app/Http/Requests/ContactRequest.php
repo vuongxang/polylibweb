@@ -13,7 +13,7 @@ class ContactRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,22 +25,28 @@ class ContactRequest extends FormRequest
     {
         return [
             "topic" => 'required|min:5|max:250',
-            "image" => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
-            "description" => 'required',
+            "name" => 'required|min:5|max:30',
+            "email" => ['required','email','regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@fpt\.edu\.vn$/ix'],
+            "phone" => ['required','regex:/(03|09)[0-9]{8}/','size:10'],
+            "content" => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'topic.required' => 'Nhập tên danh mục sách',
+            'topic.required' => 'Nhập chủ đề',
             'topic.min' => 'Tối thiểu 5 ký tự',
             'topic.max' => 'Không được vượt quá 250 ký tự',
-            'image.required' => 'Chọn ảnh danh mục sách',
-            'image.regex' => 'Không đúng định dạng ảnh',
-            'image.size' => 'Anhrrrrr',
-            // 'description.max' => 'Không được vượt quá 255 ký tự',
-            'description.required' => 'Nhập thông tin giới thiệu danh mục sách',
+            'name.required' => 'Nhập họ và tên',
+            'name.min' => 'Tối thiểu 5 ký tự',
+            'name.max' => 'Không được vượt quá 30 ký tự',
+            'email.required' => 'Nhập email',
+            'email.regex' => 'Sử dụng mail @fpt.edu.vn',
+            'phone.required' => 'Nhập số điện thoại',
+            'phone.regex' => 'Sử dụng số điện thoại đầu 03 hoặc 09',
+            'phone.size' => 'Nhập tối đa 10 số',
+            'content.required' => 'Nhập nội dung'
         ];
     }
 }
