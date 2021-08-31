@@ -71,7 +71,7 @@
                     @if ($errors->has('content'))
                         <span class="text-danger">{{ $errors->first('content') }}</span>
                     @endif
-                    <textarea name="content" id="exampleInputDesc" rows="15" class="form-control" placeholder="Nội dung">
+                    <textarea name="content" id="editor" rows="15" class="form-control" placeholder="Nội dung">
                     </textarea>
                 </div>
                 <div class="text-center">
@@ -98,6 +98,7 @@
 <script src="https://cdn.tiny.cloud/1/z61mklx0qjtdxp2smr8tj2bcs3dkzef4894ven0bm30q2dv9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
+    
     $(document).ready(function() {
 
         var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
