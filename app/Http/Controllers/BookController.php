@@ -386,7 +386,7 @@ class BookController extends Controller
     public function getBooks()
     {
         $books = Book::where('status', 1)->paginate(9);
-        $categories = Category::all();
+        $categories = Category::where('status',1)->get();
         $categories->loadCount(['books' => function ($query) {
             $query->where('status', 1);
         }]);
