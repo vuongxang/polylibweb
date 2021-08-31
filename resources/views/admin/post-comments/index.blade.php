@@ -40,7 +40,7 @@
                                         <th>Tên Sách</th>
                                         <th>Nội dung</th>
                                         <th>@sortablelink('created_at','Ngày bình luận')</th>
-                                        <th style="width: 150px;">
+                                        <th>
                                             Hành động
                                         </th>
                                     </tr>
@@ -57,10 +57,10 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($comment->book)
-                                                    {{ $comment->book()->withTrashed()->first()->title }}
+                                                @if ($comment->post)
+                                                    {{ $comment->post()->withTrashed()->first()->title }}
                                                 @else
-                                                    {{ $comment->book()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đã bị bỏ vào thùng rác! </span>)
+                                                    {{ $comment->post()->withTrashed()->first()->title }}&nbsp;(<span class="text-danger"> Sách đã bị bỏ vào thùng rác! </span>)
                                                 @endif
                                             </td>
                                             <td>{{ $comment->body }}</td>
@@ -68,11 +68,11 @@
                                                 {{ date_format($comment->created_at, 'Y-m-d') }}
                                             </td>
                                             <td class="text-center">
-                                                    @if ($comment->book)
-                                                        <a href="{{route('book.detail',$comment->book->slug)}}" class="fas fa-eye text-warning p-1 btn-action"></a>
-                                                    @endif
-                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')" href="{{route('comment.destroy',$comment->id)}}"
-                                                        class="fas fa-trash text-danger p-1 btn-action"></a>
+                                                @if ($comment->post)
+                                                    <a href="{{route('post.detail',$comment->post->slug)}}" class="fas fa-eye text-warning p-1 btn-action"></a>
+                                                @endif
+                                                <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')" href="{{route('postComment.destroy',$comment->id)}}"
+                                                    class="fas fa-trash text-danger p-1 btn-action"></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -89,7 +89,7 @@
                                         <th>Tên Sách</th>
                                         <th>Nội dung</th>
                                         <th>@sortablelink('created_at','Ngày bình luận')</th>
-                                        <th style="width: 200px;">
+                                        <th>
                                             Hành động
                                         </th>
                                     </tr>
@@ -107,8 +107,8 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($comment->book)
-                                                        {{ $comment->book->title }}
+                                                    @if ($comment->post)
+                                                        {{ $comment->post->title }}
                                                     @else
                                                         <span class="text-danger">Sách tạm thời bị xóa !</span>
                                                     @endif
@@ -118,13 +118,11 @@
                                                     {{ date_format($comment->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <div class="btn-group">
-                                                        @if ($comment->user)
-                                                        <a href="{{route('comment.approv',$comment->id)}}" class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Duyệt</a>
-                                                        @endif
-                                                        <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
-                                                            href="{{route('comment.destroy',$comment->id)}}" class="ml-2 font-weight-bold btn btn-sm btn-outline-danger btn-acction">Hủy</a>
-                                                    </div>
+                                                    @if ($comment->user)
+                                                        <a href="{{route('postComment.approv',$comment->id)}}" class="">Duyệt</a>
+                                                    @endif
+                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
+                                                        href="{{route('postComment.destroy',$comment->id)}}" class="text-danger p-1 btn-action">Hủy</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -163,8 +161,8 @@
                                                     @endif    
                                                 </td>
                                                 <td>
-                                                    @if ($comment->book)
-                                                        {{ $comment->book->title }}
+                                                    @if ($comment->post)
+                                                        {{ $comment->post->title }}
                                                     @else
                                                         <span class="text-danger">Sách đã bị xóa!</span>
                                                     @endif
@@ -174,10 +172,8 @@
                                                     {{ date_format($comment->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <div class="btn-group">
-                                                        <a href="{{route('comment.restore',$comment->id)}}" class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Phục hồi</a>
-                                                        <a href="{{route('comment.forcedelete',$comment->id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này?')" class="ml-2 font-weight-bold btn btn-sm btn-outline-danger btn-acction">Xóa</a>        
-                                                    </div>    
+                                                    <a href="{{route('postComment.restore',$comment->id)}}" class="text-success">Phục hồi</a>
+                                                    <a href="{{route('postComment.forcedelete',$comment->id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này?')" class="text-danger">Xóa</a>
                                                 </td>
                                             </tr>
                                         @endforeach

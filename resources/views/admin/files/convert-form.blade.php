@@ -20,7 +20,7 @@
                     </button>
                     <input type="text" id="file" name="file" class="form-control"> --}}
                         <input type="file" name="pdf_file" id="pdf_file" class="form-controll">
-                        @if ($errors->has('image'))
+                        @if ($errors->has('pdf_file'))
                             <span class="text-danger">{{ $errors->first('pdf_file') }}</span>
                         @endif
                     </div>
@@ -42,3 +42,4 @@
         </div>
     </div>
 @endsection
+

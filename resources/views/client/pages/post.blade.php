@@ -38,7 +38,7 @@
                     <div class="post-item__content">
 
                         <div class="post-user-name">
-                            <a href="" class="post-user-name__link">
+                            <a href="{{ route('post.user', $post->user()->withTrashed()->first()->id )}}" class="post-user-name__link">
                                 {{ $post->user()->withTrashed()->first()->name }}
                             </a>
                         </div>
@@ -48,14 +48,12 @@
                             </a>
                         </div>
 
-
-
                         <!-- <div class="post-content__desc">{!! $post->content !!}</div> -->
 
                         <div class="post-content__tag">
                             @foreach($post->cates as $cate)
                             <div class="post-tag__item">
-                                <a href="" class="post-tag__link">
+                                <a href="{{ route('post.category', $cate->slug) }}" class="post-tag__link">
                                     #{{$cate->name}}
                                 </a>
                             </div>
@@ -70,7 +68,7 @@
                                 <div class="post-wishlist">
                                     <span class="post-wishlist__span">
 
-                                        <a href="{{route('post.wishlist',['id'=>$post->id])}}"><i class="fas fa-heart"></i></a>
+                                        <i class="fas fa-heart"></i>
                                         {{DB::table('wishlists')->where('post_id', $post->id)->count()}} Yêu thích
                                     </span>
                                 </div>

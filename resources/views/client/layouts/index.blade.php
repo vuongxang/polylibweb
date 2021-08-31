@@ -37,9 +37,18 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/z61mklx0qjtdxp2smr8tj2bcs3dkzef4894ven0bm30q2dv9/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/balloon/ckeditor.js"></script> -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+
+
+
+
+
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> -->
     @yield('script')
 
@@ -57,6 +66,89 @@
             var conf = confirm('Bạn chắc chắn muốn trả sách');
             return conf;
         }
+
+        
+    </script>
+<script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+
+    <script>
+        tinymce.init({
+        selector: 'textarea#postInputDesc',
+        plugins: 'print preview searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+
+        codesample_languages: [{
+                text: 'HTML/XML',
+                value: 'markup'
+            },
+            {
+                text: 'JavaScript',
+                value: 'javascript'
+            },
+            {
+                text: 'CSS',
+                value: 'css'
+            },
+            {
+                text: 'PHP',
+                value: 'php'
+            },
+            {
+                text: 'Ruby',
+                value: 'ruby'
+            },
+            {
+                text: 'Python',
+                value: 'python'
+            },
+            {
+                text: 'Java',
+                value: 'java'
+            },
+            {
+                text: 'C',
+                value: 'c'
+            },
+            {
+                text: 'C#',
+                value: 'csharp'
+            },
+            {
+                text: 'C++',
+                value: 'cpp'
+            }
+        ],
+        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
+
+        // tinycomments_author: 'Author name',
+        external_filemanager_path: "/filemanager/",
+        // filemanager_title: "Responsive Filemanager",
+        external_plugins: {
+            "filemanager": "/filemanager/plugin.min.js"
+        },
+        // templates: [
+        //         { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+        //     { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+        //     { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+        // ],
+        // template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+        // template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+        // height: 600,
+        // image_caption: true,
+        // quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+        // noneditable_noneditable_class: 'mceNonEditable',
+        // toolbar_mode: 'sliding',
+        // spellchecker_ignore_list: ['Ephox', 'Moxiecode'],
+        tinycomments_mode: 'embedded',
+        // content_style: '.mymention{ color: gray; }',
+        // contextmenu: 'link image imagetools table configurepermanentpen',
+        // a11y_advanced_options: true
+        });
     </script>
 </body>
 

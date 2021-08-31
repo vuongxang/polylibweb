@@ -12,24 +12,24 @@
             <div class="d-flex justify-content-between ">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                      <a class="nav-link active bg-light">Danh sách</a>
+                      <a class="nav-link active bg-light">Danh sách <span>( {{$cates->total()}} )</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cate.trashlist')}}">Thùng rác</a>
+                        <a class="nav-link" href="{{route('cate.trashlist')}}">Thùng rác <span>( {{$cates_trashed->total()}} )</span></a>
                     </li>
                 </ul>
                 <div>   
                     <form action="" method="get" id="form-page-size">
                         <label for="">Chọn số bản ghi</label>
-                        <select name="page_size" id="page_size" >
-                            <option value="5" @if ($pagesize==5) selected @endif>5</option>
+                        <select name="page_size" id="page_size" class="form-select mt-2" aria-label=".form-select-sm" >
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
-                            <option value="15" @if ($pagesize==15) selected @endif>15</option>
+                            <option value="25" @if ($pagesize==25) selected @endif>25</option>
+                            <option value="50" @if ($pagesize==50) selected @endif>50</option>
                         </select>
                     </form>
                 </div>
             </div>
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@sortablelink('id','ID')</th>
@@ -69,7 +69,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="6" class="text-center">Không tìm thấy danh mục nào !</td>
+                            <td colspan="7" class="text-center">Không tìm thấy danh mục nào !</td>
                         </tr>
                     @endif
                 </tbody>

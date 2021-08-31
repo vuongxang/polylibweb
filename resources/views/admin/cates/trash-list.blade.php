@@ -11,10 +11,10 @@
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('cate.index')}}">Danh sách</a>
+                  <a class="nav-link" href="{{route('cate.index')}}">Danh sách<span>( {{count($cate_alls)}} )</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active bg-light">Thùng rác</a>
+                    <a class="nav-link active bg-light">Thùng rác <span>( {{$cates->total()}} )</span></a>
                   </li>
             </ul>
             <table class="table table-bordered bg-light" id="dataTable" width="100%" cellspacing="0">
@@ -25,7 +25,8 @@
                         <th>Ảnh</th>
                         <th>@sortablelink('created_at','Ngày tạo')</th>
                         <th>@sortablelink('updated_at','Ngày cập nhật')</th>
-                        <th class="text-center">
+                        <th>Trạng thái</th>
+                        <th class="text-center" style="width: 200px;">
                             Hành động
                         </th>
                     </tr>
@@ -50,8 +51,8 @@
                         </td>
                         <td class="text-center">
                             <div class="btn-group">
-                                <a href="{{route('postCate.restore',['id' => $cate->id])}}" class="mr-2 text-success">Khôi phục</a> |
-                                <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('postCate.forcedelete',['id' => $cate->id])}}" class="ml-2 text-danger">Xóa</a>
+                                <a href="{{route('cate.restore',['id' => $cate->id])}}" class="btn btn-sm btn-outline-success btn-acction">Khôi phục</a>
+                                <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('cate.forcedelete',['id' => $cate->id])}}" class="ml-2 btn btn-sm btn-outline-danger btn-acction">Xóa</a>
                             </div>
                         </td>
                     </tr>
@@ -60,7 +61,7 @@
                 @else
                     <tbody >
                         <tr>
-                            <td colspan="6" class="text-center">Thùng rác rỗng!</td>
+                            <td colspan="7" class="text-center">Thùng rác rỗng!</td>
                         </tr>
                     </tbody>
                 @endif

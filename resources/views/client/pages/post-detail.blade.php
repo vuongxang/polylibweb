@@ -75,22 +75,23 @@
                     </div>
 
                 </div>
-                <div class="post-detail__comment">
+            <div class="post-detail__comment">
                     <div class="post-comment__header">
                         <div class="post-comment__text">
                             Bình luận
                         </div>
                     </div>
+                    @include('client.blocks.postCommentsDisplay', ['comments' => $comments, 'post' => $post->id])
                     <div class="comment-box__wrapper">
                         <div class="comment-box__image">
                             <img src="{{ asset(Auth::user()->avatar) }}" alt="" id="js-user-avatar">
                         </div>
                         <div class="comment-box__content">
-                            <form action="{{ route('comments.store') }}" method="post">
+                            <form action="{{ route('postComments.store') }}" method="post">
                                 @csrf
                                 <div class="comment__input">
                                     <textarea class="form-control" name="body" rows="2" placeholder="Viết bình luận..."></textarea>
-                                    <input type="hidden" name="book_id" value="" />
+                                    <input type="hidden" name="post_id" value="{{$post->id}}" />
                                 </div>
                                 <div class="comment__btn">
                                     <button type="submit" class="button button__background-lg button-comment">Bình
@@ -274,7 +275,37 @@
         </div>
     </div>
 </div> -->
-<script>
+@section('script')
+<script src="{{asset('js/client/post-detail.js')}}"></script>
+@endsection
+
+<!-- <script>
+    // //Tang view sau 2s
+    // let increaseViewUrl = "{{ route('post.updateView') }}";
+    // const data = {
+    //     id: {
+    //         {
+    //             $post - > id
+    //         }
+    //     },
+    //     _token: "{{ csrf_token() }}"
+    // };
+    // setTimeout(() => {
+    //     // document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
+    //     // fetch(increaseViewUrl, {
+    //     //         method: "POST",
+    //     //         headers: {
+    //     //             'Content-Type': 'application/json'
+    //     //         },
+    //     //         body: JSON.stringify(data)
+    //     //     })
+    //     //     .then(responseData => responseData.json())
+    //     //     .then(postObj => {
+    //     //         console.log(postObj);
+    //     //     })
+    // }, 2000);
+</script> -->
+<!-- <script>
     //Tang view sau 2s
     let increaseViewUrl = "{{ route('post.updateView') }}";
     const data = {
@@ -286,17 +317,17 @@
         _token: "{{ csrf_token() }}"
     };
     setTimeout(() => {
-        // document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
-        // fetch(increaseViewUrl, {
-        //         method: "POST",
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(data)
-        //     })
-        //     .then(responseData => responseData.json())
-        //     .then(postObj => {
-        //         console.log(postObj);
-        //     })
+        document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
+        fetch(increaseViewUrl, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(responseData => responseData.json())
+            .then(postObj => {
+                console.log(postObj);
+            })
     }, 2000);
-</script>
+</script> -->
