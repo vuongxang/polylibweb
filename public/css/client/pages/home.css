@@ -431,6 +431,7 @@
     .book-carousel__wrapper{
         justify-content: center;
     }
+    
 }
 @media screen and (max-width:767px)and (min-width: 375px){
     .book-carouse-mobile{
