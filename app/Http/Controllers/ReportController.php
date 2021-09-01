@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TopBorrowBookExport;
+use App\Exports\TopCatePostExport;
+use App\Exports\TopUserPostExport;
+use App\Exports\TopViewPostExport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -74,6 +77,9 @@ class ReportController extends Controller
             'total_day'          => $total_day
          ]);
     }
+    public function exportTopViewPost(){
+        return Excel::download(new TopViewPostExport, 'top-view-post.xlsx');
+    }
 
     public function TopUserPost(Request $request){
         $pagesize = 10;
@@ -106,6 +112,10 @@ class ReportController extends Controller
          ]);
     }
 
+    public function exportTopUserPost(){
+        return Excel::download(new TopUserPostExport, 'top-user-post.xlsx');
+    }
+
     public function TopCatePost(Request $request){
         $pagesize = 10;
         $total_day = 7;
@@ -135,5 +145,9 @@ class ReportController extends Controller
             'pagesize'           => $pagesize,
             'total_day'          => $total_day
          ]);
+    }
+    
+    public function exportTopCatePost(){
+        return Excel::download(new TopCatePostExport, 'top-cate-post.xlsx');
     }
 }

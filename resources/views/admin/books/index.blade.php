@@ -21,7 +21,7 @@
                 <div>
                     <form action="" method="get" id="form-page-size">
                         <label for="">Chọn số bản ghi</label>
-                        <select name="page_size" id="page_size" class="form-select form-select-sm mt-2" aria-label=".form-select-sm" >
+                        <select name="page_size" id="page_size" class="form-select mt-2" aria-label=".form-select-sm" >
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
                             <option value="25" @if ($pagesize==25) selected @endif>25</option>
                             <option value="50" @if ($pagesize==50) selected @endif>50</option>

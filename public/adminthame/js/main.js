@@ -42,7 +42,7 @@ $(document).ready(function () {
     })
 
     $('#total_day').on('change', function () {
-        $('#form-total-day').submit();
+        $('#form-page-size').submit();
     })
     $(function () {
         $('.toggle-class').change(function () {

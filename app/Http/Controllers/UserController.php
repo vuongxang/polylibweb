@@ -148,7 +148,8 @@ class UserController extends Controller
     }
     public function notifications()
     {
-        return view('client.pages.notifications');
+        $notifications = Auth::user()->notifications()->paginate(10);
+        return view('client.pages.notifications',['notifications'   => $notifications]);
     }
     public function readAllNotify()
     {

@@ -32,8 +32,8 @@
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Trạng thái</label>
                     <select name="status" class="form-control">
-                        <option value="1" @if ($model->status ==1) checked @endif>Hiển thị</option>
-                        <option value="0" @if ($model->status ==0) checked @endif>Ẩn</option>
+                        <option value="1" @if ($model->status == 1) selected @endif>Hiển thị</option>
+                        <option value="0" @if ($model->status == 0) selected @endif>Ẩn</option>
                     </select>
                 </div>
                 <div class="form-group">

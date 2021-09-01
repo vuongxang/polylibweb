@@ -9,6 +9,11 @@
 
 
 <div class="container">
+    @if (session('message'))
+        <div class="alert alert-success text-center">
+            <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
+        </div>
+    @endif
     <div class="contact-form">
         <!-- <div class="contact-demo" style="background-image:url('images/contact.png');">
             <div class="contact-demo-1"></div>
@@ -20,31 +25,31 @@
                 @csrf
                 <div class="row">
                     <div class="contact-form__topic">
-                        <input type="text" class="form-control" name="topic" placeholder="Chủ đề"  value="{{ old('topic') }}">
+                        <input type="text" class="form-control" name="topic" placeholder="Chủ đề"  value="{{ old('topic') }}" required>
                         @if ($errors->has('topic'))
                             <span class="text-danger">{{ $errors->first('topic') }}</span>
                         @endif
                     </div>
                     <div class="contact-form__name">
-                        <input type="text" class="form-control" name="name" placeholder="Họ tên"  value="{{ old('name') }}">
+                        <input type="text" class="form-control" name="name" placeholder="Họ tên"  value="{{ old('name') }}" required>
                         @if ($errors->has('name'))
                             <span class="text-danger">{{ $errors->first('name') }}</span>
                         @endif
                     </div>
                     <div class="contact-form__email">
-                        <input type="email" class="form-control" name="email" placeholder="Email"  value="{{ old('email') }}">
+                        <input type="email" class="form-control" name="email" placeholder="Email"  value="{{ old('email') }}" >
                         @if ($errors->has('email'))
                             <span class="text-danger">{{ $errors->first('email') }}</span>
                         @endif
                     </div>
                     <div class="contact-form__phone">
-                        <input type="number" class="form-control" name="phone" placeholder="Số điện thoại"  value="{{ old('phone') }}">
+                        <input type="number" class="form-control" name="phone" placeholder="Số điện thoại"  value="{{ old('phone') }}" required>
                         @if ($errors->has('phone'))
                             <span class="text-danger">{{ $errors->first('phone') }}</span>
                         @endif
                     </div>
                     <div class="contact-form__content">
-                        <textarea class="form-control" name="content" cols="31" rows="10" placeholder="Nội dung">{{ old('content') }}</textarea>
+                        <textarea class="form-control" name="content" cols="31" rows="10" placeholder="Nội dung" required>{{ old('content') }}</textarea>
                         @if ($errors->has('content'))
                             <span class="text-danger">{{ $errors->first('content') }}</span>
                         @endif
