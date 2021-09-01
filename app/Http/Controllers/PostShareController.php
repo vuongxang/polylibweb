@@ -103,7 +103,7 @@ class PostShareController extends Controller
         $cates = PostShareCategory::where('status', 1)->get();
         $cates->load('posts');
         $posts = PostShare::where('status', 1)->orderBy('created_at', 'DESC')->paginate(5);
-        $posts->load('user', 'cates');
+        $posts->load('user', 'cates','comments','postViews');
         // dd($wishlist);
         // foreach ($posts as $key => $post) {
         //     if(!$post->user) dd($post->user()->withTrashed()->first()->avatar);

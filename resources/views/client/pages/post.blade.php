@@ -74,12 +74,13 @@
                                 </div>
                                 <div class="post-view">
                                     <span class="post-view__span"><i class=" fa fa-eye"></i>
-                                        9 lượt xem
+                                        {{$post->postViews()->sum('views')}}
+                                         lượt xem
                                     </span>
                                 </div>
                                 <div class="post-comment">
                                     <span class="post-comment__span"><i class=" fa fa-comments"></i>
-                                        9 bình luận
+                                        {{count($post->comments)}} bình luận
                                     </span>
                                 </div>
                             </div>
