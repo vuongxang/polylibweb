@@ -1,24 +1,24 @@
 $(document).ready(function () {
-    $('#fileUploadForm').ajaxForm({
-        beforeSend: function () {
-            $("#progress").css("display", "block");
-            var percentage = '0';
-        },
-        uploadProgress: function (event, position, total, percentComplete) {
-            var percentage = percentComplete;
-            $('.progress .progress-bar').css("width", percentage + '%', function () {
-                return $(this).attr("aria-valuenow", percentage) + "%";
-            })
-        },
-        error: function (response, status, e) {
-            alert('Oops something went.');
-        },
-        complete: function (xhr) {
-            $("#progress-arlert").css("display", "block");
+    // $('#fileUploadForm').ajaxForm({
+    //     beforeSend: function () {
+    //         $("#progress").css("display", "block");
+    //         var percentage = '0';
+    //     },
+    //     uploadProgress: function (event, position, total, percentComplete) {
+    //         var percentage = percentComplete;
+    //         $('.progress .progress-bar').css("width", percentage + '%', function () {
+    //             return $(this).attr("aria-valuenow", percentage) + "%";
+    //         })
+    //     },
+    //     error: function (response, status, e) {
+    //         console.log(response.responseJSON.message);
+    //     },
+    //     complete: function (xhr) {
+    //         $("#progress-arlert").css("display", "block");
 
-            console.log('File has uploaded');
-        }
-    });
+    //         console.log('File has uploaded');
+    //     }
+    // });
 
     // var pusher = new Pusher('{{ env('
     //     PUSHER_APP_KEY ') }}', {
