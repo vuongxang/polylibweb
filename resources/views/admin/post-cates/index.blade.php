@@ -12,10 +12,10 @@
             <div class="d-flex justify-content-between border-bottom">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                      <a class="nav-link active">Danh sách</a>
+                      <a class="nav-link active">Danh sách <span>({{$cates->total()}})</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('postCate.trashlist')}}">Thùng rác</a>
+                        <a class="nav-link" href="{{route('postCate.trashlist')}}">Thùng rác <span>({{$cates_trashed->total()}})</span></a>
                     </li>
                 </ul>
                 <div>   

@@ -18,7 +18,9 @@ class PostShareCategoryController extends Controller
                                     ->orderBy('created_at','DESC')->paginate($pagesize);
         $cates->load('posts');
 
-        return view('admin.post-cates.index',compact('cates','pagesize'));
+        $cates_trashed  = PostShareCategory::onlyTrashed()->paginate(5);
+
+        return view('admin.post-cates.index',compact('cates','pagesize','cates_trashed'));
     }
 
     public function create(){

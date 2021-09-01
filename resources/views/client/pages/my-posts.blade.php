@@ -81,7 +81,7 @@
                                 <td>Ảnh bài viết</td>
                                 <td>Tên bài viết</td>
                                 <td>Người đăng</td>
-                                <td>Hành động</td>
+                                <td class="text-center" style="width: 150px;">Hành động</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,7 +94,7 @@
                                         <td>{{ $key +1 }}</td>
                                         <td class="">
                                             <a href="{{ route('post.detail', $wishlist->post->slug) }}">
-                                                <img src="{{ $wishlist->post->thumbnail }}" width="100" alt="Ảnh bài viết">
+                                                <img src="{{ asset($wishlist->post->thumbnail) }}" width="40" alt="Ảnh bài viết">
                                             </a>
                                         </td>
                                         <td>
@@ -107,9 +107,9 @@
                                                 {{ $wishlist->post->user->name }}
                                             </a>
                                         </td>
-                                        <td>
-                                            <a href="{{route('post.wishlist.destroy',['id'=>$wishlist->id])}}"
-                                                class="btn btn-danger">Xóa khỏi yêu thích</a>
+                                        <td class="text-center">
+                                            <a href="{{route('post.wishlist.destroy',['id'=>$wishlist->post->id])}}"
+                                                class="fas fa-trash text-danger"></a>
                                         </td>
                                     </tr>
                                     @endif

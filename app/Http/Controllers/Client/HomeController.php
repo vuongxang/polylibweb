@@ -12,6 +12,7 @@ use App\Models\Rating;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class HomeController extends Controller
 {
@@ -65,7 +66,7 @@ class HomeController extends Controller
             
             $fileName = uniqid().'_'.$request->file('avatar')->getClientOriginalName();
             $filePath = $request->file('avatar')->storeAs('uploads', $fileName, 'public');
-            $infomation->avatar = 'storage/'.$filePath;
+            $infomation->avatar = URL::to('/').'/storage/'.$filePath;
         }
 
         $infomation->phone = $request->phone;

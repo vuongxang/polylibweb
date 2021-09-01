@@ -30,7 +30,8 @@ class AdminController extends Controller
     }
 
     public function notifications(){
-        return view('admin.users.notification');
+        $notifications = Auth::user()->notifications()->paginate(10);
+        return view('admin.users.notification',['notifications' => $notifications]);
     }
 
     // public function dayData(){

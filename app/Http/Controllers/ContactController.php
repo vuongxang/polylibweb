@@ -25,7 +25,7 @@ class ContactController extends Controller
                 $message->from($request->email, $request->name);
                 $message->subject($request->topic);
         });
-        return back()->with('message', 'Gửi thành công');
+        return redirect(route('contact'))->with('message', 'Gửi thành công !');
     }
 
 }

@@ -10,9 +10,7 @@
 
         <div class="col-md-8 post-detail__content">
             <div class="post-detail__wrap">
-                <div class="post-detail__cover">
-                    <img src="{{asset($post->thumbnail)}}" alt="">
-                </div>
+                
                 <div class="post-detail__body">
                     <div class="post-body__header">
                         {{$post->title}}
@@ -28,6 +26,7 @@
                             @endif
                         </div>
                     </div>
+                    
                     @if(count($post->cates)>0)
                     <div class="post-body__cates">
                         @foreach($post->cates as $cate)
@@ -54,6 +53,9 @@
                         </div> -->
                     </div>
                     @endif
+                    <div class="mb-2">
+                        <span class="fas fa-eye"></span> <span id="viewNumber">{{$totalViews}}</span> Lượt xem
+                    </div>
                     <div class="post-body__user">
                         <div class="post-body-user__avatar">
                             <img src="{{asset($post->user()->withTrashed()->first()->avatar)}}" alt="">
@@ -70,6 +72,9 @@
 
                     </div>
                     <div class="post-body__content">
+                        <div class="post-detail__cover">
+                            <img src="{{asset($post->thumbnail)}}" alt="">
+                        </div>
                         {!! $post->content !!}
 
                     </div>
@@ -147,7 +152,29 @@
         </div>
     </div>
 </div>
+<script>
+    //Tang view sau 2s
+    let increaseViewUrl = "{{ route('post.updateView') }}";
+    const data = {
+        id: {{ $post -> id  }},
+        _token: "{{ csrf_token() }}"
+    };
+    setTimeout(() => {
+        fetch(increaseViewUrl, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(responseData => responseData.json())
+            .then(postObj => {
+                console.log(postObj);
+                document.querySelector('#viewNumber').innerText = "{{ $totalViews + 1 }}";
 
+            })
+    }, 2000);
+</script> 
 @endsection
 <!-- <div class="col-md-9 post-detail__content">
     <div class="post-detail__wrap">
@@ -276,58 +303,7 @@
     </div>
 </div> -->
 @section('script')
-<script src="{{asset('js/client/post-detail.js')}}"></script>
-@endsection
+    
+    <script src="{{asset('js/client/post-detail.js')}}"></script>
 
-<!-- <script>
-    // //Tang view sau 2s
-    // let increaseViewUrl = "{{ route('post.updateView') }}";
-    // const data = {
-    //     id: {
-    //         {
-    //             $post - > id
-    //         }
-    //     },
-    //     _token: "{{ csrf_token() }}"
-    // };
-    // setTimeout(() => {
-    //     // document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
-    //     // fetch(increaseViewUrl, {
-    //     //         method: "POST",
-    //     //         headers: {
-    //     //             'Content-Type': 'application/json'
-    //     //         },
-    //     //         body: JSON.stringify(data)
-    //     //     })
-    //     //     .then(responseData => responseData.json())
-    //     //     .then(postObj => {
-    //     //         console.log(postObj);
-    //     //     })
-    // }, 2000);
-</script> -->
-<!-- <script>
-    //Tang view sau 2s
-    let increaseViewUrl = "{{ route('post.updateView') }}";
-    const data = {
-        id: {
-            {
-                $post - > id
-            }
-        },
-        _token: "{{ csrf_token() }}"
-    };
-    setTimeout(() => {
-        document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
-        fetch(increaseViewUrl, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(responseData => responseData.json())
-            .then(postObj => {
-                console.log(postObj);
-            })
-    }, 2000);
-</script> -->
+@endsection

@@ -24,7 +24,7 @@ class PdfFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'pdf_file' => ['required','regex:([^\\s]+(\\.(?i)(pdf))$)', 'max:100']
+            'pdf_file' => ['required|mimes:pdf|max:30000']
         ];
     }
 }
