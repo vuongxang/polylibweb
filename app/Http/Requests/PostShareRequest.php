@@ -25,7 +25,8 @@ class PostShareRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:post_share_categories|min:5',
-            'thumbnail' => 'required|image|mimes:jpeg,jpg,png,gif|max:2000',
+            'cate_id' => 'required',
+            'thumbnail' => ['required','image','mimes:jpeg,png,jpg,gif,svg','max:2000'],
             'content' => 'required'
         ];
     }
