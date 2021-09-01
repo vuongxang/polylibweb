@@ -45,7 +45,7 @@
                         </button>
 
                         <!-- Dropdown - Alerts -->
-                        <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown-mobile">
+                        <div class="hidden " id="menu_notification-mobile" aria-labelledby="alertsDropdown-mobile">
                             <div class="notification-dropdown-header">
                                 <div class="notification-header__title">Thông báo</div>
                                 <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
@@ -64,7 +64,7 @@
                                         <div class="notification-dropdown-wrapper">
 
                                             <div class="notification-avatar">
-                                                <img src="{{$notification->data['avatar']}}" alt="">
+                                                <img src="{{asset($notification->data['avatar'])}}" alt="">
 
                                             </div>
                                             <div class=" notification-body">
@@ -138,11 +138,11 @@
 
 
                         <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
+                                                document.getElementById('logout-form-mobile').submit();">
                             <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
                         </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </div>
@@ -283,7 +283,7 @@
                                 <div class="notification-dropdown-wrapper">
 
                                     <div class="notification-avatar">
-                                        <img src="{{$notification->data['avatar']}}" alt="">
+                                        <img src="{{asset($notification->data['avatar'])}}" alt="">
 
                                     </div>
                                     <div class=" notification-body">
@@ -381,7 +381,7 @@
                                     <div class="notification-dropdown-wrapper">
 
                                         <div class="notification-avatar">
-                                            <img src="/${notificationData.avatar}" alt="">
+                                            <img src="${asset(notificationData.avatar)}" alt="">
 
                                         </div>
                                         <div class=" notification-body">
@@ -439,7 +439,6 @@
          */
         $(document).on({
             ajaxStart: function() {
-                console.log('Loading...')
                 $('#js-search-dropdown__ul--cate').append(
                     ` <div class="lds-ellipsis">
                     <div></div>
@@ -448,8 +447,15 @@
                     <div></div>
                 </div>`
                 )
-                console.log('Loading...')
                 $('#js-search-dropdown__ul--author').append(
+                    ` <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>`
+                )
+                $('#js-search-dropdown__ul--post').append(
                     ` <div class="lds-ellipsis">
                     <div></div>
                     <div></div>
@@ -608,10 +614,10 @@
          */
         $('#alertsDropdown-mobile').click((e) => {
             e.stopPropagation();
-            if ($('#menu_notification').hasClass('hidden')) {
-                $('#menu_notification').removeClass('hidden');
+            if ($('#menu_notification-mobile').hasClass('hidden')) {
+                $('#menu_notification-mobile').removeClass('hidden');
             } else {
-                $('#menu_notification').addClass('hidden');
+                $('#menu_notification-mobile').addClass('hidden');
             }
         })
         $('.toggle-cate').click(function() {

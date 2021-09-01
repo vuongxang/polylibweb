@@ -100,10 +100,12 @@ class BookDetailController extends Controller
 
     public function storeComment(Request $request)
     {
-        
+
         $book_slug = $request->book_id;
         $book = Book::where('slug', $book_slug)->first();
-        if(!$book){return response()->json($book_slug);}
+        if (!$book) {
+            return response()->json($book_slug);
+        }
         $model = new Comment();
         $model->body = $request->body;
         $model->parent_id = $request->parent_id;
@@ -117,14 +119,17 @@ class BookDetailController extends Controller
     }
     public function getRate(Request $request)
     {
-        $book_id = $request->book_id;
+        $book_slug = $request->book_id;
         $last_rate_id = $request->last_rate_id;
         //Lấy được parent_id
+
+        $book = Book::where('slug', $book_slug)->where('status', 1)->first();
+
         if ($last_rate_id > 0) {
 
-            $rates = Rating::where('rateable_id', $book_id)->where('status', 1)->where('id', "<", $last_rate_id)->orderBy('id', 'DESC')->limit(3)->with('user')->get();
+            $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->where('id', "<", $last_rate_id)->orderBy('id', 'DESC')->limit(3)->with('user')->get();
         } else {
-            $rates = Rating::where('rateable_id', $book_id)->where('status', 1)->orderBy('id', 'DESC')->limit(3)->with('user')->get();
+            $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->orderBy('id', 'DESC')->limit(3)->with('user')->get();
             if (count($rates) == 0) {
 
                 $message = "Chưa có đánh giá nào cho cuốn sách";
