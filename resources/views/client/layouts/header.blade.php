@@ -32,125 +32,125 @@
             @endif
             @else
             <div class="header-menu__users">
-                {{--<div class="header__information-notification ">
-
+                <div class="header__information-notification ">
                     <!-- Nav Item - Alerts -->
-                    <div class="header-notification" id="header-notification">
-                        <button class=" header-notification__bell" id="alertsDropdown">
+                    <div class="header-notification" id="header-notification-mobile">
+                        <button class=" header-notification__bell" id="alertsDropdown-mobile">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
-                            && Auth::user()->role->id != 1 && Auth::user()->role->id != 2
+                           
                             <span class="badge badge-danger badge-counter" id="unread-notify">
-                                {{auth()->user()->unreadNotifications->count()}}</span>
-                </button>
+                                {{auth()->user()->unreadNotifications->count()}}
+                            </span>
+                        </button>
 
-                <!-- Dropdown - Alerts -->
-                <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown">
-                    <div class="notification-dropdown-header">
-                        <div class="notification-header__title">Thông báo</div>
-                        <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
-                    </div>
-                    <div class="notification-dropdown-body">
-                        @if(count(Auth::user()->notifications) == 0)
-                        <div id="notification-message"> Bạn chưa có thông báo mới</div>
-                        @endif
-                        @if(count(Auth::user()->notifications) > 0)
+                        <!-- Dropdown - Alerts -->
+                        <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown-mobile">
+                            <div class="notification-dropdown-header">
+                                <div class="notification-header__title">Thông báo</div>
+                                <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
+                            </div>
+                            <div class="notification-dropdown-body">
+                                @if(count(Auth::user()->notifications) == 0)
+                                <div id="notification-message"> Bạn chưa có thông báo mới</div>
+                                @endif
+                                @if(count(Auth::user()->notifications) > 0)
 
-                        @foreach (Auth::user()->notifications as $key => $notification)
-                        @if($key==5) @break
-                        @endif
-                        <div class=" notification-dropdown">
-                            <a class="notification-dropdown__link" href="{{route('notification.read',$notification->id)}}">
-                                <div class="notification-dropdown-wrapper">
+                                @foreach (Auth::user()->notifications as $key => $notification)
+                                @if($key==5) @break
+                                @endif
+                                <div class=" notification-dropdown">
+                                    <a class="notification-dropdown__link" href="{{route('notification.read',$notification->id)}}">
+                                        <div class="notification-dropdown-wrapper">
 
-                                    <div class="notification-avatar">
-                                        <img src="{{$notification->data['avatar']}}" alt="">
+                                            <div class="notification-avatar">
+                                                <img src="{{$notification->data['avatar']}}" alt="">
 
-                                    </div>
-                                    <div class=" notification-body">
-                                        <div class="notification-body__content ">{{ $notification->data['content'] }}</div>
-                                        <span class="notification-body__time ">{{ Carbon\Carbon::parse($notification->created_at)->locale('vi')->diffForHumans() }}</span>
-                                    </div>
-                                    <div class=" notification-icon">
-                                        @if ($notification->read_at==null)
-                                        <!-- <i class="fas fa-file-alt text-white"></i> -->
-                                        <i class="fas fa-circle"></i>
-                                        @else
-                                        <i class="fas fa-check "></i>
-                                        @endif
-                                    </div>
+                                            </div>
+                                            <div class=" notification-body">
+                                                <div class="notification-body__content ">{{ $notification->data['content'] }}</div>
+                                                <span class="notification-body__time ">{{ Carbon\Carbon::parse($notification->created_at)->locale('vi')->diffForHumans() }}</span>
+                                            </div>
+                                            <div class=" notification-icon">
+                                                @if ($notification->read_at==null)
+                                                <!-- <i class="fas fa-file-alt text-white"></i> -->
+                                                <i class="fas fa-circle"></i>
+                                                @else
+                                                <i class="fas fa-check "></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
+
+                                @endforeach
+                                @endif
+
+
+                            </div>
+                            <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
                         </div>
-
-                        @endforeach
-                        @endif
-
-
                     </div>
-                    <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
                 </div>
-            </div>
-        </div> --}}
-        <div class="inf-user">
-            <i class="fas fa-user"></i>
-        </div>
-    </div>
-    @endguest
-    </div>
-    <div class="header-menu__user  ">
-        <div class="header-mobile__information">
-
-            @guest
-            @if (Route::has('login'))
-            <a class="btn--login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
-            @endif
-            @else
-            <div>
-                <a class="nav-link  header__information-info" href="#">
-                    <img src="{{Auth::user()->avatar}}" alt="">
-                    <!-- <i class="fas fa-caret-down"></i> -->
-                    <p>{{Auth::user()->name}}</p>
-                    <!-- <p>{{Auth::user()->email}}</p> -->
-                </a>
-
-                @if (Auth::check())
-                <div>
-                    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                    <a class="dropdown-item dropdown-item-custom" href="{{ route('dashboard') }}">
-                        <i class="fas fa-users-cog"></i>Quản trị
-                    </a>
-                    @endif
-
-
-                    <a class="dropdown-item dropdown-item-custom" href="{{ route('client.profile', Auth::user()->id) }}">
-                        <i class="fas fa-user"></i>Hồ sơ cá nhân
-                    </a>
-                    <a class="dropdown-item dropdown-item-custom" href="{{ route('user.history', Auth::user()->id) }}">
-                        <i class="fas fa-history"></i>Lịch sử mượn sách
-                    </a>
-                    <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
-                        <i class="fas fa-history"></i>Tài liệu của tôi
-                    </a>
-                    <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
-                        <i class="fas fa-star"></i>Đánh giá
-                    </a>
-
-
-                    <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                <div class="inf-user">
+                    <i class="fas fa-user"></i>
                 </div>
-                @endif
             </div>
             @endguest
         </div>
-    </div>
+        <div class="header-menu__user  ">
+            <div class="header-mobile__information">
+
+                @guest
+                @if (Route::has('login'))
+                <a class="btn--login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
+                @endif
+                @else
+                <div>
+                    <a class="nav-link  header__information-info" href="#">
+                        <img src="{{Auth::user()->avatar}}" alt="">
+                        <!-- <i class="fas fa-caret-down"></i> -->
+                        <p>{{Auth::user()->name}}</p>
+                        <!-- <p>{{Auth::user()->email}}</p> -->
+                    </a>
+
+                    @if (Auth::check())
+                    <div>
+                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                        <a class="dropdown-item dropdown-item-custom" href="{{ route('dashboard') }}">
+                            <i class="fas fa-users-cog"></i>Quản trị
+                        </a>
+                        @endif
+
+
+                        <a class="dropdown-item dropdown-item-custom" href="{{ route('client.profile', Auth::user()->id) }}">
+                            <i class="fas fa-user"></i>Hồ sơ cá nhân
+                        </a>
+                        <a class="dropdown-item dropdown-item-custom" href="{{ route('user.history', Auth::user()->id) }}">
+                            <i class="fas fa-history"></i>Lịch sử mượn sách
+                        </a>
+                        <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
+                            <i class="fas fa-history"></i>Tài liệu của tôi
+                        </a>
+                        <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
+                            <i class="fas fa-star"></i>Đánh giá
+                        </a>
+
+
+                        <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                    @endif
+                </div>
+                @endguest
+            </div>
+        </div>
 
     </div>
 
@@ -493,7 +493,8 @@
                             url: '{{route("searchapi")}}',
                             method: "post",
                             data: {
-                                keyword: keyword.val()
+                                keyword: keyword.val(),
+
                             },
                             dataType: 'json',
                             success: function(res) {
@@ -605,7 +606,14 @@
          * Responsive Mobile Toggle 
          * Khi tạo ra 
          */
-
+        $('#alertsDropdown-mobile').click((e) => {
+            e.stopPropagation();
+            if ($('#menu_notification').hasClass('hidden')) {
+                $('#menu_notification').removeClass('hidden');
+            } else {
+                $('#menu_notification').addClass('hidden');
+            }
+        })
         $('.toggle-cate').click(function() {
             $('.header-menu__cate').toggleClass('show-cate');
         })
