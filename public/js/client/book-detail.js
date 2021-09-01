@@ -358,7 +358,7 @@ function loadMoreRate(lastRateId = "") {
         success: function (data) {
 
             const rateList = [...data[0]];
-
+            console.log(data);
             let lastRateId;
 
             const result = rateList.map(rateItem => {
