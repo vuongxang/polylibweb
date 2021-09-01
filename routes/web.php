@@ -54,6 +54,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     
     Route::get('/add-post', [PostShareController::class, 'create'])->name('post.create');
     Route::post('/add-post', [PostShareController::class, 'store'])->name('post.store');
+    Route::post('/uploads-ckeditor', [PostShareController::class, 'uploads_ckeditor']);
     Route::get('/edit-post/{id}', [PostShareController::class, 'edit'])->name('post.edit');
     Route::post('/edit-post/{id}', [PostShareController::class, 'update'])->name('post.update');
     Route::get('/post-detail/{slug}', [PostShareController::class, 'detail'])->name('post.detail');

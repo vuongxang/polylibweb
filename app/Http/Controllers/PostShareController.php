@@ -183,6 +183,21 @@ class PostShareController extends Controller
 
         return redirect(route('user.myPost', $model->user_id))->with('message', 'Tạo mới thành công');
     }
+    public function uploads_ckeditor(Request $request){
+        if($request->hasFile('upload')){
+            $originalName = $request->file('upload')->getClientOriginalName();
+            $filename = pathinfo($originalName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $filename.'_'.time().'.'.$extension;
+            $request->file('upload')->move('uploads/ckeditor/', $fileName);
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $url = asset('uploads/ckeditor/'. $fileName);
+            $msg = 'Tải ảnh lên thành công';
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum,'$url','$msg')</script>";
+            @header('Content-type:text/html; charset=utf-8');
+            echo $response;
+        }
+    }
 
     public function edit($id)
     {
