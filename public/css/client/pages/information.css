@@ -10,6 +10,7 @@
 
 .information-aside__list {
     list-style: none;
+    margin: 0;
 }
 
 .information-aside__header {
@@ -30,7 +31,7 @@
 }
 
 .information-aside__item:hover {
-    background: var(--text-color2);
+    background: var(--white-color);
 }
 
 .information-aside__item:last-child {
@@ -47,9 +48,9 @@
 }
 
 .information-aside__link:hover {
-    color: var(--black-secondary-color);
     text-decoration: none;
-    background: var(--text-color2);
+    color: var(--base-color);
+    background: var(--white-color);
 }
 .information-aside__link:active{
     color: var(--black-secondary-color);
@@ -61,9 +62,9 @@
     background: var(--text-color2);
 }
 .information-aside__link:focus{
-    color: var(--black-secondary-color);
     text-decoration: none;
-    background: var(--text-color2);
+    color: var(--base-color);
+    background: var(--white-color);
 }
 
 @media screen and (max-width:991px)and (min-width: 768px){
