@@ -10,10 +10,10 @@
                     <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">
                         {{ Session::get('message') }}</p>
                 @endif
-                <div>   
+                <div class="mb-4">   
                     <form action="" method="get" id="form-page-size">
                         <label for="">Chọn số bản ghi</label>
-                        <select name="page_size" id="page_size">
+                        <select name="page_size" id="page_size" class="form-select mt-2">
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
                             <option value="20" @if ($pagesize==20) selected @endif>20</option>
                             <option value="50" @if ($pagesize==50) selected @endif>50</option>
@@ -40,7 +40,7 @@
                                         <th>Tên Sách</th>
                                         <th>Nội dung</th>
                                         <th>@sortablelink('created_at','Ngày bình luận')</th>
-                                        <th>
+                                        <th style="width: 150px;">
                                             Hành động
                                         </th>
                                     </tr>
@@ -68,11 +68,11 @@
                                                 {{ date_format($comment->created_at, 'Y-m-d') }}
                                             </td>
                                             <td class="text-center">
-                                                @if ($comment->book)
-                                                    <a href="{{route('book.detail',$comment->book->slug)}}" class="fas fa-eye text-warning p-1 btn-action"></a>
-                                                @endif
-                                                <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')" href="{{route('comment.destroy',$comment->id)}}"
-                                                    class="fas fa-trash text-danger p-1 btn-action"></a>
+                                                    @if ($comment->book)
+                                                        <a href="{{route('book.detail',$comment->book->slug)}}" class="fas fa-eye text-warning p-1 btn-action"></a>
+                                                    @endif
+                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')" href="{{route('comment.destroy',$comment->id)}}"
+                                                        class="fas fa-trash text-danger p-1 btn-action"></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -89,7 +89,7 @@
                                         <th>Tên Sách</th>
                                         <th>Nội dung</th>
                                         <th>@sortablelink('created_at','Ngày bình luận')</th>
-                                        <th>
+                                        <th style="width: 200px;">
                                             Hành động
                                         </th>
                                     </tr>
@@ -118,11 +118,13 @@
                                                     {{ date_format($comment->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    @if ($comment->user)
-                                                        <a href="{{route('comment.approv',$comment->id)}}" class="">Duyệt</a>
-                                                    @endif
-                                                    <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
-                                                        href="{{route('comment.destroy',$comment->id)}}" class="text-danger p-1 btn-action">Hủy</a>
+                                                    <div class="btn-group">
+                                                        @if ($comment->user)
+                                                        <a href="{{route('comment.approv',$comment->id)}}" class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Duyệt</a>
+                                                        @endif
+                                                        <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')"
+                                                            href="{{route('comment.destroy',$comment->id)}}" class="ml-2 font-weight-bold btn btn-sm btn-outline-danger btn-acction">Hủy</a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -172,8 +174,10 @@
                                                     {{ date_format($comment->created_at, 'Y-m-d') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('comment.restore',$comment->id)}}" class="text-success">Phục hồi</a>
-                                                    <a href="{{route('comment.forcedelete',$comment->id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này?')" class="text-danger">Xóa</a>
+                                                    <div class="btn-group">
+                                                        <a href="{{route('comment.restore',$comment->id)}}" class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Phục hồi</a>
+                                                        <a href="{{route('comment.forcedelete',$comment->id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này?')" class="ml-2 font-weight-bold btn btn-sm btn-outline-danger btn-acction">Xóa</a>        
+                                                    </div>    
                                                 </td>
                                             </tr>
                                         @endforeach

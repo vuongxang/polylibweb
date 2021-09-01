@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 @section('content')
+    <div class="d-sm-flex align-items-center justify-content-end mb-4">
+        <a href="{{route('report.exportTopCatePost')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-file-export fa-sm text-white-50"></i> Export file</a>
+    </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Top danh mục bài viết</h6>
@@ -10,24 +14,26 @@
                     <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">
                         {{ Session::get('message') }}</p>
                 @endif
-                <div>   
+                <div class="pb-2 mb-4 border-bottom">   
                     <form action="" method="get" id="form-page-size">
-                        <label for="page_size">Chọn số bản ghi</label>
-                        <select name="page_size" id="page_size">
-                            <option value="10" @if ($pagesize==10) selected @endif>Top 10</option>
-                            <option value="20" @if ($pagesize==20) selected @endif>Top 20</option>
-                            <option value="50" @if ($pagesize==50) selected @endif>Top 50</option>
-                        </select>
-                    </form>
-                </div>
-                <div>   
-                    <form action="" method="get" id="form-total-day">
-                        <label for="total_day">Thời gian</label>
-                        <select name="total_day" id="total_day">
-                            <option value="7" @if ($total_day==7) selected @endif>1 tuần trước</option>
-                            <option value="30" @if ($total_day==30) selected @endif>30 ngày trước</option>
-                            <option value="365" @if ($total_day==365) selected @endif>1 năm trước</option>
-                        </select>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 row">
+                                <label class="col-5" for="page_size">Chọn số bản ghi</label>
+                                <select name="page_size" id="page_size" class="col-5 form-select-report">
+                                    <option value="10" @if ($pagesize==10) selected @endif>Top 10</option>
+                                    <option value="20" @if ($pagesize==20) selected @endif>Top 20</option>
+                                    <option value="50" @if ($pagesize==50) selected @endif>Top 50</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12 col-md-6 row">
+                                <label for="total_day" class="col-5">Thời gian</label>
+                                <select name="total_day" id="total_day" class="col-5 form-select-report">
+                                    <option value="7" @if ($total_day==7) selected @endif>1 tuần trước</option>
+                                    <option value="30" @if ($total_day==30) selected @endif>30 ngày trước</option>
+                                    <option value="365" @if ($total_day==365) selected @endif>1 năm trước</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="data-tabs">

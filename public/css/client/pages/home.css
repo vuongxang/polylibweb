@@ -413,3 +413,45 @@
     background-color: var(--base-color);
     color: var(--white-color);
 }
+.book-carouse-table,.book-carouse-mobile{
+    display: none;
+}
+
+/* responsive */
+@media screen and (max-width:991px)and (min-width: 768px){
+    .book-carouse-table{
+        display: block;
+    }
+    .book-carouse-desktop,.book-carouse-mobile{
+        display: none;
+    }
+    .slide-hiden{
+       padding-top: 70px;
+    }
+    .book-carousel__wrapper{
+        justify-content: center;
+    }
+   .book-card{
+       width: 30rem;
+       height: 56rem;
+   }
+  .book-card__img{
+    height: 36rem;
+  }
+
+}
+@media screen and (max-width:767px)and (min-width: 375px){
+    .book-carouse-mobile{
+        display: block;
+    }
+    .slide-hiden{
+        display: none;
+    }
+    .book-carouse-table,.book-carouse-desktop{
+        display: none;
+    }
+    .book-carousel__wrapper{
+        justify-content: center;
+    }
+
+}

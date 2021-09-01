@@ -1,24 +1,30 @@
 <footer class="grid__full-width">
     <div class="grid-custom">
+        <div class="footer-col">
+            <h4>THÔNG TIN LIÊN HỆ</h4>
+            <ul>
+                <li><i class="fas fa-map-marker-alt"></i><p >Tòa nhà FPT Polytechnic, Phố Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội
+                    </p></li>
+                <li><i class="fas fa-phone-alt"></i><p>Điện thoại: (024) 7300 1955
+                    </p></li>
+                <li><i class="fas fa-envelope"></i><p>Email: caodang@fpt.edu.vn
+                    </p></li>
+                <!-- <li><i class="fas fa-envelope"></i><a href="#">Email: caodang@fpt.edu.vn
+                </a></li> -->
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>TRUY CẬP NHANH</h4>
+            <ul >
+                <li ><a  href="{{route('home')}}">Trang Chủ</a></li>
+                <li ><a  href="{{route('book.categories')}}">Danh Mục</a></li>
+                <li ><a  href="{{route('post')}}">Bài Viết</a></li>
+                <li ><a  href="{{route('contact')}}">Liên Hệ</a></li>
+            </ul>
+        </div>
+       
 
-        <div class="footer-about">
-            <img class="footer-about-logo" src="{{asset('images/logo.png')}}" alt="">
-            <ul class="footer-about-body">
-                <li><a href="">Giới thiệu </a></li>
-                <li><a href="">Danh sách tác giả </a></li>
-                <li><a href="">Điều khoản dịch vụ </a></li>
-                <li><a href="">Chính sách bảo mật </a></li>
-            </ul>
-        </div>
-        <div class="footer-category">
-            <h3 class="footer-category-heading">Danh mục nổi bật</h3>
-            <ul class="footer-category-body">
-                <li><a href="">Nhiếp ảnh, dựng phim </a></li>
-                <li><a href="">Nuôi dạy con </a></li>
-                <li><a href="">Phong cách sống </a></li>
-                <li><a href="">Sức khỏe giới tính </a></li>
-            </ul>
-        </div>
+
     </div>
 
 </footer>

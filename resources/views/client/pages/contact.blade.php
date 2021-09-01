@@ -9,12 +9,12 @@
 
 
 <div class="container">
+    @if (session('message'))
+        <div class="alert alert-success text-center">
+            <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
+        </div>
+    @endif
     <div class="contact-form">
-        <!-- <div class="contact-demo" style="background-image:url('images/contact.png');">
-            <div class="contact-demo-1"></div>
-            <div class="contact-demo-2"></div>
-        </div> -->
-        
         <div class="contact-form__main col-md-8">
             <form action="{{route('contact')}}" method="post">
                 @csrf

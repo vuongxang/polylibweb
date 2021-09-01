@@ -43,4 +43,55 @@
     text-decoration: none;
     font-weight: 600;
     color:var(--black-color);
+    
 }
+.content-center{
+    text-align: center;
+}
+@media screen and (max-width:991px) and (min-width: 768px){
+    .notification,.alert{
+        margin-top: 50px;
+    }
+    
+}
+@media screen and (max-width:767px){
+    .information-aside{
+        margin-top: 50px;
+    }
+    .profile-info{
+        margin-top: 50px;
+    }
+    .table thead{
+        display: none;
+    }
+    .table, .table tbody, .table tr ,.table td{
+        display: block;
+        width: 100%;
+    }
+    .table tr{
+        margin-bottom: 15px;
+        position: relative;
+        box-shadow: 0 0 4px 1px rgb(0 0 0 / 25%);
+        border: 1px solid var(--text-color2);
+        border-radius: 1rem;
+    }
+    .table td{
+        text-align: right;
+    }
+    .table td::before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        padding-left: 15px;
+        font-weight: bold;
+    }
+    .notification-content{
+        
+        border: none;
+    }
+    .notification__link{
+        padding-left: 20%;
+    }
+      
+  
+   }

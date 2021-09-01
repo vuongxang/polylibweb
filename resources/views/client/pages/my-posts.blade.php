@@ -40,14 +40,14 @@
                             @if (count($posts) > 0)
                             @foreach ($posts as $key => $post)
                             <tr>
-                                <td scope="row">{{ $key + 1 }}</td>
-                                <td class="text-center">
-                                    <img src="{{ asset($post->thumbnail) }}" width="70">
+                                <td data-label="STT" scope="row">{{ $key + 1 }}</td>
+                                <td  data-label="Ảnh"  class="img-center">
+                                    <img src="{{ asset($post->thumbnail) }}" width="40">
                                 </td>
-                                <td>
+                                <td  data-label="Tên bài viết" >
                                     {{$post->title}}
                                 </td>
-                                <td>
+                                <td  data-label="Trạng thái" >
                                     @if ($post->status==1)
                                         <span class="badge badge-info bg-success">Hiển thị</span>
                                     @elseif($post->status==0)
@@ -56,7 +56,8 @@
                                     <span class="badge badge-info bg-danger">Từ chối</span>
                                     @endif
                                 </td>
-                                <td class="text-center">
+                                <td  data-label="hành động"  class="img-center">
+                                    <a href="{{ route('post.create') }}" class="fas fa-plus-circle mr-2 p-1 btn-action add-post"></a>
                                     <a href="{{route('post.detail',$post->slug)}}" class="fa fa-eye text-warning p-1 btn-action"></a>
                                     <a href="{{route('post.edit',$post->id)}}" class="fa fa-edit text-success p-1 btn-action"></a>
                                     <a onclick="return confirm('Bạn chắc chắn xóa')" href="{{route('post.destroy',$post->id)}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
@@ -80,7 +81,7 @@
                                 <td>Ảnh bài viết</td>
                                 <td>Tên bài viết</td>
                                 <td>Người đăng</td>
-                                <td>Hành động</td>
+                                <td class="text-center" style="width: 150px;">Hành động</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,7 +94,7 @@
                                         <td>{{ $key +1 }}</td>
                                         <td class="">
                                             <a href="{{ route('post.detail', $wishlist->post->slug) }}">
-                                                <img src="{{ $wishlist->post->thumbnail }}" width="100" alt="Ảnh bài viết">
+                                                <img src="{{ asset($wishlist->post->thumbnail) }}" width="40" alt="Ảnh bài viết">
                                             </a>
                                         </td>
                                         <td>
@@ -106,9 +107,9 @@
                                                 {{ $wishlist->post->user->name }}
                                             </a>
                                         </td>
-                                        <td>
-                                            <a href="{{route('post.wishlist.destroy',['id'=>$wishlist->id])}}"
-                                                class="btn btn-danger">Xóa khỏi yêu thích</a>
+                                        <td class="text-center">
+                                            <a href="{{route('post.wishlist.destroy',['id'=>$wishlist->post->id])}}"
+                                                class="fas fa-trash text-danger"></a>
                                         </td>
                                     </tr>
                                     @endif

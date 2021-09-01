@@ -146,7 +146,7 @@ p {
   padding: .375rem .5625rem;
   font-weight: normal
 }
-.form-select:focus {
+.form-select,.form-select-report:focus {
   border-color: dimgrey;
   outline: 0;
   box-shadow: none
@@ -156,6 +156,11 @@ p {
   width: 100px;
   height: 30px;
   border-color: slategrey;
+}
+.form-select-report{
+  margin-left: 10px;
+  width: 100%;
+  height: 30px;
 }
 
 .btn-acction {

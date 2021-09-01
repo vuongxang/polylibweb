@@ -21,9 +21,9 @@ class WishlistController extends Controller
     }
     public function destroy($id){
         $model = Wishlist::where('post_id',$id);
-        if (!$model) return back();
+        if (!$model) return back()->with('message','Dữ liệu không tồn tại');
         $model->delete();
 
-        return back();
+        return back()->with('message','Xóa khỏi yêu thích thành công !');
     }
 }

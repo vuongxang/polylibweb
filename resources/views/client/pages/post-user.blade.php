@@ -48,17 +48,17 @@
                         <div class="post-item">
                             <div class="post-item__aside">
                                 <div class="post-user-avatar">
-                                    <a href="{{route('post.user',$post->user->id)}}" class="post-user-avatar__link">
+                                    <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}" class="post-user-avatar__link">
 
-                                        <img class="post-user-avatar__img" class="post-user-avatar__img " src="{{ asset($post->user->avatar) }}" alt="">
+                                        <img class="post-user-avatar__img" class="post-user-avatar__img " src="{{ asset($post->user()->withTrashed()->first()->avatar) }}" alt="">
                                     </a>
                                 </div>
                             </div>
                             <div class="post-item__content">
 
                                 <div class="post-user-name">
-                                    <a href="{{route('post.user',$post->user->id)}}" class="post-user-name__link">
-                                        {{ $post->user->name }}
+                                    <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}" class="post-user-name__link">
+                                        {{ $post->user()->withTrashed()->first()->name }}
                                     </a>
                                 </div>
                                 <div class="post-content__title">

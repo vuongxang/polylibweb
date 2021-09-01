@@ -10,25 +10,25 @@
                     <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">
                         {{ Session::get('message') }}</p>
                 @endif
-                <div>   
+                <div class="mb-4">   
                     <form action="" method="get" id="form-page-size">
                         <label for="">Chọn số bản ghi</label>
-                        <select name="page_size" id="page_size">
-                            <option value="5" @if ($pagesize==5) selected @endif>5</option>
+                        <select name="page_size" id="page_size" class="form-select mt-2">
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
-                            <option value="15" @if ($pagesize==15) selected @endif>15</option>
+                            <option value="20" @if ($pagesize==20) selected @endif>20</option>
+                            <option value="50" @if ($pagesize==50) selected @endif>50</option>
                         </select>
                     </form>
                 </div>
                 <div class="data-tabs">
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#home">Đánh giá đã duyệt
-                            <span>({{count($ratings_approved)}})</span> </a></li>
+                            <span>({{$ratings_approved->total()}})</span> </a></li>
                         <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu1">Đánh giá chờ duyệt
-                            <span>({{count($ratings_pending)}})</span></a>
+                            <span>({{$ratings_pending->total()}})</span></a>
                         </li>
                         <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu2">Đánh giá bị xóa
-                            <span>({{count($ratings_deleted)}})</span></a></li>
+                            <span>({{$ratings_deleted->total()}})</span></a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="home" class="tab-pane in active">

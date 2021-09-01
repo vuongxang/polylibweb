@@ -12,16 +12,16 @@
             <div class="d-flex justify-content-between border-bottom">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                      <a class="nav-link active">Danh sách</a>
+                      <a class="nav-link active">Danh sách <span>({{$cates->total()}})</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('postCate.trashlist')}}">Thùng rác</a>
+                        <a class="nav-link" href="{{route('postCate.trashlist')}}">Thùng rác <span>({{$cates_trashed->total()}})</span></a>
                     </li>
                 </ul>
                 <div>   
                     <form action="" method="get" id="form-page-size">
                         <label for="">Chọn số bản ghi</label>
-                        <select name="page_size" id="page_size" >
+                        <select name="page_size" id="page_size" class="form-select mt-2" >
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
                             <option value="20" @if ($pagesize==20) selected @endif>20</option>
                             <option value="50" @if ($pagesize==50) selected @endif>50</option>

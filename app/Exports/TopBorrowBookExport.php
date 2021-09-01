@@ -15,7 +15,7 @@ class TopBorrowBookExport implements FromCollection
     public function collection()
     {
         $keyword = "";
-        $total_day = 7;
+        $total_day = 365;
 
         $now = Carbon::now();
         $time_report = $now->subDay($total_day);

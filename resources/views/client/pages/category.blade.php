@@ -82,7 +82,7 @@
                     <div class="book-card__btn">
                         @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)
                         ->where('status', 'Đang mượn')->first() )
-                        <a href="{{ route('book.read', $book->id) }}" class="review-btn">Đọc sách</a>
+                        <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
                         @else
                         <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn
                             sách</a><a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem

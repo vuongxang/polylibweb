@@ -206,10 +206,13 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
     Route::prefix('report')->group(function () {
         Route::get('top-borrow-book', [ReportController::class, 'topBorrowBook'])->name('report.topBorrowBook');
-        Route::get('export', [ReportController::class, 'exportTopBorrowBook'])->name('report.exportTopBorrowBook');
+        Route::get('export-top-borrow-book', [ReportController::class, 'exportTopBorrowBook'])->name('report.exportTopBorrowBook');
         Route::get('top-view-post', [ReportController::class, 'topViewPost'])->name('report.topViewPost');
+        Route::get('export-top-view-post', [ReportController::class, 'exportTopViewPost'])->name('report.exportTopViewPost');
         Route::get('top-user-post', [ReportController::class, 'topUserPost'])->name('report.topUserPost');
+        Route::get('export-top-user-post', [ReportController::class, 'exportTopUserPost'])->name('report.exportTopUserPost');
         Route::get('top-cate-post', [ReportController::class, 'topCatePost'])->name('report.topCatePost');
+        Route::get('export-top-cate-post', [ReportController::class, 'exportTopCatePost'])->name('report.exportTopCatePost');
     });
 });
 
