@@ -50,7 +50,7 @@ class BookController extends Controller
         return view('admin.books.add-form', compact('cates', 'authors'));
     }
 
-    public function store(BookRequest $request)
+    public function store(BookEditRequest $request)
     {
         $model = new Book();
 
@@ -201,7 +201,9 @@ class BookController extends Controller
             BookGallery::where('book_id', $model->id)->delete();
             if($request->list_image != "[]"){
                 $list_image = json_decode($request->list_image);
+                
                 if ($list_image == null) $list_image[] = $request->list_image;
+                sort($list_image);
                 foreach ($list_image as $url) {
                     $item = [
                         'book_id' => $model->id,

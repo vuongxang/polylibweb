@@ -8,96 +8,107 @@
             <h3 class="m-0 font-weight-bold h6 text-primary">Thêm mới sách</h3>
         </div>
         <div class="row">
-            <div class="col-sm-12 col-md-8 offset-2">
-                <form action="{{ route('book.store') }}" method="post" class="mt-4 mb-4"
-                    enctype="multipart/form-data">
+            <div class="col-sm-12 col-lg-10 offset-1">
+                <form action="{{ route('book.store') }}" method="post" class="mt-4 mb-4" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
-                        <label class="text-dark font-weight-bold" for="exampleInputTitle">Tên sách</label><br>
-                        @if ($errors->has('title'))
-                            <span class="text-danger">{{ $errors->first('title') }}</span>
-                        @endif
-                        <input type="text" class="form-control" id="exampleInputTitle" placeholder="Tên sách" name="title"
-                            value="{{ old('title') }}"> 
+                    <div class="row mb-2">
+                        <div class="form-group col-sm-12 col-lg-6">
+                            <label class="text-dark font-weight-bold" for="exampleInputTitle">Tên sách</label><br>
+                            <input type="text" class="form-control" id="exampleInputTitle" placeholder="Tên sách" name="title" value="{{ old('title') }}"> 
+                            @if ($errors->has('title'))
+                                <span class="text-danger">{{ $errors->first('title') }}</span>
+                            @endif
+                        </div>
+                        <div class="form-group col-sm-12 col-lg-6">
+                            <label class="text-dark font-weight-bold" for="exampleInputFile">Trạng thái</label>
+                            <select name="status" class="form-control">
+                                <option value="1">Hiện</option>
+                                <option value="0">Ẩn</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh bìa sách</label>
-                        <button type="button" class="btn btn-primary mb-2 btn-sm" data-toggle="modal"
-                            data-target="#exampleModal">
-                            Chọn ảnh
-                        </button><br>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh bìa sách</label>
+                            <br>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-camera mr-2"></i>Chọn ảnh
+                            </button>
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="text-dark font-weight-bold" for="exampleInputDate">Ngày đăng</label><br>
+                            <input type="date" class="form-control" id="exampleInputDate" name="publish_date_from"
+                                value="{{ old('publish_date_from') }}">
+                            @if ($errors->has('publish_date_from'))
+                                <span class="text-danger">{{ $errors->first('publish_date_from') }}</span>
+                            @endif
+                        </div>
                         @if ($errors->has('image'))
                             <span class="text-danger">{{ $errors->first('image') }}</span>
                         @endif
                         <div class="show_image" class="mb-2">
                             <img src="" id="show_img" width="200" alt="" value="{{ old('image') }}">
                         </div>
-                        <input type="text" id="image" name="image" hidden class="form-control">
-
+                        <input type="hidden" id="image" name="image" class="form-control">
                     </div>
-                    <div class="form-group">
-                        <label class="text-dark font-weight-bold" for="exampleInputFile">Trạng thái</label>
-                        <select name="status" class="form-control">
-                            <option value="1">Hiện</option>
-                            <option value="0">Ẩn</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
-                        <br>
-                        @if ($errors->has('cate_id'))
-                            <div class="text-danger">{{ $errors->first('cate_id') }}</div>
-                        @endif
-                        <select id="choices-multiple-remove-button" name="cate_id[]" class="form-control"
-                            placeholder="Chọn tối đa 5 danh mục" multiple>
-                            @foreach ($cates as $cate)
-                                <option value="{{ $cate->id }}">{{ $cate->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="text-dark font-weight-bold" for="exampleInputFile">Tác giả</label>
-                        <br>
-                        @if ($errors->has('author_id'))
-                            <div class="text-danger">{{ $errors->first('author_id') }}</div>
-                        @endif
-                        <select id="choices-multiple-remove-button" name="author_id[]" class="form-control"
-                            placeholder="Chọn tối đa 5 tác giả" multiple>
-                            @foreach ($authors as $author)
-                                <option value="{{ $author->id }}">{{ $author->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="text-dark font-weight-bold">Audio file(Nếu có)</label>
-                        <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal"
-                            data-target="#audio_gallery">
-                            Chọn file
-                        </button>
-                        <div class="audio-gallery" class="mb-2">
-
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-lg-6">
+                            <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
+                            <br>
+                            <select id="choices-multiple-remove-button" name="cate_id[]" class="form-control"
+                                placeholder="Chọn tối đa 5 danh mục" multiple>
+                                @foreach ($cates as $cate)
+                                    <option value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('cate_id'))
+                                <div class="text-danger">{{ $errors->first('cate_id') }}</div>
+                            @endif
                         </div>
+                        <div class="form-group col-sm-12 col-lg-6">
+                            <label class="text-dark font-weight-bold" for="exampleInputFile">Tác giả</label>
+                            <br>
+                            <select id="choices-multiple-remove-button" name="author_id[]"
+                                placeholder="Chọn tối đa 5 tác giả" multiple style="height: 35px">
+                                @foreach ($authors as $author)
+                                    <option value="{{ $author->id }}">{{ $author->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('author_id'))
+                                <div class="text-danger">{{ $errors->first('author_id') }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="text-dark font-weight-bold">Audio file(Nếu có)</label>
+                            <br>
+                            <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal" data-target="#audio_gallery">
+                                <i class="far fa-file-audio mr-2"></i> Chọn file
+                            </button>
+                        </div>
+                        <div class="audio-gallery col-6" ></div>
+                        <input type="hidden" id="list_audio" name="list_audio" class="form-control" readonly>
                         @if ($errors->has('list_audio'))
                             <span class="text-danger">{{ $errors->first('list_audio') }}</span>
                         @endif
-                        <input type="hidden" id="list_audio" name="list_audio" class="form-control" readonly>
                     </div>
-
-                    <div class="form-group">
-                        <label class="text-dark font-weight-bold">Nội dung sách</label>
-                        <button type="button" class="btn btn-primary mb-2 btn-sm " data-toggle="modal"
-                            data-target="#image_gallery">
-                            Chọn ảnh
-                        </button><br>
-                        @if ($errors->has('list_image'))
-                            <span class="text-danger">{{ $errors->first('list_image') }}</span>
-                        @endif
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="text-dark font-weight-bold">Nội dung sách</label>
+                            <br>
+                            <button type="button" class="btn btn-primary btn-sm " data-toggle="modal"
+                                data-target="#image_gallery">
+                                <i class="fas fa-camera mr-2"></i>Chọn ảnh
+                            </button>
+                        </div>
+                        <div class="col-6"></div>
                         <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2 img-gallery"> 
                         </div>
                         <input type="hidden" id="list_image" name="list_image" class="form-control">
+                        @if ($errors->has('list_image'))
+                            <span class="text-danger">{{ $errors->first('list_image') }}</span>
+                        @endif
                     </div>
 
                     <div class="form-group">
@@ -107,15 +118,6 @@
                         @endif
                         <textarea type="text" class="form-control tinymce-editor" id="exampleInputDesc" rows="15"
                             placeholder="Nhập thông tin chi tiết" name="description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="text-dark font-weight-bold" for="exampleInputDate">Ngày đăng</label><br>
-                        @if ($errors->has('publish_date_from'))
-                            <span class="text-danger">{{ $errors->first('publish_date_from') }}</span>
-                        @endif
-                        <input type="date" class="form-control" id="exampleInputDate" name="publish_date_from"
-                            value="{{ old('publish_date_from') }}">
-
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary  btn-sm shadow-lg">Thêm mới</button>

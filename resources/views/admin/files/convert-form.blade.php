@@ -9,11 +9,15 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">Form chuyển đổi</div>
+                        <div>
                             @if(Session::has('message'))
                                 <p class="alert {{ Session::get('alert-class') }} text-center">{{ Session::get('message') }}</p>
                             @endif
+                            <div class="alert alert-success text-center" role="alert" style="display: none">
+                                Convert thành công!
+                            </div>
+                            <div class="alert alert-danger text-center" role="alert" id="error_pdf" style="display: none">
+                            </div>
                             <div class="card-body">
                                 <form method="POST" action="" id="fileUploadForm" enctype="multipart/form-data">
                                     @csrf
@@ -27,14 +31,15 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                            
                                         </div>
                                     </div>
-            
                                     <div class="form-group row mb-0">
                                         <div class="col-md-6 offset-md-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                {{ __('THỰC HIỆN') }}
-                                            </button>
+                                            
+                                            <button type="submit" class="btn btn-primary shadow-sm mb-5 rounded-0 d-flex align-items-center">
+                                                <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true" style="display: none"></span>
+                                            <span>Thực hiện</span></button>
                                         </div>
                                     </div>
                                 </form>

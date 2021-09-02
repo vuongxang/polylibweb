@@ -27,7 +27,7 @@ class FileController extends Controller
         // dd($imgExt);
          $imgExt = new Imagick();
         $imgExt->readImage(public_path($pathToPdf));
-        $imgExt->writeImages($output_path.'/pdf_image.jpg', true);
+        $imgExt->writeImages($output_path."/page-%0004d.jpg",true);
 
         // return response()->json('ok');
         return back()->with('message', 'Convert thành công !')->with('alert-class', 'alert-success');
