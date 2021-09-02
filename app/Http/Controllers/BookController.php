@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
-use App\Http\Requests\BookEditRequest;
 use App\Models\Author;
 use App\Models\AuthorBooks;
 use App\Models\Book;
@@ -50,7 +49,7 @@ class BookController extends Controller
         return view('admin.books.add-form', compact('cates', 'authors'));
     }
 
-    public function store(BookEditRequest $request)
+    public function store(BookRequest $request)
     {
         $model = new Book();
 
@@ -152,7 +151,7 @@ class BookController extends Controller
                                             ]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, BookRequest $request)
     {
         $model = Book::find($id);
         $model->fill($request->all());
