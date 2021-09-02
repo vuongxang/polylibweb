@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookDetailController;
+use App\Http\Controllers\BookMarkController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -91,6 +92,13 @@ Route::get('notification-read/{id}', [UserController::class, 'readeNotification'
 Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('notifications.read');
 Route::get('notifications', [UserController::class, 'notifications'])->name('notifications');
 Route::post('post/api/tang-view', [PostShareController::class, 'updateView'])->name('post.updateView');
+
+Route::post('api/addbookmark', [BookMarkController::class, 'addBookMark'])->name('bookmark.add');
+Route::post('api/removebookmark', [BookMarkController::class, 'removeBookMark'])->name('bookmark.remove');
+
+
+
+
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');

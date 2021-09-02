@@ -31,7 +31,7 @@ class BookDetailController extends Controller
 
                 // 
                 foreach ($arr as $ab) {
-                    $newCommentChild[] = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $ab)->where('status',1)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->limit(3)->with('user')->get();
+                    $newCommentChild[] = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $ab)->where('status', 1)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->limit(3)->with('user')->get();
                 }
                 foreach ($newCommentChild as $b) {
                     foreach ($b as $c) {
@@ -48,7 +48,7 @@ class BookDetailController extends Controller
                 }
             }
         } else {
-            $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->where('status',1)->orderBy('id', 'DESC')->take(3)->get();
+            $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->where('status', 1)->orderBy('id', 'DESC')->take(3)->get();
             if (count($comments) > 0) {
                 foreach ($comments as $com) {
                     $arr[] = $com->id;
@@ -57,7 +57,7 @@ class BookDetailController extends Controller
 
                 // 
                 foreach ($arr as $ab) {
-                    $newCommentChild[] = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $ab)->where('status',1)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->take(3)->with('user')->get();
+                    $newCommentChild[] = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $ab)->where('status', 1)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->take(3)->with('user')->get();
                 }
                 foreach ($newCommentChild as $b) {
                     foreach ($b as $c) {
@@ -76,11 +76,11 @@ class BookDetailController extends Controller
         }
         // $comments->load('user');
         $comments->load([
-            'user'=> function ($query) {
+            'user' => function ($query) {
                 $query->withTrashed();
             },
         ]);
-        
+
         // $comments->user()->withTrashed()->get();
         // $commentsChild->load('user');
         // $comments = Comment::where('book_id', $book_id)->where('parent_id', Null)->orderBy('id', 'DESC')->take(3)->get();
@@ -102,7 +102,7 @@ class BookDetailController extends Controller
         //Lấy được parent_id
         $commentChild = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $parrentId)->where('id', '>', $commentId)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->limit(3)->with('user')->get();
         $commentChild->load([
-            'user'=> function ($query) {
+            'user' => function ($query) {
                 $query->withTrashed();
             },
         ]);
@@ -148,6 +148,9 @@ class BookDetailController extends Controller
                 $message = "Chưa có đánh giá nào cho cuốn sách";
             }
         }
+        $rates->load(['user' => function ($query) {
+            $query->withTrashed();
+        }]);
         if (!isset($message)) {
 
             return response()->json([$rates]);

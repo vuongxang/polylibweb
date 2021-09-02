@@ -73,11 +73,11 @@ $(document).ready(function() {
                 var html = '';
                 audio_gallery.forEach((item, index) => {
                     html +=
-                        `<div class="d-flex align-items-center">
+                        `<div class="d-flex align-items-center mb-1">
                             <audio src="${item}" id="show_list_audio" controls>
                             Trình duyệt không hỗ trợ phát âm thanh
                             </audio>
-                            <span aria-hidden="true" value="${item}" class="btn btn-outline-danger cancle-audio">&times;</span>
+                            <span aria-hidden="true" value="${item}" class="font-weight-bold btn btn-outline-dark cancle-audio">&#10006</span>
                         </div>`;
                 });
                 $('.audio-gallery').html(html);
@@ -87,7 +87,7 @@ $(document).ready(function() {
                             <audio src="${audio_list}" id="show_list_audio" controls>
                             Trình duyệt không hỗ trợ phát âm thanh
                             </audio>
-                            <span aria-hidden="true" value="${audio_list}" class="btn btn-outline-danger cancle-audio">&times;</span>
+                            <span aria-hidden="true" value="${audio_list}" class="btn btn-outline-dark cancle-audio">&#10006</span>
                         </div>`;
                 $('.audio-gallery').html(html);
             }
