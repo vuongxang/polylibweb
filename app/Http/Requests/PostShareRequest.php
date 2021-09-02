@@ -24,7 +24,7 @@ class PostShareRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:post_share_categories|min:5',
+            'title' => 'required|min:5',
             'cate_id' => 'required',
             'thumbnail' => ['required','image','mimes:jpeg,png,jpg,gif,svg','max:2000'],
             'content' => 'required'
@@ -34,8 +34,8 @@ class PostShareRequest extends FormRequest
     {
         return [
             'title.required' => 'Nhập tiêu đề bài viết',
-            'title.unique' => 'Tên bài viết đã tồn tại',
             'title.min' => 'Tối thiểu 5 ký tự',
+            'cate_id.required' => 'Chọn danh mục bài viết',
             'thumbnail.required' => 'Chọn ảnh bài viết',
             'thumbnail.mimes' => 'Không đúng định dạng ảnh',
             'thumbnail.image' => 'File không phải là ảnh',

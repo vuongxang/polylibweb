@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <textarea name="content" id="exampleInputDesc" rows="30" class="tinymce-editor" placeholder="Nội dung">
+                    <textarea name="content" id="editor1" rows="30" class="tinymce-editor" placeholder="Nội dung">
                         {{old('content',$post->content)}}
                     </textarea>
                 </div>
@@ -92,7 +92,7 @@
             <div class="mt-4" id="progress" style="display: none">
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0"
-                        aria-valuemax="100" style="">
+                        aria-valuemax="100">
                     </div>
                 </div>
             </div>
@@ -121,61 +121,61 @@
     });
 
 
-    tinymce.init({
-        selector: 'textarea#exampleInputDesc',
-        plugins: 'print preview tinydrive searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+    // tinymce.init({
+    //     selector: 'textarea#exampleInputDesc',
+    //     plugins: 'print preview tinydrive searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 
-        codesample_languages: [{
-                text: 'HTML/XML',
-                value: 'markup'
-            },
-            {
-                text: 'JavaScript',
-                value: 'javascript'
-            },
-            {
-                text: 'CSS',
-                value: 'css'
-            },
-            {
-                text: 'PHP',
-                value: 'php'
-            },
-            {
-                text: 'Ruby',
-                value: 'ruby'
-            },
-            {
-                text: 'Python',
-                value: 'python'
-            },
-            {
-                text: 'Java',
-                value: 'java'
-            },
-            {
-                text: 'C',
-                value: 'c'
-            },
-            {
-                text: 'C#',
-                value: 'csharp'
-            },
-            {
-                text: 'C++',
-                value: 'cpp'
-            }
-        ],
-        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
+    //     codesample_languages: [{
+    //             text: 'HTML/XML',
+    //             value: 'markup'
+    //         },
+    //         {
+    //             text: 'JavaScript',
+    //             value: 'javascript'
+    //         },
+    //         {
+    //             text: 'CSS',
+    //             value: 'css'
+    //         },
+    //         {
+    //             text: 'PHP',
+    //             value: 'php'
+    //         },
+    //         {
+    //             text: 'Ruby',
+    //             value: 'ruby'
+    //         },
+    //         {
+    //             text: 'Python',
+    //             value: 'python'
+    //         },
+    //         {
+    //             text: 'Java',
+    //             value: 'java'
+    //         },
+    //         {
+    //             text: 'C',
+    //             value: 'c'
+    //         },
+    //         {
+    //             text: 'C#',
+    //             value: 'csharp'
+    //         },
+    //         {
+    //             text: 'C++',
+    //             value: 'cpp'
+    //         }
+    //     ],
+    //     toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
 
-        tinycomments_author: 'Author name',
-        external_filemanager_path: "/filemanager/",
-        filemanager_title: "Responsive Filemanager",
-        external_plugins: {
-            "filemanager": "/filemanager/plugin.min.js"
-        },
-        tinycomments_mode: 'embedded',
-    });
+    //     tinycomments_author: 'Author name',
+    //     external_filemanager_path: "/filemanager/",
+    //     filemanager_title: "Responsive Filemanager",
+    //     external_plugins: {
+    //         "filemanager": "/filemanager/plugin.min.js"
+    //     },
+    //     tinycomments_mode: 'embedded',
+    // });
 
     var faqs_row = 0;
 

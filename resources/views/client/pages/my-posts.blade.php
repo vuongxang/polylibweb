@@ -41,11 +41,13 @@
                             @foreach ($posts as $key => $post)
                             <tr>
                                 <td data-label="STT" scope="row">{{ $key + 1 }}</td>
-                                <td  data-label="Ảnh"  class="img-center">
-                                    <img src="{{ asset($post->thumbnail) }}" width="40">
+                                <td data-label="Ảnh"  class="img-center">
+                                    <a href="{{ route('post.detail', $post->slug) }}">
+                                        <img src="{{ asset($post->thumbnail) }}" width="40" alt="Ảnh bài viết">
+                                    </a>
                                 </td>
                                 <td  data-label="Tên bài viết" >
-                                    {{$post->title}}
+                                <a style="color:black" href="{{ route('post.detail', $post->slug) }}">{{$post->title}}</a>
                                 </td>
                                 <td  data-label="Trạng thái" >
                                     @if ($post->status==1)

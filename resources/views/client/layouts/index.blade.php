@@ -35,6 +35,14 @@
 
     </div>
 
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace('editor1',{
+            filebrowserUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
+            // filebrowserBrowseUrl : "{{ url('')}}/filemanager/dialog.php?field_id=imgField&lang=en_EN&akey=urDy9RR9agzmDEQw7u7gPO6qee",
+            filebrowserUploadMethod : 'form'
+        });
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>

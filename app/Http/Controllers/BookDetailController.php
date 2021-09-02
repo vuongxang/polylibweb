@@ -21,7 +21,7 @@ class BookDetailController extends Controller
         $book_slug = $request->id;
         $book = Book::where('slug', $book_slug)->first();
         if ($request->book_id > 0) {
-            $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->where('id', '<', $request->book_id)->where('status', 1)->orderBy('id', 'DESC')->take(3)->get();
+            $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->where('id', '<', $request->book_id)->where('status',1)->orderBy('id', 'DESC')->take(3)->get();
             // $commentsChild = Comment::where('book_id', $book_id)->where('parent_id','!=',Null)->orderBy('parent_id','DESC')->get();
             if (count($comments) > 0) {
                 foreach ($comments as $com) {

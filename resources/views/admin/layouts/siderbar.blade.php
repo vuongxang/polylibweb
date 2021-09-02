@@ -157,8 +157,8 @@
             <span>Nhập file khóa tài khoản</span>
         </a>
     </li>
-    @endif
     <hr class="sidebar-divider">
+    @endif
     <div class="sidebar-heading"> 
         Thống kê
     </div>
