@@ -25,7 +25,7 @@ class PostShareCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:post_share_categories|min:5',
-            'image' => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)', 'max:100'],
+            'image' => ['required','regex:([a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$)', 'max:100'],
             'description' => 'required'
         ];
     }

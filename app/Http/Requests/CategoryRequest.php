@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             "name" => 'required|unique:categories|min:5|max:30',
-            "image" => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
+            "image" => ['required','regex:([a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$)'],
             "description" => 'required',
         ];
     }
