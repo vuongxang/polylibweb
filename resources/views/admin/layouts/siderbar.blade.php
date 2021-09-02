@@ -172,8 +172,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('report.topBorrowBook')}}">Top sách mượn nhiều</a>
                 <a class="collapse-item" href="{{route('report.topViewPost')}}">Top bài viết view cao</a>
-                <a class="collapse-item" href="{{route('report.topUserPost')}}">Top SV chia sẻ nhiều</a>
-                <a class="collapse-item" href="{{route('report.topCatePost')}}">Top Danh mục bài viết</a>
+                <a class="collapse-item" href="{{route('report.topUserPost')}}">Top SV đăng nhiều</a>
+                <a class="collapse-item" href="{{route('report.topCatePost')}}">Top danh mục bài viết</a>
             </div>
         </div>
     </li>
