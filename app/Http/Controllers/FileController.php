@@ -13,7 +13,7 @@ class FileController extends Controller
         return view('admin.files.convert-form');
     }
 
-    public function store(Request $request){
+    public function store(PdfFileRequest $request){
 
         $fileName = uniqid().'_'.$request->pdf_file->getClientOriginalName();
         $filePath = $request->file('pdf_file')->storeAs('uploads', $fileName, 'public');
@@ -22,12 +22,13 @@ class FileController extends Controller
 
         $forder_existed = mkdir(public_path("/uploads/pdf/$fileName"), 0777);
         $output_path = public_path("/uploads/pdf/".$fileName);
-        $pdf = new Pdf($pathToPdf);
-        $number_page = $pdf->getNumberOfPages();
-        dd($pdf);
-        for($i=1;$i<=$number_page;$i++){
-            $pdf->saveImage($output_path);
-        }
+        // $imgExt = new Imagick();
+        // $imgExt->readImage(public_path($pathToPdf));
+        // dd($imgExt);
+         $imgExt = new Imagick();
+        $imgExt->readImage(public_path($pathToPdf));
+        $imgExt->writeImages($output_path."/page-%0004d.jpg",true);
+
         // return response()->json('ok');
         return back()->with('message', 'Convert thành công !')->with('alert-class', 'alert-success');
     }

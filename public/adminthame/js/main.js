@@ -1,24 +1,31 @@
 $(document).ready(function () {
-    // $('#fileUploadForm').ajaxForm({
-    //     beforeSend: function () {
-    //         $("#progress").css("display", "block");
-    //         var percentage = '0';
-    //     },
-    //     uploadProgress: function (event, position, total, percentComplete) {
-    //         var percentage = percentComplete;
-    //         $('.progress .progress-bar').css("width", percentage + '%', function () {
-    //             return $(this).attr("aria-valuenow", percentage) + "%";
-    //         })
-    //     },
-    //     error: function (response, status, e) {
-    //         console.log(response.responseJSON.message);
-    //     },
-    //     complete: function (xhr) {
-    //         $("#progress-arlert").css("display", "block");
+    $('#fileUploadForm').ajaxForm({
+        beforeSend: function () {
+            $(".spinner-border").css("display", "block");
+        },
+        uploadProgress: function (event, position, total, percentComplete) {
+            var percentage = percentComplete;
+            $('.progress .progress-bar').css("width", percentage + '%', function () {
+                return $(this).attr("aria-valuenow", percentage) + "%";
+            })
+        },
+        error: function (response, status, e) {
+            console.log(response.responseJSON.errors.pdf_file[0]);
+            $("#error_pdf").css("display", "block");
+            $('#error_pdf').html(response.responseJSON.errors.pdf_file[0]);
+            $(".spinner-border").css("display", "none");
+        },
+        success: function(res) {
+            $(".spinner-border").css("display", "none");
+            $(".alert-success").css("display", "block");
+            $("#error_pdf").css("display", "none");
 
-    //         console.log('File has uploaded');
-    //     }
-    // });
+            console.log('File has uploaded');
+        },
+        complete: function (xhr) {
+
+        }
+    });
 
     // var pusher = new Pusher('{{ env('
     //     PUSHER_APP_KEY ') }}', {

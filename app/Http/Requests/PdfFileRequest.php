@@ -24,7 +24,16 @@ class PdfFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'pdf_file' => ['required|mimes:pdf|max:30000']
+            'pdf_file' => "required|mimes:pdf|max:30000"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'pdf_file.required' => 'Vui lòng upload file.',
+            'pdf_file.mimes' => 'Vui lòng nhập file pdf.',
+            'pdf_file.max' => 'File quá lớn.',
         ];
     }
 }
