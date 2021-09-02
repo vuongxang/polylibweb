@@ -67,7 +67,7 @@ Route::post('contact', [ContactController::class, 'postContact'])->name('contact
 Route::get('wishlist/{id}', [WishlistController::class, 'wishlist'])->name('post.wishlist');
 Route::get('destroy-wishlist/{id}', [WishlistController::class, 'destroy'])->name('post.wishlist.destroy');
 
-Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+// Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
 // Route::view('review', 'client.pages.review-book');

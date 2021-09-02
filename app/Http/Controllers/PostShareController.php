@@ -118,7 +118,7 @@ class PostShareController extends Controller
         return view('client.pages.addnew-post', ['cates' => $cates]);
     }
 
-    public function store(Request $request)
+    public function store(PostShareRequest $request)
     {
         $model = new PostShare();
         if ($request->hasFile('thumbnail')) {

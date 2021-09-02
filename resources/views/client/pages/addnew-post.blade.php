@@ -35,6 +35,9 @@
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
                     <br>
+                    @if ($errors->has('cate_id'))
+                    <span class="text-danger">{{ $errors->first('cate_id') }}</span>
+                    @endif
                     <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Chọn tối đa 5 danh mục"
                         multiple>
                         @foreach ($cates as $cate)
@@ -103,14 +106,6 @@
 <script src="https://cdn.tiny.cloud/1/z61mklx0qjtdxp2smr8tj2bcs3dkzef4894ven0bm30q2dv9/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 
-<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-<!-- <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> -->
-<script type="text/javascript">
-    CKEDITOR.replace('editor1',{
-        filebrowserUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
-        filebrowserUploadMethod : 'form'
-    });
-</script>
 <script>
 $(document).ready(function() {
 
@@ -124,65 +119,6 @@ $(document).ready(function() {
 });
 
 
-    // tinymce.init({
-    //     selector: '#editor',
-    //     toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
-    //     plugins: 'print preview searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap emoticons',
-    //     // toolbar: 'undo redo | link image | code',
-    //     // plugins: 'image code',
-    //     image_title: true,
-    //     automatic_uploads: true,
-    //     file_picker_types: 'image',
-        
-    //     /* and here's our custom image picker*/
-    //     file_picker_callback: function(cb, value, meta) {
-    //         var input = document.createElement('input');
-    //         input.setAttribute('type', 'file');
-    //         input.setAttribute('accept', 'image/*');
-    //         input.onchange = function() {
-    //             var file = this.files[0];
-
-    //             var reader = new FileReader();
-    //             reader.onload = function() {
-    //                 var id = 'blobid' + (new Date()).getTime();
-    //                 var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-    //                 var base64 = reader.result.split(',')[1];
-    //                 var blobInfo = blobCache.create(id, file, base64);
-    //                 blobCache.add(blobInfo);
-
-    //                 /* call the callback and populate the Title field with the file name */
-    //                 cb(blobInfo.blobUri(), {
-    //                     title: file.name
-    //                 });
-    //             };
-    //             reader.readAsDataURL(file);
-    //         };
-
-    //         input.click();
-    //     },
-    // });
-
-    tinymce.init({
-        selector: '#editor',
-        // theme: 'modern',
-        browser_spellcheck: true,
-        height: 480,
-        images_upload_url: 'resources/scripts/postAcceptor.php',
-        images_upload_base_path: '/some/basepath',
-        plugins: [
-            'advlist autolink link code image lists charmap print preview hr anchor pagebreak spellchecker',
-            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-            'save table contextmenu directionality emoticons template paste textcolor'
-        ],
-
-        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | fontselect'
-    });
-
-    tinymce.activeEditor.uploadImages(function(success) {
-        $.post('ajax/post.php', tinymce.activeEditor.getContent()).done(function() {
-            console.log("Uploaded images and posted content as an ajax request.");
-        });
-    });
 
 </script>
 @endsection
