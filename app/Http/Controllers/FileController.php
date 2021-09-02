@@ -22,13 +22,14 @@ class FileController extends Controller
 
         $forder_existed = mkdir(public_path("/uploads/pdf/$fileName"), 0777);
         $output_path = public_path("/uploads/pdf/".$fileName);
+        // $imgExt = new Imagick();
+        // $imgExt->readImage(public_path($pathToPdf));
+        // dd($imgExt);
+         $imgExt = new Imagick();
+        $imgExt->readImage(public_path($pathToPdf));
+        $imgExt->writeImages($output_path.'/pdf_image.jpg', true);
 
-        $pdf = new Pdf($pathToPdf);
-        $number_page = $pdf->getNumberOfPages();
-        for($i=1;$i<=$number_page;$i++){
-            $pdf->setPage($i)->saveImage($output_path);
-        }
-        return response()->json('ok');
-        // return back()->with('message', 'Convert thành công !')->with('alert-class', 'alert-success');
+        // return response()->json('ok');
+        return back()->with('message', 'Convert thành công !')->with('alert-class', 'alert-success');
     }
 }

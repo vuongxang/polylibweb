@@ -152,7 +152,7 @@ class BookController extends Controller
                                             ]);
     }
 
-    public function update($id, BookEditRequest $request)
+    public function update($id, Request $request)
     {
         $model = Book::find($id);
         $model->fill($request->all());
