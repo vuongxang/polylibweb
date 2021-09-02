@@ -39,8 +39,8 @@ class BookController extends Controller
         $books->load('authors');
         $books->load('bookGalleries');
         $books->load('bookAudios');
-
-        return view('admin.books.index', compact('books', 'pagesize'));
+        $books_trashed = Book::onlyTrashed()->paginate(10);
+        return view('admin.books.index', compact('books', 'pagesize','books_trashed'));
     }
 
     public function create()
