@@ -1,154 +1,165 @@
-<header class="header">
+<header class="header grid-custom-mobile">
     <div class="header-mobile">
-        <div class="toggle-cate">
-            <i class="fas fa-bars"></i>
-        </div>
-        <!-- search -->
-        <div class="search-box">
-            <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
-                <input class="search-txt" name="keyword" type="text" placeholder="Tìm kiếm" value="@isset($_GET['keyword']){{$_GET['keyword']}}@endisset">
-                <a class="search-btn" href="#">
-                    <i class="fas fa-search search-icon"></i>
-                </a>
-            </form>
-        </div>
-        <!-- end search -->
-        <div class="header-menu__cate">
-
-            <ul class="header-mobile__nav">
-                <li class="header__nav-li"><a class="link" href="{{route('home')}}"><i class="fas fa-home"></i>Trang Chủ</a></li>
-                <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}"><i class="fas fa-bars"></i>Danh Mục</a></li>
-                <li class="header__nav-li"><a class="link" href="{{route('post')}}"><i class="fas fa-file-signature"></i>Bài Viết</a></li>
-                <li class="header__nav-li"><a class="link" href="{{route('contact')}}"><i class="fas fa-id-badge"></i>Liên Hệ</a></li>
-            </ul>
-        </div>
         <div class="header-mobile__logo">
             <a href="{{route('home')}}"><img src="{{ asset('images/logo.png') }}" alt="" class="header__logo-img"></a>
         </div>
-        <div class="toggle-user">
-            @guest
-            @if (Route::has('login'))
-            <a class="" href="{{ route('login') }}"> <i class="fa fa-sign-in-alt"></i></a>
-            @endif
-            @else
-            <div class="header-menu__users">
-                <div class="header__information-notification ">
-                    <!-- Nav Item - Alerts -->
-                    <div class="header-notification" id="header-notification-mobile">
-                        <button class=" header-notification__bell" id="alertsDropdown-mobile">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <!-- Counter - Alerts -->
-                           
-                            <span class="badge badge-danger badge-counter" id="unread-notify">
-                                {{auth()->user()->unreadNotifications->count()}}
-                            </span>
-                        </button>
+        <div class="header-mobile__function">
+            <div class="toggle-cate toggle-icon">
+                <i class="fas fa-bars"></i>
+            </div>
+            <!-- search -->
+            <div class="toggle-search toggle-icon">    
+                    <i class="fas fa-search"></i> 
+                <!-- <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
+                    <input class="search-txt" name="keyword" type="text" placeholder="Tìm kiếm" value="@isset($_GET['keyword']){{$_GET['keyword']}}@endisset">
+                    <a class="search-btn" href="#">
+                        <i class="fas fa-search search-icon"></i>
+                    </a>
+                </form> -->
+            </div>
+            <!-- end search -->
+            <!-- notification -->
+            <div class="notification toggle-icon">
+                @guest
+                    @if (Route::has('login'))
+                             <a class="" href="#"><i class="fas fa-bell"></i></a>
+                    @endif
+                @else
+                <div class="header-menu__users">
+                    <div class="header__information-notification ">
+                        <!-- Nav Item - Alerts -->
+                        <div class="header-notification" id="header-notification-mobile">
+                            <button class=" header-notification__bell" id="alertsDropdown-mobile">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
 
-                        <!-- Dropdown - Alerts -->
-                        <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown-mobile">
-                            <div class="notification-dropdown-header">
-                                <div class="notification-header__title">Thông báo</div>
-                                <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
-                            </div>
-                            <div class="notification-dropdown-body">
-                                @if(count(Auth::user()->notifications) == 0)
-                                <div id="notification-message"> Bạn chưa có thông báo mới</div>
-                                @endif
-                                @if(count(Auth::user()->notifications) > 0)
+                                <span class="badge badge-danger badge-counter" id="unread-notify">
+                                    {{auth()->user()->unreadNotifications->count()}}
+                                </span>
+                            </button>
 
-                                @foreach (Auth::user()->notifications as $key => $notification)
-                                @if($key==5) @break
-                                @endif
-                                <div class=" notification-dropdown">
-                                    <a class="notification-dropdown__link" href="{{route('notification.read',$notification->id)}}">
-                                        <div class="notification-dropdown-wrapper">
-
-                                            <div class="notification-avatar">
-                                                <img src="{{$notification->data['avatar']}}" alt="">
-
-                                            </div>
-                                            <div class=" notification-body">
-                                                <div class="notification-body__content ">{{ $notification->data['content'] }}</div>
-                                                <span class="notification-body__time ">{{ Carbon\Carbon::parse($notification->created_at)->locale('vi')->diffForHumans() }}</span>
-                                            </div>
-                                            <div class=" notification-icon">
-                                                @if ($notification->read_at==null)
-                                                <!-- <i class="fas fa-file-alt text-white"></i> -->
-                                                <i class="fas fa-circle"></i>
-                                                @else
-                                                <i class="fas fa-check "></i>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown-mobile">
+                                <div class="notification-dropdown-header">
+                                    <div class="notification-header__title">Thông báo</div>
+                                    <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
                                 </div>
+                                <div class="notification-dropdown-body">
+                                    @if(count(Auth::user()->notifications) == 0)
+                                    <div id="notification-message"> Bạn chưa có thông báo mới</div>
+                                    @endif
+                                    @if(count(Auth::user()->notifications) > 0)
 
-                                @endforeach
-                                @endif
+                                    @foreach (Auth::user()->notifications as $key => $notification)
+                                    @if($key==5) @break
+                                    @endif
+                                    <div class=" notification-dropdown">
+                                        <a class="notification-dropdown__link" href="{{route('notification.read',$notification->id)}}">
+                                            <div class="notification-dropdown-wrapper">
+
+                                                <div class="notification-avatar">
+                                                    <img src="{{$notification->data['avatar']}}" alt="">
+
+                                                </div>
+                                                <div class=" notification-body">
+                                                    <div class="notification-body__content ">{{ $notification->data['content'] }}</div>
+                                                    <span class="notification-body__time ">{{ Carbon\Carbon::parse($notification->created_at)->locale('vi')->diffForHumans() }}</span>
+                                                </div>
+                                                <div class=" notification-icon">
+                                                    @if ($notification->read_at==null)
+                                                    <!-- <i class="fas fa-file-alt text-white"></i> -->
+                                                    <i class="fas fa-circle"></i>
+                                                    @else
+                                                    <i class="fas fa-check "></i>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    @endforeach
+                                    @endif
 
 
+                                </div>
+                                <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
                             </div>
-                            <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
                         </div>
                     </div>
-                </div>
-                <div class="inf-user">
-                    <i class="fas fa-user"></i>
-                </div>
-            </div>
-            @endguest
-        </div>
-        <div class="header-menu__user  ">
-            <div class="header-mobile__information">
-
-                @guest
-                @if (Route::has('login'))
-                <a class="btn--login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
-                @endif
-                @else
-                <div>
-                    <a class="nav-link  header__information-info" href="#">
-                        <img src="{{Auth::user()->avatar}}" alt="">
-                        <!-- <i class="fas fa-caret-down"></i> -->
-                        <p>{{Auth::user()->name}}</p>
-                        <!-- <p>{{Auth::user()->email}}</p> -->
-                    </a>
-
-                    @if (Auth::check())
-                    <div>
-                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                        <a class="dropdown-item dropdown-item-custom" href="{{ route('dashboard') }}">
-                            <i class="fas fa-users-cog"></i>Quản trị
-                        </a>
-                        @endif
-
-
-                        <a class="dropdown-item dropdown-item-custom" href="{{ route('client.profile', Auth::user()->id) }}">
-                            <i class="fas fa-user"></i>Hồ sơ cá nhân
-                        </a>
-                        <a class="dropdown-item dropdown-item-custom" href="{{ route('user.history', Auth::user()->id) }}">
-                            <i class="fas fa-history"></i>Lịch sử mượn sách
-                        </a>
-                        <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
-                            <i class="fas fa-history"></i>Tài liệu của tôi
-                        </a>
-                        <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
-                            <i class="fas fa-star"></i>Đánh giá
-                        </a>
-
-
-                        <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                    @endif
+                  
                 </div>
                 @endguest
+            </div>
+            <!-- end notification -->
+
+            <div class="toggle-user toggle-icon">
+                @guest
+                @if (Route::has('login'))
+                <a class="" href="{{ route('login') }}"><i class="fa fa-sign-in-alt"></i></a>
+                @endif
+                @else
+                <div class="header-menu__users">
+                    <div class="inf-user">
+                        <a class="nav-link header__information-info" href="#">
+                            <img src="{{Auth::user()->avatar}}" alt="">
+                        </a>
+                    </div>
+                </div>
+                @endguest
+            </div>
+            <div class="header-menu__cate">
+                <ul class="header-mobile__nav">
+                    <li class="header__nav-li"><a class="link" href="{{route('home')}}"><i class="fas fa-home"></i>Trang Chủ</a></li>
+                    <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}"><i class="fas fa-bars"></i>Danh Mục</a></li>
+                    <li class="header__nav-li"><a class="link" href="{{route('post')}}"><i class="fas fa-file-signature"></i>Bài Viết</a></li>
+                    <li class="header__nav-li"><a class="link" href="{{route('contact')}}"><i class="fas fa-id-badge"></i>Liên Hệ</a></li>
+                </ul>
+            </div>
+            <div class="header-menu__user">
+                <div class="header-mobile__information">
+                    @guest
+                    @if (Route::has('login'))
+                    <a class="btn--login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
+                    @endif
+                    @else
+                    <div>
+
+                        @if (Auth::check())
+                        <div>
+                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                            <a class="dropdown-item dropdown-item-custom" href="{{ route('dashboard') }}">
+                                <i class="fas fa-users-cog"></i>Quản trị
+                            </a>
+                            @endif
+
+
+                            <a class="dropdown-item dropdown-item-custom" href="{{ route('client.profile', Auth::user()->id) }}">
+                                <i class="fas fa-user"></i>Hồ sơ cá nhân
+                            </a>
+                            <a class="dropdown-item dropdown-item-custom" href="{{ route('user.history', Auth::user()->id) }}">
+                                <i class="fas fa-history"></i>Lịch sử mượn sách
+                            </a>
+                            <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
+                                <i class="fas fa-history"></i>Tài liệu của tôi
+                            </a>
+                            <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
+                                <i class="fas fa-star"></i>Đánh giá
+                            </a>
+
+
+                            <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                        @endif
+                    </div>
+                    @endguest
+                </div>
             </div>
         </div>
 
@@ -195,38 +206,7 @@
                 </div>
 
                 <ul class="search-dropdown__ul " id="js-search-dropdown__ul--author">
-                    <!-- <li class="search-dropdown__li">
-                    <a href="/book-detail/${item.id}" class="search-dropdown__link">
-                        <div class="book-card-horizontal">
-                            <div class="book-card-author-avatar ">
-                                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
-                            </div>
-                            <div class="book-search-info">
-                                <div class="book-search-info__name">The Chew</div>
-                                <div class="book-search-info__dob">1/8/2021</div>
-                                <div class="book-search-info__description">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum doloremque, similique explicabo nemo tempora non vero aliquam repudiandae inventore ipsa incidunt impedit qui quod culpa officia quis dicta eaque tempore?
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="search-dropdown__li">
-                    <a href="/book-detail/${item.id}" class="search-dropdown__link">
-                        <div class="book-card-horizontal">
-                            <div class="book-card-author-avatar ">
-                                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
-                            </div>
-                            <div class="book-search-info">
-                                <div class="book-search-info__name">The Chew</div>
-                                <div class="book-search-info__dob">1/8/2021</div>
-                                <div class="book-search-info__description">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum doloremque, similique explicabo nemo tempora non vero aliquam repudiandae inventore ipsa incidunt impedit qui quod culpa officia quis dicta eaque tempore?
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li> -->
+
                 </ul>
 
             </div>
@@ -619,7 +599,6 @@
         })
         $('.inf-user').click(function() {
             $('.header-menu__user').toggleClass('show-user')
-
         })
         $('.search-btn').click(function() {
 
