@@ -93,8 +93,11 @@ Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('not
 Route::get('notifications', [UserController::class, 'notifications'])->name('notifications');
 Route::post('post/api/tang-view', [PostShareController::class, 'updateView'])->name('post.updateView');
 
-Route::post('api/addbookmark', [BookMarkController::class, 'addBookMark'])->name('bookmark.add');
-Route::post('api/removebookmark', [BookMarkController::class, 'removeBookMark'])->name('bookmark.remove');
+Route::post('api/add-bookmark', [BookMarkController::class, 'addBookMark'])->name('bookmark.add');
+Route::post('api/remove-bookmark', [BookMarkController::class, 'removeBookMark'])->name('bookmark.remove');
+Route::post('/api/check-bookmark', [BookMarkController::class, 'checkBookMark'])->name('bookmark.check');
+Route::post('/api/list-bookmark', [BookMarkController::class, 'listBookMark'])->name('bookmark.list');
+
 
 
 

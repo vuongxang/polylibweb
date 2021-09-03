@@ -367,6 +367,7 @@ class BookController extends Controller
         if ($book) {
             $pages = BookGallery::where('book_id', '=', $book->id)->orderBy('url', 'ASC')->get();
             return view('client.pages.reading-book', ['pages' => $pages], ['book' => $book]);
+            // return view('client.pages.reading', ['pages' => $pages], ['book' => $book]);
         } else {
             return abort(404);
         }
