@@ -25,8 +25,11 @@ class FileController extends Controller
         // $imgExt = new Imagick();
         // $imgExt->readImage(public_path($pathToPdf));
         // dd($imgExt);
-         $imgExt = new Imagick();
+        $imgExt = new Imagick();
+        $imgExt->setResolution(100,100);
         $imgExt->readImage(public_path($pathToPdf));
+        // $imgExt->setCompressionQuality(200);
+        // $imgExt->resizeImage( 2000, 2000, imagick::FILTER_LANCZOS, 0);
         $imgExt->writeImages($output_path."/page-%0004d.jpg",true);
 
         // return response()->json('ok');
