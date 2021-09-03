@@ -12,10 +12,10 @@
             <div class="d-flex justify-content-between ">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active ">Danh sách  ( {{count($books)}} )</a>
+                        <a class="nav-link active ">Danh sách  ({{$books->total()}})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('book.trashlist')}}">Thùng rác ( {{$books_trashed->total()}} )</a>
+                        <a class="nav-link" href="{{route('book.trashlist')}}">Thùng rác ({{$books_trashed->total()}})</a>
                     </li>
                 </ul>
                 <div>
@@ -67,7 +67,7 @@
                         <td class="text-center">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-sm btn-secondary shadow-lg " data-toggle="modal" data-target="#read-{{$book->id}}">
-                                Đọc
+                                Xem
                             </button>
                         </td>
                         <td class="text-center">

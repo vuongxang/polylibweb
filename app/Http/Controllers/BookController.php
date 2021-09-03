@@ -171,7 +171,7 @@ class BookController extends Controller
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
         $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
-        
+
         //Check type audio list
         if ($request->list_audio && $request->list_audio != "[]") {
             $list_audio = json_decode($request->list_audio);
@@ -269,8 +269,9 @@ class BookController extends Controller
     {
 
         $keyword = $request->keyword;
-        $books = Book::onlyTrashed()->where('title', 'like', "%" . $keyword . "%")->paginate(5);
-        return view('admin.books.trash-list', compact('books'));
+        $books_trashed = Book::onlyTrashed()->where('title', 'like', "%" . $keyword . "%")->paginate(10);
+        $books = Book::paginate(10);
+        return view('admin.books.trash-list', compact('books_trashed','books'));
     }
 
     public function restore($id)

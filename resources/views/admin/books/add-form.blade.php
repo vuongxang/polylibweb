@@ -117,7 +117,6 @@
                             <span class="text-danger">{{ Session::get('error_image') }}</span>
                         @endif
                     </div>
-
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputDesc">Thông tin chi tiết</label><br>
                         @if ($errors->has('description'))
