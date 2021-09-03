@@ -24,6 +24,12 @@
                     <div class="login__logo center">
                         <img class="login__logo-img" src="{{asset('images/logo.png')}}" alt="">
                     </div>
+                    
+                    <div class="login__button center">
+                        <a class="button button--google" href="{{ route('login.google') }}">
+                            <img src="{{asset('images/google-icon.svg')}}" class="login__icon-google" alt=""><span> Đăng nhập bằng Google</span>
+                        </a>
+                    </div>
                     @if (session('message'))
                    
                     <div class="alert-wrap">
@@ -33,11 +39,6 @@
                     </div>
                    
                     @endif
-                    <div class="login__button center">
-                        <a class="button button--google" href="{{ route('login.google') }}">
-                            <img src="{{asset('images/google-icon.svg')}}" class="login__icon-google" alt=""><span> Đăng nhập bằng Google</span>
-                        </a>
-                    </div>
                     
                 </div>
             </div>
