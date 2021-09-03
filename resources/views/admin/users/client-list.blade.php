@@ -10,11 +10,22 @@
             <p class="alert {{ Session::get('alert-class', 'alert-success') }} text-center">{{ Session::get('message') }}</p>
             @endif
             <div class="data-tabs">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#home">Tài khoản người dùng</a></li>
-                    <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu1">Tài khoản bị khóa</a></li>
-                </ul>
-
+                <div class="d-flex justify-content-between">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#home">Tài khoản người dùng</a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#menu1">Tài khoản bị khóa</a></li>
+                    </ul>
+                    <div>
+                        <form action="" method="get" id="form-page-size">
+                            <label for="">Chọn số bản ghi</label>
+                            <select name="page_size" id="page_size" class="form-select rounded " aria-label=".form-select-sm" >
+                                <option value="10" @if ($pagesize==10) selected @endif>10</option>
+                                <option value="25" @if ($pagesize==25) selected @endif>25</option>
+                                <option value="50" @if ($pagesize==50) selected @endif>50</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
                 <div class="tab-content">
                     <div id="home" class="tab-pane in active">
                         <table class="table table-hover border-right border-left border-bottom table-sm rounded" id="dataTable" width="100%" cellspacing="0">
