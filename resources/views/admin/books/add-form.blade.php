@@ -92,6 +92,10 @@
                         @if ($errors->has('list_audio'))
                             <span class="text-danger">{{ $errors->first('list_audio') }}</span>
                         @endif
+                        
+                        @if (Session::get('error_audio'))
+                            <span class="text-danger">{{ Session::get('error_audio') }}</span>
+                        @endif
                     </div>
                     <div class="form-group row">
                         <div class="col-6">
@@ -108,6 +112,9 @@
                         <input type="hidden" id="list_image" name="list_image" class="form-control">
                         @if ($errors->has('list_image'))
                             <span class="text-danger">{{ $errors->first('list_image') }}</span>
+                        @endif
+                        @if (Session::get('error_image'))
+                            <span class="text-danger">{{ Session::get('error_image') }}</span>
                         @endif
                     </div>
 

@@ -70,13 +70,22 @@ class BookController extends Controller
         // }
         // die;
 
-
+        //Check type audio list
         if ($request->list_audio && $request->list_audio != "[]") {
             $list_audio = json_decode($request->list_audio);
             if ($list_audio == null) $list_audio[] = $request->list_audio;
-            dd($list_audio);
+            $pattern = "/\.(?:wav|mp3)$/i";
             foreach ($list_audio as $key => $value) {
-                
+                if(!preg_match($pattern, $value)) return back()->with('error_audio','Chỉ cho phép chọn file mp3,av.');
+            }
+        }
+        //check type image list
+        if ($request->list_image) {
+            $list_image = json_decode($request->list_image);
+            if ($list_image == null) $list_image[] = $request->list_image;
+            $pattern = "/[a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$/i";
+            foreach ($list_image as $key => $value) {
+                if(!preg_match($pattern, $value)) return back()->with('error_image','Chỉ cho phép ảnh định dạng jpeg,jpg,png.');
             }
         }
         $model->save();
@@ -123,10 +132,6 @@ class BookController extends Controller
                 DB::table('book_galleries')->insert($item);
             }
         }
-        // $duoiImage = $request->image;
-        // ->getClientOriginalExtension();
-        // dd($duoiImage);
-        // if($request->image )
 
         return redirect(route('book.index'))->with('message', 'Thêm mới sách thành công !')->with('alert-class', 'alert-success');
     }
@@ -166,6 +171,25 @@ class BookController extends Controller
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
         $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
+        
+        //Check type audio list
+        if ($request->list_audio && $request->list_audio != "[]") {
+            $list_audio = json_decode($request->list_audio);
+            if ($list_audio == null) $list_audio[] = $request->list_audio;
+            $pattern = "/\.(?:wav|mp3)$/i";
+            foreach ($list_audio as $key => $value) {
+                if(!preg_match($pattern, $value)) return back()->with('error_audio','Chỉ cho phép chọn file mp3,av.');
+            }
+        }
+        //check type image list
+        if ($request->list_image) {
+            $list_image = json_decode($request->list_image);
+            if ($list_image == null) $list_image[] = $request->list_image;
+            $pattern = "/[a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$/i";
+            foreach ($list_image as $key => $value) {
+                if(!preg_match($pattern, $value)) return back()->with('error_image','Chỉ cho phép ảnh định dạng jpeg,jpg,png.');
+            }
+        }
         $model->save();
 
         CategoryBook::where('book_id', $model->id)->delete();

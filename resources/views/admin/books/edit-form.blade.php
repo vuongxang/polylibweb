@@ -108,6 +108,9 @@
                     @if ($errors->has('list_audio'))
                         <span class="text-danger">{{$errors->first('list_audio')}}</span>
                     @endif
+                    @if (Session::get('error_audio'))
+                        <span class="text-danger">{{ Session::get('error_audio') }}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Nội dung sách</label><br>
@@ -131,6 +134,9 @@
                     @if ($errors->has('list_image'))
                         <span class="text-danger">{{$errors->first('list_image')}}</span>
                     @endif
+                    @if (Session::get('error_image'))
+                        <span class="text-danger">{{ Session::get('error_image') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
@@ -140,7 +146,6 @@
                         <span class="text-danger">{{$errors->first('description')}}</span>
                     @endif
                 </div>
-                
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark btn-sm shadow-lg">Cập nhật</button>
                     <a href="{{route('book.index')}}" class="btn btn-danger btn-sm shadow">Hủy</a>
@@ -149,6 +154,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
