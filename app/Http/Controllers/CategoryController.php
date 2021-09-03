@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
-use App\Http\Requests\CategoryEditRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Book;
@@ -44,7 +43,7 @@ class CategoryController extends Controller
         return view('admin.cates.edit-form', ['model' => $model]);
     }
 
-    public function update($id,CategoryEditRequest $request){
+    public function update($id,CategoryRequest $request){
         $model = Category::find($id);
         $model->fill($request->all());
         // dd($request->image->getSize());
