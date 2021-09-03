@@ -20,7 +20,7 @@
                     @if ($errors->has('title'))
                     <span class="text-danger">{{ $errors->first('title') }}</span>
                     @endif
-                    <input id="my-input" class="form-control" type="text" name="title" placeholder="Nhập tiêu đề">
+                    <input id="my-input" class="form-control" type="text" name="title" value="{{ old('title') }}" placeholder="Nhập tiêu đề">
                 </div>
 
                 <div class="form-group">
@@ -29,7 +29,7 @@
                     @if ($errors->has('thumbnail'))
                     <span class="text-danger">{{ $errors->first('thumbnail') }}</span>
                     @endif
-                    <input type="file" id="thumbnail" name="thumbnail">
+                    <input type="file" id="thumbnail" name="thumbnail" value="{{ old('thumbnail') }}">
                     <br>
                 </div>
                 <div class="form-group">
@@ -79,6 +79,7 @@
                     <span class="text-danger">{{ $errors->first('content') }}</span>
                     @endif
                     <textarea name="content" id="editor1" rows="20" class="form-control" placeholder="Nội dung">
+                        {{ old('content') }}
                     </textarea>
                 </div>
                 <div class="text-center">

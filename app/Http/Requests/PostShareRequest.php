@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PostShareRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class PostShareRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5',
+            'title' => ['required','min:5',Rule::unique('post_shares')->ignore($this->id)],
             'cate_id' => 'required',
             'thumbnail' => ['required','image','mimes:jpeg,png,jpg,gif,svg','max:2000'],
             'content' => 'required'
@@ -33,6 +34,7 @@ class PostShareRequest extends FormRequest
     public function messages()
     {
         return [
+            'title.unique' => 'Tiêu đề bài viết đã tồn tại.',
             'title.required' => 'Nhập tiêu đề bài viết',
             'title.min' => 'Tối thiểu 5 ký tự',
             'cate_id.required' => 'Chọn danh mục bài viết',

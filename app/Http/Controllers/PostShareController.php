@@ -192,8 +192,8 @@ class PostShareController extends Controller
             $request->file('upload')->move('uploads/ckeditor/', $fileName);
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
             $url = asset('uploads/ckeditor/'. $fileName);
-            $msg = 'Tải ảnh lên thành công';
-            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum,'$url','$msg')</script>";
+            // $msg = 'Tải ảnh lên thành công';
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum,'$url')</script>";
             @header('Content-type:text/html; charset=utf-8');
             echo $response;
         }

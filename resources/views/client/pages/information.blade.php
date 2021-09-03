@@ -5,6 +5,7 @@
 @yield('childCss')
 @endsection
 
+@section('title', 'PolyLib')
 @section('content')
 
 
