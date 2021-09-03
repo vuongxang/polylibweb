@@ -679,14 +679,6 @@ i.fas.fa-check {
         width: 45px;  
         text-align: center;
     }
-    .toggle-cate i{
-        padding: 10px;
-        background-color: #d6d5d5;
-        border-radius: 50%;
-        width: 37px;
-        font-size: 16px;
-
-    }
     .header-notification__bell i{
         padding: 10px;
         background-color: #d6d5d5;
@@ -694,7 +686,6 @@ i.fas.fa-check {
         width: 37px;
         font-size: 17px;
     }
-   
     .toggle-user
     {
         width: 45px;
@@ -707,18 +698,7 @@ i.fas.fa-check {
         line-height: 60px;
         cursor: pointer;
     }
-    .toggle-user i{
-        padding: 10px;
-        background-color: #d6d5d5;
-        border-radius: 50%;
-        width: 37px;
-        font-size: 17px;
-    }
-    .toggle-search{
-        width: 45px;
-        text-align: center;
-    }
-    .toggle-icon i{
+    .toggle-icon{
         padding: 10px;
         background-color: #d6d5d5;
         border-radius: 50%;
@@ -731,69 +711,72 @@ i.fas.fa-check {
         width: 45px;
         text-align: center;
     }
+    #menu_notification{
+        top: 58px;
+        right: -5px;
+    }
     /* search */
-    .header-menu__cate{
-        position: absolute;
-        margin-top: 50px;
-        width: 45%;
-        left: -100%;
-        transition: all 0.5s;
-    }
-    .show-cate{
-        left: 0;
-    }
-    .search-input {
-        position: absolute;
-        height: 37px;
-        width: 38%;
-        left: 65%;
-        top: 27%;
+    .toggle-search{
+        position: relative;
+        width: 45px;
+        text-align: center;
+        display: block;
     }
     .search-box{
         width: 60px;
         text-align: center;
     }    
     .search-txt{
-        /* margin-left: 6%; */
         height: 35px;
         border-radius: 35px;
         outline: none;
-        border: 1px solid  rgb(214 213 213);
-        padding-left: 35%;
-        width: 33px;
+        border: 1px solid rgb(214 213 213);
+        width: 90%;
+        margin-top: 11px;
+        padding-left: 5%;
     }
     ::placeholder{
         font-size: 13px;
         color: gray;
-        padding-left: 5%;
-    }
-    .search-btn{
-        position: absolute;
-        background-color: rgb(214 213 213);
-        padding: 18px;
-        border-radius: 50%;
-       
     }
     .search-icon{
-        left: 32%;
+        left: -58%;
         position: absolute;
-        top: 32%;
+        top: 55%;
+        color: gray;
     }
     .test{
-        width: 160px;
+        left: -181px!important;
     }
-    .search-form{
-        
-        height: 60px;
-        
+
+    .search-hiden{
+        position: absolute;
+        background-color: white;
+        top: 48px;
+        width: 345px;
+        text-align: center;
+        left: 163px;
+        transition: all 0.7s;
+    }
+    .search-form{    
+        height: 100vh;
+        width: 100%;
     }
     .header-mobile__search{
         height: 44px;
         position: relative;
      
     }
-
     /* end search */
+    .header-menu__cate{
+        position: absolute;
+        width: 45%;
+        right:-100%;
+        transition: all 0.7s;
+    }
+    .show-cate{
+        right: 0;
+    }
     .header-mobile__nav{
        background-color: #ffffff;
        height: 100vh;
@@ -808,29 +791,28 @@ i.fas.fa-check {
        
     }
     .header__nav-li:first-child{
-       margin-top: 15px;
-       
+       margin-top: 10px;
     }
-    
     .header__nav-li i{
       margin-right: 10px;       
     }
     /* tài khoản */
     .header-menu__user{
         position: relative;
-        right: -100%;
+        right: -100%; 
         transition: all 0.7s;
+        background-color: #ffffff;
     }
     .show-user{
-        right: 100%;
+        right: 0%!important;
     }
     .header-mobile__information{
         position: absolute;
         background-color: #ffffff;
         width: 45%;
-        right: 100%;
-        margin-top: 60px;
+        right: -45%;  
         height: 100vh;
+        transition: all 0.7s;
     }
     .header-notification__bell span{
         left: 65%;
@@ -839,6 +821,7 @@ i.fas.fa-check {
     .dropdown-item-custom{
         margin: 21px 18px;
         color: #858585; 
+        font-size: 1.7rem;
     } 
     .header__information-info{
         display: block;
@@ -851,27 +834,29 @@ i.fas.fa-check {
         height: 37px;
         margin: 0;
     }
-    /* .header-menu__users{
-        display: flex;
-        align-items: center;
-    } */
     #menu_notification__mobile{
         top: 100%;
         right: 0;
     }
-
 }
 @media screen and (max-width:375px){
     .header-mobile__information{
         width: 100%;
+        right: -100%;
     }
     .header-menu__cate{
         width: 100%;
       
     }
+    .search-hiden{
+        width: 375px;
+    }
+    .test{
+        left: -220px!important;
+    }
     #menu_notification{
-        top: 100%;
-        right: -43px;
+        top: 49px;
+        right: -44px;
     }
     .search-box{
         position: absolute;
