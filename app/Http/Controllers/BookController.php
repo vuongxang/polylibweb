@@ -71,6 +71,15 @@ class BookController extends Controller
         // }
         // die;
 
+
+        if ($request->list_audio && $request->list_audio != "[]") {
+            $list_audio = json_decode($request->list_audio);
+            if ($list_audio == null) $list_audio[] = $request->list_audio;
+            dd($list_audio);
+            foreach ($list_audio as $key => $value) {
+                
+            }
+        }
         $model->save();
 
         if ($request->cate_id) {

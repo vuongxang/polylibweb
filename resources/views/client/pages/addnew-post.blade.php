@@ -106,19 +106,5 @@
 <script src="https://cdn.tiny.cloud/1/z61mklx0qjtdxp2smr8tj2bcs3dkzef4894ven0bm30q2dv9/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 
-<script>
-$(document).ready(function() {
-
-    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-        removeItemButton: true,
-        maxItemCount: 5,
-        searchResultLimit: 5,
-        renderChoiceLimit: 5
-    });
-
-});
-
-
-
-</script>
+<script src="{{asset('js/client/post-form.js')}}"></script>
 @endsection
