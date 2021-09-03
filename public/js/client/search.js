@@ -16,7 +16,7 @@ $(function ($) {
     // window.addEventListener('resize', () => {
     //     carouselWidth = document.querySelector('.search-author__container').offsetWidth;
     // })
-    console.log(carouselWidth)
+    // console.log(carouselWidth)
     const newTrack = [...track]
     let index = 0;
     const indexArray = newTrack.map(function () {
@@ -71,7 +71,7 @@ $(function ($) {
 
     let keyword = $('input[name= "keyword"]').val();
 
-    console.log(keyword)
+    // console.log(keyword)
     // const keyword = decodeURI(GetURLParameter('keyword'))
     for (const item of jsFilterItem) {
 
@@ -105,7 +105,7 @@ $(function ($) {
 
                 dataType: 'json',
                 success: function (res) {
-                    console.log(res)
+                    // console.log(res)
                     const books = [...res[0]];
 
                     const key = [res[1]];
@@ -154,7 +154,7 @@ $(function ($) {
                                                 <a href="/review/${book.slug}" class="review-btn">Xem trước</a>`
                                     }
                                     book.orders?.map(order => {
-                                        console.log(parseInt(order.id_user), auth.id)
+                                        // console.log(parseInt(order.id_user), auth.id)
                                         if (parseInt(order.id_user) == auth.id) {
                                             if (order.status == 'Đang mượn') {
                                                 link = `<a href="/read/${book.slug}" class="review-btn">Đọc sách</a>`
@@ -188,7 +188,7 @@ $(function ($) {
 
                 },
                 error: function (xhr, status, error) {
-                    console.log("Error!" + xhr.error);
+                    // console.log("Error!" + xhr.error);
                 },
 
             })
@@ -221,7 +221,7 @@ $(function ($) {
                     const result = books.map((book) => {
                         const sum = book.rates?.reduce((a, b) => a.rating + b.rating);
                         const avg = (sum / book.rates?.length) || 0;
-                        console.log(avg, books)
+                        // console.log(avg, books)
                         return `<div class="book-card ">
                                     <div class="book-card__img">
                                         <a href="/book-detail/${book.slug}">
@@ -270,7 +270,7 @@ $(function ($) {
 
             },
             error: function (xhr, status, error) {
-                console.log("Error!" + xhr.error);
+                // console.log("Error!" + xhr.error);
             },
 
         })

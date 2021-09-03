@@ -38,7 +38,7 @@
                         <button class=" header-notification__bell" id="alertsDropdown-mobile">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
-                           
+
                             <span class="badge badge-danger badge-counter" id="unread-notify">
                                 {{auth()->user()->unreadNotifications->count()}}
                             </span>
@@ -241,7 +241,7 @@
                 </ul>
 
             </div>
-
+            <a class="load-more__notification js-search-all" href="javascript:void(0)">Xem tất cả </a>
         </div>
     </div>
     <div class="header__information">
@@ -412,7 +412,13 @@
          * Bắt sự kiện click vào layout tắt dropdown tìm kiếm và thông báo
          * Và bắt nổi bọt khi bấm vào dropdown tìm kiếm và thông báo
          */
-        console.log(keyword);
+
+
+        $('.js-search-all').click(() => {
+
+            window.location = `/search?keyword=${keyword.val()}`;
+        })
+        // console.log(keyword);
         $('.container-custom').click(() => {
             $('#js-search__dropdown').addClass('hidden');
             $('#menu_notification').addClass('hidden');
@@ -441,27 +447,27 @@
             ajaxStart: function() {
                 $('#js-search-dropdown__ul--cate').append(
                     ` <div class="lds-ellipsis">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>`
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>`
                 )
                 $('#js-search-dropdown__ul--author').append(
                     ` <div class="lds-ellipsis">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>`
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>`
                 )
                 $('#js-search-dropdown__ul--post').append(
                     ` <div class="lds-ellipsis">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>`
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>`
                 )
             },
             ajaxStop: function() {
@@ -475,7 +481,7 @@
          */
         keyword.on('input', function(e) {
 
-            console.log(keyword.val().length);
+            // console.log(keyword.val().length);
 
             // if (e.which <= 90 && e.which >= 48) {
             //     console.log('hello');
@@ -488,10 +494,11 @@
                 if (AuthUser) {
 
                     if (keyword.val() && keyword.val().trim().length > 1 && keyword.val().length > 1) {
-                        console.log(keyword.val().trim().length);
+                        // console.log(keyword.val().trim().length);
                         $('#js-search__dropdown').removeClass('hidden');
                         $('#js-search-dropdown__ul--cate').empty();
                         $('#js-search-dropdown__ul--author').empty();
+                        $('#js-search-dropdown__ul--post').empty();
                         $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -504,13 +511,13 @@
                             },
                             dataType: 'json',
                             success: function(res) {
-                                console.log(res.status)
+                                // console.log(res.status)
                                 if (res.length > 0) {
                                     searchBookResult = [...res[0]];
                                     searchAuthorResult = [...res[1]];
                                     searchPostResult = [...res[2]];
                                     if (searchBookResult.length > 0) {
-                                        console.log(searchBookResult);
+                                        // console.log(searchBookResult);
                                         const booksResult = searchBookResult.map((item, index) => {
                                             if (index < 3) {
                                                 return `<li class="search-dropdown__li">
