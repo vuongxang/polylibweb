@@ -51,7 +51,6 @@
                                 <li>
                                     <a href="{{asset($postFile->url)}}">{{$postFile->title}}</a>
                                     <span class="btn btn-outline-danger js-span" id="{{$postFile->id}}">&#10006</span>
-                                    {{-- onclick="closeFile({{$postFile->id}} --}}
                                 </li>
                             @endforeach
                         </ul>

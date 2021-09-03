@@ -30,12 +30,9 @@ class PostShare extends Model
         );
     }
 
-    // public function wishlist(){
-    //     return $this->belongsTo(
-    //         Wishlist::class, 'wishlists', 'post_id', 'user_id'
-    //     );
-    // }
-
+    public function wishlist(){
+        return $this->hasMany(Wishlist::class, 'post_id');
+    }
 
     public function postFiles(){
         return $this->hasMany(PostFileData::class, 'post_id');

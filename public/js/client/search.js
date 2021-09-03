@@ -61,7 +61,7 @@ $(function ($) {
 
         var sURLVariables = sPageURL.split('&');
         for (var i = 0; i < sURLVariables.length; i++) {
-            var sParameterName = sURLVariables[i].split('=');
+        var sParameterName = sURLVariables[i].split('=');
             if (sParameterName[0] == sParam) {
                 return sParameterName[1];
             }
@@ -119,12 +119,12 @@ $(function ($) {
                             }
                             return `<div class="book-card ">
                                     <div class="book-card__img">
-                                        <a href="/book-detail/${book.id}">
+                                        <a href="/book-detail/${book.slug}">
                                             <img src="${book.image}" alt="">
                                         </a>
                                     </div>
                                     <div class="book-card__title">
-                                        <a href="/book-detail/${book.id}">
+                                        <a href="/book-detail/${book.slug}">
                                             <h3> ${book.title} </h3>
                                         </a>
                                     </div>
@@ -224,12 +224,12 @@ $(function ($) {
                         console.log(avg, books)
                         return `<div class="book-card ">
                                     <div class="book-card__img">
-                                        <a href="/book-detail/${book.id}">
+                                        <a href="/book-detail/${book.slug}">
                                             <img src="${book.image}" alt="">
                                         </a>
                                     </div>
                                     <div class="book-card__title">
-                                        <a href="/book-detail/${book.id}">
+                                        <a href="/book-detail/${book.slug}">
                                             <h3> ${book.title} </h3>
                                         </a>
                                     </div>
@@ -252,7 +252,7 @@ $(function ($) {
                                     </div>
                                     <div class="book-card__btn">
                                         <a href="/book-order/${book.id}" class="borrow-btn">Mượn sách</a>
-                                        <a href="/read-online/${book.id}" class="review-btn">Xem trước</a>
+                                        <a href="/read-online/${book.slug}" class="review-btn">Xem trước</a>
                                     </div>
                                 </div>
                                 `

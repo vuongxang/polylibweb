@@ -27,8 +27,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-6">
+                    <div class="row mb-2">
+                        <div class="form-group col-6">
                             <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh bìa sách</label>
                             <br>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">

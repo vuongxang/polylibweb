@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryEditRequest;
 use App\Models\PostShareCategory;
 use App\Http\Requests\PostShareCategoryRequest;
 use Illuminate\Http\Request;
@@ -43,19 +44,19 @@ class PostShareCategoryController extends Controller
         return view('admin.post-cates.edit-form', ['model' => $model]);
     }
 
-    public function update($id,Request $request){
+    public function update($id,CategoryEditRequest $request){
         
-        $this->validate($request,[
-            'name'=>'required|min:5',
-            'image'=>['regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
-            'description'=>'required',
-        ],[
-            'name.required'=>'Nhập tên danh mục bài viết',
-            'name.min' => 'Tối thiểu 5 ký tự',
-            'image.required'=>'Chọn ảnh danh mục bài viết',
-            'image.regex'=>'Không đúng định dạng ảnh',
-            'description.required'=>'Nhập mô tả danh mục bài viết',
-        ]);
+        // $this->validate($request,[
+        //     'name'=>'required|min:5',
+        //     'image'=>['regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
+        //     'description'=>'required',
+        // ],[
+        //     'name.required'=>'Nhập tên danh mục bài viết',
+        //     'name.min' => 'Tối thiểu 5 ký tự',
+        //     // 'image.required'=>'Chọn ảnh danh mục bài viết',
+        //     'image.regex'=>'Không đúng định dạng ảnh',
+        //     'description.required'=>'Nhập mô tả danh mục bài viết',
+        // ]);
         $model = PostShareCategory::find($id);
         if(!$model) return back();
         $model->fill($request->all());
