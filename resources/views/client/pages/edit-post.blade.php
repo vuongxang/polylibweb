@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <textarea name="content" id="editor1" rows="30" class="tinymce-editor" placeholder="Nội dung">
+                    <textarea name="content" id="editor1" rows="30" class="form-control" placeholder="Nội dung">
                         {{old('content',$post->content)}}
                     </textarea>
                 </div>

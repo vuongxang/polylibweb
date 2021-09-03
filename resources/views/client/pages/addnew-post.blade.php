@@ -29,7 +29,7 @@
                     @if ($errors->has('thumbnail'))
                     <span class="text-danger">{{ $errors->first('thumbnail') }}</span>
                     @endif
-                    <input type="file" id="thumbnail" name="thumbnail" value="{{old('thumbnail')}}">
+                    <input type="file" id="thumbnail" name="thumbnail" value="{{ old('thumbnail') }}">
                     <br>
                 </div>
                 <div class="form-group">

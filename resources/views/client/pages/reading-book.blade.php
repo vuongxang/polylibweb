@@ -261,6 +261,15 @@
             <div class="page-number"><span id="slider-value">1</span> / <span class="page-total">{{count($pages)}}</span> </div>
         </div>
     </div>
+    
+    <!-- Chống copy nột dung -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+        $('*').bind('cut copy paste contextmenu', function (e) {
+            e.preventDefault();
+        })});
+    </script>
+    <!-- end -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/zoomooz/1.1.6/jquery.zoomooz.min.js" integrity="sha512-AjArtM7mKvqtbUJTylYXhk5TUfmK1o6aikn3HmkbuYlq+g5vcuzGGZhIsx7ZDHF9wMXjF7bLWoOTRQlW8O5i4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <!-- <script src="{{asset('js/client/zoom.js')}}"></script> -->

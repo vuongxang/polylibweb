@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CategoryRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => 'required|unique:categories|min:5|max:30',
+            "name" => ['required','min:5','max:30',Rule::unique('categories')->ignore($this->id)],
             "image" => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
             "description" => 'required',
         ];

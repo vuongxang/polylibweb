@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('css/client/pages/book-detail.css') }}">
 @endsection
 
+@section('title', 'PolyLib')
 @section('content')
 
 <div class="container">
@@ -22,6 +23,7 @@
             </ul> -->
             <div class="tab-content">
                 <div id="da_danh_gia"  class="">
+                    @if(count($user_rating)>0)
                     @foreach ($user_rating as $user_rate)
                     <table class="table table-bordered">
                         @if ($user_rate->book)
@@ -81,6 +83,9 @@
                         @endif
                     </table>
                     @endforeach
+                    @else
+                    <p class="text-center" style="font-size: 16px;">Bạn chưa đánh giá cuốn sách nào!</p>
+                    @endif
                 </div>
             </div>
         </div>
