@@ -27,7 +27,7 @@
                     <div class="show_image" class="mb-2">
                         <img src="{{ asset(old('image', $model->image)) }}" id="show_img" alt="" width="100">
                     </div>
-                    <input type="text" id="image" name="image" hidden class="form-control">
+                    <input type="text" id="image" name="image" hidden class="form-control" value="{{ old('image',$model->image) }}">
                    
                 </div>
                 <div class="form-group">

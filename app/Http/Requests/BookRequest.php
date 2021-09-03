@@ -25,7 +25,7 @@ class BookRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:50',
-            'image' => ['required','regex:([^\\s]+(\\.(?i)(jpe?g|jpg|png))$)'],
+            'image' => ['required','regex:([a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$)'],
             'description' => 'required',
             'publish_date_from' => 'required',
             'cate_id' => 'required',

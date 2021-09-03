@@ -11,10 +11,10 @@
             @endif
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('book.index')}}">Danh sách</a>
+                  <a class="nav-link" href="{{route('book.index')}}">Danh sách <span>({{$books->total()}})</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active ">Thùng rác</a>
+                    <a class="nav-link active ">Thùng rác({{$books_trashed->total()}})</a>
                   </li>
             </ul>
             <table class="table table-hover border-right border-left border-bottom table-sm rounded" id="dataTable" width="100%" cellspacing="0">
@@ -25,7 +25,6 @@
                         <th class="text-center">Ảnh</th>
                         <th class="text-center">Tác giả</th>
                         <th class="text-center">Danh mục</th>
-                        <th>Nội dung</th>
                         {{-- <th>@sortablelink('publish_date_from','Ngày đăng')</th> --}}
                         <th class="text-center">@sortablelink('status','Trạng thái')</th>
                         <th class="text-center">

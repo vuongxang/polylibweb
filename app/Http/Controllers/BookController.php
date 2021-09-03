@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
-use App\Http\Requests\BookEditRequest;
 use App\Models\Author;
 use App\Models\AuthorBooks;
 use App\Models\Book;
@@ -50,7 +49,7 @@ class BookController extends Controller
         return view('admin.books.add-form', compact('cates', 'authors'));
     }
 
-    public function store(BookEditRequest $request)
+    public function store(BookRequest $request)
     {
         $model = new Book();
 
@@ -71,6 +70,24 @@ class BookController extends Controller
         // }
         // die;
 
+        //Check type audio list
+        if ($request->list_audio && $request->list_audio != "[]") {
+            $list_audio = json_decode($request->list_audio);
+            if ($list_audio == null) $list_audio[] = $request->list_audio;
+            $pattern = "/\.(?:wav|mp3)$/i";
+            foreach ($list_audio as $key => $value) {
+                if(!preg_match($pattern, $value)) return back()->with('error_audio','Chỉ cho phép chọn file mp3,av.');
+            }
+        }
+        //check type image list
+        if ($request->list_image) {
+            $list_image = json_decode($request->list_image);
+            if ($list_image == null) $list_image[] = $request->list_image;
+            $pattern = "/[a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$/i";
+            foreach ($list_image as $key => $value) {
+                if(!preg_match($pattern, $value)) return back()->with('error_image','Chỉ cho phép ảnh định dạng jpeg,jpg,png.');
+            }
+        }
         $model->save();
 
         if ($request->cate_id) {
@@ -115,10 +132,6 @@ class BookController extends Controller
                 DB::table('book_galleries')->insert($item);
             }
         }
-        // $duoiImage = $request->image;
-        // ->getClientOriginalExtension();
-        // dd($duoiImage);
-        // if($request->image )
 
         return redirect(route('book.index'))->with('message', 'Thêm mới sách thành công !')->with('alert-class', 'alert-success');
     }
@@ -152,12 +165,31 @@ class BookController extends Controller
                                             ]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, BookRequest $request)
     {
         $model = Book::find($id);
         $model->fill($request->all());
         $milliseconds = round(microtime(true) * 1000);
         $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
+
+        //Check type audio list
+        if ($request->list_audio && $request->list_audio != "[]") {
+            $list_audio = json_decode($request->list_audio);
+            if ($list_audio == null) $list_audio[] = $request->list_audio;
+            $pattern = "/\.(?:wav|mp3)$/i";
+            foreach ($list_audio as $key => $value) {
+                if(!preg_match($pattern, $value)) return back()->with('error_audio','Chỉ cho phép chọn file mp3,av.');
+            }
+        }
+        //check type image list
+        if ($request->list_image) {
+            $list_image = json_decode($request->list_image);
+            if ($list_image == null) $list_image[] = $request->list_image;
+            $pattern = "/[a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$/i";
+            foreach ($list_image as $key => $value) {
+                if(!preg_match($pattern, $value)) return back()->with('error_image','Chỉ cho phép ảnh định dạng jpeg,jpg,png.');
+            }
+        }
         $model->save();
 
         CategoryBook::where('book_id', $model->id)->delete();
@@ -237,8 +269,9 @@ class BookController extends Controller
     {
 
         $keyword = $request->keyword;
-        $books = Book::onlyTrashed()->where('title', 'like', "%" . $keyword . "%")->paginate(5);
-        return view('admin.books.trash-list', compact('books'));
+        $books_trashed = Book::onlyTrashed()->where('title', 'like', "%" . $keyword . "%")->paginate(10);
+        $books = Book::paginate(10);
+        return view('admin.books.trash-list', compact('books_trashed','books'));
     }
 
     public function restore($id)
