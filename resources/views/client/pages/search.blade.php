@@ -276,8 +276,8 @@
                     @foreach($posts as $post)
                     <div class="post-item">
                         <div class="post-card ">
-                            <a class="post-card-link" href="">
-                                <img src="{{asset($post->thumbnail)}}" class="post-card-img-top" alt="">
+                            <a class="post-card-link" href="{{ route('post.detail', $post->slug) }}">
+                                <img src="{{asset($post->thumbnail)}}" class="post-card-img-top" alt="{{$post->slug}}">
                             </a>
                             <div class="post-card-body">
                                 <div class="post-item__content">
@@ -291,7 +291,7 @@
                                         <div class="post-body-user__avatar">
                                             <a href="{{ route('post.user', $post->user()->withTrashed()->first()->id )}}">
 
-                                                <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}" alt="">
+                                                <img src="{{ asset($post->user()->withTrashed()->first()->avatar) }}" alt="{{ asset($post->user()->withTrashed()->first()->avatar) }}">
                                             </a>
                                         </div>
 

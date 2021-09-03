@@ -356,6 +356,7 @@ class PostShareController extends Controller
     public function postUser($id)
     {   
         $user = User::where('id',$id)->withTrashed()->first();
+        $user->load('wishlist');
         if(!$user){return abort(404);}
         $posts = PostShare::where('user_id',$user->id)->paginate(5);
 

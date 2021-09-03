@@ -25,7 +25,6 @@
                         <th class="text-center">Ảnh</th>
                         <th class="text-center">Tác giả</th>
                         <th class="text-center">Danh mục</th>
-                        <th>Nội dung</th>
                         {{-- <th>@sortablelink('publish_date_from','Ngày đăng')</th> --}}
                         <th class="text-center">@sortablelink('status','Trạng thái')</th>
                         <th class="text-center">

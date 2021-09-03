@@ -107,6 +107,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @foreach ($book->bookGalleries as $item)
+                        <img src="{{$item->url}}" alt="" width="100" class="img-thumbnail">
+                    @endforeach
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

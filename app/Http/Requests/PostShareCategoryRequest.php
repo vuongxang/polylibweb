@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PostShareCategoryRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class PostShareCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:post_share_categories|min:5',
+            'name' => ['required','min:5',Rule::unique('post_share_categories')->ignore($this->id)],
             'image' => ['required','regex:([a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$)', 'max:100'],
             'description' => 'required'
         ];

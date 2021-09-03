@@ -20,7 +20,7 @@
                     @if ($errors->has('title'))
                     <span class="text-danger">{{ $errors->first('title') }}</span>
                     @endif
-                    <input id="my-input" class="form-control" type="text" name="title" value="{{ old('title') }}" placeholder="Nhập tiêu đề">
+                    <input id="my-input" class="form-control" type="text" name="title" placeholder="Nhập tiêu đề" value="{{old('title')}}">
                 </div>
 
                 <div class="form-group">

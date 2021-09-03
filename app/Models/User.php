@@ -57,4 +57,8 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(PostShare::class, 'user_id');
     }
+
+    public function wishlist(){
+        return $this->hasMany(Wishlist::class, 'user_id');
+    }
 }

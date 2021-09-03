@@ -24,7 +24,16 @@ class ImportExcelRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'file_upload' => ['required','regex:([^\\s]+(\\.(?i)(xsml|csv|ods))$)', 'max:100']
+            'file_upload' => 'required|mimes:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp|max:1000'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'file_upload.required' => 'Vui lòng tải tệp lên.',
+            'file_upload.mimes' => 'Tệp tải lên phải là tệp có định dạng: doc, csv, xlsx, xls, docx, ppt, odt, ods, odp.',
+            'file_upload.max' => 'Tệp quá lớn.',
         ];
     }
 }
