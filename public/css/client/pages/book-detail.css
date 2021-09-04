@@ -578,7 +578,7 @@
 .book-carouse-table,.book-carouse-mobile{
   display: none;
 }
-@media screen and (max-width:991px)and (min-width: 768px){
+@media screen and (max-width:1080px)and (min-width: 768px){
   .book-carouse-table{
     display: block;
   }
@@ -598,7 +598,7 @@
    padding-top: 50px;
   }
 }
-@media screen and (max-width:767px)and (min-width: 375px){
+@media screen and (max-width:767px){
   .book-carouse-mobile{
     display: block;
   }
@@ -607,6 +607,9 @@
   }
   .book-carousel__wrapper{
     justify-content: center;
+  }
+  .book-cover__wrapper{
+    margin-bottom: 20px;
   }
   .comment__input textarea{
     width: 100%;

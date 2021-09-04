@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewNotificationEvent;
+use App\Http\Requests\PostShareEditRequest;
 use App\Models\PostShare;
 use App\Http\Requests\PostShareRequest;
 use App\Models\PostComment;
@@ -211,7 +212,7 @@ class PostShareController extends Controller
         return view('client.pages.edit-post', ['post' => $model, 'cates' => $cates]);
     }
 
-    public function update(PostShareRequest $request,$id){
+    public function update(PostShareEditRequest $request,$id){
 
         $model = PostShare::find($id);
         if(!$model) return redirect(route('user.myPost', Auth::user()->id))->with('message', 'Dữ liệu không tồn tại');
@@ -274,7 +275,6 @@ class PostShareController extends Controller
         $model = PostShare::where('slug', $slug)->first();
 
         $cates = PostShareCategory::all();
-
         $model->load('cates', 'user', 'postFiles');
 
         $postsOfUser = PostShare::where('user_id', $model->user()->withTrashed()->first()->id)->where('id', '!=', $model->id)->where('status', 1)->get();
@@ -282,7 +282,7 @@ class PostShareController extends Controller
         $wishlist = Wishlist::where('post_id', $model->id)->where('user_id', Auth::user()->id)
             ->where('status', 'Đã thêm')->first();
         $totalViews = PostView::where('post_id', $model->id)->sum('views');
-        $comments = PostComment::where('post_id', $model->id)->orderBy('id', 'DESC')->paginate(10);
+        $comments = PostComment::where('post_id', $model->id)->where('status',1)->orderBy('id', 'DESC')->paginate(10);
         if (!$model) return back();
         return view('client.pages.post-detail', [
                                                     'post'          => $model, 
@@ -305,8 +305,9 @@ class PostShareController extends Controller
     public function destroy($id)
     {
         $model = PostShare::find($id);
+        
         if (!$model) return back();
-
+        Wishlist::where('post_id', $id)->delete();
         $model->delete();
         return back()->with('message', 'Xóa bài viết thành công !');
     }

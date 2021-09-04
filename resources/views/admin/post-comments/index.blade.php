@@ -86,7 +86,7 @@
                                     <th>Tên Sách</th>
                                     <th>Nội dung</th>
                                     <th class="text-center">@sortablelink('created_at','Ngày bình luận')</th>
-                                    <th class="text-center">Hành động</th>
+                                    <th class="text-center" style="width: 250px">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,10 +111,12 @@
                                     <td>{{ $comment->body }}</td>
                                     <td class="text-center">{{ date_format($comment->created_at, 'Y-m-d') }}</td>
                                     <td class="text-center">
-                                        @if ($comment->user)
-                                        <a href="{{route('postComment.approv',$comment->id)}}" class="">Duyệt</a>
-                                        @endif
-                                        <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')" href="{{route('postComment.destroy',$comment->id)}}" class="text-danger p-1 btn-action">Hủy</a>
+                                        <div class="button-group">
+                                            @if ($comment->user)
+                                            <a href="{{route('postComment.approv',$comment->id)}}" class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Duyệt</a>
+                                            @endif
+                                            <a onclick="return confirm('Bạn chắc chắn muốn hủy bình luận này?')" href="{{route('postComment.destroy',$comment->id)}}" class="ml-2 font-weight-bold btn btn-sm btn-outline-danger btn-acction">Hủy</a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -135,7 +137,7 @@
                                     <th>Tên Sách</th>
                                     <th>Nội dung</th>
                                     <th class="text-center">@sortablelink('created_at','Ngày bình luận')</th>
-                                    <th class="text-center">Hành động</th>
+                                    <th class="text-center" style="width: 250px">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,8 +162,10 @@
                                     <td>{{ $comment->body }}</td>
                                     <td class="text-center">{{ date_format($comment->created_at, 'Y-m-d') }}</td>
                                     <td class="text-center">
-                                        <a href="{{route('postComment.restore',$comment->id)}}" class="text-success">Phục hồi</a>
-                                        <a href="{{route('postComment.forcedelete',$comment->id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này?')" class="text-danger">Xóa</a>
+                                        <div class="button-group">
+                                            <a href="{{route('postComment.restore',$comment->id)}}" class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Phục hồi</a>
+                                            <a href="{{route('postComment.forcedelete',$comment->id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này?')" class="ml-2 font-weight-bold btn btn-sm btn-outline-danger btn-acction">Xóa</a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

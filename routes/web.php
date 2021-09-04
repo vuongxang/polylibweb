@@ -104,7 +104,6 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
 
 
-
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');

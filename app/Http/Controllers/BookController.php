@@ -49,7 +49,7 @@ class BookController extends Controller
         return view('admin.books.add-form', compact('cates', 'authors'));
     }
 
-    public function store(BookRequest $request)
+    public function store(BookEditRequest $request)
     {
         $model = new Book();
 

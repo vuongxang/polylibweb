@@ -33,12 +33,12 @@
                                 </div>
                                 <div class="user-info__aside__text">{{count($user->wishlist)}} bài viết yêu thích</div>
                             </div>
-                            <div class="user-info__aside__item">
+                            {{-- <div class="user-info__aside__item">
                                 <div class="user-info__aside__icon">
                                     <i class="fas fa-comment"></i>
                                 </div>
                                 <div class="user-info__aside__text">9 bài viết đã bình luận</div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
