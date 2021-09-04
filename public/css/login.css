@@ -101,6 +101,7 @@
 .contact-link{
     color: var(--base-color);
 }
+<<<<<<< Updated upstream
 @media screen and (max-width:767px)and (min-width: 375px){
     .login{
         width: 320px;
@@ -118,5 +119,23 @@
     }
     .button--google span{
         font-size: 1.5rem;
+=======
+@media screen and (max-width:375px){
+    .login{
+        width: 310px;
+    }
+    .login__content{
+        margin-left: 26px;
+    }
+    .login__header{
+        font-size: 2.5rem;
+    }
+    .login__logo-img{ 
+        width: 100px;
+        height: 100px;
+    }
+    .button--google span{
+        font-size: 1.2rem;
+>>>>>>> Stashed changes
     }
 }

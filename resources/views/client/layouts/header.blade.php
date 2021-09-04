@@ -121,43 +121,23 @@
                     <div class="header-mobile__information">
                         @guest
                             @if (Route::has('login'))
-                                 <a class="btn--login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
                             @endif
                             @else
                             <div>
                                 @if (Auth::check())
-                                <div>
-                                    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                                    <a class="dropdown-item dropdown-item-custom" href="{{ route('dashboard') }}">
-                                        <i class="fas fa-users-cog"></i>Quản trị
-                                    </a>
-                                    @endif
-                                    <a class="dropdown-item dropdown-item-custom" href="{{ route('client.profile', Auth::user()->id) }}">
-                                        <i class="fas fa-user"></i>Hồ sơ cá nhân
-                                    </a>
-                                    <a class="dropdown-item dropdown-item-custom" href="{{ route('user.history', Auth::user()->id) }}">
-                                        <i class="fas fa-history"></i>Lịch sử mượn sách
-                                    </a>
-                                    <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
-                                        <i class="fas fa-history"></i>Tài liệu của tôi
-                                    </a>
-                                    <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
-                                        <i class="fas fa-star"></i>Đánh giá
-                                    </a>
-
-
-                                    <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
-                                        <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
                                 @endif
                             </div>
                         @endguest
+
+                        <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                document.getElementById('logout-form-mobile').submit();">
+                            <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
+                        </a>
+
+                        <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
                     </div>
                 <!-- </div> -->
             </div>

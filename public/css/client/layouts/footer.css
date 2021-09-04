@@ -66,14 +66,24 @@ ul{
     width: 300px;
     margin: 0 10px;
 }
+<<<<<<< Updated upstream
 
 @media screen and (max-width:1080px){
     .footer-col{
         margin-left: 8%;
+=======
+@media screen and (max-width:1080px){
+    .footer-col{
+        margin-left: 10%;
+>>>>>>> Stashed changes
     }
 }
 @media screen and (max-width:375px){
     .footer-col{
         margin-left: 5%;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

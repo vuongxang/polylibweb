@@ -102,7 +102,7 @@
             @endif
         </div>   
     </div>
-        <!-- end table -->
+    <!-- end table -->
     <div class="row cate-desktop">
         <div class="col-md-3 book-category__aside ">
             <div class="book-search__aside ">

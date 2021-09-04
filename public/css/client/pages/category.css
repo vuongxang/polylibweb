@@ -301,7 +301,7 @@
       display: none;
   }
 
-  @media screen and (max-width:1080px){
+@media screen and (max-width:1080px){
     .cate-table{
         display: block;
       
@@ -334,7 +334,6 @@
     .book-category__content{
         padding-left: 0;
     }
-  
    .row{
        margin-top: 70px;
    }
@@ -346,12 +345,26 @@
    }
   
 }
+<<<<<<< Updated upstream
 @media screen and (max-width:767px){
+=======
+@media screen and (max-width:375px){
+ 
+    .nav{
+        margin-left: 15px;
+    }
+>>>>>>> Stashed changes
     .book-card-collection{
         justify-content: space-evenly;
     }
     .book-card{
-        width: 25rem;
+        width: 30rem;
+    }
+    .book-card__img{
+        height: 36rem;
+    }
+    .borrow-btn,.review-btn{
+        font-size: 1.5rem;
     }
     .nav{
         margin-left: 15px;

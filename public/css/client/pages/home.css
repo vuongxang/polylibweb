@@ -421,7 +421,11 @@
 }
 
 /* responsive */
+<<<<<<< Updated upstream
 @media screen and (max-width:1080px)and (min-width:768px){
+=======
+@media screen and (max-width:1080px){
+>>>>>>> Stashed changes
     .book-carouse-table{
         display: block;
     }
@@ -443,7 +447,11 @@
   }
 
 }
+<<<<<<< Updated upstream
 @media screen and (max-width:767px){
+=======
+@media screen and (max-width:375px){
+>>>>>>> Stashed changes
     .book-carouse-mobile{
         display: block;
     }
@@ -467,9 +475,24 @@
     }
     .book-carousel__wrapper{
         display: block;
+<<<<<<< Updated upstream
     }
     .borrow-btn,.review-btn{
         font-size: 1.5rem;
+=======
+       
+    }
+    .book-card{
+        width: 31.3rem;
+        box-shadow: 0px 5px 14px 1px rgb(0 0 0 / 25%);
+        margin-bottom: 30px;
+    }
+    .borrow-btn,.review-btn{
+        font-size: 1.5rem;
+    }
+    .carouse-header__title{
+        margin-top: 15px;
+>>>>>>> Stashed changes
     }
 
 }
