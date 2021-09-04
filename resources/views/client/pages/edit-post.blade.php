@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label for="thumbnail">Chọn ảnh đại diện bài viết</label>
-                    <input id="thumbnail" type="file" name="thumbnail" value="{{old('thumbnail',$post->thumbnail)}}">
+                    <input id="thumbnail" type="file" name="thumbnail">
                     <br>
                     @if ($errors->has('thumbnail'))
                         <span class="text-danger">{{$errors->first('thumbnail')}}</span>

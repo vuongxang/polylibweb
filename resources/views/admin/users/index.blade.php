@@ -110,9 +110,9 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <a href="{{route('user.restore',['id' => $user->id])}}" class="btn btn-sm btn-outline-success btn-acction">Khôi phục</a>
+                                                <a href="{{route('user.restore',['id' => $user->id])}}" class="btn btn-sm btn-outline-success btn-acction">Khôi phục</a>
                                             @if (Auth::user()->id != $user->id)
-                                            <a onclick="return confirm('Bạn chắc chắn muốn xóa tài khoản này?')" href="{{route('user.forcedelete',['id' => $user->id])}}" class="ml-2 btn btn-sm btn-outline-danger btn-acction">Xóa</a>
+                                                <a onclick="return confirm('Bạn chắc chắn muốn xóa tài khoản này?')" href="{{route('user.forcedelete',['id' => $user->id])}}" class="ml-2 btn btn-sm btn-outline-danger btn-acction">Xóa</a>
                                             @endif
                                         </div>
                                     </td>
