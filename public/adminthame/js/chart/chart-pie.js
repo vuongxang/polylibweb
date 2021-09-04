@@ -15,7 +15,7 @@ fetch(url_data)
         labels: data.label,
         datasets: [{
           data: data.data,
-          backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc','#FF0000','#FFFF00','#00FFFF','#0000AA','#990000','#FFCC00','#CCCC33','#FF6600','#CC3300'],
+          backgroundColor: ['#FF5900', '#FFD371', '#C2FFD9','#9DDAC6','#7C83FD','#96BAFF','#B2AB8C','#DBE6FD','#47597E','#293B5F','#DA7F8F','#F2BB7B'],
           hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
           hoverBorderColor: "rgba(234, 236, 244, 1)",
         }],

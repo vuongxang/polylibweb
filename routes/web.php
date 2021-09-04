@@ -36,6 +36,10 @@ use App\Models\PostShare;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
+Route::get('contact', [ContactController::class, 'contact'])->name('contact');
+Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
+
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/book-detail/{slug}', [BookController::class, 'bookDetail'])->name('book.detail');
     Route::get('/author/{id}', [AuthorController::class, 'authorDetail'])->name('author.detail');
@@ -63,8 +67,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
 
     Route::Post('/api/comment-store', [BookDetailController::class, 'storeComment'])->name('book.comment-store');
-    Route::get('contact', [ContactController::class, 'contact'])->name('contact');
-    Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
+
 
     Route::get('wishlist/{id}', [WishlistController::class, 'wishlist'])->name('post.wishlist');
     Route::get('destroy-wishlist/{id}', [WishlistController::class, 'destroy'])->name('post.wishlist.destroy');
