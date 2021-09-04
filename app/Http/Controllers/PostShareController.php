@@ -211,7 +211,7 @@ class PostShareController extends Controller
         return view('client.pages.edit-post', ['post' => $model, 'cates' => $cates]);
     }
 
-    public function update(Request $request,$id){
+    public function update(PostShareRequest $request,$id){
 
         $model = PostShare::find($id);
         if(!$model) return redirect(route('user.myPost', Auth::user()->id))->with('message', 'Dữ liệu không tồn tại');

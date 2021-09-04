@@ -53,19 +53,22 @@
             filebrowserUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
             // filebrowserBrowseUrl : "{{ url('')}}/filemanager/dialog.php?field_id=imgField&lang=en_EN&akey=urDy9RR9agzmDEQw7u7gPO6qee",
             filebrowserUploadMethod : 'form',
-            toolbar:[
-               [ 'Source'],
-               [ 'Undo', 'Redo', '-','Bold', 'Italic','Underline', 'Strike', 'Subscript', 'Superscript'],
-               ['JustifyLeft','JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-               [ 'Image','Table', 'Link', 'Unlink','Anchor'],
-               ['Cut','Copy','Paste','PasteText','PasteFromWord'],
-               ['Document','Preview','Print','Sample','ExportPdf' ],
-               ['RemoveFormat'],
-               ['BidiLtr', 'BidiRtl'],
-               [ 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'],
-               ['Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor' ],
-               ['Maximize','ShowBlocks']
-            ]
+            // toolbar:[
+            //     [ 'Source'],
+            //     ['Radio '],
+            //     ['Highlight '],
+            //     [ 'Undo', 'Redo', '-','Bold', 'Italic','Underline', 'Strike', 'Subscript', 'Superscript'],
+            //     ['JustifyLeft','JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            //     [ 'Image','Table', 'Link', 'Unlink','Anchor'],
+            //     [ 'Find', 'Replace'],
+            //     ['Cut','Copy','Paste','PasteText','PasteFromWord'],
+            //     ['Document','Preview','Print','Sample','ExportPdf' ],
+            //     ['RemoveFormat'],
+            //     ['BidiLtr', 'BidiRtl'],
+            //     [ 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+            //     ['Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor' ],
+            //     ['Maximize','ShowBlocks'],
+            // ]
         });
     </script>
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> -->
