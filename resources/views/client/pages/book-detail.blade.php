@@ -89,7 +89,6 @@
             </div>
         </div>
     </div>
-
     <div class="book-tabs data-tabs">
         <div class="book-tabs__wrapper">
             <ul class=" nav nav-tabs book-tabs__list">
@@ -170,9 +169,11 @@
             </div>
         </div>
     </div>
-
     <!-- mobile -->
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     <div class="book-carouse book-carouse-mobile">
         <div class="book-carouse__header">
             <div class="carouse-header__title">Sách cùng thể loại</div>
