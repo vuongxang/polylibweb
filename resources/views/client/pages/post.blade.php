@@ -110,45 +110,14 @@
                 {{ $posts->links('vendor.pagination.post-pagination') }}
             </div>
         </div>
-        <div class="col-md-3 post-aside">
-            <div class="post-aside-wrap">
-                <div id="row_wishlist"></div>
-                <div class="post-aside-header">
-                    <div class="post-aside-header__text">Danh mục bài viết</div>
-
-                </div>
-                <div class="post-aside__list ">
-                    @foreach ($cates as $cate)
-                    <div class="post-aside__item">
-                        <a href="{{ route('post.category', $cate->slug) }}" class="post-aside__link">
-                            {{ $cate->name }} ({{count($cate->posts)}})
-                        </a>
-                    </div>
-                    @endforeach
-
-                    <!-- <div class="post-aside__item">
-                        <a href="" class="post-aside__link">
-                            JavaScript
-                        </a>
-                    </div>
-                    <div class="post-aside__item">
-                        <a href="" class="post-aside__link">
-                            Công nghệ thông tin
-                        </a>
-                    </div>
-                    <div class="post-aside__item">
-                        <a href="" class="post-aside__link">
-                            React
-                        </a>
-                    </div>
-                    <div class="post-aside__item">
-                        <a href="" class="post-aside__link">
-                            Xã hội và đời sống
-                        </a>
-                    </div>
-
-
-                     -->
+      
+    </div>
+    <div class="row post-desktop">
+        <div class="col-md-9 post-wrap"> 
+            <div class="post-header">
+                <div class="post-header-text">Danh sách bài viết</div>
+                <div class="post-header-button">
+                    <a href="{{route('post.create')}}" class="post-header-link">Tạo bài viết</a>
                 </div>
             </div>
             @if(!empty($message))
