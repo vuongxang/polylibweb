@@ -34,20 +34,43 @@
         @include('client.layouts.footer')
 
     </div>
-
-    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
-        CKEDITOR.replace('editor1',{
-            filebrowserUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
-            // filebrowserBrowseUrl : "{{ url('')}}/filemanager/dialog.php?field_id=imgField&lang=en_EN&akey=urDy9RR9agzmDEQw7u7gPO6qee",
-            filebrowserUploadMethod : 'form'
-        });
-    </script>
+    <!-- Chống copy nột dung -->
+    <!-- <script type="text/javascript">
+        $(document).ready(function(){
+        $('*').bind('cut copy paste contextmenu', function (e) {
+            e.preventDefault();
+        })});
+    </script> -->
+    <!-- end -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace('editor1',{
+            filebrowserUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
+            // filebrowserBrowseUrl : "{{ url('')}}/filemanager/dialog.php?field_id=imgField&lang=en_EN&akey=urDy9RR9agzmDEQw7u7gPO6qee",
+            filebrowserUploadMethod : 'form',
+            // toolbar:[
+            //     [ 'Source'],
+            //     ['Radio '],
+            //     ['Highlight '],
+            //     [ 'Undo', 'Redo', '-','Bold', 'Italic','Underline', 'Strike', 'Subscript', 'Superscript'],
+            //     ['JustifyLeft','JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            //     [ 'Image','Table', 'Link', 'Unlink','Anchor'],
+            //     [ 'Find', 'Replace'],
+            //     ['Cut','Copy','Paste','PasteText','PasteFromWord'],
+            //     ['Document','Preview','Print','Sample','ExportPdf' ],
+            //     ['RemoveFormat'],
+            //     ['BidiLtr', 'BidiRtl'],
+            //     [ 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+            //     ['Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor' ],
+            //     ['Maximize','ShowBlocks'],
+            // ]
+        });
+    </script>
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> -->
     @yield('script')
 

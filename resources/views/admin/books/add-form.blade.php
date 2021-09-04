@@ -27,8 +27,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-6">
+                    <div class="row mb-2">
+                        <div class="form-group col-6">
                             <label class="text-dark font-weight-bold" for="exampleInputFile">Ảnh bìa sách</label>
                             <br>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
@@ -92,6 +92,10 @@
                         @if ($errors->has('list_audio'))
                             <span class="text-danger">{{ $errors->first('list_audio') }}</span>
                         @endif
+                        
+                        @if (Session::get('error_audio'))
+                            <span class="text-danger">{{ Session::get('error_audio') }}</span>
+                        @endif
                     </div>
                     <div class="form-group row">
                         <div class="col-6">
@@ -109,8 +113,10 @@
                         @if ($errors->has('list_image'))
                             <span class="text-danger">{{ $errors->first('list_image') }}</span>
                         @endif
+                        @if (Session::get('error_image'))
+                            <span class="text-danger">{{ Session::get('error_image') }}</span>
+                        @endif
                     </div>
-
                     <div class="form-group">
                         <label class="text-dark font-weight-bold" for="exampleInputDesc">Thông tin chi tiết</label><br>
                         @if ($errors->has('description'))

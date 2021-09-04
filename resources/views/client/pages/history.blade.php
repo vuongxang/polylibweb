@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('css/client/pages/history.css') }}">
 @endsection
 
+@section('title', 'PolyLib')
 @section('content')
 <div class="container">
     <div class=" profile-info">

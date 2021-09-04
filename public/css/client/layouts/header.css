@@ -797,10 +797,9 @@ i.fas.fa-check {
     .show-cate{
         right: 0;
     }
-    .header-mobile__nav{
-       background-color: #ffffff;
-       height: 100vh;
-       
+    .header-mobile__nav {
+        background-color: #ffffff;
+        height: 100vh;
     }
     .header-mobile__nav .link {
         color: #858585;

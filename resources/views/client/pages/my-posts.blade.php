@@ -3,7 +3,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/client/pages/history.css') }}">
 @endsection
-
+@section('title', 'PolyLib')
 @section('content')
 <div class="container">
     <div class=" profile-info">
@@ -109,7 +109,7 @@
                                                 {{ $wishlist->post->user->name }}
                                             </a>
                                         </td>
-                                        <td data-label="Hành Động" class="text-center">
+                                        <td class="text-center">
                                             <a href="{{route('post.wishlist.destroy',['id'=>$wishlist->post->id])}}"
                                                 class="fas fa-trash text-danger"></a>
                                         </td>

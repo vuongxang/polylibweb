@@ -20,7 +20,7 @@
                             <h2>Website thư viện điện tử PolyLib</h2>
                             <p class="banner-content__quote">
                                 Website thư viện điện tử PolyLib là thư viện của trường FPT Polytechnic với những sách
-                                đã được FPT Polytechnic mua bản quyền từ các nhà xuất bản nổi tiếng trên thế giới, biên
+                                đã được FPT  mua bản quyền từ các nhà xuất bản nổi tiếng thế giới, biên
                                 dịch và phát hành.
                             </p>
                         </div>

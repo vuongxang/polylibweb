@@ -20,7 +20,7 @@
                     @if ($errors->has('title'))
                     <span class="text-danger">{{ $errors->first('title') }}</span>
                     @endif
-                    <input id="my-input" class="form-control" type="text" name="title" placeholder="Nhập tiêu đề">
+                    <input id="my-input" class="form-control" type="text" name="title" placeholder="Nhập tiêu đề" value="{{old('title')}}">
                 </div>
 
                 <div class="form-group">
@@ -29,7 +29,7 @@
                     @if ($errors->has('thumbnail'))
                     <span class="text-danger">{{ $errors->first('thumbnail') }}</span>
                     @endif
-                    <input type="file" id="thumbnail" name="thumbnail">
+                    <input type="file" id="thumbnail" name="thumbnail" value="{{ old('thumbnail') }}">
                     <br>
                 </div>
                 <div class="form-group">
@@ -78,7 +78,7 @@
                     @if ($errors->has('content'))
                     <span class="text-danger">{{ $errors->first('content') }}</span>
                     @endif
-                    <textarea name="content" id="editor1" rows="20" class="form-control" placeholder="Nội dung">
+                    <textarea name="content" id="editor1" rows="20" class="form-control" placeholder="Nội dung">{{old('content')}}
                     </textarea>
                 </div>
                 <div class="text-center">
@@ -106,19 +106,5 @@
 <script src="https://cdn.tiny.cloud/1/z61mklx0qjtdxp2smr8tj2bcs3dkzef4894ven0bm30q2dv9/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 
-<script>
-$(document).ready(function() {
-
-    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-        removeItemButton: true,
-        maxItemCount: 5,
-        searchResultLimit: 5,
-        renderChoiceLimit: 5
-    });
-
-});
-
-
-
-</script>
+<script src="{{asset('js/client/post-form.js')}}"></script>
 @endsection
