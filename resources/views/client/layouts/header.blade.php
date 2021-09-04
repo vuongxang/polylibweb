@@ -4,104 +4,104 @@
             <a href="{{route('home')}}"><img src="{{ asset('images/logo.png') }}" alt="" class="header__logo-img"></a>
         </div>
         <div class="header-mobile__function">
-                <div class="toggle-cate ">
-                    <i class="fas fa-bars toggle-icon"></i>
-                    <div class="header-menu__cate">
-                        <ul class="header-mobile__nav">
-                            <li class="header__nav-li"><a class="link" href="{{route('home')}}"><i class="fas fa-home"></i>Trang Chủ</a></li>
-                            <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}"><i class="fas fa-bars"></i>Danh Mục</a></li>
-                            <li class="header__nav-li"><a class="link" href="{{route('post')}}"><i class="fas fa-file-signature"></i>Bài Viết</a></li>
-                            <li class="header__nav-li"><a class="link" href="{{route('contact')}}"><i class="fas fa-id-badge"></i>Liên Hệ</a></li>
-                        </ul>
-                    </div>
+            <div class="toggle-cate ">
+                <i class="fas fa-bars toggle-icon"></i>
+                <div class="header-menu__cate">
+                    <ul class="header-mobile__nav">
+                        <li class="header__nav-li"><a class="link" href="{{route('home')}}"><i class="fas fa-home"></i>Trang Chủ</a></li>
+                        <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}"><i class="fas fa-bars"></i>Danh Mục</a></li>
+                        <li class="header__nav-li"><a class="link" href="{{route('post')}}"><i class="fas fa-file-signature"></i>Bài Viết</a></li>
+                        <li class="header__nav-li"><a class="link" href="{{route('contact')}}"><i class="fas fa-id-badge"></i>Liên Hệ</a></li>
+                    </ul>
                 </div>
+            </div>
             <!-- search -->
-                <div class="toggle-search">    
-                    <div class="click-search">
-                        <i class="fas fa-search toggle-icon"></i> 
-                    </div>
-                    <div class="search-hiden">
-                        <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
-                            <input class="search-txt" name="keyword" type="text" placeholder="Tìm kiếm" value="@isset($_GET['keyword']){{$_GET['keyword']}}@endisset">
-                                <a class="search-btn" href="#">
-                                    <i class="fas fa-search search-icon"></i>
-                                </a>
-                        </form>
-                    </div>
-              
+            <div class="toggle-search">
+                <div class="click-search">
+                    <i class="fas fa-search toggle-icon"></i>
                 </div>
+                <div class="search-hiden">
+                    <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">
+                        <input class="search-txt" name="keyword" type="text" placeholder="Tìm kiếm" value="@isset($_GET['keyword']){{$_GET['keyword']}}@endisset">
+                        <a class="search-btn" href="#">
+                            <i class="fas fa-search search-icon"></i>
+                        </a>
+                    </form>
+                </div>
+
+            </div>
             <!-- end search -->
             <!-- notification -->
-                <div class="notification ">
-                    @guest
-                        @if (Route::has('login'))
-                                <a class="" href="#"><i class="fas fa-bell toggle-icon"></i></a>
-                        @endif
-                    @else
-                        <div class="header-menu__users">
-                            <div class="header__information-notification ">
-                                <!-- Nav Item - Alerts -->
-                                <div class="header-notification" id="header-notification-mobile">
-                                    <button class=" header-notification__bell" id="alertsDropdown-mobile">
-                                        <i class="fas fa-bell fa-fw"></i>
-                                        <!-- Counter - Alerts -->
+            <div class="notification ">
+                @guest
+                @if (Route::has('login'))
+                <a class="" href="#"><i class="fas fa-bell toggle-icon"></i></a>
+                @endif
+                @else
+                <div class="header-menu__users">
+                    <div class="header__information-notification ">
+                        <!-- Nav Item - Alerts -->
+                        <div class="header-notification" id="header-notification-mobile">
+                            <button class=" header-notification__bell" id="alertsDropdown-mobile">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
 
-                                        <span class="badge badge-danger badge-counter" id="unread-notify">
-                                            {{auth()->user()->unreadNotifications->count()}}
-                                        </span>
-                                    </button>
+                                <span class="badge badge-danger badge-counter" id="unread-notify">
+                                    {{auth()->user()->unreadNotifications->count()}}
+                                </span>
+                            </button>
 
-                                    <!-- Dropdown - Alerts -->
-                                    <div class="hidden " id="menu_notification-mobile" aria-labelledby="alertsDropdown-mobile">
-                                        <div class="notification-dropdown-header">
-                                            <div class="notification-header__title">Thông báo</div>
-                                            <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
-                                        </div>
-                                        <div class="notification-dropdown-body">
-                                            @if(count(Auth::user()->notifications) == 0)
-                                            <div id="notification-message"> Bạn chưa có thông báo mới</div>
-                                            @endif
-                                            @if(count(Auth::user()->notifications) > 0)
-
-                                            @foreach (Auth::user()->notifications as $key => $notification)
-                                            @if($key==5) @break
-                                            @endif
-                                            <div class=" notification-dropdown">
-                                                <a class="notification-dropdown__link" href="{{route('notification.read',$notification->id)}}">
-                                                    <div class="notification-dropdown-wrapper">
-
-                                                        <div class="notification-avatar">
-                                                            <img src="{{$notification->data['avatar']}}" alt="">
-
-                                                        </div>
-                                                        <div class=" notification-body">
-                                                            <div class="notification-body__content ">{{ $notification->data['content'] }}</div>
-                                                            <span class="notification-body__time ">{{ Carbon\Carbon::parse($notification->created_at)->locale('vi')->diffForHumans() }}</span>
-                                                        </div>
-                                                        <div class=" notification-icon">
-                                                            @if ($notification->read_at==null)
-                                                            <!-- <i class="fas fa-file-alt text-white"></i> -->
-                                                            <i class="fas fa-circle"></i>
-                                                            @else
-                                                            <i class="fas fa-check "></i>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            @endforeach
-                                            @endif
-
-
-                                        </div>
-                                        <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
-                                    </div>
+                            <!-- Dropdown - Alerts -->
+                            <div class="hidden " id="menu_notification-mobile" aria-labelledby="alertsDropdown-mobile">
+                                <div class="notification-dropdown-header">
+                                    <div class="notification-header__title">Thông báo</div>
+                                    <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
                                 </div>
+                                <div class="notification-dropdown-body">
+                                    @if(count(Auth::user()->notifications) == 0)
+                                    <div id="notification-message"> Bạn chưa có thông báo mới</div>
+                                    @endif
+                                    @if(count(Auth::user()->notifications) > 0)
+
+                                    @foreach (Auth::user()->notifications as $key => $notification)
+                                    @if($key==5) @break
+                                    @endif
+                                    <div class=" notification-dropdown">
+                                        <a class="notification-dropdown__link" href="{{route('notification.read',$notification->id)}}">
+                                            <div class="notification-dropdown-wrapper">
+
+                                                <div class="notification-avatar">
+                                                    <img src="{{$notification->data['avatar']}}" alt="">
+
+                                                </div>
+                                                <div class=" notification-body">
+                                                    <div class="notification-body__content ">{{ $notification->data['content'] }}</div>
+                                                    <span class="notification-body__time ">{{ Carbon\Carbon::parse($notification->created_at)->locale('vi')->diffForHumans() }}</span>
+                                                </div>
+                                                <div class=" notification-icon">
+                                                    @if ($notification->read_at==null)
+                                                    <!-- <i class="fas fa-file-alt text-white"></i> -->
+                                                    <i class="fas fa-circle"></i>
+                                                    @else
+                                                    <i class="fas fa-check "></i>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    @endforeach
+                                    @endif
+
+
+                                </div>
+                                <a class="load-more__notification" href="{{route('notifications')}}">Xem tất cả </a>
                             </div>
                         </div>
-                    @endguest
+                    </div>
                 </div>
+                @endguest
+            </div>
             <!-- end notification -->
             <div class="toggle-user ">
                 @guest
@@ -118,27 +118,39 @@
                 </div>
                 @endguest
                 <!-- <div class="header-menu__user"> -->
-                    <div class="header-mobile__information">
-                        @guest
-                            @if (Route::has('login'))
-                            @endif
-                            @else
-                            <div>
-                                @if (Auth::check())
-                                @endif
-                            </div>
-                        @endguest
-
-                        <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
+                <div class="header-mobile__information">
+                    @guest
+                    @if (Route::has('login'))
+                    @endif
+                    @else
+                    <div>
+                        @if (Auth::check())
+                        <a class="dropdown-item dropdown-item-custom" href="{{ route('client.profile', Auth::user()->id) }}">
+                        <i class="fas fa-user"></i>Hồ sơ cá nhân
+                    </a>
+                    <a class="dropdown-item dropdown-item-custom" href="{{ route('user.history', Auth::user()->id) }}">
+                        <i class="fas fa-history"></i>Lịch sử mượn sách
+                    </a>
+                    <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
+                        <i class="fas fa-history"></i>Tài liệu của tôi
+                    </a>
+                    <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
+                        <i class="fas fa-star"></i>Đánh giá
+                    </a>
+                    <a class="dropdown-item dropdown-item-custom" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 document.getElementById('logout-form-mobile').submit();">
-                            <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
-                        </a>
+                        <i class="fas fa-sign-out-alt"></i>{{ __('Đăng xuất') }}
+                    </a>
 
-                        <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-
+                    <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                        @endif
                     </div>
+                    @endguest
+                 
+
+                </div>
                 <!-- </div> -->
             </div>
         </div>
@@ -585,14 +597,14 @@
             }
         })
         $('.toggle-cate').click(function() {
-          
+
             $('.header-menu__cate').toggleClass('show-cate');
         })
         $('.inf-user').click(function() {
             $('.header-mobile__information').toggleClass('show-user')
         })
         $('.click-search').click(function() {
-           
+
             $('.search-hiden').toggleClass('test');
 
         })

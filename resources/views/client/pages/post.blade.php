@@ -7,7 +7,6 @@
 @section('content')
 
 <div class="container">
-<<<<<<< Updated upstream
     <div class="row post-mobile">
         <div class="col-md-3 post-aside">
             <div class="post-aside-wrap">
@@ -27,9 +26,6 @@
                 </div>
             </div>
         </div>
-=======
-    <div class="row">
->>>>>>> Stashed changes
         <div class="col-md-9 post-wrap"> 
             <div class="post-header">
                 <div class="post-header-text">Danh sách bài viết</div>
@@ -124,7 +120,6 @@
                     <a href="{{route('post.create')}}" class="post-header-link">Tạo bài viết</a>
                 </div>
             </div>
-<<<<<<< Updated upstream
             @if(!empty($message))
             <div class="search-result">
                 <div class="search-text">
@@ -232,10 +227,5 @@
     })
 </script>
 
-=======
-        </div>
-    </div>
-</div>
->>>>>>> Stashed changes
 
 @endsection

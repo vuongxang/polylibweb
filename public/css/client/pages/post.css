@@ -325,16 +325,11 @@
     display: none;
 }
 
-<<<<<<< Updated upstream
 @media screen and (max-width:1080px)and (min-width: 768px){
-=======
-@media screen and (max-width:1080px){
->>>>>>> Stashed changes
    .row{
        margin-top: 70px;
    }
   }
-<<<<<<< Updated upstream
 @media screen and (max-width:767px){
     .post-desktop{
         display: none;
@@ -361,13 +356,5 @@
     }
     .show-cate-post{
         display: none;
-=======
-@media screen and (max-width:768px){
-    .row{
-        margin-top: 70px;
-    }
-    .post-wrap{
-        padding-left: 15px;
->>>>>>> Stashed changes
     }
   }

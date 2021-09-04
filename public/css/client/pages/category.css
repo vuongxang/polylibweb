@@ -345,23 +345,19 @@
    }
   
 }
-<<<<<<< Updated upstream
 @media screen and (max-width:767px){
-=======
-@media screen and (max-width:375px){
  
     .nav{
         margin-left: 15px;
     }
->>>>>>> Stashed changes
     .book-card-collection{
         justify-content: space-evenly;
     }
     .book-card{
-        width: 30rem;
+        width: 25rem;
     }
     .book-card__img{
-        height: 36rem;
+        height: 32rem;
     }
     .borrow-btn,.review-btn{
         font-size: 1.5rem;

@@ -858,7 +858,7 @@ i.fas.fa-check {
     }
 }
 
-@media screen and (max-width:767px) and (min-width:375px) {
+@media screen and (max-width:767px) {
     .header-mobile__information {
         width: 65%;
         right: -100%;
