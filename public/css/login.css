@@ -101,3 +101,22 @@
 .contact-link{
     color: var(--base-color);
 }
+@media screen and (max-width:767px){
+    .login{
+        width: 320px;
+    }
+    .login__header{
+        font-size: 3rem;
+    }
+    .login__logo-img{
+        width: 100px;
+        height: 100px;
+    }
+    .login__icon-google{
+        margin-right: 0.8rem;
+
+    }
+    .button--google span{
+        font-size: 1.5rem;
+    }
+}

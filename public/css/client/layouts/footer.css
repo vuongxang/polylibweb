@@ -67,3 +67,13 @@ ul{
     margin: 0 10px;
 }
 
+@media screen and (max-width:1080px){
+    .footer-col{
+        margin-left: 8%;
+    }
+}
+@media screen and (max-width:375px){
+    .footer-col{
+        margin-left: 5%;
+    }
+}

@@ -29,6 +29,12 @@ body{
     margin: 0px auto;
 }
 
+.grid-custom-mobile {
+    width: 1080px;
+    max-width: 100%;
+    margin: 0px auto;
+}
+
 .grid__full-width {
     width: 100%;
 }

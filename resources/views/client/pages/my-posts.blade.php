@@ -93,18 +93,18 @@
                                 @foreach ($wishlists as $key => $wishlist)
                                     @if ($wishlist->id == true)
                                     <tr>
-                                        <td>{{ $key +1 }}</td>
-                                        <td class="">
+                                        <td data-label="STT">{{ $key +1 }}</td>
+                                        <td data-label="Ảnh" class="">
                                             <a href="{{ route('post.detail', $wishlist->post->slug) }}">
                                                 <img src="{{ asset($wishlist->post->thumbnail) }}" width="40" alt="Ảnh bài viết">
                                             </a>
                                         </td>
-                                        <td>
+                                        <td data-label="Nội dung">
                                             <a href="{{ route('post.detail', $wishlist->post->slug) }}" style="color:#000">
                                                 {{ $wishlist->post->title }}
                                             </a>
                                         </td>
-                                        <td>
+                                        <td data-label="Tên tác giả">
                                             <a href="{{ route('post.detail', $wishlist->post->slug) }}" style="color:#000">
                                                 {{ $wishlist->post->user->name }}
                                             </a>

@@ -48,13 +48,22 @@
 .content-center{
     text-align: center;
 }
-@media screen and (max-width:991px) and (min-width: 768px){
-    .notification,.alert{
-        margin-top: 50px;
+@media screen and (max-width:1080px) and (min-width: 768px){
+    .notifi-mobile,.alert{
+        margin-top: 70px;
+        width: 100%;
     }
-    
+    .col-md-3 {
+        margin-top: 70px;
+    }
 }
 @media screen and (max-width:767px){
+    .col-md-3 {
+        margin-top: 30px;
+    }
+    .notifi-mobile{
+        width: 100%;
+    }
     .information-aside{
         margin-top: 50px;
     }
