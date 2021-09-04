@@ -29,7 +29,7 @@
 
 .profile-img-item img {
     width: 100%;
-    
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -83,7 +83,7 @@
       font-size: 1.4rem;
   }
 
-  @media screen and (max-width:991px)and (min-width: 768px){
+  @media screen and (max-width:1080px)and (min-width: 768px){
     .profile{
         margin-top: 70px;
     }
@@ -92,9 +92,12 @@
     }
 
 }
-@media screen and (max-width:767px)and (min-width: 375px){
+@media screen and (max-width:767px){
     .col-md-3{
         margin-top: 70px;
+    }
+    .profile-img-item img{
+        height: auto;
     }
 }
 

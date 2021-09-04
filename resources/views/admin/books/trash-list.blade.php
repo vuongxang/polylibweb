@@ -14,20 +14,21 @@
                   <a class="nav-link" href="{{route('book.index')}}">Danh sách</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active">Thùng rác</a>
+                    <a class="nav-link active ">Thùng rác</a>
                   </li>
             </ul>
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover border-right border-left border-bottom table-sm rounded" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>@sortablelink('id','ID')</th>
-                        <th>@sortablelink('name','Tiêu đề')</th>
-                        <th>Ảnh</th>
-                        <th>Tác giả</th>
-                        <th>Danh mục</th>
+                    <th class="text-center">@sortablelink('id','ID')</th>
+                        <th width="250px">@sortablelink('name','Tiêu đề')</th>
+                        <th class="text-center">Ảnh</th>
+                        <th class="text-center">Tác giả</th>
+                        <th class="text-center">Danh mục</th>
+                        <th>Nội dung</th>
                         {{-- <th>@sortablelink('publish_date_from','Ngày đăng')</th> --}}
-                        <th>@sortablelink('status','Trạng thái')</th>
-                        <th class="text-center" style="width: 200px;">
+                        <th class="text-center">@sortablelink('status','Trạng thái')</th>
+                        <th class="text-center">
                             Hành động
                         </th>
                     </tr>
@@ -71,7 +72,7 @@
                 @else
                     <tbody >
                         <tr>
-                            <td colspan="7" class="text-center">Thùng rác rỗng!</td>
+                            <td colspan="8" class="text-center">Thùng rác rỗng!</td>
                         </tr>
                     </tbody>
                 @endif

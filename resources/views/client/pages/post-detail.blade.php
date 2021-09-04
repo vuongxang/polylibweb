@@ -16,18 +16,47 @@
                 <div class="post-detail__body">
                     <div class="post-body__header">
                         {{$post->title}}
-                        <div class="post-wishlist">
-                            @if($wishlist)
+
+                    </div>
+
+
+
+                    <div class="post-body-user__wrap">
+                        <div class="post-body__user">
+                            <div class="post-body-user__avatar">
+                                <img src="{{asset($post->user()->withTrashed()->first()->avatar)}}" alt="">
+                            </div>
+                            <div class="post-body-user__name">
+                                <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}" class="post-body-user__link">
+                                    {{$post->user()->withTrashed()->first()->name}}
+
+                                </a>
+                                <div class="post-body-created">
+                                    {{ $post->created_at->diffforhumans()}}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="post-body-react">
+                            <div class="post-view">
+                                <i class="fas fa-eye"></i> <span id="viewNumber">{{$totalViews}}</span> 
+                            </div>
+                            <div class="post-wishlist">
+
+                                @if($wishlist)
                                 <a class="fill-heart" href="{{route('post.wishlist.destroy',['id'=>$post->id])}}">
                                     <img src="{{ asset('images/heart-icon-fa.svg') }}" alt="">
                                 </a>
-                            @else
+                                @else
                                 <a href="{{route('post.wishlist',['id'=>$post->id])}}" id="{{$post->id}}">
-                                    <img class="no-fill-heart" src="{{ asset('images/heart-icon-far.svg') }}" alt="">
+                                    <img  src="{{ asset('images/heart-icon-far.svg') }}" alt="">
                                 </a>
-                            @endif
+                                @endif
+                            </div>
                         </div>
+
                     </div>
+
                     @if(count($post->cates)>0)
                     <div class="post-body__cates">
                         @foreach($post->cates as $cate)
@@ -54,28 +83,14 @@
                         </div> -->
                     </div>
                     @endif
-                    <div class="post-body__user">
-                        <div class="post-body-user__avatar">
-                            <img src="{{asset($post->user()->withTrashed()->first()->avatar)}}" alt="">
-                        </div>
-                        <div class="post-body-user__name">
-                            <a href="{{route('post.user',$post->user()->withTrashed()->first()->id)}}" class="post-body-user__link">
-                                {{$post->user()->withTrashed()->first()->name}}
-                                
-                            </a>
-                            <div class="post-body-created">
-                                {{ $post->created_at->diffforhumans()}}
-                            </div>
-                        </div>
-
-                    </div>
                     <div class="post-body__content">
+
                         {!! $post->content !!}
 
                     </div>
 
                 </div>
-            <div class="post-detail__comment">
+                <div class="post-detail__comment">
                     <div class="post-comment__header">
                         <div class="post-comment__text">
                             Bình luận
@@ -125,7 +140,7 @@
                                 <div class="posts-of-user__title">
 
                                     {{$postOfUser->title}}
-                                    
+
                                 </div>
                                 @if(count($postOfUser->cates)>0)
                                 <div class="posts-of-user__tag">
@@ -147,7 +162,29 @@
         </div>
     </div>
 </div>
+<script>
+    //Tang view sau 2s
+    let increaseViewUrl = "{{ route('post.updateView') }}";
+    const data = {
+        id: {{$post -> id}} ,
+        _token: "{{ csrf_token() }}"
+    };
+    setTimeout(() => {
+        fetch(increaseViewUrl, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(responseData => responseData.json())
+            .then(postObj => {
+                console.log(postObj);
+                document.querySelector('#viewNumber').innerText = "{{ $totalViews + 1 }}";
 
+            })
+    }, 10000);
+</script>
 @endsection
 <!-- <div class="col-md-9 post-detail__content">
     <div class="post-detail__wrap">
@@ -276,58 +313,7 @@
     </div>
 </div> -->
 @section('script')
-<script src="{{asset('js/client/post-detail.js')}}"></script>
-@endsection
 
-<!-- <script>
-    // //Tang view sau 2s
-    // let increaseViewUrl = "{{ route('post.updateView') }}";
-    // const data = {
-    //     id: {
-    //         {
-    //             $post - > id
-    //         }
-    //     },
-    //     _token: "{{ csrf_token() }}"
-    // };
-    // setTimeout(() => {
-    //     // document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
-    //     // fetch(increaseViewUrl, {
-    //     //         method: "POST",
-    //     //         headers: {
-    //     //             'Content-Type': 'application/json'
-    //     //         },
-    //     //         body: JSON.stringify(data)
-    //     //     })
-    //     //     .then(responseData => responseData.json())
-    //     //     .then(postObj => {
-    //     //         console.log(postObj);
-    //     //     })
-    // }, 2000);
-</script> -->
-<!-- <script>
-    //Tang view sau 2s
-    let increaseViewUrl = "{{ route('post.updateView') }}";
-    const data = {
-        id: {
-            {
-                $post - > id
-            }
-        },
-        _token: "{{ csrf_token() }}"
-    };
-    setTimeout(() => {
-        document.querySelector('#viewNumber').innerText = "Lượt xem :" + "{{ $totalViews + 1 }}";
-        fetch(increaseViewUrl, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(responseData => responseData.json())
-            .then(postObj => {
-                console.log(postObj);
-            })
-    }, 2000);
-</script> -->
+<script src="{{asset('js/client/post-detail.js')}}"></script>
+
+@endsection

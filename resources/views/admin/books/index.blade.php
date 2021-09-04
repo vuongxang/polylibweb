@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 @section('content')
-<div class="card shadow mb-4">
+<div class="card shadow mb-4 rounded">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Danh sách sách</h6>
     </div>
@@ -12,16 +12,16 @@
             <div class="d-flex justify-content-between ">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active">Danh sách</a>
+                        <a class="nav-link active ">Danh sách  ( {{count($books)}} )</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('book.trashlist')}}">Thùng rác</a>
+                        <a class="nav-link" href="{{route('book.trashlist')}}">Thùng rác ( {{$books_trashed->total()}} )</a>
                     </li>
                 </ul>
                 <div>
                     <form action="" method="get" id="form-page-size">
                         <label for="">Chọn số bản ghi</label>
-                        <select name="page_size" id="page_size" class="form-select form-select-sm mt-2" aria-label=".form-select-sm" >
+                        <select name="page_size" id="page_size" class="form-select rounded " aria-label=".form-select-sm" >
                             <option value="10" @if ($pagesize==10) selected @endif>10</option>
                             <option value="25" @if ($pagesize==25) selected @endif>25</option>
                             <option value="50" @if ($pagesize==50) selected @endif>50</option>
@@ -29,19 +29,19 @@
                     </form>
                 </div>
             </div>
-            <table class="table table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-hover border-right border-left border-bottom table-sm rounded " id="dataTable" width="100%" cellspacing="0">
+                <thead >
                     <tr>
-                        <th>@sortablelink('id','ID')</th>
-                        <th width="300px">@sortablelink('name','Tiêu đề')</th>
-                        <th>Ảnh</th>
-                        <th>Tác giả</th>
-                        <th>Danh mục</th>
+                        <th class="text-center">@sortablelink('id','ID')</th>
+                        <th width="250px">@sortablelink('name','Tiêu đề')</th>
+                        <th class="text-center">Ảnh</th>
+                        <th class="text-center">Tác giả</th>
+                        <th class="text-center">Danh mục</th>
                         <th>Nội dung</th>
                         {{-- <th>@sortablelink('publish_date_from','Ngày đăng')</th> --}}
-                        <th>@sortablelink('status','Trạng thái')</th>
+                        <th class="text-center">@sortablelink('status','Trạng thái')</th>
                         <th class="text-center">
-                            <a href="{{route('book.create')}}" class="btn btn-dark btn-sm shadow rounded-0"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</a>
+                            <a href="{{route('book.create')}}" class="btn btn-dark shadow btn-sm font-weight-bold text-capitalize"><i class="fas fa-plus-circle mr-2"></i>Thêm mới</a>
                         </th>
                     </tr>
                 </thead>
@@ -71,10 +71,9 @@
                             </button>
                         </td>
                         <td class="text-center">
-                            {{-- <input data-id="{{$book->id}}" class="toggle-class-book" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Show" data-off="Hide" {{ $book->status ? 'checked' : '' }}> --}}
-                            <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input toggle-class-book" data-id="{{$book->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $book->status ? 'checked' : '' }}>
-                                <span class="custom-control-indicator"></span>
+                            <label class="custom-control custom-checkbox p-0 m-0 pointer " style="cursor: pointer;">
+                                <input type="checkbox" class="custom-control-input toggle-class-book " data-id="{{$book->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $book->status ? 'checked' : '' }}>
+                                <span class="custom-control-indicator p-0 m-0 "></span>
                             </label>
                         </td>
                         <td class="text-center">

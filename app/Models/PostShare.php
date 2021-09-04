@@ -44,4 +44,8 @@ class PostShare extends Model
     public function comments(){
         return $this->hasMany(PostComment::class, 'post_id');
     }
+
+    public function postViews(){
+        return $this->hasMany(PostView::class, 'post_id');
+    }
 }

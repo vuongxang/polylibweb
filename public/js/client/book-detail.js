@@ -85,14 +85,14 @@ function loadMoreParentComment(bookId = "") {
                 let arrId = [];
                 const comments = [...data[0]];
                 const commentsChild = [...data[1]];
-                
+                console.log(comments);
                 // Hiển thị dữ liệu
                 const result = comments.map(comment => {
                     lastId = comment.id;
-                    console.log(comment.user.avatar)
+                    // console.log(comment.user.avatar)
                     return `<div class="book-user-comment">
                                 <div class="comment-box__image">
-                                    <img src="${abc}/${comment.user.avatar}" alt="">
+                                    <img src="${comment.user.avatar}" alt="">
                                 </div>
                                 <div class="book-user-comment__body js-comment-body" data-parent_id = "${comment.id}">
                                     <div class="book-user-comment__heading">
@@ -113,7 +113,7 @@ function loadMoreParentComment(bookId = "") {
 
                             return `<div class="book-user-comment js-comment-child " data-comment_id ="${commentChild.id}">
                                                         <div class="comment-box__image">
-                                                            <img src="${abc}/${commentChild.user.avatar}" alt="">
+                                                            <img src="${commentChild.user.avatar}" alt="">
                                                         </div>
                                                         <div class="book-user-comment__body">
                                                             <div class="book-user-comment__heading">
@@ -274,7 +274,7 @@ function loadMoreChild(commentId, parrentId, item) {
             const result = commentsChild.map(commentChild => {
                 return `<div class="book-user-comment js-comment-child " data-comment_id ="${commentChild.id}">
                             <div class="comment-box__image">
-                                <img src="${abc}/${commentChild.user.avatar}" alt="">
+                                <img src="${commentChild.user.avatar}" alt="">
                             </div>
                             <div class="book-user-comment__body">
                                 <div class="book-user-comment__heading">
@@ -358,7 +358,7 @@ function loadMoreRate(lastRateId = "") {
         success: function (data) {
 
             const rateList = [...data[0]];
-
+            console.log(data);
             let lastRateId;
 
             const result = rateList.map(rateItem => {

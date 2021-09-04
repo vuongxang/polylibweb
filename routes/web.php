@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookDetailController;
+use App\Http\Controllers\BookMarkController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     
     Route::get('/add-post', [PostShareController::class, 'create'])->name('post.create');
     Route::post('/add-post', [PostShareController::class, 'store'])->name('post.store');
+    Route::post('/uploads-ckeditor', [PostShareController::class, 'uploads_ckeditor']);
     Route::get('/edit-post/{id}', [PostShareController::class, 'edit'])->name('post.edit');
     Route::post('/edit-post/{id}', [PostShareController::class, 'update'])->name('post.update');
     Route::get('/post-detail/{slug}', [PostShareController::class, 'detail'])->name('post.detail');
@@ -66,7 +68,7 @@ Route::post('contact', [ContactController::class, 'postContact'])->name('contact
 Route::get('wishlist/{id}', [WishlistController::class, 'wishlist'])->name('post.wishlist');
 Route::get('destroy-wishlist/{id}', [WishlistController::class, 'destroy'])->name('post.wishlist.destroy');
 
-Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+// Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
 Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
 Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
 // Route::view('review', 'client.pages.review-book');
@@ -90,6 +92,13 @@ Route::get('notification-read/{id}', [UserController::class, 'readeNotification'
 Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('notifications.read');
 Route::get('notifications', [UserController::class, 'notifications'])->name('notifications');
 Route::post('post/api/tang-view', [PostShareController::class, 'updateView'])->name('post.updateView');
+
+Route::post('api/addbookmark', [BookMarkController::class, 'addBookMark'])->name('bookmark.add');
+Route::post('api/removebookmark', [BookMarkController::class, 'removeBookMark'])->name('bookmark.remove');
+
+
+
+
 //Route admin
 Route::prefix('admin')->middleware('check-role')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -206,10 +215,13 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
 
     Route::prefix('report')->group(function () {
         Route::get('top-borrow-book', [ReportController::class, 'topBorrowBook'])->name('report.topBorrowBook');
-        Route::get('export', [ReportController::class, 'exportTopBorrowBook'])->name('report.exportTopBorrowBook');
+        Route::get('export-top-borrow-book', [ReportController::class, 'exportTopBorrowBook'])->name('report.exportTopBorrowBook');
         Route::get('top-view-post', [ReportController::class, 'topViewPost'])->name('report.topViewPost');
+        Route::get('export-top-view-post', [ReportController::class, 'exportTopViewPost'])->name('report.exportTopViewPost');
         Route::get('top-user-post', [ReportController::class, 'topUserPost'])->name('report.topUserPost');
+        Route::get('export-top-user-post', [ReportController::class, 'exportTopUserPost'])->name('report.exportTopUserPost');
         Route::get('top-cate-post', [ReportController::class, 'topCatePost'])->name('report.topCatePost');
+        Route::get('export-top-cate-post', [ReportController::class, 'exportTopCatePost'])->name('report.exportTopCatePost');
     });
 });
 

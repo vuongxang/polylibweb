@@ -4,17 +4,17 @@
             <a href="{{route('home')}}"><img src="{{ asset('images/logo.png') }}" alt="" class="header__logo-img"></a>
         </div>
         <div class="header-mobile__function">
-            <div class="toggle-cate ">
-                <i class="fas fa-bars toggle-icon"></i>
-                <div class="header-menu__cate">
-                    <ul class="header-mobile__nav">
-                        <li class="header__nav-li"><a class="link" href="{{route('home')}}"><i class="fas fa-home"></i>Trang Chủ</a></li>
-                        <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}"><i class="fas fa-bars"></i>Danh Mục</a></li>
-                        <li class="header__nav-li"><a class="link" href="{{route('post')}}"><i class="fas fa-file-signature"></i>Bài Viết</a></li>
-                        <li class="header__nav-li"><a class="link" href="{{route('contact')}}"><i class="fas fa-id-badge"></i>Liên Hệ</a></li>
-                    </ul>
+                <div class="toggle-cate ">
+                    <i class="fas fa-bars toggle-icon"></i>
+                    <div class="header-menu__cate">
+                        <ul class="header-mobile__nav">
+                            <li class="header__nav-li"><a class="link" href="{{route('home')}}"><i class="fas fa-home"></i>Trang Chủ</a></li>
+                            <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}"><i class="fas fa-bars"></i>Danh Mục</a></li>
+                            <li class="header__nav-li"><a class="link" href="{{route('post')}}"><i class="fas fa-file-signature"></i>Bài Viết</a></li>
+                            <li class="header__nav-li"><a class="link" href="{{route('contact')}}"><i class="fas fa-id-badge"></i>Liên Hệ</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
             <!-- search -->
                 <div class="toggle-search">    
                     <div class="click-search">
@@ -52,7 +52,7 @@
                                     </button>
 
                                     <!-- Dropdown - Alerts -->
-                                    <div class="hidden " id="menu_notification" aria-labelledby="alertsDropdown-mobile">
+                                    <div class="hidden " id="menu_notification-mobile" aria-labelledby="alertsDropdown-mobile">
                                         <div class="notification-dropdown-header">
                                             <div class="notification-header__title">Thông báo</div>
                                             <div class="notification-header__more"><a href="{{route('notifications.read')}}">Đánh dấu tất cả là đã đọc</a></div>
@@ -218,7 +218,7 @@
                 </ul>
 
             </div>
-
+            <a class="load-more__notification js-search-all" href="javascript:void(0)">Xem tất cả </a>
         </div>
     </div>
     <div class="header__information">
@@ -260,7 +260,7 @@
                                 <div class="notification-dropdown-wrapper">
 
                                     <div class="notification-avatar">
-                                        <img src="{{$notification->data['avatar']}}" alt="">
+                                        <img src="{{asset($notification->data['avatar'])}}" alt="">
 
                                     </div>
                                     <div class=" notification-body">
@@ -290,7 +290,7 @@
         </div>
         <div>
             <a id="navbarDropdown" class="nav-link  header__information-info" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                <img src="{{Auth::user()->avatar}}" alt="">
+                <img src="{{asset(Auth::user()->avatar)}}" alt="">
                 <i class="fas fa-caret-down"></i>
             </a>
             @if (Auth::check())
@@ -358,7 +358,7 @@
                                     <div class="notification-dropdown-wrapper">
 
                                         <div class="notification-avatar">
-                                            <img src="/${notificationData.avatar}" alt="">
+                                            <img src="${asset(notificationData.avatar)}" alt="">
 
                                         </div>
                                         <div class=" notification-body">
@@ -389,7 +389,13 @@
          * Bắt sự kiện click vào layout tắt dropdown tìm kiếm và thông báo
          * Và bắt nổi bọt khi bấm vào dropdown tìm kiếm và thông báo
          */
-        console.log(keyword);
+
+
+        $('.js-search-all').click(() => {
+
+            window.location = `/search?keyword=${keyword.val()}`;
+        })
+        // console.log(keyword);
         $('.container-custom').click(() => {
             $('#js-search__dropdown').addClass('hidden');
             $('#menu_notification').addClass('hidden');
@@ -416,23 +422,29 @@
          */
         $(document).on({
             ajaxStart: function() {
-                console.log('Loading...')
                 $('#js-search-dropdown__ul--cate').append(
                     ` <div class="lds-ellipsis">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>`
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>`
                 )
-                console.log('Loading...')
                 $('#js-search-dropdown__ul--author').append(
                     ` <div class="lds-ellipsis">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>`
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>`
+                )
+                $('#js-search-dropdown__ul--post').append(
+                    ` <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>`
                 )
             },
             ajaxStop: function() {
@@ -446,7 +458,7 @@
          */
         keyword.on('input', function(e) {
 
-            console.log(keyword.val().length);
+            // console.log(keyword.val().length);
 
             // if (e.which <= 90 && e.which >= 48) {
             //     console.log('hello');
@@ -459,10 +471,11 @@
                 if (AuthUser) {
 
                     if (keyword.val() && keyword.val().trim().length > 1 && keyword.val().length > 1) {
-                        console.log(keyword.val().trim().length);
+                        // console.log(keyword.val().trim().length);
                         $('#js-search__dropdown').removeClass('hidden');
                         $('#js-search-dropdown__ul--cate').empty();
                         $('#js-search-dropdown__ul--author').empty();
+                        $('#js-search-dropdown__ul--post').empty();
                         $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -475,17 +488,17 @@
                             },
                             dataType: 'json',
                             success: function(res) {
-                                console.log(res.status)
+                                // console.log(res.status)
                                 if (res.length > 0) {
                                     searchBookResult = [...res[0]];
                                     searchAuthorResult = [...res[1]];
                                     searchPostResult = [...res[2]];
                                     if (searchBookResult.length > 0) {
-                                        console.log(searchBookResult);
+                                        // console.log(searchBookResult);
                                         const booksResult = searchBookResult.map((item, index) => {
                                             if (index < 3) {
                                                 return `<li class="search-dropdown__li">
-                                            <a href="/book-detail/${item.id}" class="search-dropdown__link">
+                                            <a href="/book-detail/${item.slug}" class="search-dropdown__link">
                                                 <div class="book-card-horizontal">
                                                     <div class="book-card-cover-image">
                                                         <img src="${item.image}" alt="">
@@ -585,13 +598,14 @@
          */
         $('#alertsDropdown-mobile').click((e) => {
             e.stopPropagation();
-            if ($('#menu_notification').hasClass('hidden')) {
-                $('#menu_notification').removeClass('hidden');
+            if ($('#menu_notification-mobile').hasClass('hidden')) {
+                $('#menu_notification-mobile').removeClass('hidden');
             } else {
-                $('#menu_notification').addClass('hidden');
+                $('#menu_notification-mobile').addClass('hidden');
             }
         })
         $('.toggle-cate').click(function() {
+          
             $('.header-menu__cate').toggleClass('show-cate');
         })
         $('.inf-user').click(function() {

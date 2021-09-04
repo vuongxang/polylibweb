@@ -24,7 +24,7 @@
                 </thead>
                 <tbody >
                     @if (auth()->user()->notifications->count()>0)
-                    @foreach (auth()->user()->notifications as $key => $notification)
+                    @foreach ($notifications as $key => $notification)
                     <tr>
                         <td width="20px">{{ $key + 1 }}</td>
                         <td width="150px">{{ $notification->data['title'] }}</td>
@@ -47,6 +47,7 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-between">
+                {!!$notifications->links('vendor.pagination.bootstrap-4')!!}
             </div>
         </div>
     </div>

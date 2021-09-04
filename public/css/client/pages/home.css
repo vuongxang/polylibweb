@@ -418,7 +418,7 @@
 }
 
 /* responsive */
-@media screen and (max-width:991px)and (min-width: 768px){
+@media screen and (max-width:1080px)and (min-width:768px){
     .book-carouse-table{
         display: block;
     }
@@ -440,7 +440,7 @@
   }
 
 }
-@media screen and (max-width:767px)and (min-width: 375px){
+@media screen and (max-width:767px){
     .book-carouse-mobile{
         display: block;
     }
@@ -450,8 +450,23 @@
     .book-carouse-table,.book-carouse-desktop{
         display: none;
     }
+    .book-carouse__header {
+        margin-top: 2rem;
+        margin-bottom: 0
+    }
+    .book-card{
+        width: 31.3rem;
+       
+        margin: 25px auto;
+    }
+    .book-card__img{
+        height: 31rem;
+    }
     .book-carousel__wrapper{
-        justify-content: center;
+        display: block;
+    }
+    .borrow-btn,.review-btn{
+        font-size: 1.5rem;
     }
 
 }

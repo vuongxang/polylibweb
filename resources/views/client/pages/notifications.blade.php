@@ -6,15 +6,13 @@
 @endsection
 @section('body')
 
-
 @if (session('message'))
 <div class="alert alert-success text-center">
     <h1 class="text-success" style="font-size: 20pt; font-weight:700">{{ session('message') }}</h1>
 </div>
 @endif
 
-<div class="notification">
-
+<div class="notification notifi-mobile">
     <div class="notification-header">
         <h2 class="notification-header__h2">Thông báo</h2>
     </div>
@@ -31,7 +29,7 @@
             </thead>
             <tbody>
                 @if (auth()->user()->notifications->count()>0)
-                @foreach (auth()->user()->notifications as $key => $notification)
+                @foreach ($notifications as $key => $notification)
                 <tr>
                     <td data-label="STT" width="20px">{{ $key + 1 }}</td>
                     <td data-label="Tiêu đề"  width="150px">{{ $notification->data['title'] }}</td>
@@ -53,6 +51,9 @@
                 @endif
             </tbody>
         </table>
+        <div class="d-flex justify-content-between">
+            {!!$notifications->links('vendor.pagination.bootstrap-4')!!}
+        </div>
     </div>
 </div>
 

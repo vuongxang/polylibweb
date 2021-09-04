@@ -2,12 +2,6 @@
 	overflow-x: auto;
 }
 
-body{
-	background-color: black;
-	color: #fff;
-	font-family: 'system-ui';
-}
-
 h1{
 	font-weight: 800;
 	font-size: 3em;
@@ -83,6 +77,3 @@ background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)
 
 }
 
-.cancle-image{
-
-}

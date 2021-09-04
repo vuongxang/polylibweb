@@ -21,7 +21,7 @@ class BookDetailController extends Controller
         $book_slug = $request->id;
         $book = Book::where('slug', $book_slug)->first();
         if ($request->book_id > 0) {
-            $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->where('id', '<', $request->book_id)->orderBy('id', 'DESC')->take(3)->get();
+            $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->where('id', '<', $request->book_id)->where('status',1)->orderBy('id', 'DESC')->take(3)->get();
             // $commentsChild = Comment::where('book_id', $book_id)->where('parent_id','!=',Null)->orderBy('parent_id','DESC')->get();
             if (count($comments) > 0) {
                 foreach ($comments as $com) {
@@ -31,7 +31,7 @@ class BookDetailController extends Controller
 
                 // 
                 foreach ($arr as $ab) {
-                    $newCommentChild[] = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $ab)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->limit(3)->with('user')->get();
+                    $newCommentChild[] = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $ab)->where('status', 1)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->limit(3)->with('user')->get();
                 }
                 foreach ($newCommentChild as $b) {
                     foreach ($b as $c) {
@@ -48,7 +48,7 @@ class BookDetailController extends Controller
                 }
             }
         } else {
-            $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->orderBy('id', 'DESC')->take(3)->get();
+            $comments = Comment::where('book_id', $book->id)->where('parent_id', Null)->where('status', 1)->orderBy('id', 'DESC')->take(3)->get();
             if (count($comments) > 0) {
                 foreach ($comments as $com) {
                     $arr[] = $com->id;
@@ -57,7 +57,7 @@ class BookDetailController extends Controller
 
                 // 
                 foreach ($arr as $ab) {
-                    $newCommentChild[] = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $ab)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->take(3)->with('user')->get();
+                    $newCommentChild[] = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $ab)->where('status', 1)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->take(3)->with('user')->get();
                 }
                 foreach ($newCommentChild as $b) {
                     foreach ($b as $c) {
@@ -74,7 +74,14 @@ class BookDetailController extends Controller
                 }
             }
         }
-        $comments->load('user');
+        // $comments->load('user');
+        $comments->load([
+            'user' => function ($query) {
+                $query->withTrashed();
+            },
+        ]);
+
+        // $comments->user()->withTrashed()->get();
         // $commentsChild->load('user');
         // $comments = Comment::where('book_id', $book_id)->where('parent_id', Null)->orderBy('id', 'DESC')->take(3)->get();
         if (!empty($commentChilds)) {
@@ -94,16 +101,24 @@ class BookDetailController extends Controller
         $commentId = $request->commentId;
         //Lấy được parent_id
         $commentChild = Comment::where('book_id', $book->id)->where('parent_id', '!=', Null)->where('parent_id', $parrentId)->where('id', '>', $commentId)->orderBy('parent_id', 'DESC')->orderBy('id', 'ASC')->limit(3)->with('user')->get();
+        $commentChild->load([
+            'user' => function ($query) {
+                $query->withTrashed();
+            },
+        ]);
+        // $commentChild->user()->withTrashed()->get();
         return response()->json($commentChild);
     }
 
 
     public function storeComment(Request $request)
     {
-        
+
         $book_slug = $request->book_id;
         $book = Book::where('slug', $book_slug)->first();
-        if(!$book){return response()->json($book_slug);}
+        if (!$book) {
+            return response()->json($book_slug);
+        }
         $model = new Comment();
         $model->body = $request->body;
         $model->parent_id = $request->parent_id;
@@ -117,19 +132,25 @@ class BookDetailController extends Controller
     }
     public function getRate(Request $request)
     {
-        $book_id = $request->book_id;
+        $book_slug = $request->book_id;
         $last_rate_id = $request->last_rate_id;
         //Lấy được parent_id
+
+        $book = Book::where('slug', $book_slug)->where('status', 1)->first();
+
         if ($last_rate_id > 0) {
 
-            $rates = Rating::where('rateable_id', $book_id)->where('status', 1)->where('id', "<", $last_rate_id)->orderBy('id', 'DESC')->limit(3)->with('user')->get();
+            $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->where('id', "<", $last_rate_id)->orderBy('id', 'DESC')->limit(3)->with('user')->get();
         } else {
-            $rates = Rating::where('rateable_id', $book_id)->where('status', 1)->orderBy('id', 'DESC')->limit(3)->with('user')->get();
+            $rates = Rating::where('rateable_id', $book->id)->where('status', 1)->orderBy('id', 'DESC')->limit(3)->with('user')->get();
             if (count($rates) == 0) {
 
                 $message = "Chưa có đánh giá nào cho cuốn sách";
             }
         }
+        $rates->load(['user' => function ($query) {
+            $query->withTrashed();
+        }]);
         if (!isset($message)) {
 
             return response()->json([$rates]);

@@ -1,8 +1,7 @@
 $(document).ready(function () {
     $('#fileUploadForm').ajaxForm({
         beforeSend: function () {
-            $("#progress").css("display", "block");
-            var percentage = '0';
+            $(".spinner-border").css("display", "block");
         },
         uploadProgress: function (event, position, total, percentComplete) {
             var percentage = percentComplete;
@@ -11,12 +10,20 @@ $(document).ready(function () {
             })
         },
         error: function (response, status, e) {
-            alert('Oops something went.');
+            console.log(response.responseJSON.errors.pdf_file[0]);
+            $("#error_pdf").css("display", "block");
+            $('#error_pdf').html(response.responseJSON.errors.pdf_file[0]);
+            $(".spinner-border").css("display", "none");
         },
-        complete: function (xhr) {
-            $("#progress-arlert").css("display", "block");
+        success: function(res) {
+            $(".spinner-border").css("display", "none");
+            $(".alert-success").css("display", "block");
+            $("#error_pdf").css("display", "none");
 
             console.log('File has uploaded');
+        },
+        complete: function (xhr) {
+
         }
     });
 
@@ -42,7 +49,7 @@ $(document).ready(function () {
     })
 
     $('#total_day').on('change', function () {
-        $('#form-total-day').submit();
+        $('#form-page-size').submit();
     })
     $(function () {
         $('.toggle-class').change(function () {

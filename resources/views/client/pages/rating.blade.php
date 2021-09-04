@@ -20,7 +20,6 @@
                 <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#da_danh_gia">Đã đánh giá</a></li>
                 <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#chua_danh_gia">Chưa đánh giá</a></li>
             </ul> -->
-
             <div class="tab-content">
                 <div id="da_danh_gia"  class="">
                     @foreach ($user_rating as $user_rate)
@@ -30,8 +29,8 @@
                             <tr>
                                 <td width="100px">
                                     <div class="text-center">
-                                        <a href="{{route('book.detail',$user_rate->book->id)}}">
-                                            <img width="70" src="{{ $user_rate->book->image }}"
+                                        <a href="{{route('book.detail',$user_rate->book->slug)}}">
+                                            <img width="70" src="{{ asset($user_rate->book->image) }}"
                                                 alt="{{ $user_rate->book->title }}">
                                         </a>
                                     </div>
@@ -40,7 +39,7 @@
                                     <div class="">
                                         <div class="book-user-comment__heading">
                                             <div class="book-user-comment__name">
-                                                <a href="{{route('book.detail',$user_rate->book->id)}}">
+                                                <a href="{{route('book.detail',$user_rate->book->slug)}}">
                                                     {{ $user_rate->book->title }}
                                             </div>
                                             </a>
@@ -71,9 +70,9 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="book-rating__user__button">
-                                        <a href="{{ route('book.review', $user_rate->rateable_id) }}"
-                                            class="btn btn-primary">
-                                            Xem đánh giá
+                                        <a href="{{ route('book.rate', $user_rate->book->id) }}"
+                                            class="btn btn-primary btn-sm shadow rounded-0">
+                                                XEM ĐÁNH GIÁ
                                         </a>
                                     </div>
                                 </td>

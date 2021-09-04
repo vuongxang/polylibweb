@@ -16,24 +16,41 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::sortable()->where('role_id', 1)->orWhere('role_id', 2)->paginate(5);
+        $pagesize = 10;
+        $keyword = $request->keyword;
+
+        if ($request->page_size) $pagesize = $request->page_size;
+        $users = User::sortable()->where('email','like','%'.$keyword.'%')->whereIn('role_id', [1,2])->paginate($pagesize);
         $users->load('role');
 
-        $users_locked = User::onlyTrashed()->paginate(5);
+        $users_locked = User::onlyTrashed()->paginate($pagesize);
         // dd($users_locked); die;
-        return view('admin.users.index', ['users' => $users, 'users_locked' => $users_locked]);
+        return view('admin.users.index', [
+                                            'users'         => $users, 
+                                            'users_locked'  => $users_locked,
+                                            'pagesize'      =>$pagesize
+                                        ]);
     }
 
-    public function ListClient()
+    public function ListClient(Request $request)
     {
-        $users = User::sortable()->where('role_id', 3)->orWhere('role_id', 4)->paginate(5);
+        $pagesize = 10;
+        $keyword = $request->keyword;
+
+        if ($request->page_size) $pagesize = $request->page_size;
+
+        $users = User::sortable()->where('email','like','%'.$keyword.'%')->whereIn('role_id', [3,4])->paginate($pagesize);
         $users->load('role');
 
-        $users_locked = User::onlyTrashed()->paginate(5);
+        $users_locked = User::onlyTrashed()->paginate($pagesize);
 
-        return view('admin.users.client-list', ['users' => $users, 'users_locked' => $users_locked]);
+        return view('admin.users.client-list', [
+                                                'users'         => $users, 
+                                                'users_locked'  => $users_locked,
+                                                'pagesize'      => $pagesize
+                                            ]);
     }
 
     public function destroy($id)
@@ -148,7 +165,8 @@ class UserController extends Controller
     }
     public function notifications()
     {
-        return view('client.pages.notifications');
+        $notifications = Auth::user()->notifications()->paginate(10);
+        return view('client.pages.notifications',['notifications'   => $notifications]);
     }
     public function readAllNotify()
     {

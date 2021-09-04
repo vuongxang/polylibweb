@@ -340,13 +340,19 @@
    .book-search__aside{
        overflow-y: auto;
    }
+   .book-card__img{
+       height: 26rem;
+   }
   
 }
-@media screen and (max-width:375px){
+@media screen and (max-width:767px){
     .book-card-collection{
         justify-content: space-evenly;
     }
     .book-card{
         width: 25rem;
+    }
+    .nav{
+        margin-left: 15px;
     }
 }

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,7 +42,10 @@
                         </form>
                     </div>
                 </div>
-                <div class="topbar-tool__item"><a href=""><i class="fas fa-bookmark"></i></a></div>
+                <div class="topbar-tool__item topbar-tool__list"><a href=""><i class="fas fa-list"></i></a></div>
+                <div class="topbar-tool__item topbar-tool__bookmark"><a href=""><i class="far fa-bookmark"></i></a></div>
+                <div id="toast"></div>
+
             </div>
 
         </div>
@@ -58,6 +62,180 @@
                         {{$key+1}}
                     </div>
                     @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="topbar-bookmark__wrap hidden">
+            <div class="topbar-bookmark__header">
+                <div class="bookmark-header__text">Bookmarks</div>
+                <div class="bookmark-header__icon"><button><i class="fas fa-times"></i></button></div>
+            </div>
+            <div class="topbar-bookmark__body">
+                <div class="topbar-bookmark__page">
+                    <a href="">
+                        <img src="https://books.google.com/books/publisher/content/reader?id=IGoEDgAAQBAJ&hl=en-GB&pg=PP1&img=1&zoom=1&subver=ACfU3U0Em1I3y_cVlVYc7Q7mkx0HhxJnBQ&sig=ACfU3U2ZDeTLeY4FbVY0AQHPs7xdWj6uog&source=ge-web-app&w=70" alt="">
+                    </a>
+                </div>
+                <div class="topbar-bookmark__content">
+                    <div class="topbar-content__page">
+                        <a href="">
+                            Trang số 6
+
+                        </a>
+                    </div>
+                    <div class="topbar-content__time">
+                        1 phút trước
+                    </div>
+                </div>
+                <div class="topbar-bookmark__button">
+                    <a href="" class="topbar-bookmark__button-link">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="topbar-bookmark__body">
+                <div class="topbar-bookmark__page">
+                    <a href="">
+                        <img src="https://books.google.com/books/publisher/content/reader?id=IGoEDgAAQBAJ&hl=en-GB&pg=PP1&img=1&zoom=1&subver=ACfU3U0Em1I3y_cVlVYc7Q7mkx0HhxJnBQ&sig=ACfU3U2ZDeTLeY4FbVY0AQHPs7xdWj6uog&source=ge-web-app&w=70" alt="">
+                    </a>
+                </div>
+                <div class="topbar-bookmark__content">
+                    <div class="topbar-content__page">
+                        <a href="">
+                            Trang số 213
+
+                        </a>
+                    </div>
+                    <div class="topbar-content__time">
+                        1 phút trước
+                    </div>
+                </div>
+                <div class="topbar-bookmark__button">
+                    <a href="" class="topbar-bookmark__button-link">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="topbar-bookmark__body">
+                <div class="topbar-bookmark__page">
+                    <a href="">
+                        <img src="https://books.google.com/books/publisher/content/reader?id=IGoEDgAAQBAJ&hl=en-GB&pg=PP1&img=1&zoom=1&subver=ACfU3U0Em1I3y_cVlVYc7Q7mkx0HhxJnBQ&sig=ACfU3U2ZDeTLeY4FbVY0AQHPs7xdWj6uog&source=ge-web-app&w=70" alt="">
+                    </a>
+                </div>
+                <div class="topbar-bookmark__content">
+                    <div class="topbar-content__page">
+                        <a href="">
+                            Trang số 2
+
+                        </a>
+                    </div>
+                    <div class="topbar-content__time">
+                        1 phút trước
+                    </div>
+                </div>
+                <div class="topbar-bookmark__button">
+                    <a href="" class="topbar-bookmark__button-link">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="topbar-bookmark__body">
+                <div class="topbar-bookmark__page">
+                    <a href="">
+                        <img src="https://books.google.com/books/publisher/content/reader?id=IGoEDgAAQBAJ&hl=en-GB&pg=PP1&img=1&zoom=1&subver=ACfU3U0Em1I3y_cVlVYc7Q7mkx0HhxJnBQ&sig=ACfU3U2ZDeTLeY4FbVY0AQHPs7xdWj6uog&source=ge-web-app&w=70" alt="">
+                    </a>
+                </div>
+                <div class="topbar-bookmark__content">
+                    <div class="topbar-content__page">
+                        <a href="">
+                            Trang số 3
+
+                        </a>
+                    </div>
+                    <div class="topbar-content__time">
+                        1 phút trước
+                    </div>
+                </div>
+                <div class="topbar-bookmark__button">
+                    <a href="" class="topbar-bookmark__button-link">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="topbar-bookmark__body">
+                <div class="topbar-bookmark__page">
+                    <a href="">
+                        <img src="https://books.google.com/books/publisher/content/reader?id=IGoEDgAAQBAJ&hl=en-GB&pg=PP1&img=1&zoom=1&subver=ACfU3U0Em1I3y_cVlVYc7Q7mkx0HhxJnBQ&sig=ACfU3U2ZDeTLeY4FbVY0AQHPs7xdWj6uog&source=ge-web-app&w=70" alt="">
+                    </a>
+                </div>
+                <div class="topbar-bookmark__content">
+                    <div class="topbar-content__page">
+                        <a href="">
+                            Trang số 4
+
+                        </a>
+                    </div>
+                    <div class="topbar-content__time">
+                        1 phút trước
+                    </div>
+                </div>
+                <div class="topbar-bookmark__button">
+                    <a href="" class="topbar-bookmark__button-link">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="topbar-bookmark__body">
+                <div class="topbar-bookmark__page">
+                    <a href="">
+                        <img src="https://books.google.com/books/publisher/content/reader?id=IGoEDgAAQBAJ&hl=en-GB&pg=PP1&img=1&zoom=1&subver=ACfU3U0Em1I3y_cVlVYc7Q7mkx0HhxJnBQ&sig=ACfU3U2ZDeTLeY4FbVY0AQHPs7xdWj6uog&source=ge-web-app&w=70" alt="">
+                    </a>
+                </div>
+                <div class="topbar-bookmark__content">
+                    <div class="topbar-content__page">
+                        <a href="">
+                            Trang số 5
+
+                        </a>
+                    </div>
+                    <div class="topbar-content__time">
+                        1 phút trước
+                    </div>
+                </div>
+                <div class="topbar-bookmark__button">
+                    <a href="" class="topbar-bookmark__button-link">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="topbar-bookmark__body">
+                <div class="topbar-bookmark__page">
+                    <a href="">
+                        <img src="https://books.google.com/books/publisher/content/reader?id=IGoEDgAAQBAJ&hl=en-GB&pg=PP1&img=1&zoom=1&subver=ACfU3U0Em1I3y_cVlVYc7Q7mkx0HhxJnBQ&sig=ACfU3U2ZDeTLeY4FbVY0AQHPs7xdWj6uog&source=ge-web-app&w=70" alt="">
+                    </a>
+                </div>
+                <div class="topbar-bookmark__content">
+                    <div class="topbar-content__page">
+                        <a href="">
+                            Trang số 13
+
+                        </a>
+                    </div>
+                    <div class="topbar-content__time">
+                        1 phút trước
+                    </div>
+                </div>
+                <div class="topbar-bookmark__button">
+                    <a href="" class="topbar-bookmark__button-link">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -90,38 +268,42 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js" integrity="sha512-fAw3hLoeRiu86io4KGdDLz/Ed3OiNUMBXamPPmpqswqqJaU2YzbEBbvvr3/OyGPyMl1ZyijMuUI2dSwiDM5RiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script type="text/javascript">
         // Khoong cho xem nguon trang
+        /**
+         * Khi người dùng bật tab lên vào network vẫn xem được dữ liệu gửi đi và nhận về
+         * Tắt F12 cũng là một giải pháp để tránh người dùng có thể xem được dữ liệu hình ảnh
+         */
 
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        // document.addEventListener('contextmenu', event => event.preventDefault());
 
-        document.onkeypress = function(event) {
-            event = (event || window.event);
-            if (event.keyCode == 123) {
-                return false;
-            }
-        }
-        document.onmousedown = function(event) {
-            event = (event || window.event);
-            if (event.keyCode == 123) {
-                return false;
-            }
-        }
-        document.onkeydown = function(event) {
-            event = (event || window.event);
-            if (event.keyCode == 123) {
-                return false;
-            }
-        }
+        // document.onkeypress = function(event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {
+        //         return false;
+        //     }
+        // }
+        // document.onmousedown = function(event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {
+        //         return false;
+        //     }
+        // }
+        // document.onkeydown = function(event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {
+        //         return false;
+        //     }
+        // }
 
-        jQuery(document).ready(function($) {
-            $(document).keydown(function(event) {
-                var pressedKey = String.fromCharCode(event.keyCode).toLowerCase();
+        // jQuery(document).ready(function($) {
+        //     $(document).keydown(function(event) {
+        //         var pressedKey = String.fromCharCode(event.keyCode).toLowerCase();
 
-                if (event.ctrlKey && (pressedKey == "c" || pressedKey == "u")) {
-                    //disable key press porcessing
-                    return false;
-                }
-            });
-        });
+        //         if (event.ctrlKey && (pressedKey == "c" || pressedKey == "u")) {
+        //             //disable key press porcessing
+        //             return false;
+        //         }
+        //     });
+        // });
 
         window.onload = () => {
             // ProtectImageJS.protect(document.querySelectorAll("img"))
@@ -139,7 +321,8 @@
 
 
 
-        // Thanh top bar hiển thị
+        // Thanh top bar hiển thị theo một trang hoặc 2 trang
+
         $('.topbar-tool__display').click(e => {
             e.preventDefault();
             if ($('#flipbook').turn('display') == 'double') {
@@ -156,7 +339,8 @@
                 return $('#flipbook').turn('display', 'double')
             }
         })
-        //Topbar thumbnails
+
+        //Topbar thumbnails hình ảnh của cuốn sách
         let thumbnailEl = $('.topbar-tool__thumbnails');
         let topbarAside = $('.topbar-aside');
         let topbarLink = [...$('.aside-item__link')];
@@ -186,13 +370,16 @@
         // $('#numb3').click((pageNumber) => {
         //     $('#flipbook').turn('page', pageNumber);
         // })
+
+
+
         $('.topbar-tool__search').click((e) => {
             e.preventDefault();
             $('.dropdown-search').toggleClass('active');
             $('#search-form').trigger("reset");
 
         })
-        
+
 
 
         $('.dropdown-search').click((e) => {
@@ -287,6 +474,141 @@
                     // break;
             }
         });
+
+        /**
+         * Đánh dấu trang đã đọc với nội dùng cần lưu lại
+         * Giúp người dùng có thể xem lại một cách dễ dàng
+         * 
+         */
+
+        $('.topbar-tool__bookmark').click(e => {
+            e.preventDefault();
+            if ($(e.target).hasClass('far')) {
+
+                $(e.target).removeClass('far');
+                $(e.target).addClass('fas');
+
+
+                let pageCurrent = $('#flipbook').turn('page');
+                console.log(pageCurrent);
+                $.ajax({
+                    url: '/api/addbookmark',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        page: pageCurrent,
+                        book_slug: '{{{$book->slug}}}',
+                        user_id: "{{{Auth::user()->id}}}"
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        toast({
+                            message: data.message,
+                            type: "success",
+                            duration: 2000
+                        });
+                    }
+                })
+
+
+            } else {
+                console.log("Remove Bookmark")
+                $(e.target).removeClass('fas');
+                $(e.target).addClass('far');
+
+                let pageCurrent = $('#flipbook').turn('page');
+
+                $.ajax({
+                    url: '/api/removebookmark',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        page: pageCurrent,
+                        book_slug: '{{{$book->slug}}}',
+                        user_id: "{{{Auth::user()->id}}}"
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        toast({
+                            message: data.message,
+                            type: "error",
+                            duration: 2000
+                        });
+                    }
+                })
+                
+            }
+
+
+        })
+        /** 
+         * Hiện danh sách bookmark
+         */
+        let topBarBookMark = $('.topbar-bookmark__wrap');
+        let topBarBookMarkIcon = $('.bookmark-header__icon');
+        $('.topbar-tool__list').click(e => {
+            e.preventDefault();
+            topBarBookMark.toggleClass('hidden');
+        });
+        topBarBookMarkIcon.click(e => {
+            e.preventDefault();
+            topBarBookMark.addClass('hidden');
+        });
+
+        // Toast function
+        function toast({
+            title = "",
+            message = "",
+            type = "info",
+            duration = 3000
+        }) {
+            const main = document.getElementById("toast");
+            if (main) {
+                const toast = document.createElement("div");
+
+                // Auto remove toast
+                const autoRemoveId = setTimeout(function() {
+                    main.removeChild(toast);
+                }, duration + 1000);
+
+                // Remove toast when clicked
+                toast.onclick = function(e) {
+                    if (e.target.closest(".toast__close")) {
+                        main.removeChild(toast);
+                        clearTimeout(autoRemoveId);
+                    }
+                };
+
+                const icons = {
+                    success: "fas fa-check-circle",
+                    info: "fas fa-info-circle",
+                    warning: "fas fa-exclamation-circle",
+                    error: "fas fa-exclamation-circle"
+                };
+                const icon = icons[type];
+                const delay = (duration / 1000).toFixed(2);
+
+                toast.classList.add("toast", `toast--${type}`);
+                toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+
+                toast.innerHTML = `
+                    <div class="toast__icon">
+                        <i class="${icon}"></i>
+                    </div>
+                    <div class="toast__body">
+                        <p class="toast__msg">${message}</p>
+                    </div>
+                    <div class="toast__close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                `;
+                main.appendChild(toast);
+            }
+        }
     </script>
 </body>
 

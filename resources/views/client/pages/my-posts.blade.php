@@ -41,11 +41,13 @@
                             @foreach ($posts as $key => $post)
                             <tr>
                                 <td data-label="STT" scope="row">{{ $key + 1 }}</td>
-                                <td  data-label="Ảnh"  class="img-center">
-                                    <img src="{{ asset($post->thumbnail) }}" width="40">
+                                <td data-label="Ảnh"  class="img-center">
+                                    <a href="{{ route('post.detail', $post->slug) }}">
+                                        <img src="{{ asset($post->thumbnail) }}" width="40" alt="Ảnh bài viết">
+                                    </a>
                                 </td>
                                 <td  data-label="Tên bài viết" >
-                                    {{$post->title}}
+                                <a style="color:black" href="{{ route('post.detail', $post->slug) }}">{{$post->title}}</a>
                                 </td>
                                 <td  data-label="Trạng thái" >
                                     @if ($post->status==1)
@@ -81,7 +83,7 @@
                                 <td>Ảnh bài viết</td>
                                 <td>Tên bài viết</td>
                                 <td>Người đăng</td>
-                                <td>Hành động</td>
+                                <td class="text-center" style="width: 150px;">Hành động</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,25 +93,25 @@
                                 @foreach ($wishlists as $key => $wishlist)
                                     @if ($wishlist->id == true)
                                     <tr>
-                                        <td>{{ $key +1 }}</td>
-                                        <td class="">
+                                        <td data-label="STT">{{ $key +1 }}</td>
+                                        <td data-label="Ảnh" class="">
                                             <a href="{{ route('post.detail', $wishlist->post->slug) }}">
-                                                <img src="{{ $wishlist->post->thumbnail }}" width="100" alt="Ảnh bài viết">
+                                                <img src="{{ asset($wishlist->post->thumbnail) }}" width="40" alt="Ảnh bài viết">
                                             </a>
                                         </td>
-                                        <td>
+                                        <td data-label="Nội dung">
                                             <a href="{{ route('post.detail', $wishlist->post->slug) }}" style="color:#000">
                                                 {{ $wishlist->post->title }}
                                             </a>
                                         </td>
-                                        <td>
+                                        <td data-label="Tên tác giả">
                                             <a href="{{ route('post.detail', $wishlist->post->slug) }}" style="color:#000">
                                                 {{ $wishlist->post->user->name }}
                                             </a>
                                         </td>
-                                        <td>
-                                            <a href="{{route('post.wishlist.destroy',['id'=>$wishlist->id])}}"
-                                                class="btn btn-danger">Xóa khỏi yêu thích</a>
+                                        <td data-label="Hành Động" class="text-center">
+                                            <a href="{{route('post.wishlist.destroy',['id'=>$wishlist->post->id])}}"
+                                                class="fas fa-trash text-danger"></a>
                                         </td>
                                     </tr>
                                     @endif

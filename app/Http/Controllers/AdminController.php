@@ -30,7 +30,8 @@ class AdminController extends Controller
     }
 
     public function notifications(){
-        return view('admin.users.notification');
+        $notifications = Auth::user()->notifications()->paginate(10);
+        return view('admin.users.notification',['notifications' => $notifications]);
     }
 
     // public function dayData(){
@@ -89,6 +90,24 @@ class AdminController extends Controller
         // $arrOrderDatas = [100,200,300,200,400,500,400,600,700,600,800,700,900];
         $data['label'] =   $arrMonthNames;
         $data['data'] =   $arrOrderDatas;
+        return response()->json($data);
+    }
+
+    public function BookCateDatas(){
+        $arrayCateName = [];
+        $arrayTotalBook = [];
+        $arrBackgroundColor = [];
+        $cates = Category::all();
+        $cates->load('books');
+        foreach ($cates as $key => $value) {
+            $arrayCateName[]    = $value->name;
+            $arrayTotalBook[]   = count($value->books);
+            $arrBackgroundColor[] = str_pad( dechex( mt_rand( 0, 127 ) ), 2, '0', STR_PAD_LEFT);
+        }        
+
+        $data['label'] =   $arrayCateName;
+        $data['data'] =   $arrayTotalBook;
+        $data['backgroundColor'] = $arrBackgroundColor;
         return response()->json($data);
     }
 

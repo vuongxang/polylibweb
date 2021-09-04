@@ -321,14 +321,40 @@
     color:var(--base-color); */
     text-decoration: none;
 }
+.post-mobile{
+    display: none;
+}
 
-@media screen and (max-width:991px)and (min-width: 768px){
+@media screen and (max-width:1080px)and (min-width: 768px){
    .row{
        margin-top: 70px;
    }
   }
-  @media screen and (max-width:767px)and (min-width: 375px){
+@media screen and (max-width:767px){
+    .post-desktop{
+        display: none;
+    }
+    .post-mobile{
+        display: block;
+        
+    }
+    .post-wrap{
+        padding-left: 15px;
+    }
+    .post-aside{
+        padding-right: 15px;
+        margin-bottom: 20px;
+    }
     .row{
         margin-top: 70px;
+    }
+    .post-aside-header{
+        border-bottom: none;
+    }
+    .show-border{
+        border-bottom: 1px solid var(--text-color3);
+    }
+    .show-cate-post{
+        display: none;
     }
   }
