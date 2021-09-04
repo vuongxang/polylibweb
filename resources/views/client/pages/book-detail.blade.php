@@ -6,13 +6,7 @@
 
 @section('content')
 
-@if (session('message'))
-    <div class="alert @if (session('alert')) {{ session('alert') }} @endif text-center">
-        <h1 class="@if (session('text-alert')) {{ session('text-alert') }} @endif" style="font-size: 20pt; font-weight:700">
-            {{ session('message') }}
-        </h1>
-    </div>
-@endif
+
 
 <div class="container">
     <div class="book-detail-content row">
@@ -24,6 +18,11 @@
         </div>
 
         <div class="col-md-8">
+            <!-- @if (session('message'))
+            <div class="alert alert-primary @if (session('alert')) {{ session('alert') }} @endif text-center">
+                {{ session('message') }}
+            </div>
+            @endif -->
             <div class="book-detail-info">
                 <div class="book-info__header">
                     <div class="book-info__title">
@@ -48,7 +47,7 @@
                                 @else
                                 <i class="far fa-star"></i>
                                 @endif
-                            @endfor
+                                @endfor
 
                         </div>
                         <span class="review-count ">( {{ round($avg_rating,1) }} / 5 )</span>
@@ -104,7 +103,7 @@
         </div>
         <div class="tab-content">
             <div class="book-tabs__comment tab-pane in active" id="comment-tab">
-                 <!-- @include('client.blocks.commentsDisplay', ['comments' => $comments, 'book_id' => $book->id]) -->
+                <!-- @include('client.blocks.commentsDisplay', ['comments' => $comments, 'book_id' => $book->id]) -->
                 <div class="js-book-user-comment" id="js-book-user-comment"></div>
                 <div class="comment-box__wrapper">
                     <div class="comment-box__image">
@@ -173,7 +172,7 @@
     </div>
 
     <!-- mobile -->
-    
+
     <div class="book-carouse book-carouse-mobile">
         <div class="book-carouse__header">
             <div class="carouse-header__title">Sách cùng thể loại</div>
@@ -189,608 +188,581 @@
                     <div class="carousel-item active">
                         <div class="book-carousel__wrapper">
                             @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index < 1) 
-                                <div class="book-card ">
-                                    <div class="book-card__img">
-                                        <a href="{{ route('book.detail', $book->slug) }}">
-                                            <img src="{{ asset($book->image) }}" alt=""/>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__title">
-                                        <a href="{{ route('book.detail', $book->slug) }}">
-                                            <h3> {{ $book->title }} </h3>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__author">
-                                        @foreach ($book->authors as $author)
-                                            @if ($loop->last)
-                                            {{ $author->name }}
-                                            @else
-                                            {{ $author->name }},
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="book-card__star">
-                                        @for ($i=1; $i <= 5; $i++) 
-                                            @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                <i class="fas fa-star"></i>
-                                            @else
-                                                <i class="far fa-star"></i>
-                                            @endif
-                                        @endfor
-                                    </div>
-                                    <div class="book-card__btn">
-                                        @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                            @if ($loop->index < 1) <div class="book-card ">
+                                <div class="book-card__img">
+                                    <a href="{{ route('book.detail', $book->slug) }}">
+                                        <img src="{{ asset($book->image) }}" alt="" />
+                                    </a>
+                                </div>
+                                <div class="book-card__title">
+                                    <a href="{{ route('book.detail', $book->slug) }}">
+                                        <h3> {{ $book->title }} </h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author">
+                                    @foreach ($book->authors as $author)
+                                    @if ($loop->last)
+                                    {{ $author->name }}
+                                    @else
+                                    {{ $author->name }},
+                                    @endif
+                                    @endforeach
+                                </div>
+                                <div class="book-card__star">
+                                    @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                        <i class="fas fa-star"></i>
                                         @else
-                                            <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                                        <i class="far fa-star"></i>
                                         @endif
-
-                                    </div>
+                                        @endfor
+                                </div>
+                                <div class="book-card__btn">
+                                    @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                                    @else
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                                    @endif
 
                                 </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-                    @if (count($sameBooksUnique) > 2)
-                    <div class="carousel-item">
-                        <div class="book-carousel__wrapper">
 
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index >= 1 && $loop->index < 2) 
-                                    
-                                        <div class="book-card ">
-                                            <div class="book-card__img">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <img src="{{ asset($book->image) }}" alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="book-card__title">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <h3> {{ $book->title }} </h3>
-                                                </a>
-                                            </div>
-                                            <div class="book-card__author">
-                                                @foreach ($book->authors as $author)
-                                                    @if ($loop->last)
-                                                        {{ $author->name }}
-                                                    @else
-                                                        {{ $author->name }},
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div class="book-card__star">
-                                                @for ($i=1; $i <= 5; $i++) 
-                                                    @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                        <i class="fas fa-star"></i>
-                                                    @else
-                                                        <i class="far fa-star"></i>
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                            <div class="book-card__btn">
-                                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                                @else
-                                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                @endif
-                            @endforeach
                         </div>
+                        @endif
+                        @endforeach
                     </div>
-                    @endif
-                    @if (count($sameBooksUnique) > 2)
-                    <div class="carousel-item">
-                        <div class="book-carousel__wrapper">
-
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index >= 2 && $loop->index < 3) 
-                                    
-                                        <div class="book-card ">
-                                            <div class="book-card__img">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <img src="{{ asset($book->image) }}" alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="book-card__title">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <h3> {{ $book->title }} </h3>
-                                                </a>
-                                            </div>
-                                            <div class="book-card__author">
-                                                @foreach ($book->authors as $author)
-                                                    @if ($loop->last)
-                                                        {{ $author->name }}
-                                                    @else
-                                                        {{ $author->name }},
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div class="book-card__star">
-                                                @for ($i=1; $i <= 5; $i++) 
-                                                    @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                        <i class="fas fa-star"></i>
-                                                    @else
-                                                        <i class="far fa-star"></i>
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                            <div class="book-card__btn">
-                                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                                @else
-                                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-                    @if (count($sameBooksUnique) > 2)
-                    <div class="carousel-item">
-                        <div class="book-carousel__wrapper">
-
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index >= 3 && $loop->index < 4) 
-                                    
-                                        <div class="book-card ">
-                                            <div class="book-card__img">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <img src="{{ asset($book->image) }}" alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="book-card__title">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <h3> {{ $book->title }} </h3>
-                                                </a>
-                                            </div>
-                                            <div class="book-card__author">
-                                                @foreach ($book->authors as $author)
-                                                    @if ($loop->last)
-                                                        {{ $author->name }}
-                                                    @else
-                                                        {{ $author->name }},
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div class="book-card__star">
-                                                @for ($i=1; $i <= 5; $i++) 
-                                                    @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                        <i class="fas fa-star"></i>
-                                                    @else
-                                                        <i class="far fa-star"></i>
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                            <div class="book-card__btn">
-                                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                                @else
-                                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
                 </div>
-
-            
+                @endif
                 @if (count($sameBooksUnique) > 2)
+                <div class="carousel-item">
+                    <div class="book-carousel__wrapper">
 
-                    <a class="carousel-control-prev carousel-custom-prev " href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next carousel-custom-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-
-                    </a>
-                @endif
-                @else
-                    <div class="book-user-comment__message">
-                        Chưa sách cùng thể loại
+                        @foreach ($sameBooksUnique as $book)
+                        @if ($loop->index >= 1 && $loop->index < 2) <div class="book-card ">
+                            <div class="book-card__img">
+                                <a href="{{ route('book.detail', $book->slug) }}">
+                                    <img src="{{ asset($book->image) }}" alt="" />
+                                </a>
+                            </div>
+                            <div class="book-card__title">
+                                <a href="{{ route('book.detail', $book->slug) }}">
+                                    <h3> {{ $book->title }} </h3>
+                                </a>
+                            </div>
+                            <div class="book-card__author">
+                                @foreach ($book->authors as $author)
+                                @if ($loop->last)
+                                {{ $author->name }}
+                                @else
+                                {{ $author->name }},
+                                @endif
+                                @endforeach
+                            </div>
+                            <div class="book-card__star">
+                                @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                    <i class="fas fa-star"></i>
+                                    @else
+                                    <i class="far fa-star"></i>
+                                    @endif
+                                    @endfor
+                            </div>
+                            <div class="book-card__btn">
+                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                                @else
+                                <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                                @endif
+                            </div>
                     </div>
+                    @endif
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            @if (count($sameBooksUnique) > 2)
+            <div class="carousel-item">
+                <div class="book-carousel__wrapper">
+
+                    @foreach ($sameBooksUnique as $book)
+                    @if ($loop->index >= 2 && $loop->index < 3) <div class="book-card ">
+                        <div class="book-card__img">
+                            <a href="{{ route('book.detail', $book->slug) }}">
+                                <img src="{{ asset($book->image) }}" alt="" />
+                            </a>
+                        </div>
+                        <div class="book-card__title">
+                            <a href="{{ route('book.detail', $book->slug) }}">
+                                <h3> {{ $book->title }} </h3>
+                            </a>
+                        </div>
+                        <div class="book-card__author">
+                            @foreach ($book->authors as $author)
+                            @if ($loop->last)
+                            {{ $author->name }}
+                            @else
+                            {{ $author->name }},
+                            @endif
+                            @endforeach
+                        </div>
+                        <div class="book-card__star">
+                            @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                <i class="fas fa-star"></i>
+                                @else
+                                <i class="far fa-star"></i>
+                                @endif
+                                @endfor
+                        </div>
+                        <div class="book-card__btn">
+                            @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                            @else
+                            <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                            @endif
+                        </div>
+                </div>
                 @endif
+                @endforeach
             </div>
         </div>
+        @endif
+        @if (count($sameBooksUnique) > 2)
+        <div class="carousel-item">
+            <div class="book-carousel__wrapper">
 
-        <!-- Button Carouse -->
-
-    </div>
-    
-    <!-- table -->
-
-    <div class="book-carouse book-carouse-table">
-        <div class="book-carouse__header">
-            <div class="carouse-header__title">Sách cùng thể loại</div>
+                @foreach ($sameBooksUnique as $book)
+                @if ($loop->index >= 3 && $loop->index < 4) <div class="book-card ">
+                    <div class="book-card__img">
+                        <a href="{{ route('book.detail', $book->slug) }}">
+                            <img src="{{ asset($book->image) }}" alt="" />
+                        </a>
+                    </div>
+                    <div class="book-card__title">
+                        <a href="{{ route('book.detail', $book->slug) }}">
+                            <h3> {{ $book->title }} </h3>
+                        </a>
+                    </div>
+                    <div class="book-card__author">
+                        @foreach ($book->authors as $author)
+                        @if ($loop->last)
+                        {{ $author->name }}
+                        @else
+                        {{ $author->name }},
+                        @endif
+                        @endforeach
+                    </div>
+                    <div class="book-card__star">
+                        @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                            <i class="fas fa-star"></i>
+                            @else
+                            <i class="far fa-star"></i>
+                            @endif
+                            @endfor
+                    </div>
+                    <div class="book-card__btn">
+                        @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                        <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                        @else
+                        <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                        <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                        @endif
+                    </div>
+            </div>
+            @endif
+            @endforeach
         </div>
-        <div class="book-carouse__body">
-            @if (count($sameBooksUnique) > 0)
-            <div id="carouselExampleControls" class="carousel slide m-0 p-0" data-ride="carousel">
+    </div>
+    @endif
+</div>
 
-                <!-- Carouse Content -->
-                <div class="carousel-inner">
-                    <!-- Carouse Item -->
-                    @if (count($sameBooksUnique) > 0)
-                    <div class="carousel-item active">
-                        <div class="book-carousel__wrapper">
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index < 2) 
-                                <div class="book-card ">
-                                    <div class="book-card__img">
-                                        <a href="{{ route('book.detail', $book->slug) }}">
-                                            <img src="{{ asset($book->image) }}" alt=""/>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__title">
-                                        <a href="{{ route('book.detail', $book->slug) }}">
-                                            <h3> {{ $book->title }} </h3>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__author">
-                                        @foreach ($book->authors as $author)
-                                            @if ($loop->last)
-                                            {{ $author->name }}
-                                            @else
-                                            {{ $author->name }},
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="book-card__star">
-                                        @for ($i=1; $i <= 5; $i++) 
-                                            @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                <i class="fas fa-star"></i>
-                                            @else
-                                                <i class="far fa-star"></i>
-                                            @endif
-                                        @endfor
-                                    </div>
-                                    <div class="book-card__btn">
-                                        @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                        @else
-                                            <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                        @endif
 
-                                    </div>
+@if (count($sameBooksUnique) > 2)
 
-                                </div>
+<a class="carousel-control-prev carousel-custom-prev " href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+</a>
+<a class="carousel-control-next carousel-custom-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+
+</a>
+@endif
+@else
+<div class="book-user-comment__message">
+    Chưa sách cùng thể loại
+</div>
+@endif
+</div>
+</div>
+
+<!-- Button Carouse -->
+
+</div>
+
+<!-- table -->
+
+<div class="book-carouse book-carouse-table">
+    <div class="book-carouse__header">
+        <div class="carouse-header__title">Sách cùng thể loại</div>
+    </div>
+    <div class="book-carouse__body">
+        @if (count($sameBooksUnique) > 0)
+        <div id="sameBookUniqueTable" class="carousel slide m-0 p-0" data-ride="carousel">
+
+            <!-- Carouse Content -->
+            <div class="carousel-inner">
+                <!-- Carouse Item -->
+                @if (count($sameBooksUnique) > 0)
+                <div class="carousel-item active">
+                    <div class="book-carousel__wrapper">
+                        @foreach ($sameBooksUnique as $book)
+                        @if ($loop->index < 2) <div class="book-card ">
+                            <div class="book-card__img">
+                                <a href="{{ route('book.detail', $book->slug) }}">
+                                    <img src="{{ asset($book->image) }}" alt="" />
+                                </a>
+                            </div>
+                            <div class="book-card__title">
+                                <a href="{{ route('book.detail', $book->slug) }}">
+                                    <h3> {{ $book->title }} </h3>
+                                </a>
+                            </div>
+                            <div class="book-card__author">
+                                @foreach ($book->authors as $author)
+                                @if ($loop->last)
+                                {{ $author->name }}
+                                @else
+                                {{ $author->name }},
                                 @endif
-                            @endforeach
-                        </div>
+                                @endforeach
+                            </div>
+                            <div class="book-card__star">
+                                @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                    <i class="fas fa-star"></i>
+                                    @else
+                                    <i class="far fa-star"></i>
+                                    @endif
+                                    @endfor
+                            </div>
+                            <div class="book-card__btn">
+                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                                @else
+                                <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                                @endif
+
+                            </div>
+
                     </div>
                     @endif
-                    @if (count($sameBooksUnique) > 2)
-                    <div class="carousel-item">
-                        <div class="book-carousel__wrapper">
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            @if (count($sameBooksUnique) > 2)
+            <div class="carousel-item">
+                <div class="book-carousel__wrapper">
 
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index >= 2 && $loop->index < 4) 
-                                    
-                                        <div class="book-card ">
-                                            <div class="book-card__img">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <img src="{{ asset($book->image) }}" alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="book-card__title">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <h3> {{ $book->title }} </h3>
-                                                </a>
-                                            </div>
-                                            <div class="book-card__author">
-                                                @foreach ($book->authors as $author)
-                                                    @if ($loop->last)
-                                                        {{ $author->name }}
-                                                    @else
-                                                        {{ $author->name }},
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div class="book-card__star">
-                                                @for ($i=1; $i <= 5; $i++) 
-                                                    @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                        <i class="fas fa-star"></i>
-                                                    @else
-                                                        <i class="far fa-star"></i>
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                            <div class="book-card__btn">
-                                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                                @else
-                                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                @endif
+                    @foreach ($sameBooksUnique as $book)
+                    @if ($loop->index >= 2 && $loop->index < 4) <div class="book-card ">
+                        <div class="book-card__img">
+                            <a href="{{ route('book.detail', $book->slug) }}">
+                                <img src="{{ asset($book->image) }}" alt="" />
+                            </a>
+                        </div>
+                        <div class="book-card__title">
+                            <a href="{{ route('book.detail', $book->slug) }}">
+                                <h3> {{ $book->title }} </h3>
+                            </a>
+                        </div>
+                        <div class="book-card__author">
+                            @foreach ($book->authors as $author)
+                            @if ($loop->last)
+                            {{ $author->name }}
+                            @else
+                            {{ $author->name }},
+                            @endif
                             @endforeach
                         </div>
+                        <div class="book-card__star">
+                            @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                <i class="fas fa-star"></i>
+                                @else
+                                <i class="far fa-star"></i>
+                                @endif
+                                @endfor
+                        </div>
+                        <div class="book-card__btn">
+                            @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                            @else
+                            <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                            @endif
+                        </div>
+                </div>
+                @endif
+                @endforeach
+            </div>
+        </div>
+        @endif
+        @if (count($sameBooksUnique) > 2)
+        <div class="carousel-item">
+            <div class="book-carousel__wrapper">
+
+                @foreach ($sameBooksUnique as $book)
+                @if ($loop->index >= 4 && $loop->index < 6) <div class="book-card ">
+                    <div class="book-card__img">
+                        <a href="{{ route('book.detail', $book->slug) }}">
+                            <img src="{{ asset($book->image) }}" alt="" />
+                        </a>
                     </div>
+                    <div class="book-card__title">
+                        <a href="{{ route('book.detail', $book->slug) }}">
+                            <h3> {{ $book->title }} </h3>
+                        </a>
+                    </div>
+                    <div class="book-card__author">
+                        @foreach ($book->authors as $author)
+                        @if ($loop->last)
+                        {{ $author->name }}
+                        @else
+                        {{ $author->name }},
+                        @endif
+                        @endforeach
+                    </div>
+                    <div class="book-card__star">
+                        @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                            <i class="fas fa-star"></i>
+                            @else
+                            <i class="far fa-star"></i>
+                            @endif
+                            @endfor
+                    </div>
+                    <div class="book-card__btn">
+                        @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                        <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                        @else
+                        <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                        <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                        @endif
+                    </div>
+            </div>
+            @endif
+            @endforeach
+        </div>
+    </div>
+    @endif
+    @if (count($sameBooksUnique) > 2)
+    <div class="carousel-item">
+        <div class="book-carousel__wrapper">
+
+            @foreach ($sameBooksUnique as $book)
+            @if ($loop->index >= 6 && $loop->index < 8) <div class="book-card ">
+                <div class="book-card__img">
+                    <a href="{{ route('book.detail', $book->slug) }}">
+                        <img src="{{ asset($book->image) }}" alt="" />
+                    </a>
+                </div>
+                <div class="book-card__title">
+                    <a href="{{ route('book.detail', $book->slug) }}">
+                        <h3> {{ $book->title }} </h3>
+                    </a>
+                </div>
+                <div class="book-card__author">
+                    @foreach ($book->authors as $author)
+                    @if ($loop->last)
+                    {{ $author->name }}
+                    @else
+                    {{ $author->name }},
                     @endif
-                    @if (count($sameBooksUnique) > 2)
-                    <div class="carousel-item">
-                        <div class="book-carousel__wrapper">
-
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index >= 4 && $loop->index < 6) 
-                                    
-                                        <div class="book-card ">
-                                            <div class="book-card__img">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <img src="{{ asset($book->image) }}" alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="book-card__title">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <h3> {{ $book->title }} </h3>
-                                                </a>
-                                            </div>
-                                            <div class="book-card__author">
-                                                @foreach ($book->authors as $author)
-                                                    @if ($loop->last)
-                                                        {{ $author->name }}
-                                                    @else
-                                                        {{ $author->name }},
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div class="book-card__star">
-                                                @for ($i=1; $i <= 5; $i++) 
-                                                    @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                        <i class="fas fa-star"></i>
-                                                    @else
-                                                        <i class="far fa-star"></i>
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                            <div class="book-card__btn">
-                                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                                @else
-                                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-                    @if (count($sameBooksUnique) > 2)
-                    <div class="carousel-item">
-                        <div class="book-carousel__wrapper">
-
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index >= 6 && $loop->index < 8) 
-                                    
-                                        <div class="book-card ">
-                                            <div class="book-card__img">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <img src="{{ asset($book->image) }}" alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="book-card__title">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <h3> {{ $book->title }} </h3>
-                                                </a>
-                                            </div>
-                                            <div class="book-card__author">
-                                                @foreach ($book->authors as $author)
-                                                    @if ($loop->last)
-                                                        {{ $author->name }}
-                                                    @else
-                                                        {{ $author->name }},
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div class="book-card__star">
-                                                @for ($i=1; $i <= 5; $i++) 
-                                                    @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                        <i class="fas fa-star"></i>
-                                                    @else
-                                                        <i class="far fa-star"></i>
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                            <div class="book-card__btn">
-                                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                                @else
-                                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
+                    @endforeach
+                </div>
+                <div class="book-card__star">
+                    @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                        <i class="fas fa-star"></i>
+                        @else
+                        <i class="far fa-star"></i>
+                        @endif
+                        @endfor
+                </div>
+                <div class="book-card__btn">
+                    @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                    @else
+                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
                     @endif
                 </div>
-
-            
-                @if (count($sameBooksUnique) > 2)
-
-                    <a class="carousel-control-prev carousel-custom-prev " href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next carousel-custom-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-
-                    </a>
-                @endif
-                @else
-                    <div class="book-user-comment__message">
-                        Chưa sách cùng thể loại
-                    </div>
-                @endif
-            </div>
         </div>
-
-        <!-- Button Carouse -->
-
+        @endif
+        @endforeach
     </div>
-    
-    <!-- desktop -->
+</div>
+@endif
+</div>
 
-    <div class="book-carouse book-carouse-desktop">
-        <div class="book-carouse__header">
-            <div class="carouse-header__title">Sách cùng thể loại</div>
-        </div>
-        <div class="book-carouse__body">
-            @if (count($sameBooksUnique) > 0)
-            <div id="carouselExampleControls" class="carousel slide m-0 p-0" data-ride="carousel">
 
-                <!-- Carouse Content -->
-                <div class="carousel-inner">
-                    <!-- Carouse Item -->
-                    @if (count($sameBooksUnique) > 0)
-                    <div class="carousel-item active">
-                        <div class="book-carousel__wrapper">
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index < 4) 
-                                <div class="book-card ">
-                                    <div class="book-card__img">
-                                        <a href="{{ route('book.detail', $book->slug) }}">
-                                            <img src="{{ asset($book->image) }}" alt=""/>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__title">
-                                        <a href="{{ route('book.detail', $book->slug) }}">
-                                            <h3> {{ $book->title }} </h3>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__author">
-                                        @foreach ($book->authors as $author)
-                                            @if ($loop->last)
-                                            {{ $author->name }}
-                                            @else
-                                            {{ $author->name }},
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="book-card__star">
-                                        @for ($i=1; $i <= 5; $i++) 
-                                            @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                <i class="fas fa-star"></i>
-                                            @else
-                                                <i class="far fa-star"></i>
-                                            @endif
-                                        @endfor
-                                    </div>
-                                    <div class="book-card__btn">
-                                        @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                        @else
-                                            <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                        @endif
+@if (count($sameBooksUnique) > 2)
 
-                                    </div>
+<a class="carousel-control-prev carousel-custom-prev " href="#sameBookUniqueTable" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+</a>
+<a class="carousel-control-next carousel-custom-next" href="#sameBookUniqueTable" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
 
-                                </div>
+</a>
+@endif
+@else
+<div class="book-user-comment__message">
+    Chưa sách cùng thể loại
+</div>
+@endif
+</div>
+</div>
+
+<!-- Button Carouse -->
+
+</div>
+
+<!-- desktop -->
+
+<div class="book-carouse book-carouse-desktop">
+    <div class="book-carouse__header">
+        <div class="carouse-header__title">Sách cùng thể loại</div>
+    </div>
+    <div class="book-carouse__body">
+        @if (count($sameBooksUnique) > 0)
+        <div id="sameBookUniqueDesktop" class="carousel slide m-0 p-0" data-ride="carousel">
+
+            <!-- Carouse Content -->
+            <div class="carousel-inner">
+                <!-- Carouse Item -->
+                @if (count($sameBooksUnique) > 0)
+                <div class="carousel-item active">
+                    <div class="book-carousel__wrapper">
+                        @foreach ($sameBooksUnique as $book)
+                        @if ($loop->index < 4) <div class="book-card ">
+                            <div class="book-card__img">
+                                <a href="{{ route('book.detail', $book->slug) }}">
+                                    <img src="{{ asset($book->image) }}" alt="" />
+                                </a>
+                            </div>
+                            <div class="book-card__title">
+                                <a href="{{ route('book.detail', $book->slug) }}">
+                                    <h3> {{ $book->title }} </h3>
+                                </a>
+                            </div>
+                            <div class="book-card__author">
+                                @foreach ($book->authors as $author)
+                                @if ($loop->last)
+                                {{ $author->name }}
+                                @else
+                                {{ $author->name }},
                                 @endif
-                            @endforeach
-                        </div>
+                                @endforeach
+                            </div>
+                            <div class="book-card__star">
+                                @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                    <i class="fas fa-star"></i>
+                                    @else
+                                    <i class="far fa-star"></i>
+                                    @endif
+                                    @endfor
+                            </div>
+                            <div class="book-card__btn">
+                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                                <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                                @else
+                                <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                                <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                                @endif
+
+                            </div>
+
                     </div>
                     @endif
-                    @if (count($sameBooksUnique) > 4)
-                    <div class="carousel-item">
-                        <div class="book-carousel__wrapper">
-
-                            @foreach ($sameBooksUnique as $book)
-                                @if ($loop->index >= 4 && $loop->index < 8) 
-                                    
-                                        <div class="book-card ">
-                                            <div class="book-card__img">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <img src="{{ asset($book->image) }}" alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="book-card__title">
-                                                <a href="{{ route('book.detail', $book->id) }}">
-                                                    <h3> {{ $book->title }} </h3>
-                                                </a>
-                                            </div>
-                                            <div class="book-card__author">
-                                                @foreach ($book->authors as $author)
-                                                    @if ($loop->last)
-                                                        {{ $author->name }}
-                                                    @else
-                                                        {{ $author->name }},
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div class="book-card__star">
-                                                @for ($i=1; $i <= 5; $i++) 
-                                                    @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
-                                                        <i class="fas fa-star"></i>
-                                                    @else
-                                                        <i class="far fa-star"></i>
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                            <div class="book-card__btn">
-                                                @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
-                                                    <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                                @else
-                                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
-                                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
+                    @endforeach
                 </div>
+            </div>
+            @endif
+            @if (count($sameBooksUnique) > 4)
+            <div class="carousel-item">
+                <div class="book-carousel__wrapper">
 
-            
-                @if (count($sameBooksUnique) > 4)
-
-                    <a class="carousel-control-prev carousel-custom-prev " href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next carousel-custom-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-
-                    </a>
+                    @foreach ($sameBooksUnique as $book)
+                    @if ($loop->index >= 4 && $loop->index < 8) <div class="book-card ">
+                        <div class="book-card__img">
+                            <a href="{{ route('book.detail', $book->slug) }}">
+                                <img src="{{ asset($book->image) }}" alt="" />
+                            </a>
+                        </div>
+                        <div class="book-card__title">
+                            <a href="{{ route('book.detail', $book->slug) }}">
+                                <h3> {{ $book->title }} </h3>
+                            </a>
+                        </div>
+                        <div class="book-card__author">
+                            @foreach ($book->authors as $author)
+                            @if ($loop->last)
+                            {{ $author->name }}
+                            @else
+                            {{ $author->name }},
+                            @endif
+                            @endforeach
+                        </div>
+                        <div class="book-card__star">
+                            @for ($i=1; $i <= 5; $i++) @if (round(DB::table('ratings')->where('rateable_id', $book->id)->avg('rating'),1)>= round($i,1) )
+                                <i class="fas fa-star"></i>
+                                @else
+                                <i class="far fa-star"></i>
+                                @endif
+                                @endfor
+                        </div>
+                        <div class="book-card__btn">
+                            @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)->where('status', 'Đang mượn')->first() )
+                            <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
+                            @else
+                            <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn">Mượn sách</a>
+                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Xem trước</a>
+                            @endif
+                        </div>
+                </div>
                 @endif
-                @else
-                    <div class="book-user-comment__message">
-                        Chưa sách cùng thể loại
-                    </div>
-                @endif
+                @endforeach
             </div>
         </div>
-
-        <!-- Button Carouse -->
-
+        @endif
     </div>
+
+
+    @if (count($sameBooksUnique) > 4)
+
+    <a class="carousel-control-prev carousel-custom-prev " href="#sameBookUniqueDesktop" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next carousel-custom-next" href="#sameBookUniqueDesktop" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+
+    </a>
+    @endif
+    @else
+    <div class="book-user-comment__message">
+        Chưa sách cùng thể loại
+    </div>
+    @endif
+</div>
+</div>
+
+<!-- Button Carouse -->
+
+</div>
 
 </div>
 
