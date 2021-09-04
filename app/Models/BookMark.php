@@ -18,6 +18,14 @@ class BookMark extends Model
             'id'
         );
     }
+    public function bookGallery()
+    {
+        return $this->hasOne(
+            BookGallery::class,
+            'id',
+            'page'
+        );
+    }
 
     public function user()
     {

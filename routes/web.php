@@ -50,9 +50,9 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     Route::get('/post', [PostShareController::class, 'all'])->name('post');
     Route::get('/user/{id}', [PostShareController::class, 'postUser'])->name('post.user');
-    Route::get('/post/{slug}',[PostShareController::class,'getPostsByCategory'])->name('post.category');
+    Route::get('/post/{slug}', [PostShareController::class, 'getPostsByCategory'])->name('post.category');
 
-    
+
     Route::get('/add-post', [PostShareController::class, 'create'])->name('post.create');
     Route::post('/add-post', [PostShareController::class, 'store'])->name('post.store');
     Route::post('/uploads-ckeditor', [PostShareController::class, 'uploads_ckeditor']);
@@ -60,41 +60,44 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::post('/edit-post/{id}', [PostShareController::class, 'update'])->name('post.update');
     Route::get('/post-detail/{slug}', [PostShareController::class, 'detail'])->name('post.detail');
     Route::get('/delete-post/{slug}', [PostShareController::class, 'destroy'])->name('post.destroy');
+
+
+    Route::Post('/api/comment-store', [BookDetailController::class, 'storeComment'])->name('book.comment-store');
+    Route::get('contact', [ContactController::class, 'contact'])->name('contact');
+    Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
+
+    Route::get('wishlist/{id}', [WishlistController::class, 'wishlist'])->name('post.wishlist');
+    Route::get('destroy-wishlist/{id}', [WishlistController::class, 'destroy'])->name('post.wishlist.destroy');
+
+    // Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
+    Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
+    Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
+    // Route::view('review', 'client.pages.review-book');
+    Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
+    Route::post('/post-comment-store', [PostCommentController::class, 'store'])->middleware('auth')->name('postComments.store');
+
+    Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
+    Route::get('my-posts/{id}', [PostShareController::class, 'myPost'])->middleware('auth')->name('user.myPost');
+    Route::get('setting', [HomeController::class, 'setting'])->middleware('auth')->name('user.setting');
+    Route::get('rate/{id}', [HomeController::class, 'rate'])->middleware('auth')->name('user.rate');
+    Route::get('help', [HomeController::class, 'help'])->middleware('auth')->name('user.help');
+    Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
+    Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
+    Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
+    Route::get('book-rate/{id}', [BookController::class, 'rateBook'])->name('book.rate');
+
+    Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
+    Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('notifications.read');
+    Route::get('notifications', [UserController::class, 'notifications'])->name('notifications');
+    Route::post('post/api/tang-view', [PostShareController::class, 'updateView'])->name('post.updateView');
+
+    Route::post('api/add-bookmark', [BookMarkController::class, 'addBookMark'])->name('bookmark.add');
+    Route::post('api/remove-bookmark', [BookMarkController::class, 'removeBookMark'])->name('bookmark.remove');
+    Route::post('/api/check-bookmark', [BookMarkController::class, 'checkBookMark'])->name('bookmark.check');
+    Route::post('/api/list-bookmark', [BookMarkController::class, 'listBookMark'])->name('bookmark.list');
 });
-Route::Post('/api/comment-store', [BookDetailController::class, 'storeComment'])->name('book.comment-store');
-Route::get('contact', [ContactController::class, 'contact'])->name('contact');
-Route::post('contact', [ContactController::class, 'postContact'])->name('contact');
 
-Route::get('wishlist/{id}', [WishlistController::class, 'wishlist'])->name('post.wishlist');
-Route::get('destroy-wishlist/{id}', [WishlistController::class, 'destroy'])->name('post.wishlist.destroy');
 
-// Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->name('infomation.edit');
-Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth')->name('client.profile');
-Route::post('infomation/{id}', [HomeController::class, 'edit_infomation'])->middleware('auth')->name('infomation.edit');
-// Route::view('review', 'client.pages.review-book');
-Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
-Route::post('/post-comment-store', [PostCommentController::class, 'store'])->middleware('auth')->name('postComments.store');
-
-Route::get('history/{id}', [HomeController::class, 'history'])->middleware('auth')->name('user.history');
-Route::get('my-posts/{id}', [PostShareController::class, 'myPost'])->middleware('auth')->name('user.myPost');
-Route::get('setting', [HomeController::class, 'setting'])->middleware('auth')
-    ->name('user.setting');
-Route::get('rate/{id}', [HomeController::class, 'rate'])->middleware('auth')
-    ->name('user.rate');
-Route::get('help', [HomeController::class, 'help'])->middleware('auth')
-    ->name('user.help');
-Route::get('book-order/{id}', [CartController::class, 'getAddCart'])->name('Book.Order');
-Route::get('deleted-book/{id}', [CartController::class, 'deleted_book'])->name('deleted.book');
-Route::post('/rating', [BookController::class, 'bookStar'])->middleware('auth')->name('bookStar');
-Route::get('book-rate/{id}', [BookController::class, 'rateBook'])->name('book.rate');
-
-Route::get('notification-read/{id}', [UserController::class, 'readeNotification'])->name('notification.read');
-Route::get('notifies-read', [UserController::class, 'readAllNotify'])->name('notifications.read');
-Route::get('notifications', [UserController::class, 'notifications'])->name('notifications');
-Route::post('post/api/tang-view', [PostShareController::class, 'updateView'])->name('post.updateView');
-
-Route::post('api/addbookmark', [BookMarkController::class, 'addBookMark'])->name('bookmark.add');
-Route::post('api/removebookmark', [BookMarkController::class, 'removeBookMark'])->name('bookmark.remove');
 
 
 
@@ -178,7 +181,6 @@ Route::prefix('admin')->middleware('check-role')->group(function () {
         Route::get('force-delete/{id}', [UserController::class, 'forceDelete'])->name('user.forcedelete');
         Route::get('mass-lock-user', [UserController::class, 'lockForm'])->name('user.massLockForm');
         Route::post('mass-lock-user', [UserController::class, 'massLockUser'])->name('user.massLock');
-        
     });
 
     Route::prefix('profile')->middleware('auth')->group(function () {
