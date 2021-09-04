@@ -170,10 +170,6 @@
         </div>
     </div>
     <!-- mobile -->
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     <div class="book-carouse book-carouse-mobile">
         <div class="book-carouse__header">
             <div class="carouse-header__title">Sách cùng thể loại</div>
