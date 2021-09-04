@@ -47,13 +47,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="application/javascript">
+        function $init() {return true;}
+    </script>
     <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         CKEDITOR.replace('editor1',{
             filebrowserUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
-            // filebrowserBrowseUrl : "{{ url('')}}/filemanager/dialog.php?field_id=imgField&lang=en_EN&akey=urDy9RR9agzmDEQw7u7gPO6qee",
+            // // filebrowserBrowseUrl : "{{ url('')}}/filemanager/dialog.php?field_id=imgField&lang=en_EN&akey=urDy9RR9agzmDEQw7u7gPO6qee",
             filebrowserUploadMethod : 'form',
             // toolbar:[
+            //     ['CodeSnippet','Scroll']
             //     [ 'Source'],
             //     ['Radio '],
             //     ['Highlight '],
