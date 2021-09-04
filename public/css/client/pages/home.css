@@ -38,18 +38,21 @@
     flex-direction: column;
     justify-content: center;
     max-width: 50%;
-    padding: 2rem;
+    padding: 0rem 3rem;
 }
 
-.banner-content__heading {}
+.banner-content__heading {
+    
+}
 
 .banner-content__heading h2 {
-    font-size: 3rem;
+    width: 500px;
+    font-size: 2.6rem;
     font-weight: 700;
     color: #d5d5d5;
     margin-bottom: 20px;
     color: var(--base-color2);
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .banner-content__heading--second h2 {
@@ -57,12 +60,12 @@
 }
 
 .banner-content__quote {
+    width: 400px;
     margin-bottom: 30px;
     font-family: Nunito;
-    font-size: 1.6rem;
-    font-style: italic;
+    font-size: 1.5rem;
     font-weight: 400;
-    line-height: 38px;
+    line-height: 30px;
     letter-spacing: 0em;
     text-align: left;
     color: #fff;
@@ -83,7 +86,7 @@
     font-size: 1.6rem;
     font-style: italic;
     font-weight: 600;
-    line-height: 38px;
+    line-height: 30px;
     letter-spacing: 0em;
     text-align: left;
     color: var(--text-color);
