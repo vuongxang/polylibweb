@@ -25,11 +25,17 @@
                     <label for="thumbnail">Chọn ảnh đại diện bài viết</label>
                     <input id="thumbnail" type="file" name="thumbnail" value="{{old('thumbnail',$post->thumbnail)}}">
                     <br>
+                    @if ($errors->has('thumbnail'))
+                        <span class="text-danger">{{$errors->first('thumbnail')}}</span>
+                    @endif
                     <img src="{{asset($post->thumbnail)}}" alt="" width="100">
                 </div>
                 <div class="form-group">
                     <label class="text-dark font-weight-bold" for="exampleInputFile">Danh mục</label>
                     <br>
+                    @if ($errors->has('cate_id'))
+                        <span class="text-danger">{{$errors->first('cate_id')}}</span>
+                    @endif
                     <select id="choices-multiple-remove-button" name="cate_id[]" placeholder="Chọn tối đa 5 danh mục" multiple>
                         @foreach ($cates as $cate)
                             <option value="{{$cate->id}}"
@@ -79,6 +85,10 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="text-dark font-weight-bold" for="exampleInputName">Nội dung</label><br>
+                    @if ($errors->has('content'))
+                        <span class="text-danger">{{$errors->first('content')}}</span>
+                    @endif
                     <textarea name="content" id="editor1" rows="30" class="form-control" placeholder="Nội dung">
                         {{old('content',$post->content)}}
                     </textarea>
