@@ -58,6 +58,7 @@
                     @if ($ordered)
                     <div class="book-button-item">
                         <a href="{{ route('book.read', $book->slug) }}" class="button button__outline-lg button-custom">Đọc sách</a>
+                        <a href="javascript:void(0);" class="button button__background-lg js-listen-book">Nghe sách</a>
                     </div>
                     @else
                     <div class="book-button-item">
@@ -762,6 +763,9 @@
 </div>
 
 </div>
+
+
+
 
 
 @endsection

@@ -107,7 +107,7 @@
                             </button>
                         </div>
                         <div class="col-6"></div>
-                        <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2 img-gallery"> 
+                        <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-3 img-gallery"> 
                         </div>
                         <input type="hidden" id="list_image" name="list_image" class="form-control">
                         @if ($errors->has('list_image'))
