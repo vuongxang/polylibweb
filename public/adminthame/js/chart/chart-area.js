@@ -126,7 +126,7 @@ function showChartArea(url){
   });
 }
 // Area Chart Example
-let url = 'http://localhost:8000/api/order-data';
+let url = `${window.location.origin}/api/order-data`;
 
 showChartArea(url);
 

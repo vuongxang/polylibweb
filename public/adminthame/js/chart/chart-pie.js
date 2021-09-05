@@ -4,7 +4,7 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
-let url_data = 'api/book-cate-data';
+let url_data = `${window.location.origin}/api/book-cate-data`;
 fetch(url_data)
   .then(response => response.json())
   .then(data => {
