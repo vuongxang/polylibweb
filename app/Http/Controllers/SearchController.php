@@ -37,7 +37,7 @@ class SearchController extends Controller
         $posts = PostShare::where('title', 'like', '%' . $keyword . '%')->where('status', 1)->get();
         // $books->star = DB::table('ratings')->where('rateable_id', $id)->avg('rating');
         session()->flashInput($request->input());
-        return view('client.pages.search', compact('categories', 'books', 'keyword', 'authors','posts'));
+        return view('client.pages.search', compact('categories', 'books', 'keyword', 'authors', 'posts'));
     }
     public function filter(Request $request)
     {
@@ -49,7 +49,12 @@ class SearchController extends Controller
             //     $query->where('status', 1);
             // }])->get();
             $auth = Auth::user();
-            $books = Book::with('authors', 'rates','orders')
+            $books = Book::with('authors', 'rates')
+                ->with([
+                    'orders' => function ($query) use ($auth) {
+                        $query->where('id_user', $auth->id);
+                    }
+                ])
                 ->distinct()
 
                 ->join('category_books', 'books.id', 'category_books.book_id')
@@ -64,13 +69,18 @@ class SearchController extends Controller
             // ->where('title', 'LIKE', "%\"{$$request->keyword}\"%")
         } else {
             $auth = Auth::user();
-            $books = Book::with('authors', 'rates','orders')
+            $books = Book::with('authors', 'rates')
+                ->with([
+                    'orders' => function ($query) use ($auth) {
+                        $query->where('id_user', $auth->id);
+                    }
+                ])
                 ->where('title', 'like', '%' . $a . '%')
                 ->where('status', 1)
                 ->get();
         }
 
-        return response()->json([$books, $a,$auth]);
+        return response()->json([$books, $a, $auth]);
     }
     public function searchApi(Request $request)
     {
@@ -82,6 +92,6 @@ class SearchController extends Controller
                 ->get();
             $post = PostShare::where('title', 'like', '%' . $keyword . '%')->where('status', 1)->get();
         }
-        return response()->json([$bookSearch, $authorSearch,$post]);
+        return response()->json([$bookSearch, $authorSearch, $post]);
     }
 }
