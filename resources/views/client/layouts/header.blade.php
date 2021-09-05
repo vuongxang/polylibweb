@@ -132,7 +132,7 @@
                         <i class="fas fa-history"></i>Lịch sử mượn sách
                     </a>
                     <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
-                        <i class="fas fa-history"></i>Tài liệu của tôi
+                        <i class="fas fa-history"></i>Bài viết của tôi
                     </a>
                     <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
                         <i class="fas fa-star"></i>Đánh giá

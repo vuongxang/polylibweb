@@ -239,7 +239,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <iframe src="http://localhost:8000/post-detail/{{$post->slug}}" frameborder="0" width="100%" height="500px"></iframe>
+                <iframe src="{{URL::to('/')}}/post-detail/{{$post->slug}}" frameborder="0" width="100%" height="500px"></iframe>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
