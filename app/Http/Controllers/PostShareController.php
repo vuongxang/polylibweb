@@ -284,6 +284,7 @@ class PostShareController extends Controller
         $totalViews = PostView::where('post_id', $model->id)->sum('views');
         $comments = PostComment::where('post_id', $model->id)->where('status',1)->orderBy('id', 'DESC')->paginate(10);
         if (!$model) return back();
+        
         return view('client.pages.post-detail', [
                                                     'post'          => $model, 
                                                     'cates'         => $cates, 

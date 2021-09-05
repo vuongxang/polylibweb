@@ -61,7 +61,7 @@ $(function ($) {
 
         var sURLVariables = sPageURL.split('&');
         for (var i = 0; i < sURLVariables.length; i++) {
-        var sParameterName = sURLVariables[i].split('=');
+            var sParameterName = sURLVariables[i].split('=');
             if (sParameterName[0] == sParam) {
                 return sParameterName[1];
             }
@@ -105,7 +105,7 @@ $(function ($) {
 
                 dataType: 'json',
                 success: function (res) {
-                    // console.log(res)
+                    console.log(res)
                     const books = [...res[0]];
 
                     const key = [res[1]];
@@ -117,6 +117,7 @@ $(function ($) {
                                 const sum = book.rates?.reduce((a, b) => a.rating + b.rating);
                                 avg = (sum / book.rates?.length) || 0;
                             }
+                            
                             return `<div class="book-card ">
                                     <div class="book-card__img">
                                         <a href="/book-detail/${book.slug}">
@@ -148,12 +149,12 @@ $(function ($) {
                                     
                                     
                                     ${(function rates() {
-                                    let link = ``;
-                                    if (book.orders?.length == 0) {
+                                    let link ;
+                                    if (book.orders.length == 0) {
                                         link = `<a href="/book-order/${book.id}" class="borrow-btn">Mượn sách</a>
                                                 <a href="/review/${book.slug}" class="review-btn">Xem trước</a>`
                                     }
-                                    book.orders?.map(order => {
+                                    book.orders.map(order => {
                                         // console.log(parseInt(order.id_user), auth.id)
                                         if (parseInt(order.id_user) == auth.id) {
                                             if (order.status == 'Đang mượn') {

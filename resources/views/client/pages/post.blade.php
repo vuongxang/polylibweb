@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 post-wrap"> 
+        <div class="col-md-9 post-wrap">
             <div class="post-header">
                 <div class="post-header-text">Danh sách bài viết</div>
                 <div class="post-header-button">
@@ -79,7 +79,7 @@
                         <div class="post-content__footer">
                             <div class="post-footer__details">
                                 <div class="post-content__date">{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</div>
-                                
+
                                 <div class="post-wishlist">
                                     <span class="post-wishlist__span">
 
@@ -90,7 +90,7 @@
                                 <div class="post-view">
                                     <span class="post-view__span"><i class=" fa fa-eye"></i>
                                         {{$post->postViews()->sum('views')}}
-                                         lượt xem
+                                        lượt xem
                                     </span>
                                 </div>
                                 <div class="post-comment">
@@ -110,10 +110,10 @@
                 {{ $posts->links('vendor.pagination.post-pagination') }}
             </div>
         </div>
-      
+
     </div>
     <div class="row post-desktop">
-        <div class="col-md-9 post-wrap"> 
+        <div class="col-md-9 post-wrap">
             <div class="post-header">
                 <div class="post-header-text">Danh sách bài viết</div>
                 <div class="post-header-button">
@@ -166,7 +166,7 @@
                         <div class="post-content__footer">
                             <div class="post-footer__details">
                                 <div class="post-content__date">{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</div>
-                                
+
                                 <div class="post-wishlist">
                                     <span class="post-wishlist__span">
 
@@ -177,7 +177,7 @@
                                 <div class="post-view">
                                     <span class="post-view__span"><i class=" fa fa-eye"></i>
                                         {{$post->postViews()->sum('views')}}
-                                         lượt xem
+                                        lượt xem
                                     </span>
                                 </div>
                                 <div class="post-comment">
@@ -218,11 +218,11 @@
     </div>
 </div>
 <script>
-    $(document).ready(function(){
-        $('.cate-post').click(function(){
+    $(document).ready(function() {
+        $('.cate-post').click(function() {
             $('.post-aside-header').toggleClass('show-border')
 
-           $('.post-aside__list').slideToggle();
+            $('.post-aside__list').slideToggle();
         })
     })
 </script>
