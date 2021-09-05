@@ -26,7 +26,7 @@ class FileController extends Controller
         // $imgExt->readImage(public_path($pathToPdf));
         // dd($imgExt);
         $imgExt = new Imagick();
-        $imgExt->setResolution(150,150);
+        $imgExt->setResolution(120,120);
         $imgExt->readImage(public_path($pathToPdf));
         // $imgExt->setCompressionQuality(200);
         // $imgExt->resizeImage( 2000, 2000, imagick::FILTER_LANCZOS, 0);
