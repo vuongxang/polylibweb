@@ -297,7 +297,7 @@ class PostShareController extends Controller
     public function myPost($id)
     {
         $user = Auth::user();
-        $wishlists = Wishlist::all();
+        $wishlists = Wishlist::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(10);
         $posts = PostShare::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(10);
         return view('client.pages.my-posts', ['user' => $user, 'posts' => $posts, 'wishlists' => $wishlists]);
     }

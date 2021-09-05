@@ -123,7 +123,7 @@
                             <span class="text-danger">{{ $errors->first('description') }}</span>
                         @endif
                         <textarea type="text" class="form-control tinymce-editor" id="exampleInputDesc" rows="15"
-                            placeholder="Nhập thông tin chi tiết" name="description"></textarea>
+                            placeholder="Nhập thông tin chi tiết" name="description">{{ old('description') }}</textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary  btn-sm shadow-lg">Thêm mới</button>
