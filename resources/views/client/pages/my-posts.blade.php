@@ -107,7 +107,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('post.detail', $wishlist->post->slug) }}" style="color:#000">
-                                                        {{ $wishlist->post->user->name }}
+                                                        {{ $wishlist->post->user()->withTrashed()->first()->name }}
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
