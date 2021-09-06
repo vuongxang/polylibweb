@@ -293,6 +293,7 @@ class BookController extends Controller
             AuthorBooks::where('book_id', $id)->delete();
             BookAudio::where('book_id', $id)->delete();
             Rating::where('rateable_id', $id)->delete();
+            Order::where('book_id', $id)->delete();
             Comment::withTrashed()->where('book_id', $id)->forceDelete();
             $model = Book::withTrashed()->where('id', $id)->forceDelete();
 
