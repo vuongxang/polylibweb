@@ -186,14 +186,10 @@
     </div>
 </div>
 <script>
-    //Tang view sau 2s
+    //Tang view sau 10s
     let increaseViewUrl = "{{ route('post.updateView') }}";
     const data = {
-        id: {
-            {
-                $post - > id
-            }
-        },
+        id: {{ $post->id }},
         _token: "{{ csrf_token() }}"
     };
     setTimeout(() => {
@@ -320,11 +316,11 @@
             </div>
             <div class="comment-box__wrapper">
                 <div class="comment-box__image">
-                    <img src="{{ asset(Auth::user()->avatar) }}" alt="" id="js-user-avatar">
+                    {{-- <img src="{{ asset(Auth::user()->avatar) }}" alt="" id="js-user-avatar">
                 </div>
                 <div class="comment-box__content">
                     <form action="{{ route('comments.store') }}" method="post">
-                        @csrf
+                        @csrf --}}
                         <div class="comment__input">
                             <textarea class="form-control" name="body" rows="2" placeholder="Viết bình luận..."></textarea>
                             <input type="hidden" name="book_id" value="" />
