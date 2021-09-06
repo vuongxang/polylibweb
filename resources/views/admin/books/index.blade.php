@@ -77,7 +77,7 @@
                             </label>
                         </td>
                         <td class="text-center">
-                            <a href="{{route('book.read',['slug' => $book->slug])}}" class="fas fa-eye text-warning"></a>
+                            <a href="{{route('book.review',['slug' => $book->slug])}}" class="fas fa-eye text-warning"></a>
                             <a href="{{route('book.edit',['id' => $book->id])}}" class="fa fa-edit text-success p-1 btn-action"></a>
                             <a onclick="return confirm('Bạn chắc chuyển vào thùng rác?')" href="{{route('book.destroy',['id' => $book->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
                         </td>

@@ -132,7 +132,7 @@ class PostShareController extends Controller
         $model->slug = $milliseconds . "-" . str_slug($request->title, '-');
         $model->content = $request->content;
         $model->user_id = Auth::user()->id;
-        if ($model->user_id == 1 || $model->user_id == 2 || $model->user_id == 3) $model->status = 1;
+        if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 3) $model->status = 1;
         else $model->status = 0;
 
         $model->save();
@@ -348,7 +348,7 @@ class PostShareController extends Controller
         })->where('status', 1)->paginate(5);
 
         $cates = PostShareCategory::where('status', 1)->get();
-        // $cate->load('posts');
+        $cates->load('posts');
         if (count($posts) > 0) {
             return view('client.pages.post')->with(['cates' => $cates, 'posts' => $posts])->with('message', 'Có ' . count($posts) . ' bài viết thuộc danh mục ' . $checkSlug->name);
         } else {

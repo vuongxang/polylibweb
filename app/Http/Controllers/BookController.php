@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PHPUnit\Framework\Constraint\Count;
 use Imagick;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates;
 
 class BookController extends Controller
 {
@@ -291,6 +292,8 @@ class BookController extends Controller
             CategoryBook::where('book_id', $id)->delete();
             AuthorBooks::where('book_id', $id)->delete();
             BookAudio::where('book_id', $id)->delete();
+            Rating::where('rateable_id', $id)->delete();
+            Order::where('book_id', $id)->delete();
             Comment::withTrashed()->where('book_id', $id)->forceDelete();
             $model = Book::withTrashed()->where('id', $id)->forceDelete();
 
