@@ -68,7 +68,7 @@ class HomeController extends Controller
             $filePath = $request->file('avatar')->storeAs('uploads', $fileName, 'public');
             $infomation->avatar = URL::to('/').'/storage/'.$filePath;
         }
-
+        $infomation->name = $request->name;
         $infomation->phone = $request->phone;
         $infomation->birth_date = $request->birth_date;
         $infomation->gender = $request->gender;

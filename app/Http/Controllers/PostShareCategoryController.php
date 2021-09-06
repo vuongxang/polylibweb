@@ -44,7 +44,7 @@ class PostShareCategoryController extends Controller
         return view('admin.post-cates.edit-form', ['model' => $model]);
     }
 
-    public function update($id,CategoryRequest $request){
+    public function update($id,PostShareCategoryRequest $request){
         
         // $this->validate($request,[
         //     'name'=>'required|min:5',

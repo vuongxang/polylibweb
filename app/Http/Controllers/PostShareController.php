@@ -348,7 +348,7 @@ class PostShareController extends Controller
         })->where('status', 1)->paginate(5);
 
         $cates = PostShareCategory::where('status', 1)->get();
-        // $cate->load('posts');
+        $cates->load('posts');
         if (count($posts) > 0) {
             return view('client.pages.post')->with(['cates' => $cates, 'posts' => $posts])->with('message', 'Có ' . count($posts) . ' bài viết thuộc danh mục ' . $checkSlug->name);
         } else {
