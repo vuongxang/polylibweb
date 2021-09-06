@@ -75,7 +75,7 @@
             </div>
             <div class="topbar-bookmark__content-wrap">
             </div>
-<!--             
+            <!--             
             <div class="topbar-bookmark__body">
                 <div class="topbar-bookmark__page">
                     <a href="">
@@ -124,13 +124,14 @@
             <div class="page-number"><span id="slider-value">1</span> / <span class="page-total">{{count($pages)}}</span> </div>
         </div>
     </div>
-    
+
     <!-- Chống copy nột dung -->
     <script type="text/javascript">
-        $(document).ready(function(){
-        $('*').bind('cut copy paste contextmenu', function (e) {
-            e.preventDefault();
-        })});
+        $(document).ready(function() {
+            $('*').bind('cut copy paste contextmenu', function(e) {
+                e.preventDefault();
+            })
+        });
     </script>
     <!-- end -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -142,41 +143,41 @@
          * Tắt F12 cũng là một giải pháp để tránh người dùng có thể xem được dữ liệu hình ảnh
          */
 
-        // document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // document.onkeypress = function(event) {
-        //     event = (event || window.event);
-        //     if (event.keyCode == 123) {
-        //         return false;
-        //     }
-        // }
-        // document.onmousedown = function(event) {
-        //     event = (event || window.event);
-        //     if (event.keyCode == 123) {
-        //         return false;
-        //     }
-        // }
-        // document.onkeydown = function(event) {
-        //     event = (event || window.event);
-        //     if (event.keyCode == 123) {
-        //         return false;
-        //     }
-        // }
+        document.onkeypress = function(event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        document.onmousedown = function(event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        document.onkeydown = function(event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
 
-        // jQuery(document).ready(function($) {
-        //     $(document).keydown(function(event) {
-        //         var pressedKey = String.fromCharCode(event.keyCode).toLowerCase();
+        jQuery(document).ready(function($) {
+            $(document).keydown(function(event) {
+                var pressedKey = String.fromCharCode(event.keyCode).toLowerCase();
 
-        //         if (event.ctrlKey && (pressedKey == "c" || pressedKey == "u")) {
-        //             //disable key press porcessing
-        //             return false;
-        //         }
-        //     });
-        // });
-
+                if (event.ctrlKey && (pressedKey == "c" || pressedKey == "u")) {
+                    //disable key press porcessing
+                    return false;
+                }
+            });
+        });
+        
         window.onload = () => {
             // ProtectImageJS.protect(document.querySelectorAll("img"))
-
+            // $('#flipbook').turn();
         }
 
         moment.locale('vi');
@@ -201,7 +202,6 @@
 
         })
         $('#flipbook').turn();
-
 
 
         /** 
@@ -671,6 +671,58 @@
                 main.appendChild(toast);
             }
         }
+
+
+
+        let initialWidth = $(window).width();
+        console.log(initialWidth);
+        if (initialWidth <= 1139) {
+            $('#flipbook').width('450px');
+            $('#flipbook').height('630px');
+            $('#flipbook').turn('display', 'single')
+
+        }
+        if (initialWidth <= 768) {
+            $('#flipbook').width('375px');
+            $('#flipbook').height('530px');
+            $('#flipbook').turn('display', 'single')
+
+        }
+        if (initialWidth <= 375) {
+            $('#flipbook').width('200px');
+            $('#flipbook').height('282px');
+            $('#flipbook').turn('display', 'single')
+
+        }
+
+        $(window).resize(function() {
+
+            var width = $(window).width();
+            console.log(width);
+            if (width <= 1139) {
+                $('#flipbook').width('450px');
+                $('#flipbook').height('630px');
+                $('#flipbook').turn('display', 'single')
+
+            }
+            if (width <= 768) {
+                $('#flipbook').width('375px');
+                $('#flipbook').height('530px');
+                $('#flipbook').turn('display', 'single')
+
+            }
+            if (width <= 375) {
+                $('#flipbook').width('200px');
+                $('#flipbook').height('282px');
+                $('#flipbook').turn('display', 'single')
+
+            }
+            // if (width <= 768) {
+            //     $('.left, .right').addClass('responsive_768');
+            // } else {
+            //     $('.left, .right').removeClass('responsive_768');
+            // }
+        });
     </script>
 </body>
 
