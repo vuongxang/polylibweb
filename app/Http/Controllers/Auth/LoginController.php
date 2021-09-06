@@ -55,8 +55,8 @@ class LoginController extends Controller
         // $user->emai = 'vuonglq@fe.edu.vn';
         $pattentEmailFpt = "/[A-Za-z0-9_]@fpt.edu.vn/";
         $pattentEmailFe = "/[A-Za-z0-9_]@fe.edu.vn/";
-        if( !preg_match($pattentEmailFpt, $user->email) && !preg_match($pattentEmailFe, $user->email)){
-            return redirect(route('login'))->with('message','Vui lòng đăng nhập mail fpt.edu.vn hoặc fe.edu.vn');
+        if( !preg_match($pattentEmailFpt, $user->email)){
+            return redirect(route('login'))->with('message','Vui lòng đăng nhập mail fpt.edu.vn');
         }
         
         $check_locked = $this->_registerOrLoginUser($user);
