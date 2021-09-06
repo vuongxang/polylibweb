@@ -316,6 +316,7 @@ class BookController extends Controller
         $book->load('authors');
         $book->load('bookGalleries');
         $book->load('orders');
+        $book->load('bookAudios');
         $sameBooks = [];
         foreach ($book->categories as $cate) {
             foreach ($cate->books as $books) {

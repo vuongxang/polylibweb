@@ -79,13 +79,13 @@ function loadMoreParentComment(bookId = "") {
             book_id: bookId
         },
         success: function (data) {
-            console.log(data)
+            // console.log(data)
             if (data) {
                 let lastId;
                 let arrId = [];
                 const comments = [...data[0]];
                 const commentsChild = [...data[1]];
-                console.log(comments);
+                // console.log(comments);
                 // Hiển thị dữ liệu
                 const result = comments.map(comment => {
                     lastId = comment.id;
@@ -191,7 +191,7 @@ function loadMoreParentComment(bookId = "") {
                                 jsCommentChild.forEach(commentChildItem => {
                                     lasttiem = commentChildItem.getAttribute("data-comment_id")
                                 })
-                                console.log(lasttiem)
+                                // console.log(lasttiem)
                                 loadMoreChild(lasttiem, abcccc, item)
 
                             })
@@ -242,7 +242,7 @@ function loadMoreParentComment(bookId = "") {
                                
                             },
                             success: function (data) {
-                                console.log(data)
+                                // console.log(data)
                                 //fire off other ajax calls
 
                             },
@@ -269,7 +269,7 @@ function loadMoreChild(commentId, parrentId, item) {
             parrentId: parrentId
         },
         success: function (data) {
-            console.log(data)
+            // console.log(data)
             const commentsChild = [...data];
             const result = commentsChild.map(commentChild => {
                 return `<div class="book-user-comment js-comment-child " data-comment_id ="${commentChild.id}">
@@ -358,7 +358,7 @@ function loadMoreRate(lastRateId = "") {
         success: function (data) {
 
             const rateList = [...data[0]];
-            console.log(data);
+            // console.log(data);
             let lastRateId;
 
             const result = rateList.map(rateItem => {
@@ -435,16 +435,41 @@ $(document).on('click', '#js_load_more_review', (e) => {
     // let jsCommentBody = document.querySelectorAll('.js-comment-body');
 
 
-    console.log(rateId)
+    // console.log(rateId)
     loadMoreRate(rateId)
 
 })
 
 
 
-$(document).on('click','.js-listen-book',(e)=>{
-    console.log(1)
+$(document).on('click','.js-button-audio',(e)=>{
+    e.stopPropagation();
+    $('.js-modal-audio').toggleClass('hidden');
 })
+$(document).on('click','.js-close-modal',(e)=>{
+    $('.js-modal-audio').addClass('hidden');
+})
+$(document).on('click','.js-modal-audio',(e)=>{
+    e.stopPropagation();
+})
+$(document).on('click','body',(e)=>{
+    $('.js-modal-audio').addClass('hidden');
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // @foreach (comments as commentChild)
@@ -496,6 +521,4 @@ $(document).on('click','.js-listen-book',(e)=>{
 
 
 
-
-
-
+    
