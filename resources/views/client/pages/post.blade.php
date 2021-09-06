@@ -208,7 +208,7 @@
                     @foreach ($cates as $cate)
                     <div class="post-aside__item">
                         <a href="{{ route('post.category', $cate->slug) }}" class="post-aside__link">
-                            {{ $cate->name }} ({{count($cate->posts)}})
+                            {{ $cate->name }} 
                         </a>
                     </div>
                     @endforeach

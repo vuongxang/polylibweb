@@ -602,11 +602,43 @@ audio {
   transform: scale(1.05); */
 }
 
+.js-modal-audio{
+  width: 500px ;
+  min-height: 150px ;
+  background-color: #f1f3f4;
+  position: fixed;
+  padding: 2rem;
+  border-radius: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border: 1px solid var(--text-color2);
+  box-shadow:  0 1px 4px 1px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+}
 
 
-
-
-
+.audio-modal__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--base-color);
+}
+.audio-modal-header__text{
+  font-size: 1.6rem;
+  color:var(--base-color);
+  font-weight:700;
+}
+.audio-modal-header__close i{
+  font-size: 1.6rem;
+  color:var(--text-color);
+  font-weight: 600;
+}
+#show_list_audio{
+  margin-top: 1rem;
+  width: 100%;
+}
 
 
 
