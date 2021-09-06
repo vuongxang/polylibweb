@@ -440,6 +440,13 @@ $(document).on('click', '#js_load_more_review', (e) => {
 
 })
 
+
+
+$(document).on('click','.js-listen-book',(e)=>{
+    console.log(1)
+})
+
+
     // @foreach (comments as commentChild)
     //                     @if (commentChild.parent_id != null && commentChild.parent_id == comment.id && comment.status==1)
 

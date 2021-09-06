@@ -193,7 +193,7 @@
                                     {{date('d-m-Y', strtotime($author->date_birth)) }}
                                 </div>
                                 <div class="author-info__description">
-                                    {{$author->description}}
+                                    {!! $author->description !!}
                                 </div>
                             </div>
 
