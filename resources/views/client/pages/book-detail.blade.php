@@ -766,6 +766,36 @@
 
 
 
+<div class="audio-player ">
+    <div class="grid-custom audio-player__wrap">
+        <audio controls autoplay  id="player" src="http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a">
+            <!-- <source src="http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a" preload="auto" > -->
+        </audio>
+        <div>
+	<button onclick="document.getElementById('player').play()">Play</button>
+	<button onclick="document.getElementById('player').pause()">Pause</button>
+	<button onclick="document.getElementById('player').volume+=0.1">Volume Up</button>
+	<button onclick="document.getElementById('player').volume-=0.1">Volume Down</button>
+	<button onclick="document.getElementById('player').currentTime= 1">Volume Down</button>
+</div> 
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @endsection
