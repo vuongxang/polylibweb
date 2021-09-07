@@ -26,7 +26,7 @@ class PostShareCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required','min:5',Rule::unique('post_share_categories')->ignore($this->id)],
-            'image' => ['required','regex:([a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$)', 'max:100'],
+            'image' => ['required','regex:([a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$)'],
             'description' => 'required'
         ];
     }
