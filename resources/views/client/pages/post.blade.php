@@ -201,7 +201,7 @@
             <div class="post-aside-wrap">
                 <div id="row_wishlist"></div>
                 <div class="post-aside-header">
-                    <div class="post-aside-header__text">Danh mục bài viết</div>
+                    <div class="post-aside-header__text">Danh mục bài viết hay</div>
 
                 </div>
                 <div class="post-aside__list ">
