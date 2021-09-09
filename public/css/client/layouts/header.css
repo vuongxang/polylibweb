@@ -52,6 +52,12 @@
     color: var(--base-color);
     border-bottom: 2px solid var(--base-color);
 }
+.link.active {
+    font-family: "Nunito";
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--base-color);
+}
 
 .header__search {
     display: flex;

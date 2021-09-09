@@ -126,18 +126,18 @@ function showChartArea(url){
   });
 }
 // Area Chart Example
-let url = 'http://localhost:8000/api/order-data';
+let url = `${window.location.origin}/api/order-data`;
 
 showChartArea(url);
 
 function editDataChart(time){
   console.log(time);
   if(time === "week"){
-    url = 'http://localhost:8000/api/order-data';
+    url = '/api/order-data';
   }else if(time === "month"){
-    url = 'http://localhost:8000/api/order-data-month';
+    url = '/api/order-data-month';
   }else{
-    url = 'http://localhost:8000/api/order-data-year';
+    url = '/api/order-data-year';
   }
   
   showChartArea(url);

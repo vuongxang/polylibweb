@@ -37,7 +37,7 @@
                         <th class="text-center">Ảnh</th>
                         <th class="text-center">Tác giả</th>
                         <th class="text-center">Danh mục</th>
-                        <th>Nội dung</th>
+                        {{-- <th>Nội dung</th> --}}
                         {{-- <th>@sortablelink('publish_date_from','Ngày đăng')</th> --}}
                         <th class="text-center">@sortablelink('status','Trạng thái')</th>
                         <th class="text-center">
@@ -64,12 +64,12 @@
                             <span>{{$cate->name}}<span></br>
                             @endforeach
                         </td>
-                        <td class="text-center">
+                        {{-- <td class="text-center">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-sm btn-secondary shadow-lg " data-toggle="modal" data-target="#read-{{$book->id}}">
                                 Xem
                             </button>
-                        </td>
+                        </td> --}}
                         <td class="text-center">
                             <label class="custom-control custom-checkbox p-0 m-0 pointer " style="cursor: pointer;">
                                 <input type="checkbox" class="custom-control-input toggle-class-book " data-id="{{$book->id}}" data-on="On" data-off="Off" data-on="On" data-off="Off" {{ $book->status ? 'checked' : '' }}>
@@ -77,6 +77,7 @@
                             </label>
                         </td>
                         <td class="text-center">
+                            <a href="{{route('book.review',['slug' => $book->slug])}}" class="fas fa-eye text-warning"></a>
                             <a href="{{route('book.edit',['id' => $book->id])}}" class="fa fa-edit text-success p-1 btn-action"></a>
                             <a onclick="return confirm('Bạn chắc chuyển vào thùng rác?')" href="{{route('book.destroy',['id' => $book->id])}}" class="fas fa-trash-alt text-danger p-1 btn-action"></a>
                         </td>
@@ -96,7 +97,7 @@
 
 
     <!-- Modal -->
-    @foreach ($books as $book)
+    {{-- @foreach ($books as $book)
     <div class="modal fade" id="read-{{$book->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -113,10 +114,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    {{-- <button type="button" class="btn btn-primary">Understood</button> --}}
+                    
                 </div>
             </div>
         </div>
     </div>
-    @endforeach
+    @endforeach --}}
 @endsection

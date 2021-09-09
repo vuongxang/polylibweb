@@ -58,6 +58,9 @@
                     @if ($ordered)
                     <div class="book-button-item">
                         <a href="{{ route('book.read', $book->slug) }}" class="button button__outline-lg button-custom">Đọc sách</a>
+                        @if (count($book->bookAudios)>0)
+                        <button type="button" class="button button__background-lg js-button-audio">Audio</button>
+                        @endif
                     </div>
                     @else
                     <div class="book-button-item">
@@ -89,6 +92,25 @@
             </div>
         </div>
     </div>
+    <div class="js-modal-audio hidden">
+        <div class="audio-modal__header">
+            <div class="audio-modal-header__text">Tệp audio</div>
+            <div class="audio-modal-header__close"><a href="javascript:void(0)" class="js-close-modal"><i class="fas fa-times"></i></a></div>
+        </div>
+        <div class="audio-modal__body">
+            @if(count($book->bookAudios)>0)
+            @foreach($book->bookAudios as $audio)
+            <audio src="{{$audio->url}}" id="show_list_audio" controls>
+                Trình duyệt không hỗ trợ phát âm thanh
+            </audio>
+
+            @endforeach
+            @else
+            Không có tệp audio nào
+            @endif
+        </div>
+    </div>
+
     <div class="book-tabs data-tabs">
         <div class="book-tabs__wrapper">
             <ul class=" nav nav-tabs book-tabs__list">
@@ -170,10 +192,6 @@
         </div>
     </div>
     <!-- mobile -->
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     <div class="book-carouse book-carouse-mobile">
         <div class="book-carouse__header">
             <div class="carouse-header__title">Sách cùng thể loại</div>
@@ -766,6 +784,26 @@
 </div>
 
 </div>
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @endsection

@@ -132,7 +132,7 @@
                         <i class="fas fa-history"></i>Lịch sử mượn sách
                     </a>
                     <a class="dropdown-item dropdown-item-custom" href="{{route('user.myPost',Auth::user()->id)}}">
-                        <i class="fas fa-history"></i>Tài liệu của tôi
+                        <i class="fas fa-history"></i>Bài viết của tôi
                     </a>
                     <a class="dropdown-item dropdown-item-custom" href="{{ route('user.rate', Auth::user()->id) }}">
                         <i class="fas fa-star"></i>Đánh giá
@@ -164,10 +164,10 @@
     </div>
 
     <ul class="header__nav">
-        <li class="header__nav-li"><a class="link" href="{{route('home')}}">Trang Chủ</a></li>
-        <li class="header__nav-li"><a class="link" href="{{route('book.categories')}}">Danh Mục</a></li>
-        <li class="header__nav-li"><a class="link" href="{{route('post')}}">Bài Viết</a></li>
-        <li class="header__nav-li"><a class="link" href="{{route('contact')}}">Liên Hệ</a></li>
+        <li class="header__nav-li"><a class="link {{request()->is('/') ? 'active' : '' }}" href="{{route('home')}}">Trang Chủ</a></li>
+        <li class="header__nav-li"><a class="link {{request()->is('category') ? 'active' : '' }}" href="{{route('book.categories')}}">Danh Mục</a></li>
+        <li class="header__nav-li"><a class="link {{request()->is('post') ? 'active' : '' }}" href="{{route('post')}}">Bài Viết</a></li>
+        <li class="header__nav-li"><a class="link {{request()->is('contact') ? 'active' : '' }}" href="{{route('contact')}}">Liên Hệ</a></li>
     </ul>
     <div class="header__search">
         <form action="{{route('search')}}" method="Get" class="search-form" autocomplete="off">

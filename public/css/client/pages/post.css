@@ -34,6 +34,8 @@
     border-radius: .5rem;
     font-weight: 600;
     text-decoration: none;
+
+    
 }
 .post-header-link:hover {
     text-decoration: none;
@@ -41,7 +43,7 @@
 }
 
 .post-header-link i {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
 }
 
 .post-list {}

@@ -39,7 +39,7 @@
                         </div>
                         <div class="post-body-react">
                             <div class="post-view">
-                                <i class="fas fa-eye"></i> <span id="viewNumber">{{$totalViews}}</span> 
+                                <i class="fas fa-eye"></i> <span id="viewNumber">{{$totalViews}}</span>
                             </div>
                             <div class="post-wishlist">
 
@@ -49,7 +49,7 @@
                                 </a>
                                 @else
                                 <a href="{{route('post.wishlist',['id'=>$post->id])}}" id="{{$post->id}}">
-                                    <img  src="{{ asset('images/heart-icon-far.svg') }}" alt="">
+                                    <img src="{{ asset('images/heart-icon-far.svg') }}" alt="">
                                 </a>
                                 @endif
                             </div>
@@ -90,6 +90,28 @@
                     </div>
 
                 </div>
+                @if(count($post->postFiles)> 0)
+                <div class="post-detail-attachment">
+                    <div class="post-comment__header">
+                        <div class="post-comment__text">
+                            Tệp đính kèm
+                        </div>
+                    </div>
+                    <div class="post-attachment__body" >
+
+                        <div id="post-attachment__wrap">
+                            @foreach($post->postFiles as $file)
+                            <div>
+                                <a href="{{asset($file->url)}}" target="_blank">{{$file->title}}</a>
+                            </div>
+                            @endforeach
+                        </div>
+
+
+
+                    </div>
+                </div>
+                @endif
                 <div class="post-detail__comment">
                     <div class="post-comment__header">
                         <div class="post-comment__text">
@@ -118,6 +140,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-4 post-detail__aside">
             <div class="post-aside__user">
                 <div class="post-user__avatar">
@@ -163,10 +186,10 @@
     </div>
 </div>
 <script>
-    //Tang view sau 2s
+    //Tang view sau 10s
     let increaseViewUrl = "{{ route('post.updateView') }}";
     const data = {
-        id: {{$post -> id}} ,
+        id: {{ $post->id }},
         _token: "{{ csrf_token() }}"
     };
     setTimeout(() => {
@@ -293,11 +316,11 @@
             </div>
             <div class="comment-box__wrapper">
                 <div class="comment-box__image">
-                    <img src="{{ asset(Auth::user()->avatar) }}" alt="" id="js-user-avatar">
+                    {{-- <img src="{{ asset(Auth::user()->avatar) }}" alt="" id="js-user-avatar">
                 </div>
                 <div class="comment-box__content">
                     <form action="{{ route('comments.store') }}" method="post">
-                        @csrf
+                        @csrf --}}
                         <div class="comment__input">
                             <textarea class="form-control" name="body" rows="2" placeholder="Viết bình luận..."></textarea>
                             <input type="hidden" name="book_id" value="" />

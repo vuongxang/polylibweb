@@ -25,7 +25,7 @@ class AuthorRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:authors|min:5|max:30',
-            'avatar' => ['required','regex:([a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$)', 'max:100'],
+            'avatar' => ['required','regex:([a-z0-9\+_\-]+(\\.(?i)(jpeg|jpg|png))$)'],
             'description' => 'required',
             'date_birth' => 'required',
         ];

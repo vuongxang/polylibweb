@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryEditRequest;
+use App\Http\Requests\CategoryRequest;
 use App\Models\PostShareCategory;
 use App\Http\Requests\PostShareCategoryRequest;
 use Illuminate\Http\Request;
@@ -44,7 +44,7 @@ class PostShareCategoryController extends Controller
         return view('admin.post-cates.edit-form', ['model' => $model]);
     }
 
-    public function update($id,CategoryEditRequest $request){
+    public function update($id,PostShareCategoryRequest $request){
         
         // $this->validate($request,[
         //     'name'=>'required|min:5',

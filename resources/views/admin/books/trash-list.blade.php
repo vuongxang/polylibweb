@@ -32,9 +32,9 @@
                         </th>
                     </tr>
                 </thead>
-                @if (count($books)>0)
+                @if (count($books_trashed)>0)
                 <tbody>
-                    @foreach ($books as $key=>$book)
+                    @foreach ($books_trashed as $key=>$book)
                     <tr>
                         <td>{{$book->id}}</td>
                         <td>{{$book->title}}</td>

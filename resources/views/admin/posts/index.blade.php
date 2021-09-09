@@ -149,6 +149,7 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group">
+                                        <a class=" mr-2 font-weight-bold btn btn-sm btn-outline-primary btn-acction" data-toggle="modal" data-target="#detail2-{{$post->id}}">Xem</a>
                                         <a href="{{route('post.approv',$post->id)}}" class="font-weight-bold btn btn-sm btn-outline-success btn-acction">Duyệt</a>
                                         <a onclick="return confirm('Bạn chắc chắn từ chối duyệt bài viết này?')" href="{{route('post.refuse',$post->id)}}" class="font-weight-bold ml-2 btn btn-sm btn-outline-danger btn-acction">Từ chối</a>
                                     </div>
@@ -239,7 +240,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <iframe src="http://localhost:8000/post-detail/{{$post->slug}}" frameborder="0" width="100%" height="500px"></iframe>
+                <iframe src="{{URL::to('/')}}/post-detail/{{$post->slug}}" frameborder="0" width="100%" height="500px"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                {{-- <button type="button" class="btn btn-primary">Understood</button> --}}
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+@foreach ($posts_pending as $post)
+<div class="modal fade" id="detail2-{{$post->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{$post->title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="{{URL::to('/')}}/post-detail/{{$post->slug}}" frameborder="0" width="100%" height="500px"></iframe>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
