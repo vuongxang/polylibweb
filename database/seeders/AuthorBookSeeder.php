@@ -20,6 +20,6 @@ class AuthorBookSeeder extends Seeder
                 'author_id' => rand(1,11),
             ];
             DB::table('author_books')->insert($item);
-    }
+        }
     }
 }
